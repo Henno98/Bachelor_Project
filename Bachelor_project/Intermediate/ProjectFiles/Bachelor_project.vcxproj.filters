@@ -11,6 +11,8 @@
     <None Include="..\..\Source\Bachelor_projectEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Bachelor_project.png" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -37,6 +39,24 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\Bachelor_project\Bachelor_project.h">
       <Filter>Source\Bachelor_project</Filter>
+    </ClInclude>
+    <Filter Include="Source\Bachelor_project\Private">
+      <UniqueIdentifier>{0AD54A38-9202-3549-BBA5-3807A508D236}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Character.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\Bachelor_project\Public">
+      <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
