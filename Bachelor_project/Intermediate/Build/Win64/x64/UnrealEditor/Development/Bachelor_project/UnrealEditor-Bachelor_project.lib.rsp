@@ -6,6 +6,7 @@
 /NAME:"UnrealEditor-Bachelor_project.dll"
 /IGNORE:4221
 /NODEFAULTLIB
+<<<<<<< Updated upstream
 "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
 "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Bachelor_project.init.gen.cpp.obj"
 "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\BasicPlatform.gen.cpp.obj"
@@ -15,3 +16,12 @@
 "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Test_Character.cpp.obj"
 "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Default.rc2.res"
 /OUT:"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\UnrealEditor-Bachelor_project.lib"
+=======
+"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Bachelor_project.init.gen.cpp.obj"
+"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Test_Character.gen.cpp.obj"
+"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Bachelor_project.cpp.obj"
+"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Test_Character.cpp.obj"
+"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Default.rc2.res"
+/OUT:"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\UnrealEditor-Bachelor_project.lib"
+>>>>>>> Stashed changes
