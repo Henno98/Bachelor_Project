@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Bachelor_projectModuleRules
-build_property.ProjectDir = C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\BuildRulesProjects\Bachelor_projectModuleRules\
+build_property.ProjectDir = C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\BuildRulesProjects\Bachelor_projectModuleRules\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

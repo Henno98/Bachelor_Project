@@ -1,18 +1,18 @@
-"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.cpp"
+"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.cpp"
 /I "."
 /I "Runtime\Core\Public"
 /I "Runtime\Core\Internal"
 /I "Runtime\TraceLog\Public"
 /external:W0
-/external:I "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\INCLUDE"
+/external:I "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\INCLUDE"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
-/Yc"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h"
-/Fp"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h.pch"
-/Fo"C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h.obj"
-/sourceDependencies "C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h.dep.json"
+/Yc"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h"
+/Fp"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h.pch"
+/Fo"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h.obj"
+/sourceDependencies "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\Development\Core\SharedPCH.Core.RTTI.Cpp20.h.dep.json"
 /Zc:inline
 /nologo
 /Oi

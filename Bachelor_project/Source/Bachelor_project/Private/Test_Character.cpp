@@ -9,6 +9,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "InputActionValue.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -16,33 +17,35 @@ ATest_Character::ATest_Character()
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-<<<<<<< Updated upstream
-
-=======
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+
+	
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
+	//GetCharacterMovement()->bOrientRotationToMovement = false;
+	//GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 
-	GetCharacterMovement()->JumpZVelocity = 300.f;
-	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
+
+	GetCharacterMovement()->AirControl = 0.7f;
+	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
+	GetCharacterMovement()->MaxAcceleration = 700.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	Springarm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Springarm"));
+	Springarm->SetupAttachment(RootComponent);
+	Springarm->TargetArmLength = 200.f;
 
+	
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
-	Camera->SetupAttachment(RootComponent);
-	Camera->bUsePawnControlRotation = true;
-	Camera->SetRelativeLocation(FVector(-100, 0, 100));
+	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
+	
 
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	StaticMesh->SetupAttachment(RootComponent);
->>>>>>> Stashed changes
+
 }
 
 // Called when the game starts or when spawned
