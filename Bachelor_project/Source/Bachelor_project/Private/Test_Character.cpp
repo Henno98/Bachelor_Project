@@ -55,10 +55,10 @@ void ATest_Character::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	GetCharacterMovement()->AirControl = 0.7f;
-	GetCharacterMovement()->MaxWalkSpeed = 600.f;
+	GetCharacterMovement()->AirControl = 0.8f;
+	GetCharacterMovement()->MaxWalkSpeed = 800.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->MaxAcceleration = 700.f;
+	GetCharacterMovement()->MaxAcceleration = 1000.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	DashCooldown = 2.f;
 }
@@ -130,10 +130,12 @@ void ATest_Character::Jump()
 
 void ATest_Character::DoubleJump(const FInputActionValue& Value)
 {
-	
+	const FVector2D moveVector = Value.Get<FVector2D>();
 	if(GetCharacterMovement()->IsFalling() && !bHasDoubleJumped)
 	{
-		LaunchCharacter(FVector(0,0, 400.f ), false, false);
+		 
+		LaunchCharacter(FVector(0,moveVector.Y*400, 400.f ), false, false);
+		
 		bHasDoubleJumped = true;
 	}
 }
