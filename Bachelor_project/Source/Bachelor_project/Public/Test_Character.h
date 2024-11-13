@@ -28,7 +28,10 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* JumpAction;
-	;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Input")
+    UInputAction* DashAction;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* DoubleJumpAction;
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
 
@@ -37,6 +40,12 @@ protected:
 
     void Move(const FInputActionValue& Value);
     void Jump();
+    void DoubleJump(const FInputActionValue& Value);
+    void Dash();
+    bool bIsDashing{false};
+    bool bHasDoubleJumped{ false };
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
+    float DashCooldown;
 
 public:
     // Called every frame

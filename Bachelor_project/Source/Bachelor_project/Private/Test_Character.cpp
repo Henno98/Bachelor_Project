@@ -30,11 +30,7 @@ ATest_Character::ATest_Character()
 
 	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 
-	GetCharacterMovement()->AirControl = 0.7f;
-	GetCharacterMovement()->MaxWalkSpeed = 600.f;
-	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->MaxAcceleration = 700.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
 	Springarm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Springarm"));
 	Springarm->SetupAttachment(RootComponent);
 	Springarm->TargetArmLength = 200.f;
@@ -59,6 +55,12 @@ void ATest_Character::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	GetCharacterMovement()->AirControl = 0.7f;
+	GetCharacterMovement()->MaxWalkSpeed = 600.f;
+	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
+	GetCharacterMovement()->MaxAcceleration = 700.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	DashCooldown = 2.f;
 }
 
 
@@ -68,6 +70,22 @@ void ATest_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if(bIsDashing)
+	{
+		DashCooldown -= DeltaTime;
+
+		if(DashCooldown <= 0)
+		{
+
+			bIsDashing = false;
+			//DashCooldown = 2.f;
+		}
+	}
+	if(!GetCharacterMovement()->IsFalling())
+	{
+		bHasDoubleJumped = false;
+
+	}
 }
 
 // Called to bind functionality to input
@@ -83,6 +101,9 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
+		//PowerUpInputs
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::Dash);
+		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 	}
 }
 
@@ -105,4 +126,26 @@ void ATest_Character::Move(const FInputActionValue& Value)
 void ATest_Character::Jump()
 {
 	ACharacter::Jump();
+}
+
+void ATest_Character::DoubleJump(const FInputActionValue& Value)
+{
+	
+	if(GetCharacterMovement()->IsFalling() && !bHasDoubleJumped)
+	{
+		LaunchCharacter(FVector(0,0, 400.f ), false, false);
+		bHasDoubleJumped = true;
+	}
+}
+
+void ATest_Character::Dash()
+{
+	if(!bIsDashing && !GetCharacterMovement()->IsFalling())
+	{
+		
+		LaunchCharacter(GetVelocity() * 1.4, false, false);
+		DashCooldown = 2.f;
+		bIsDashing = true;
+	}
+
 }

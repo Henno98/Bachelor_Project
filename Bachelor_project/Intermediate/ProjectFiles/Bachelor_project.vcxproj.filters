@@ -55,8 +55,10 @@
     <ClInclude Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
-      <Filter>Source\Bachelor_project\Public</Filter>
+      <Filter>Source\Bachelor_project</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
