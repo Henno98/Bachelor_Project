@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\bachelor_project.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
