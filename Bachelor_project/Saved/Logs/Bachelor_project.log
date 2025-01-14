@@ -1872,3 +1872,9 @@ LogConfig: Set CVar [[r.VRS.ContrastAdaptiveShading:1]]
 [2025.01.14-09.54.18:693][ 98]LogHttp: Warning: 0000041863958500: libcurl info message cache 31 (necessary data rewind wasn't possible)
 [2025.01.14-09.54.18:693][ 98]LogHttp: Warning: 0000041863958500: libcurl info message cache 32 (Closing connection)
 [2025.01.14-09.54.18:693][ 98]LogHttp: Warning: 0000041863958500: libcurl info message cache 33 (TLSv1.3 (OUT), TLS alert, close notify (256):)
+[2025.01.14-09.57.16:942][627]LogEOSSDK: LogEOS: Updating Product SDK Config, Time: 364.386841
+[2025.01.14-09.57.20:345][631]LogEOSSDK: LogEOS: SDK Config Product Update Request Completed - No Change
+[2025.01.14-09.57.20:362][631]LogEOSSDK: LogEOS: ScheduleNextSDKConfigDataUpdate - Time: 366.419098, Update Interval: 312.317871
+[2025.01.14-10.02.34:376][317]LogEOSSDK: LogEOS: Updating Product SDK Config, Time: 681.821533
+[2025.01.14-10.02.35:377][320]LogEOSSDK: LogEOS: SDK Config Product Update Request Completed - No Change
+[2025.01.14-10.02.35:378][320]LogEOSSDK: LogEOS: ScheduleNextSDKConfigDataUpdate - Time: 682.488647, Update Interval: 353.651550
