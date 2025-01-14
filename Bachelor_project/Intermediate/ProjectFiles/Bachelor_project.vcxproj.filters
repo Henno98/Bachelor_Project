@@ -37,9 +37,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.cpp">
       <Filter>Source\Bachelor_project</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\Bachelor_project\Bachelor_project.h">
+    <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.h">
       <Filter>Source\Bachelor_project</Filter>
-    </ClInclude>
+    </ClCompile>
     <Filter Include="Source\Bachelor_project\Private">
       <UniqueIdentifier>{0AD54A38-9202-3549-BBA5-3807A508D236}</UniqueIdentifier>
     </Filter>
@@ -55,14 +55,14 @@
     <Filter Include="Source\Bachelor_project\Public">
       <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
       <Filter>Source\Bachelor_project\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
       <Filter>Source\Bachelor_project\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Bachelor_project\Public\Test_Enemy.h">
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Enemy.h">
       <Filter>Source\Bachelor_project\Public</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>
