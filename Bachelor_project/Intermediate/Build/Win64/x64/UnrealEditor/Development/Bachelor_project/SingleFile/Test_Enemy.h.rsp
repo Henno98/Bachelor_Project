@@ -1,14 +1,15 @@
-"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\SingleFile\Test_Enemy.h"
+"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\SingleFile\Test_Enemy.h.cpp"
 /external:W0
 /external:I "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\INCLUDE"
-/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"
-/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
-/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
-/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
+/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt"
+/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\shared"
+/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\um"
+/external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\winrt"
 /FI"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Definitions.Bachelor_project.h"
 /Fo"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\SingleFile\Test_Enemy.h.obj"
 /sourceDependencies "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\SingleFile\Test_Enemy.h.dep.json"
 @"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\UnrealEditor\Development\Bachelor_project\Bachelor_project.Shared.rsp"
+/d2ssa-cfg-question-
 /Zc:inline
 /nologo
 /Oi

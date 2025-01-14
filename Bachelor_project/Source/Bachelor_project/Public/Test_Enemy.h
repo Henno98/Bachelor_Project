@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-
+#include "Components/SphereComponent.h"
 #include "Test_Enemy.generated.h"
-
+class USphereComponent;
 class UStaticMeshComponent;
 class UBoxComponent;
 UCLASS()
@@ -24,7 +24,7 @@ protected:
 	void Walk(float deltatime);
 	
 	void Look();
-	void Attack();
+	void Attack(FVector location);
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
 	float LookDistance{300.f};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
@@ -47,6 +47,14 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collider")
 	UBoxComponent* Collider;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = " VisionRange")
+	USphereComponent* Vision;
+
+	UFUNCTION()
+	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+		bool bFromSweep, const FHitResult& SweepResult);
 
 public:	
 	// Called every frame

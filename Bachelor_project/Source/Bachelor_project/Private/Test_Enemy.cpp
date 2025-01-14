@@ -3,6 +3,7 @@
 
 #include "Test_Enemy.h"
 
+#include "Test_Character.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -14,7 +15,10 @@ ATest_Enemy::ATest_Enemy()
 	SetRootComponent(Collider);
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMesh->SetupAttachment(RootComponent);
-
+	Vision = CreateDefaultSubobject<USphereComponent>(TEXT("Vision"));
+	Vision->SetupAttachment(RootComponent);
+	Vision->SetSphereRadius(1000.f);
+	Vision->OnComponentBeginOverlap.AddDynamic(this, &ATest_Enemy::OnOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -49,10 +53,45 @@ void ATest_Enemy::Walk(float deltatime)
 
 void ATest_Enemy::Look()
 {
+
+
 }
 
-void ATest_Enemy::Attack()
+void ATest_Enemy::Attack(FVector location)
 {
+
+	// Get the spawn location and rotation
+	FVector SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 50.f); // Adjust Z to avoid ground collisions
+	FRotator SpawnRotation = (location - SpawnLocation).Rotation();
+
+	// Spawn the projectile
+	UWorld* World = GetWorld();
+	//if (World)
+	//{
+	//	(AProjectile* SpawnedProjectile = World->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+	//	if (SpawnedProjectile)
+	//	{
+	//		// Calculate the direction vector
+	//		FVector Direction = (TargetLocation - SpawnLocation).GetSafeNormal();
+
+	//		// Set the velocity of the projectile
+	//		UProjectileMovementComponent* ProjectileMovement = SpawnedProjectile->FindComponentByClass<UProjectileMovementComponent>();
+	//		if (ProjectileMovement)
+	//		{
+	//			ProjectileMovement->Velocity = Direction * ProjectileMovement->InitialSpeed;
+	//		}
+	//	}
+
+}
+
+void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if(OtherActor->IsA<ATest_Character>())
+	{
+
+		Attack(OtherActor->GetActorLocation());
+
+	}
 }
 
 // Called every frame
