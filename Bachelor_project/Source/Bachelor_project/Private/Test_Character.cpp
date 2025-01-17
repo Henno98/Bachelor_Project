@@ -9,6 +9,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "InputActionValue.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -16,33 +17,31 @@ ATest_Character::ATest_Character()
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-<<<<<<< Updated upstream
-
-=======
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+
+	
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
+	//GetCharacterMovement()->bOrientRotationToMovement = false;
+	//GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 
-	GetCharacterMovement()->JumpZVelocity = 300.f;
-	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
-	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 
+
+	Springarm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Springarm"));
+	Springarm->SetupAttachment(RootComponent);
+	Springarm->TargetArmLength = 200.f;
+
+	
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
-	Camera->SetupAttachment(RootComponent);
-	Camera->bUsePawnControlRotation = true;
-	Camera->SetRelativeLocation(FVector(-100, 0, 100));
+	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
+	
 
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	StaticMesh->SetupAttachment(RootComponent);
->>>>>>> Stashed changes
+
 }
 
 // Called when the game starts or when spawned
@@ -56,6 +55,12 @@ void ATest_Character::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	GetCharacterMovement()->AirControl = 0.8f;
+	GetCharacterMovement()->MaxWalkSpeed = 800.f;
+	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
+	GetCharacterMovement()->MaxAcceleration = 1000.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	DashCooldown = 2.f;
 }
 
 
@@ -65,6 +70,22 @@ void ATest_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if(bIsDashing)
+	{
+		DashCooldown -= DeltaTime;
+
+		if(DashCooldown <= 0)
+		{
+
+			bIsDashing = false;
+			//DashCooldown = 2.f;
+		}
+	}
+	if(!GetCharacterMovement()->IsFalling())
+	{
+		bHasDoubleJumped = false;
+
+	}
 }
 
 // Called to bind functionality to input
@@ -80,6 +101,9 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
+		//PowerUpInputs
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::Dash);
+		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 	}
 }
 
@@ -102,4 +126,28 @@ void ATest_Character::Move(const FInputActionValue& Value)
 void ATest_Character::Jump()
 {
 	ACharacter::Jump();
+}
+
+void ATest_Character::DoubleJump(const FInputActionValue& Value)
+{
+	const FVector2D moveVector = Value.Get<FVector2D>();
+	if(GetCharacterMovement()->IsFalling() && !bHasDoubleJumped)
+	{
+		 
+		LaunchCharacter(FVector(0,moveVector.Y*400, 400.f ), false, false);
+		
+		bHasDoubleJumped = true;
+	}
+}
+
+void ATest_Character::Dash()
+{
+	if(!bIsDashing && !GetCharacterMovement()->IsFalling())
+	{
+		
+		LaunchCharacter(GetVelocity() * 1.4, false, false);
+		DashCooldown = 2.f;
+		bIsDashing = true;
+	}
+
 }

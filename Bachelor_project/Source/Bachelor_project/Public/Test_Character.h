@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
 #include "Test_Character.generated.h"
 
@@ -26,21 +27,31 @@ protected:
         class UInputAction* MoveAction;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-        class UInputAction* JumpAction;
+	UInputAction* JumpAction;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Input")
+    UInputAction* DashAction;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* DoubleJumpAction;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite)
+     USpringArmComponent* Springarm;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-        class UCameraComponent* Camera;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-        class UStaticMeshComponent* StaticMesh;
+    class UCameraComponent* Camera;
 
     void Move(const FInputActionValue& Value);
     void Jump();
+    void DoubleJump(const FInputActionValue& Value);
+    void Dash();
+    bool bIsDashing{false};
+    bool bHasDoubleJumped{ false };
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
+    float DashCooldown;
 
 public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
-
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
+    float JumpVelocity{ 600.f };
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
