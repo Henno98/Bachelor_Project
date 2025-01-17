@@ -10,6 +10,7 @@
 #include "InputActionValue.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include <Power_DoubleJump.h>
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -61,6 +62,12 @@ void ATest_Character::BeginPlay()
 	GetCharacterMovement()->MaxAcceleration = 1000.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	DashCooldown = 2.f;
+
+	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
+	/*if (DoubleJumpPowerUp)
+	{
+		DoubleJumpPowerUp->Activate(this);
+	}*/
 }
 
 
@@ -81,10 +88,13 @@ void ATest_Character::Tick(float DeltaTime)
 			//DashCooldown = 2.f;
 		}
 	}
-	if(!GetCharacterMovement()->IsFalling())
+	if (DoubleJumpPowerUp && !GetCharacterMovement()->IsFalling())
 	{
-		bHasDoubleJumped = false;
-
+		UPower_DoubleJump* DoubleJump = Cast<UPower_DoubleJump>(DoubleJumpPowerUp);
+		if (DoubleJump)
+		{
+			DoubleJump->bHasDoubleJumped = false;
+		}
 	}
 }
 
@@ -128,15 +138,31 @@ void ATest_Character::Jump()
 	ACharacter::Jump();
 }
 
+//void ATest_Character::DoubleJump(const FInputActionValue& Value)
+//{
+//	const FVector2D moveVector = Value.Get<FVector2D>();
+//	if(GetCharacterMovement()->IsFalling() && !bHasDoubleJumped)
+//	{
+//		 
+//		LaunchCharacter(FVector(0,moveVector.Y*400, 400.f ), false, false);
+//		
+//		bHasDoubleJumped = true;
+//	}
+//}
+
 void ATest_Character::DoubleJump(const FInputActionValue& Value)
 {
-	const FVector2D moveVector = Value.Get<FVector2D>();
-	if(GetCharacterMovement()->IsFalling() && !bHasDoubleJumped)
+	/*if (DoubleJumpPowerUp)
 	{
-		 
-		LaunchCharacter(FVector(0,moveVector.Y*400, 400.f ), false, false);
-		
-		bHasDoubleJumped = true;
+		DoubleJumpPowerUp->Activate(this);
+	}*/
+	if (APowerUpDoubleJump && DoubleJumpPowerUp)
+	{
+		DoubleJumpPowerUp->Activate(this);
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Double Jump not allowed!"));
 	}
 }
 

@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
+#include "PowerUpController.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -38,6 +39,9 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     class UCameraComponent* Camera;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PowerUps")
+    UPowerUpController* DoubleJumpPowerUp;
+
     void Move(const FInputActionValue& Value);
     void Jump();
     void DoubleJump(const FInputActionValue& Value);
@@ -54,4 +58,6 @@ public:
     float JumpVelocity{ 600.f };
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+    bool APowerUpDoubleJump = true;
 };

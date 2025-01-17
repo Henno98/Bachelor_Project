@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeTest_Character() {}
 // Begin Cross Module References
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ATest_Character();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ATest_Character_NoRegister();
+BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UPowerUpController_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
@@ -67,6 +68,10 @@ struct Z_Construct_UClass_ATest_Character_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DoubleJumpPowerUp_MetaData[] = {
+		{ "Category", "PowerUps" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DashCooldown_MetaData[] = {
 		{ "Category", "Variables" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
@@ -83,6 +88,7 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DoubleJumpAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Springarm;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Camera;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DoubleJumpPowerUp;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_DashCooldown;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_JumpVelocity;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -99,6 +105,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Characte
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DoubleJumpAction = { "DoubleJumpAction", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DoubleJumpAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DoubleJumpAction_MetaData), NewProp_DoubleJumpAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_Springarm = { "Springarm", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, Springarm), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Springarm_MetaData), NewProp_Springarm_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_Camera = { "Camera", nullptr, (EPropertyFlags)0x002008000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, Camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Camera_MetaData), NewProp_Camera_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DoubleJumpPowerUp = { "DoubleJumpPowerUp", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DoubleJumpPowerUp), Z_Construct_UClass_UPowerUpController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DoubleJumpPowerUp_MetaData), NewProp_DoubleJumpPowerUp_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DashCooldown = { "DashCooldown", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DashCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashCooldown_MetaData), NewProp_DashCooldown_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpVelocity = { "JumpVelocity", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, JumpVelocity), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpVelocity_MetaData), NewProp_JumpVelocity_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Character_Statics::PropPointers[] = {
@@ -109,6 +116,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Cha
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DoubleJumpAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_Springarm,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_Camera,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DoubleJumpPowerUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DashCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpVelocity,
 };
@@ -150,14 +158,14 @@ ATest_Character::~ATest_Character() {}
 // End Class ATest_Character
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics
+struct Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 1117256326U) },
+		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 2223896747U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_2912341447(TEXT("/Script/Bachelor_project"),
-	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_2565996204(TEXT("/Script/Bachelor_project"),
+	Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration
