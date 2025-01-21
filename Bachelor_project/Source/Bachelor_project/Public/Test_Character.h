@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
+#include "Components/SphereComponent.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -34,7 +35,10 @@ protected:
     UInputAction* DoubleJumpAction;
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
-
+     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Hurtbox")
+     USphereComponent* HurtBox;
+     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Hurtbox")
+     UStaticMeshComponent* HurtVisibility;
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     class UCameraComponent* Camera;
 
@@ -42,8 +46,12 @@ protected:
     void Jump();
     void DoubleJump(const FInputActionValue& Value);
     void Dash();
+    void MeleeAttack(const FInputActionValue& Value);
     bool bIsDashing{false};
     bool bHasDoubleJumped{ false };
+    bool Attack1{false};
+    bool Attack2{false};
+    bool Attack3{false};
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
     float DashCooldown;
 

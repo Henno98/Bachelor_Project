@@ -10,6 +10,7 @@
 #include "InputActionValue.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -40,8 +41,12 @@ ATest_Character::ATest_Character()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
 	
-
-
+	HurtBox = CreateDefaultSubobject<USphereComponent>(TEXT("Hurtbox"));
+	HurtBox->SetSphereRadius(01.f);
+	HurtBox->SetupAttachment(RootComponent);
+	HurtVisibility = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HurtVisibility"));
+	HurtVisibility->SetupAttachment(HurtBox);
+	HurtVisibility->SetWorldScale3D(FVector(0.1f));
 }
 
 // Called when the game starts or when spawned
@@ -102,7 +107,7 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
 		//PowerUpInputs
-		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::Dash);
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::MeleeAttack);
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 	}
 }
@@ -149,5 +154,39 @@ void ATest_Character::Dash()
 		DashCooldown = 2.f;
 		bIsDashing = true;
 	}
+
+}
+
+void ATest_Character::MeleeAttack(const FInputActionValue& Value)
+{ 
+
+	FTimerHandle AttackTimer;
+	if (!Attack1)
+	{
+		Attack1 = true;
+		//Play Animation
+		HurtBox->SetRelativeLocation(FVector(0.f, 100.f, 20.f));
+		HurtBox->SetWorldScale3D(FVector(10.f));
+
+
+
+	}
+	if (Attack1 && !Attack2)
+	{
+		Attack2 = true;
+		//play anim
+	}
+	if (Attack1 && Attack2)
+	{
+		Attack3 = true;
+		//Play anim
+
+	}
+	Attack1 = false;
+	Attack2 = false;
+	Attack3 = false;
+	//Play Animation
+	/*HurtBox->SetRelativeLocation(FVector(0.f));
+	HurtBox->SetWorldScale3D(FVector(1.f));*/
 
 }
