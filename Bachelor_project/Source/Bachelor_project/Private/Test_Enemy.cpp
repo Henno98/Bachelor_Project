@@ -3,6 +3,7 @@
 
 #include "Test_Enemy.h"
 
+#include "projectile.h"
 #include "Test_Character.h"
 #include "Components/BoxComponent.h"
 
@@ -66,31 +67,35 @@ void ATest_Enemy::Attack(FVector location)
 
 	// Spawn the projectile
 	UWorld* World = GetWorld();
-	//if (World)
-	//{
-	//	(AProjectile* SpawnedProjectile = World->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-	//	if (SpawnedProjectile)
-	//	{
-	//		// Calculate the direction vector
-	//		FVector Direction = (TargetLocation - SpawnLocation).GetSafeNormal();
+	if (World)
+	{
+		// Spawn the projectile
 
-	//		// Set the velocity of the projectile
-	//		UProjectileMovementComponent* ProjectileMovement = SpawnedProjectile->FindComponentByClass<UProjectileMovementComponent>();
-	//		if (ProjectileMovement)
-	//		{
-	//			ProjectileMovement->Velocity = Direction * ProjectileMovement->InitialSpeed;
-	//		}
-	//	}
+		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+		if (!ProjectileClass)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ProjectileClass is not set!"));
+			return;
+		}
+		if (SpawnedProjectile)
+		{
+			GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan,TEXT("Spawned projectile"));
+			// Calculate the direction vector
+			FVector Direction = (location - SpawnLocation).GetSafeNormal();
+			SpawnedProjectile->Velocity = Direction * 1.f;
 
+		}
+	}
 }
 
 void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(OtherActor->IsA<ATest_Character>())
+	if (OtherActor->IsA<ATest_Character>())
 	{
 
-		Attack(OtherActor->GetActorLocation());
-
+		GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Red, TEXT("Collided"));
+		FVector position = OtherActor->GetActorLocation();
+		Attack(position);
 	}
 }
 

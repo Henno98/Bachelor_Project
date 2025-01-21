@@ -31,3 +31,8 @@ void ABasicPlatform::Tick(float DeltaTime)
 
 }
 
+bool ABasicPlatform::CanWallLatch()
+{
+	return true;
+}
+

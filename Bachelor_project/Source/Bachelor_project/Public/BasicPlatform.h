@@ -6,8 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "BasicPlatform.generated.h"
 
-
-
 class UStaticMeshComponent;
 class UBoxComponent;
 UCLASS()
@@ -30,4 +28,6 @@ public:
 	 UStaticMeshComponent* StaticMesh;
 	 UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Collider")
 	UBoxComponent* Collider;
+	
+	bool CanWallLatch();
 };

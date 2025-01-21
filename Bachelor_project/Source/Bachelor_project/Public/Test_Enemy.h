@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
 #include "Test_Enemy.generated.h"
+
 class USphereComponent;
 class UStaticMeshComponent;
 class UBoxComponent;
@@ -50,7 +51,8 @@ protected:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = " VisionRange")
 	USphereComponent* Vision;
-
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Subclass")
+	TSubclassOf<class Aprojectile> ProjectileClass;
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
