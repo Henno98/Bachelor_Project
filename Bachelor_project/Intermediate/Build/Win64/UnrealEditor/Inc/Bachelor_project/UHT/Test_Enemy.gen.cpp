@@ -107,12 +107,42 @@ DEFINE_FUNCTION(ATest_Enemy::execOnOverlap)
 }
 // End Class ATest_Enemy Function OnOverlap
 
+// Begin Class ATest_Enemy Function OnOverlapEnd
+struct Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Test_Enemy.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Enemy, nullptr, "OnOverlapEnd", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ATest_Enemy::execOnOverlapEnd)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnOverlapEnd();
+	P_NATIVE_END;
+}
+// End Class ATest_Enemy Function OnOverlapEnd
+
 // Begin Class ATest_Enemy
 void ATest_Enemy::StaticRegisterNativesATest_Enemy()
 {
 	UClass* Class = ATest_Enemy::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "OnOverlap", &ATest_Enemy::execOnOverlap },
+		{ "OnOverlapEnd", &ATest_Enemy::execOnOverlapEnd },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -160,6 +190,10 @@ struct Z_Construct_UClass_ATest_Enemy_Statics
 		{ "Category", "Variables" },
 		{ "ModuleRelativePath", "Public/Test_Enemy.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SpawnLocation_MetaData[] = {
+		{ "Category", "Variables" },
+		{ "ModuleRelativePath", "Public/Test_Enemy.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StaticMesh_MetaData[] = {
 		{ "Category", "StaticMesh" },
 		{ "EditInline", "true" },
@@ -190,6 +224,7 @@ struct Z_Construct_UClass_ATest_Enemy_Statics
 	static void NewProp_bHasAttacked_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bHasAttacked;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Position;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_SpawnLocation;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_StaticMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Collider;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Vision;
@@ -198,6 +233,7 @@ struct Z_Construct_UClass_ATest_Enemy_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ATest_Enemy_OnOverlap, "OnOverlap" }, // 2360339210
+		{ &Z_Construct_UFunction_ATest_Enemy_OnOverlapEnd, "OnOverlapEnd" }, // 363365294
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -221,6 +257,7 @@ void Z_Construct_UClass_ATest_Enemy_Statics::NewProp_bHasAttacked_SetBit(void* O
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ATest_Enemy_Statics::NewProp_bHasAttacked = { "bHasAttacked", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ATest_Enemy), &Z_Construct_UClass_ATest_Enemy_Statics::NewProp_bHasAttacked_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bHasAttacked_MetaData), NewProp_bHasAttacked_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ATest_Enemy_Statics::NewProp_Position = { "Position", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Enemy, Position), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Position_MetaData), NewProp_Position_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ATest_Enemy_Statics::NewProp_SpawnLocation = { "SpawnLocation", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Enemy, SpawnLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SpawnLocation_MetaData), NewProp_SpawnLocation_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Enemy_Statics::NewProp_StaticMesh = { "StaticMesh", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Enemy, StaticMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StaticMesh_MetaData), NewProp_StaticMesh_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Enemy_Statics::NewProp_Collider = { "Collider", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Enemy, Collider), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Collider_MetaData), NewProp_Collider_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Enemy_Statics::NewProp_Vision = { "Vision", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Enemy, Vision), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Vision_MetaData), NewProp_Vision_MetaData) };
@@ -234,6 +271,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Ene
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_bSeesPlayer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_bHasAttacked,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_Position,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_SpawnLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_StaticMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_Collider,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Enemy_Statics::NewProp_Vision,
@@ -280,10 +318,10 @@ ATest_Enemy::~ATest_Enemy() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Enemy_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATest_Enemy, ATest_Enemy::StaticClass, TEXT("ATest_Enemy"), &Z_Registration_Info_UClass_ATest_Enemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Enemy), 2501838498U) },
+		{ Z_Construct_UClass_ATest_Enemy, ATest_Enemy::StaticClass, TEXT("ATest_Enemy"), &Z_Registration_Info_UClass_ATest_Enemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Enemy), 1911897122U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Enemy_h_85417588(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Enemy_h_4291593513(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Enemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Enemy_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

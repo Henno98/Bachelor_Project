@@ -18,6 +18,7 @@ struct FHitResult;
 #define BACHELOR_PROJECT_Test_Enemy_generated_h
 
 #define FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Enemy_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execOnOverlapEnd); \
 	DECLARE_FUNCTION(execOnOverlap);
 
 

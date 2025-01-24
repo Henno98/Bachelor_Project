@@ -26,6 +26,7 @@ protected:
 	
 	void Look();
 	void Attack(FVector location);
+	bool bHasSpawnedProjectile = false;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
 	float LookDistance{300.f};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
@@ -42,7 +43,8 @@ protected:
 	bool bHasAttacked;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	FVector Position;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+	FVector SpawnLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StaticMesh")
 	UStaticMeshComponent* StaticMesh;
 
@@ -57,6 +59,8 @@ protected:
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
 		bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	void OnOverlapEnd();
 
 public:	
 	// Called every frame
