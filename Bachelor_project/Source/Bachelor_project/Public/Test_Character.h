@@ -7,6 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
 #include "PowerUpController.h"
+#include "Power_WallLatch.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -33,6 +34,11 @@ protected:
     UInputAction* DashAction;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* DoubleJumpAction;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* WallLatchAction;
+    
+
+
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
 
@@ -42,9 +48,17 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PowerUps")
     UPowerUpController* DoubleJumpPowerUp;
 
+    UPROPERTY()
+    class UPower_WallLatch* WallLatchPowerUp;
+
+   
+
+    
+
     void Move(const FInputActionValue& Value);
     void Jump();
     void DoubleJump(const FInputActionValue& Value);
+    void WallLatch(const FInputActionValue& Value);
     void Dash();
     bool bIsDashing{false};
     bool bHasDoubleJumped{ false };
@@ -59,5 +73,5 @@ public:
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-    bool APowerUpDoubleJump = true;
+ 
 };

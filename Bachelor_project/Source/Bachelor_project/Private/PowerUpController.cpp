@@ -2,14 +2,16 @@
 
 #include "PowerUpController.h"
 
+
 void UPowerUpController::Activate(AActor* Player)
 {
-	if (bIsActivated) 
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("PowerUp er satt på active allerede dumdum"));
-		return;
-	}
+    if (bIsActivated == false)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("PowerUp is inactive and cannot be used!"));
+        return;
+    }
 
-	bIsActivated = true;
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("PowerUp er nå aktivert!!!, great success"));
+    OnActivate(Player);
 }
+
+

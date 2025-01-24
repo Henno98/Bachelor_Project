@@ -744,6 +744,8 @@
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\applicationcore\\public\\genericplatform\\icursor.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\applicationcore\\public\\genericplatform\\iinputinterface.h",
             "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\powerupcontroller.generated.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\power_walllatch.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\power_walllatch.generated.h",
             "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\test_character.generated.h"
         ],
         "ImportedModules": [],

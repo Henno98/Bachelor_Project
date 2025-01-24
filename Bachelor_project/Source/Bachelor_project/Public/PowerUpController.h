@@ -7,18 +7,22 @@
 #include "PowerUpController.generated.h"
 
 
+
 UCLASS()
 class BACHELOR_PROJECT_API UPowerUpController : public UObject
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "PowerUp")
-	virtual void Activate(AActor* Player);
-
+    UFUNCTION(BlueprintCallable, Category = "PowerUp")
+    void Activate(AActor* Player);
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PowerUp")
+    bool bIsActivated = true;
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PowerUp")
-	bool bIsActivated = false;
+    // Base activation behavior for subclasses to implement
+    virtual void OnActivate(AActor* Player) PURE_VIRTUAL(UPowerUpController::OnActivate, );
+
+    
 };
+

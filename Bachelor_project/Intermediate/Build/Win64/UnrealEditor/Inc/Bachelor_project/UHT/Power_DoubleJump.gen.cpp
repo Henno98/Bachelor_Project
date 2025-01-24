@@ -80,10 +80,10 @@ UPower_DoubleJump::~UPower_DoubleJump() {}
 struct Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Power_DoubleJump_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPower_DoubleJump, UPower_DoubleJump::StaticClass, TEXT("UPower_DoubleJump"), &Z_Registration_Info_UClass_UPower_DoubleJump, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPower_DoubleJump), 1596981042U) },
+		{ Z_Construct_UClass_UPower_DoubleJump, UPower_DoubleJump::StaticClass, TEXT("UPower_DoubleJump"), &Z_Registration_Info_UClass_UPower_DoubleJump, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPower_DoubleJump), 1210804822U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Power_DoubleJump_h_1974211438(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Power_DoubleJump_h_2714401809(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Power_DoubleJump_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Power_DoubleJump_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -12,11 +12,9 @@ class BACHELOR_PROJECT_API UPower_DoubleJump : public UPowerUpController
 {
     GENERATED_BODY()
 
+protected:
+    virtual void OnActivate(AActor* Player) override;
+
 public:
-    virtual void Activate(AActor* Player) override;
-
     bool bHasDoubleJumped = false;
-
-
-    
 };

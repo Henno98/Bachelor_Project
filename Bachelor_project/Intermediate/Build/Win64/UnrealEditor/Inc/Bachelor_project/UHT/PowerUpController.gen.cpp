@@ -39,7 +39,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UPower
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UPowerUpController_Activate_Statics::NewProp_Player,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UPowerUpController_Activate_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPowerUpController_Activate_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPowerUpController, nullptr, "Activate", nullptr, nullptr, Z_Construct_UFunction_UPowerUpController_Activate_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UPowerUpController_Activate_Statics::PropPointers), sizeof(Z_Construct_UFunction_UPowerUpController_Activate_Statics::PowerUpController_eventActivate_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPowerUpController_Activate_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPowerUpController_Activate_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPowerUpController_Activate_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPowerUpController, nullptr, "Activate", nullptr, nullptr, Z_Construct_UFunction_UPowerUpController_Activate_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UPowerUpController_Activate_Statics::PropPointers), sizeof(Z_Construct_UFunction_UPowerUpController_Activate_Statics::PowerUpController_eventActivate_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPowerUpController_Activate_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPowerUpController_Activate_Statics::Function_MetaDataParams) };
 static_assert(sizeof(Z_Construct_UFunction_UPowerUpController_Activate_Statics::PowerUpController_eventActivate_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UPowerUpController_Activate()
 {
@@ -91,7 +91,7 @@ struct Z_Construct_UClass_UPowerUpController_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UPowerUpController_Activate, "Activate" }, // 2048480291
+		{ &Z_Construct_UFunction_UPowerUpController_Activate, "Activate" }, // 4172503704
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -103,7 +103,7 @@ void Z_Construct_UClass_UPowerUpController_Statics::NewProp_bIsActivated_SetBit(
 {
 	((UPowerUpController*)Obj)->bIsActivated = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UPowerUpController_Statics::NewProp_bIsActivated = { "bIsActivated", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UPowerUpController), &Z_Construct_UClass_UPowerUpController_Statics::NewProp_bIsActivated_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsActivated_MetaData), NewProp_bIsActivated_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UPowerUpController_Statics::NewProp_bIsActivated = { "bIsActivated", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UPowerUpController), &Z_Construct_UClass_UPowerUpController_Statics::NewProp_bIsActivated_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsActivated_MetaData), NewProp_bIsActivated_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPowerUpController_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPowerUpController_Statics::NewProp_bIsActivated,
 };
@@ -149,10 +149,10 @@ UPowerUpController::~UPowerUpController() {}
 struct Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_PowerUpController_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UPowerUpController, UPowerUpController::StaticClass, TEXT("UPowerUpController"), &Z_Registration_Info_UClass_UPowerUpController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPowerUpController), 2228267495U) },
+		{ Z_Construct_UClass_UPowerUpController, UPowerUpController::StaticClass, TEXT("UPowerUpController"), &Z_Registration_Info_UClass_UPowerUpController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPowerUpController), 4034072285U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_PowerUpController_h_1844421434(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_PowerUpController_h_2924775876(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_PowerUpController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_PowerUpController_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
