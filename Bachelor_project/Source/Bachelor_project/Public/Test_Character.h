@@ -7,6 +7,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
 #include "Components/SphereComponent.h"
+#include "PowerUpController.h"
+#include "Power_WallLatch.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -33,6 +35,11 @@ protected:
     UInputAction* DashAction;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* DoubleJumpAction;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* WallLatchAction;
+    
+
+
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
      UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Hurtbox")
@@ -42,9 +49,20 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     class UCameraComponent* Camera;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PowerUps")
+    UPowerUpController* DoubleJumpPowerUp;
+
+    UPROPERTY()
+    class UPower_WallLatch* WallLatchPowerUp;
+
+   
+
+    
+
     void Move(const FInputActionValue& Value);
     void Jump();
     void DoubleJump(const FInputActionValue& Value);
+    void WallLatch(const FInputActionValue& Value);
     void Dash();
     void MeleeAttack(const FInputActionValue& Value);
     bool bIsDashing{false};
@@ -62,4 +80,6 @@ public:
     float JumpVelocity{ 600.f };
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+ 
 };

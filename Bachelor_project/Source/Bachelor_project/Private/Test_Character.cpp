@@ -11,6 +11,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include <Power_DoubleJump.h>
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -66,6 +67,11 @@ void ATest_Character::BeginPlay()
 	GetCharacterMovement()->MaxAcceleration = 1000.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	DashCooldown = 2.f;
+
+	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
+	WallLatchPowerUp = NewObject<UPower_WallLatch>(this);
+	
+
 }
 
 
@@ -86,11 +92,16 @@ void ATest_Character::Tick(float DeltaTime)
 			//DashCooldown = 2.f;
 		}
 	}
-	if(!GetCharacterMovement()->IsFalling())
+	
+	if (DoubleJumpPowerUp && !GetCharacterMovement()->IsFalling())
 	{
-		bHasDoubleJumped = false;
-
+		UPower_DoubleJump* DoubleJump = Cast<UPower_DoubleJump>(DoubleJumpPowerUp);
+		if (DoubleJump)
+		{
+			DoubleJump->bHasDoubleJumped = false;
+		}
 	}
+
 }
 
 // Called to bind functionality to input
@@ -109,6 +120,8 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		//PowerUpInputs
 		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::MeleeAttack);
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
+
+		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::WallLatch);
 	}
 }
 
@@ -133,15 +146,38 @@ void ATest_Character::Jump()
 	ACharacter::Jump();
 }
 
+
+
 void ATest_Character::DoubleJump(const FInputActionValue& Value)
 {
-	const FVector2D moveVector = Value.Get<FVector2D>();
-	if(GetCharacterMovement()->IsFalling() && !bHasDoubleJumped)
+    if (DoubleJumpPowerUp)
+    {
+        DoubleJumpPowerUp->Activate(this);
+    }
+    else
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Double Jump PowerUp not assigned!"));
+    }
+}
+
+
+void ATest_Character::WallLatch(const FInputActionValue& Value)
+{
+	
+	if (GetCharacterMovement()->IsFalling())
 	{
-		 
-		LaunchCharacter(FVector(0,moveVector.Y*400, 400.f ), false, false);
-		
-		bHasDoubleJumped = true;
+		if (WallLatchPowerUp)
+		{
+			WallLatchPowerUp->Activate(this);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Wall Latch PowerUp not assigned!"));
+		}
+	}
+	else
+	{
+		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("Can only wall latch while falling!"));
 	}
 }
 
