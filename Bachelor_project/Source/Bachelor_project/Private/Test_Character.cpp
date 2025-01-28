@@ -49,7 +49,6 @@ ATest_Character::ATest_Character()
 	HurtVisibility->SetupAttachment(HurtBox);
 	HurtVisibility->SetWorldScale3D(FVector(0.1f));
 }
-
 // Called when the game starts or when spawned
 void ATest_Character::BeginPlay()
 {
@@ -73,9 +72,6 @@ void ATest_Character::BeginPlay()
 	
 
 }
-
-
-
 // Called every frame
 void ATest_Character::Tick(float DeltaTime)
 {
@@ -87,7 +83,7 @@ void ATest_Character::Tick(float DeltaTime)
 
 		if(DashCooldown <= 0)
 		{
-
+			//SetActorEnableCollision(true);
 			bIsDashing = false;
 			//DashCooldown = 2.f;
 		}
@@ -103,7 +99,6 @@ void ATest_Character::Tick(float DeltaTime)
 	}
 
 }
-
 // Called to bind functionality to input
 void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -146,8 +141,6 @@ void ATest_Character::Jump()
 	ACharacter::Jump();
 }
 
-
-
 void ATest_Character::DoubleJump(const FInputActionValue& Value)
 {
     if (DoubleJumpPowerUp)
@@ -160,7 +153,6 @@ void ATest_Character::DoubleJump(const FInputActionValue& Value)
     }
 }
 
-
 void ATest_Character::WallLatch(const FInputActionValue& Value)
 {
 	
@@ -169,6 +161,7 @@ void ATest_Character::WallLatch(const FInputActionValue& Value)
 		if (WallLatchPowerUp)
 		{
 			WallLatchPowerUp->Activate(this);
+			JumpCurrentCount = 0;
 		}
 		else
 		{
@@ -185,9 +178,11 @@ void ATest_Character::Dash()
 {
 	if(!bIsDashing)
 	{
-		
-		LaunchCharacter(GetVelocity() * 2, false, false);
+		FVector direction = GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
+		//SetActorEnableCollision(false);
+		LaunchCharacter(FVector(0,1600.f*direction.Y,0), false, false);
 		DashCooldown = 2.f;
+
 		bIsDashing = true;
 	}
 

@@ -108,21 +108,34 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 {
 	if (OtherActor->IsA<ATest_Character>() && OverlappedComponent->IsA<USphereComponent>())
 	{
-		if (!bHasSpawnedProjectile) {
+		if (!bHasSpawnedProjectile) 
+		{
 			bHasSpawnedProjectile = true;
 		GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Red, TEXT("Collided"));
 		FVector position = OtherActor->GetActorLocation();
 		Attack(position);
 		}
 	}
-	if (OtherActor->IsA<ATest_Character>() && OverlappedComponent->IsA<UBoxComponent>())
+	if (OtherActor && OtherActor->IsA<ATest_Character>() && OverlappedComponent && OverlappedComponent->IsA<UBoxComponent>())
 	{
-		ATest_Character* collidedplayer = Cast<ATest_Character>(OtherActor);
-		FVector velocity = collidedplayer->GetMovementComponent()->Velocity;
-		collidedplayer->LaunchCharacter(velocity*-1,true,true);
-		GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Orange, TEXT("Pushed player"));
+		ATest_Character* collidedPlayer = Cast<ATest_Character>(OtherActor);
+		if (collidedPlayer && collidedPlayer->GetMovementComponent())
+		{
+			FVector velocity = collidedPlayer->GetMovementComponent()->Velocity;
+			collidedPlayer->LaunchCharacter(velocity * -1, true, true);
+
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(
+					-1, // Use -1 to avoid overwriting messages.
+					2.f,
+					FColor::Orange,
+					TEXT("Pushed player")
+				);
+			}
+		}
 	}
-}
+	}
 
 void ATest_Enemy::OnOverlapEnd()
 {

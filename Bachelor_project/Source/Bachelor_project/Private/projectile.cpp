@@ -16,7 +16,6 @@ Aprojectile::Aprojectile()
 	staticmesh->SetRelativeScale3D(FVector(0.5f));
 
 }
-
 // Called when the game starts or when spawned
 void Aprojectile::BeginPlay()
 {
@@ -24,7 +23,6 @@ void Aprojectile::BeginPlay()
 	//SetActorLocation(CurrentLocation);
 	
 }
-
 // Called every frame
 void Aprojectile::Tick(float DeltaTime)
 {

@@ -84,7 +84,7 @@ void UPower_WallLatch::LatchToWall(ACharacter* Character, const FVector& WallNor
     if (Movement)
     {
         // Temporarily reduce gravity while wall latching
-        Movement->GravityScale = 0.1f;  // Slow descent
+        //Movement->GravityScale = 0.1f;  // Slow descent
         FVector CurrentVelocity = Movement->Velocity;
         CurrentVelocity.Z *= 0.f;  // stop movement 
         Movement->Velocity = CurrentVelocity;
