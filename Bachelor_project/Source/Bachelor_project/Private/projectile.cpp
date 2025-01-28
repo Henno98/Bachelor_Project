@@ -10,9 +10,10 @@ Aprojectile::Aprojectile()
 	PrimaryActorTick.bCanEverTick = true;
 	collider = CreateDefaultSubobject<USphereComponent>(TEXT("Collider"));
 	SetRootComponent(collider);
-	collider->SetWorldScale3D(FVector(0.1f));
+	//collider->SetWorldScale3D(FVector(0.5f));
 	staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("staticmesh"));
 	staticmesh->SetupAttachment(RootComponent);
+	staticmesh->SetRelativeScale3D(FVector(0.5f));
 
 }
 

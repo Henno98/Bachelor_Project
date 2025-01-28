@@ -7,6 +7,7 @@
 #include "Test_Character.h"
 #include "Components/BoxComponent.h"
 #include "EntitySystem/MovieSceneEntitySystemRunner.h"
+#include "GameFramework/PawnMovementComponent.h"
 
 // Sets default values
 ATest_Enemy::ATest_Enemy()
@@ -19,7 +20,7 @@ ATest_Enemy::ATest_Enemy()
 	StaticMesh->SetupAttachment(RootComponent);
 	Vision = CreateDefaultSubobject<USphereComponent>(TEXT("Vision"));
 	Vision->SetupAttachment(RootComponent);
-	Vision->SetSphereRadius(1000.f);
+	Vision->SetSphereRadius(500.f);
 	Vision->OnComponentBeginOverlap.AddDynamic(this, &ATest_Enemy::OnOverlap);
 	//Vision->OnComponentEndOverlap.AddDynamic(this, &ATest_Enemy::OnOverlapEnd);
 }
@@ -97,7 +98,7 @@ void ATest_Enemy::Attack(FVector location)
 			GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan,TEXT("Spawned projectile"));
 			// Calculate the direction vector
 			FVector Direction = (location - SpawnLocation).GetSafeNormal();
-			SpawnedProjectile->Velocity = Direction * 100.f;
+			SpawnedProjectile->Velocity = Direction * 200.f;
 			
 		}
 	}
@@ -105,7 +106,7 @@ void ATest_Enemy::Attack(FVector location)
 
 void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor->IsA<ATest_Character>())
+	if (OtherActor->IsA<ATest_Character>() && OverlappedComponent->IsA<USphereComponent>())
 	{
 		if (!bHasSpawnedProjectile) {
 			bHasSpawnedProjectile = true;
@@ -114,7 +115,13 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 		Attack(position);
 		}
 	}
-	
+	if (OtherActor->IsA<ATest_Character>() && OverlappedComponent->IsA<UBoxComponent>())
+	{
+		ATest_Character* collidedplayer = Cast<ATest_Character>(OtherActor);
+		FVector velocity = collidedplayer->GetMovementComponent()->Velocity;
+		collidedplayer->LaunchCharacter(velocity*-1,true,true);
+		GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Orange, TEXT("Pushed player"));
+	}
 }
 
 void ATest_Enemy::OnOverlapEnd()

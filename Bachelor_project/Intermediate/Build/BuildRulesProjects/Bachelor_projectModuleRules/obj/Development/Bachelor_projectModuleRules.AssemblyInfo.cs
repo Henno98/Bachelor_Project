@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bachelor_projectModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0fb1047d119842ae79951386efc82012bba2c20")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25648a40790707c172e9dedaa4ea96e966af2c73")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bachelor_projectModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bachelor_projectModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
