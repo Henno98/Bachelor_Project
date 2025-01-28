@@ -61,11 +61,11 @@ void ATest_Character::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	GetCharacterMovement()->AirControl = 0.8f;
+	/*GetCharacterMovement()->AirControl = 0.8f;
 	GetCharacterMovement()->MaxWalkSpeed = 800.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->MaxAcceleration = 1000.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;*/
 	DashCooldown = 2.f;
 
 	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
@@ -118,7 +118,7 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
 		//PowerUpInputs
-		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::MeleeAttack);
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::Dash);
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::WallLatch);
