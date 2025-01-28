@@ -183,10 +183,10 @@ void ATest_Character::WallLatch(const FInputActionValue& Value)
 
 void ATest_Character::Dash()
 {
-	if(!bIsDashing && !GetCharacterMovement()->IsFalling())
+	if(!bIsDashing)
 	{
 		
-		LaunchCharacter(GetVelocity() * 1.4, false, false);
+		LaunchCharacter(GetVelocity() * 2, false, false);
 		DashCooldown = 2.f;
 		bIsDashing = true;
 	}
