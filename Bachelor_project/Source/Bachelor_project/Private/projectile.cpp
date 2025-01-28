@@ -10,8 +10,10 @@ Aprojectile::Aprojectile()
 	PrimaryActorTick.bCanEverTick = true;
 	collider = CreateDefaultSubobject<USphereComponent>(TEXT("Collider"));
 	SetRootComponent(collider);
+	//collider->SetWorldScale3D(FVector(0.5f));
 	staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("staticmesh"));
 	staticmesh->SetupAttachment(RootComponent);
+	staticmesh->SetRelativeScale3D(FVector(0.5f));
 
 }
 
@@ -19,7 +21,7 @@ Aprojectile::Aprojectile()
 void Aprojectile::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorLocation(CurrentLocation);
+	//SetActorLocation(CurrentLocation);
 	
 }
 
@@ -35,7 +37,7 @@ void Aprojectile::Travel(float deltatime)
 {
 
 	CurrentLocation = GetActorLocation();
-	CurrentLocation += Velocity* GetActorForwardVector();
+	CurrentLocation += Velocity*deltatime;
 	SetActorLocation(CurrentLocation);
 
 }

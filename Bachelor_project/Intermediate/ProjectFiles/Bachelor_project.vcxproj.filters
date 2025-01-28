@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Bachelor_project.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Bachelor_project.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\Bachelor_projectEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Bachelor_project.png" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Bachelor_project">
+      <UniqueIdentifier>{AF03B20F-8C0A-3EFE-A0E3-70862FB57731}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Bachelor_project\Bachelor_project.Build.cs">
+      <Filter>Source\Bachelor_project</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.cpp">
+      <Filter>Source\Bachelor_project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.h">
+      <Filter>Source\Bachelor_project</Filter>
+    </ClCompile>
+    <Filter Include="Source\Bachelor_project\Private">
+      <UniqueIdentifier>{0AD54A38-9202-3549-BBA5-3807A508D236}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\PowerUpController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Power_DoubleJump.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Power_WallLatch.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\projectile.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Character.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Enemy.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\Bachelor_project\Public">
+      <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\PowerUpController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Power_DoubleJump.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Power_WallLatch.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\projectile.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Enemy.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
