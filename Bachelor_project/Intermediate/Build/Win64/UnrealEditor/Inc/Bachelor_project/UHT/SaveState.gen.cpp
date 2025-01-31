@@ -10,7 +10,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSaveState() {}
 
 // Begin Cross Module References
-BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UPowerUpController_NoRegister();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_USaveState();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_USaveState_NoRegister();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
@@ -54,7 +53,10 @@ struct Z_Construct_UClass_USaveState_Statics
 		{ "Category", "Basic" },
 		{ "ModuleRelativePath", "Public/SaveState.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Powerups_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bHasDoubleJumpPowerUp_MetaData[] = {
+		{ "ModuleRelativePath", "Public/SaveState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bHasWallLatchPowerUp_MetaData[] = {
 		{ "ModuleRelativePath", "Public/SaveState.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SavedWorld_MetaData[] = {
@@ -65,7 +67,10 @@ struct Z_Construct_UClass_USaveState_Statics
 	static const UECodeGen_Private::FStrPropertyParams NewProp_SaveSlotName;
 	static const UECodeGen_Private::FUInt32PropertyParams NewProp_UserIndex;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_PlayerLocation;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_Powerups;
+	static void NewProp_bHasDoubleJumpPowerUp_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bHasDoubleJumpPowerUp;
+	static void NewProp_bHasWallLatchPowerUp_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bHasWallLatchPowerUp;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SavedWorld;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
@@ -78,14 +83,24 @@ const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_USaveState_Static
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_SaveSlotName = { "SaveSlotName", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, SaveSlotName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SaveSlotName_MetaData), NewProp_SaveSlotName_MetaData) };
 const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_UserIndex = { "UserIndex", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, UserIndex), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_UserIndex_MetaData), NewProp_UserIndex_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_PlayerLocation = { "PlayerLocation", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, PlayerLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PlayerLocation_MetaData), NewProp_PlayerLocation_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_Powerups = { "Powerups", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, Powerups), Z_Construct_UClass_UPowerUpController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Powerups_MetaData), NewProp_Powerups_MetaData) };
+void Z_Construct_UClass_USaveState_Statics::NewProp_bHasDoubleJumpPowerUp_SetBit(void* Obj)
+{
+	((USaveState*)Obj)->bHasDoubleJumpPowerUp = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_bHasDoubleJumpPowerUp = { "bHasDoubleJumpPowerUp", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(USaveState), &Z_Construct_UClass_USaveState_Statics::NewProp_bHasDoubleJumpPowerUp_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bHasDoubleJumpPowerUp_MetaData), NewProp_bHasDoubleJumpPowerUp_MetaData) };
+void Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp_SetBit(void* Obj)
+{
+	((USaveState*)Obj)->bHasWallLatchPowerUp = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp = { "bHasWallLatchPowerUp", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(USaveState), &Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bHasWallLatchPowerUp_MetaData), NewProp_bHasWallLatchPowerUp_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_SavedWorld = { "SavedWorld", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, SavedWorld), Z_Construct_UClass_UWorld_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedWorld_MetaData), NewProp_SavedWorld_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USaveState_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_PlayerName,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_SaveSlotName,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_UserIndex,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_PlayerLocation,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_Powerups,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_bHasDoubleJumpPowerUp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_SavedWorld,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_USaveState_Statics::PropPointers) < 2048);
@@ -129,10 +144,10 @@ USaveState::~USaveState() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USaveState, USaveState::StaticClass, TEXT("USaveState"), &Z_Registration_Info_UClass_USaveState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USaveState), 3952453607U) },
+		{ Z_Construct_UClass_USaveState, USaveState::StaticClass, TEXT("USaveState"), &Z_Registration_Info_UClass_USaveState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USaveState), 1223445571U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_1203756964(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_571385131(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

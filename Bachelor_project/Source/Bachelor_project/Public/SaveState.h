@@ -28,10 +28,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 	FVector PlayerLocation;
-
 	UPROPERTY()
-	class UPowerUpController* Powerups;
-
+	bool bHasDoubleJumpPowerUp;
+	UPROPERTY()
+	bool bHasWallLatchPowerUp;
 	UPROPERTY()
 	class UWorld* SavedWorld;
 

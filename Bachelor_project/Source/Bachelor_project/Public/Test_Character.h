@@ -59,8 +59,10 @@ protected:
     UPROPERTY()
     class UPowerUpController* WallLatchPowerUp;
 
-   
-
+   UPROPERTY()
+    bool bHasDoubleJumpPowerUp;
+    UPROPERTY()
+    bool bHasWallLatchPowerUp;
     
 
     void Move(const FInputActionValue& Value);

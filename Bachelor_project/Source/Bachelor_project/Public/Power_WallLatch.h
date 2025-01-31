@@ -34,6 +34,6 @@ private:
     float LatchDuration = 5.0f;
 
     UPROPERTY()
-    float WallCheckDistance = 50;
+    float WallCheckDistance = 80;
 };
 

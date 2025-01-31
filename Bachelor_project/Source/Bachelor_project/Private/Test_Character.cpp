@@ -35,8 +35,8 @@ ATest_Character::ATest_Character()
 
 	Springarm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Springarm"));
 	Springarm->SetupAttachment(RootComponent);
-	Springarm->TargetArmLength = 200.f;
-
+	Springarm->TargetArmLength = 1000.f;
+	
 	
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
@@ -74,7 +74,8 @@ void ATest_Character::SaveGame()
 		// Set data on the savegame object.
 		SaveGameInstance->PlayerName = TEXT("PlayerOne");
 		SaveGameInstance->PlayerLocation = this->GetActorLocation();
-		SaveGameInstance->Powerups = DoubleJumpPowerUp;
+		SaveGameInstance->bHasDoubleJumpPowerUp = DoubleJumpPowerUp != nullptr;  // Save if the power-up is assigned
+		SaveGameInstance->bHasWallLatchPowerUp = WallLatchPowerUp != nullptr;  // Save if the power-up is assigned
 		SaveGameInstance->SavedWorld = GetWorld();
 		// Save the data immediately.
 		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
@@ -92,8 +93,18 @@ void ATest_Character::LoadGame()
 		SaveGameInstance = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot("Slot 1", 0));
 
 		this->SetActorLocation(SaveGameInstance->PlayerLocation);
-		this->DoubleJumpPowerUp = SaveGameInstance->Powerups;
-		
+		// Reinitialize power-ups based on saved state
+		if (SaveGameInstance->bHasDoubleJumpPowerUp)
+		{
+			// You would reassign or reinitialize the DoubleJumpPowerUp here
+			DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
+		}
+		if (SaveGameInstance->bHasWallLatchPowerUp)
+		{
+			// You would reassign or reinitialize the WallLatchPowerUp here
+			WallLatchPowerUp = NewObject<UPower_WallLatch>();
+		}
+
 		
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Loaded Game"));
 
@@ -157,13 +168,21 @@ void ATest_Character::Move(const FInputActionValue& Value)
 	const FRotator moveRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
 
 	if (moveVector.X > 0.05f || moveVector.X < -0.05f) {
-		const FVector directionVector = moveRotation.RotateVector(FVector::RightVector);
+		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(directionVector, moveVector.X);
+
+		// (if (moveVector.X < -0.05f)
+		// 	//	Springarm->SetRelativeRotation(FRotator(0,90.f , 0));
+		//
+		// 	if (moveVector.X > 0.05f)
+		// 		//Springarm->SetRelativeRotation(FRotator(0, -90.f, 0));)
 	}
 	
 	if (moveVector.Y > 0.05f || moveVector.Y < -0.05f) {
 		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(directionVector, moveVector.Y);
+		//Springarm->SetRelativeRotation(FRotator(0, 10, 0));
+
 	}
 }
 
