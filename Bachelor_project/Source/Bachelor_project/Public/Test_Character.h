@@ -9,6 +9,7 @@
 #include "Components/SphereComponent.h"
 #include "PowerUpController.h"
 #include "Power_WallLatch.h"
+#include "SaveState.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -37,7 +38,10 @@ protected:
     UInputAction* DoubleJumpAction;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* WallLatchAction;
-    
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    UInputAction* SaveAction;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    UInputAction* LoadAction;
 
 
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -53,7 +57,7 @@ protected:
     UPowerUpController* DoubleJumpPowerUp;
 
     UPROPERTY()
-    class UPower_WallLatch* WallLatchPowerUp;
+    class UPowerUpController* WallLatchPowerUp;
 
    
 
@@ -73,6 +77,11 @@ protected:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
     float DashCooldown;
 
+    UFUNCTION()
+    void SaveGame();
+    UFUNCTION()
+    void LoadGame();
+
 public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
@@ -81,5 +90,6 @@ public:
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+    
  
 };

@@ -23,11 +23,15 @@ void UPower_WallLatch::OnActivate(AActor* Player)
 
     UCharacterMovementComponent* MovementComponent = Character->GetCharacterMovement();
     if (!MovementComponent) return;
-
+    
     // Get capsule for line trace start position
     UCapsuleComponent* Capsule = Character->GetCapsuleComponent();
-    if (!Capsule) return;
+    if (!Capsule) {
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("Capsule Not Found"));
 
+
+        return;
+    }
     // Calculate line trace points
     FVector Start = Capsule->GetComponentLocation();
 
@@ -40,74 +44,113 @@ void UPower_WallLatch::OnActivate(AActor* Player)
 
     FHitResult BestHitResult;
     bool bHit = false;
+    UWorld* World = Player->GetWorld();
 
-    for (const FVector& Direction : DirectionsToCheck)
+    if (!World)
     {
-        FVector End = Start + (Direction * WallCheckDistance);
-        FHitResult HitResult;
-        FCollisionQueryParams Params;
-        Params.AddIgnoredActor(Character);
 
-        bool bSingleHit = GetWorld()->LineTraceSingleByChannel(
-            HitResult,
-            Start,
-            End,
-            ECC_WorldStatic,
-            Params
-        );
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("World not Found"));
+            return;
 
-        if (bSingleHit)
+    }
+        for (const FVector& Direction : DirectionsToCheck)
         {
-            bHit = true;
-            BestHitResult = HitResult;
-            break;
-        }
-    }
+            FVector End = Start + (Direction * WallCheckDistance);
+            FHitResult HitResult;
+            FCollisionQueryParams Params;
+            Params.AddIgnoredActor(Character);
 
-    // Handle wall latching if a wall is detected
-    if (bHit)
-    {
-        LatchToWall(Character, BestHitResult.Normal);
-    }
-    else
-    {
-        // Provide feedback if no wall is found
-        //GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("No wall detected!"));
-    }
+            bool bSingleHit = World->LineTraceSingleByChannel(
+                HitResult,
+                Start,
+                End,
+                ECC_WorldStatic,
+                Params
+            );
+
+            if (bSingleHit)
+            {
+                bHit = true;
+                BestHitResult = HitResult;
+                // Debug the trace
+                DrawDebugLine(World, Start, End, FColor::Red, false, 1.f, 0, 1.f);
+                break;
+            }
+            else
+            {
+                // Debug the trace when no hit occurs
+                DrawDebugLine(World, Start, End, FColor::Blue, false, 1.f, 0, 1.f);
+            }
+        }
+        
+
+        // Handle wall latching if a wall is detected
+        if (bHit)
+        {
+            LatchToWall(Character, BestHitResult.Normal);
+        }
+        else
+        {
+            // Provide feedback if no wall is found
+           // GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("No wall detected!"));
+        }
+
+    
 }
 
 void UPower_WallLatch::LatchToWall(ACharacter* Character, const FVector& WallNormal)
 {
-    if (!Character) return;
-
-    UCharacterMovementComponent* Movement = Character->GetCharacterMovement();
-    if (Movement)
+    if (!Character)
     {
-        // Temporarily reduce gravity while wall latching
-        //Movement->GravityScale = 0.1f;  // Slow descent
-        FVector CurrentVelocity = Movement->Velocity;
-        CurrentVelocity.Z *= 0.f;  // stop movement 
-        Movement->Velocity = CurrentVelocity;
+        UE_LOG(LogTemp, Warning, TEXT("Character is null in LatchToWall"));
+        return;
+    }
+    UWorld* World = Character->GetWorld();
+    if (!World) {
+
+
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("World not Found"));
+
+        return;
     }
 
-    
+    UCharacterMovementComponent* Movement = Character->GetCharacterMovement();
+    if (!Movement)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Movement component is null in LatchToWall"));
+        return;
+    }
+
+    // Temporarily reduce gravity while wall latching
+    Movement->GravityScale = 0.1f;  // Slow descent
+
+    FVector CurrentVelocity = Movement->Velocity;
+    CurrentVelocity.Z *= 0.f;  // Stop vertical movement
+    Movement->Velocity = CurrentVelocity;
+
     FVector NewPosition = Character->GetActorLocation() - WallNormal * 20.0f;
-    Character->SetActorLocation(NewPosition);
 
-    //GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Latched to wall!"));
+    // Ensure the new position is valid
+    UE_LOG(LogTemp, Warning, TEXT("Latched Position: %s"), *NewPosition.ToString());
 
-    
+    // Check if the position is valid before setting it
+    if (!NewPosition.IsZero())
+    {
+        Character->SetActorLocation(NewPosition);
+    }
+
+   // GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Latched to wall!"));
+
+    // Timer to restore gravity
     FTimerHandle TimerHandle;
-    GetWorld()->GetTimerManager().SetTimer(TimerHandle, [Movement]()
+    World->GetTimerManager().SetTimer(TimerHandle, [Movement]()
         {
             if (Movement)
             {
-                Movement->GravityScale = 1.0f;
+                Movement->GravityScale = 3.0f;  // Set gravity back to normal
             }
         }, 0.1f, false);
 }
-
-
 
 
 

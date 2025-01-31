@@ -60,17 +60,44 @@ void ATest_Character::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	/*GetCharacterMovement()->AirControl = 0.8f;
-	GetCharacterMovement()->MaxWalkSpeed = 800.f;
-	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->MaxAcceleration = 1000.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;*/
 	DashCooldown = 2.f;
 
 	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
-	WallLatchPowerUp = NewObject<UPower_WallLatch>(this);
+	WallLatchPowerUp = NewObject<UPower_WallLatch>();
 	
 
+}
+void ATest_Character::SaveGame()
+{
+	if (USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
+	{
+		// Set data on the savegame object.
+		SaveGameInstance->PlayerName = TEXT("PlayerOne");
+		SaveGameInstance->PlayerLocation = this->GetActorLocation();
+		SaveGameInstance->Powerups = DoubleJumpPowerUp;
+		SaveGameInstance->SavedWorld = GetWorld();
+		// Save the data immediately.
+		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
+		{
+			// Save succeeded.
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Saved Game"));
+
+		}
+	}
+}
+void ATest_Character::LoadGame()
+{
+	if(USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
+	{
+		SaveGameInstance = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot("Slot 1", 0));
+
+		this->SetActorLocation(SaveGameInstance->PlayerLocation);
+		this->DoubleJumpPowerUp = SaveGameInstance->Powerups;
+		
+		
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Loaded Game"));
+
+	}
 }
 // Called every frame
 void ATest_Character::Tick(float DeltaTime)
@@ -117,6 +144,10 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::WallLatch);
+		//Save
+		EnhancedInputComponent->BindAction(SaveAction, ETriggerEvent::Started, this, &ATest_Character::SaveGame);
+		EnhancedInputComponent->BindAction(LoadAction, ETriggerEvent::Started, this, &ATest_Character::LoadGame);
+
 	}
 }
 
