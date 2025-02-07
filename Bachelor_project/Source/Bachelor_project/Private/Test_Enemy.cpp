@@ -116,7 +116,7 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 		Attack(position);
 		}
 	}
-	if (OtherActor && OtherActor->IsA<ATest_Character>() && OverlappedComponent && OverlappedComponent->IsA<UBoxComponent>())
+	if (OtherActor->IsA<ATest_Character>() && OverlappedComponent->IsA<UBoxComponent>())
 	{
 		ATest_Character* collidedPlayer = Cast<ATest_Character>(OtherActor);
 		if (collidedPlayer && collidedPlayer->GetMovementComponent())

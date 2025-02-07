@@ -21,6 +21,7 @@ void Aprojectile::BeginPlay()
 {
 	Super::BeginPlay();
 	//SetActorLocation(CurrentLocation);
+	lifetime = FMath::RandRange(5, 10);
 	
 }
 // Called every frame
@@ -28,6 +29,7 @@ void Aprojectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Travel(DeltaTime);
+	
 
 }
 

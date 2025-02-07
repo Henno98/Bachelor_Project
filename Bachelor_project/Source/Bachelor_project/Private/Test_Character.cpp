@@ -226,7 +226,7 @@ void ATest_Character::WallLatch(const FInputActionValue& Value)
 
 void ATest_Character::Dash()
 {
-	if(!bIsDashing)
+	if(!bIsDashing && !GetCharacterMovement()->IsFalling())
 	{
 		FVector direction = GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
 		//SetActorEnableCollision(false);
