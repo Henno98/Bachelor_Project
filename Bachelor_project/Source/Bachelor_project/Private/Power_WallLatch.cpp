@@ -102,7 +102,7 @@ void UPower_WallLatch::LatchToWall(ACharacter* Character, const FVector& WallNor
         {
             if (Movement)
             {
-                Movement->GravityScale = 1.0f;
+                Movement->GravityScale = 3.0f;
             }
         }, 0.1f, false);
 }
