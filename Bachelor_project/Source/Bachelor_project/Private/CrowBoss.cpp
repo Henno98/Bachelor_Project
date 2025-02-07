@@ -47,6 +47,8 @@ void ACrowBoss::FeatherAttack()
 {
 	//Activate Feather Hitbox
 
+	//Launch Feathers
+
 	//Check for player collision
 
 	//if yes, dmg

@@ -29,7 +29,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
 	USphereComponent* collider;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
-	float lifetime;
+	float lifetime = 5;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
 	FVector TargetLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
@@ -41,6 +41,10 @@ public:
 	UFUNCTION()
 	void SetPosition(FVector position);
 
+	UFUNCTION()
+	void DestroyActor(float DeltaTime);
+
+	float Timer;
 
 
 };

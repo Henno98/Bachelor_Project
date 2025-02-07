@@ -22,13 +22,14 @@ void Aprojectile::BeginPlay()
 	Super::BeginPlay();
 	//SetActorLocation(CurrentLocation);
 	lifetime = FMath::RandRange(5, 10);
-	
 }
 // Called every frame
 void Aprojectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Travel(DeltaTime);
+	DestroyActor(DeltaTime);
+	
 	
 
 }
@@ -45,5 +46,19 @@ void Aprojectile::Travel(float deltatime)
 void Aprojectile::SetPosition(FVector position)
 {
 	CurrentLocation = position;
+}
+
+void Aprojectile::DestroyActor(float DeltaTime)
+{
+	
+	Timer += DeltaTime;
+	if (Timer > 5.f) {
+		SetActorHiddenInGame(true);
+		SetActorEnableCollision(false);
+		Destroy();
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Destroyed projectile", true);
+	}
+	
+
 }
 

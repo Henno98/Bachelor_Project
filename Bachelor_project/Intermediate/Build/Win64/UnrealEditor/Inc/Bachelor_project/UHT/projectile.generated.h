@@ -15,6 +15,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define BACHELOR_PROJECT_projectile_generated_h
 
 #define FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execDestroyActor); \
 	DECLARE_FUNCTION(execSetPosition); \
 	DECLARE_FUNCTION(execTravel);
 
