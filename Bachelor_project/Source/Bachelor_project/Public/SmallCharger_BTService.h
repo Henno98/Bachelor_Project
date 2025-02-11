@@ -13,5 +13,5 @@ UCLASS()
 class BACHELOR_PROJECT_API USmallCharger_BTService : public UBTService
 {
 	GENERATED_BODY()
-	
+	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 };
