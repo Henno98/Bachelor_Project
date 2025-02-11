@@ -10,9 +10,11 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTest_Character() {}
 
 // Begin Cross Module References
+BACHELOR_PROJECT_API UClass* Z_Construct_UClass_Aprojectile_NoRegister();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ATest_Character();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ATest_Character_NoRegister();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UPowerUpController_NoRegister();
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
@@ -136,6 +138,10 @@ struct Z_Construct_UClass_ATest_Character_Statics
 		{ "Category", "Input" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_RangedAttackInput_MetaData[] = {
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Springarm_MetaData[] = {
 		{ "Category", "Test_Character" },
 		{ "EditInline", "true" },
@@ -169,6 +175,10 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bHasWallLatchPowerUp_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_RangedAttackClass_MetaData[] = {
+		{ "Category", "Projectile class" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DashCooldown_MetaData[] = {
 		{ "Category", "Variables" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
@@ -186,6 +196,7 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_WallLatchAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SaveAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LoadAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_RangedAttackInput;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Springarm;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_HurtBox;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_HurtVisibility;
@@ -196,6 +207,7 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bHasDoubleJumpPowerUp;
 	static void NewProp_bHasWallLatchPowerUp_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bHasWallLatchPowerUp;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_RangedAttackClass;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_DashCooldown;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_JumpVelocity;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -218,6 +230,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Characte
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_WallLatchAction = { "WallLatchAction", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, WallLatchAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WallLatchAction_MetaData), NewProp_WallLatchAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_SaveAction = { "SaveAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, SaveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SaveAction_MetaData), NewProp_SaveAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_LoadAction = { "LoadAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, LoadAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LoadAction_MetaData), NewProp_LoadAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackInput = { "RangedAttackInput", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, RangedAttackInput), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RangedAttackInput_MetaData), NewProp_RangedAttackInput_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_Springarm = { "Springarm", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, Springarm), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Springarm_MetaData), NewProp_Springarm_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_HurtBox = { "HurtBox", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, HurtBox), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HurtBox_MetaData), NewProp_HurtBox_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_HurtVisibility = { "HurtVisibility", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, HurtVisibility), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HurtVisibility_MetaData), NewProp_HurtVisibility_MetaData) };
@@ -234,6 +247,7 @@ void Z_Construct_UClass_ATest_Character_Statics::NewProp_bHasWallLatchPowerUp_Se
 	((ATest_Character*)Obj)->bHasWallLatchPowerUp = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_bHasWallLatchPowerUp = { "bHasWallLatchPowerUp", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ATest_Character), &Z_Construct_UClass_ATest_Character_Statics::NewProp_bHasWallLatchPowerUp_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bHasWallLatchPowerUp_MetaData), NewProp_bHasWallLatchPowerUp_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackClass = { "RangedAttackClass", nullptr, (EPropertyFlags)0x0024080000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, RangedAttackClass), Z_Construct_UClass_UClass, Z_Construct_UClass_Aprojectile_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RangedAttackClass_MetaData), NewProp_RangedAttackClass_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DashCooldown = { "DashCooldown", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DashCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashCooldown_MetaData), NewProp_DashCooldown_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpVelocity = { "JumpVelocity", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, JumpVelocity), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpVelocity_MetaData), NewProp_JumpVelocity_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Character_Statics::PropPointers[] = {
@@ -245,6 +259,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Cha
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_WallLatchAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_SaveAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_LoadAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackInput,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_Springarm,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_HurtBox,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_HurtVisibility,
@@ -253,6 +268,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Cha
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_WallLatchPowerUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_bHasDoubleJumpPowerUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_bHasWallLatchPowerUp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DashCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpVelocity,
 };
@@ -297,10 +313,10 @@ ATest_Character::~ATest_Character() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 3212425755U) },
+		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 3944423892U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_1350768683(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_3526054761(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

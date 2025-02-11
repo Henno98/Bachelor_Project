@@ -9,6 +9,7 @@
 #include "Components/SphereComponent.h"
 #include "PowerUpController.h"
 #include "Power_WallLatch.h"
+#include "projectile.h"
 #include "SaveState.h"
 #include "Test_Character.generated.h"
 
@@ -43,6 +44,8 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
     UInputAction* LoadAction;
 
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Input")
+    UInputAction* RangedAttackInput;
 
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
@@ -63,8 +66,11 @@ protected:
     bool bHasDoubleJumpPowerUp;
     UPROPERTY()
     bool bHasWallLatchPowerUp;
-    
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Projectile class")
+    TSubclassOf<class Aprojectile> RangedAttackClass;
 
+
+    void RangedAttack();
     void Move(const FInputActionValue& Value);
     void Jump();
     void DoubleJump(const FInputActionValue& Value);

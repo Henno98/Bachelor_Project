@@ -38,6 +38,7 @@ ATest_Character::ATest_Character()
 	Springarm->TargetArmLength = 1000.f;
 	
 	
+	
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
@@ -118,7 +119,7 @@ void ATest_Character::Tick(float DeltaTime)
 	if(bIsDashing)
 	{
 		DashCooldown -= DeltaTime;
-
+		GetCharacterMovement()->GroundFriction = 10.f;
 		if(DashCooldown <= 0)
 		{
 			//SetActorEnableCollision(true);
@@ -159,7 +160,38 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(SaveAction, ETriggerEvent::Started, this, &ATest_Character::SaveGame);
 		EnhancedInputComponent->BindAction(LoadAction, ETriggerEvent::Started, this, &ATest_Character::LoadGame);
 
+		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::RangedAttack);
 	}
+}
+
+void ATest_Character::RangedAttack()
+{
+	if (!RangedAttackClass)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ProjectileClass is not set!"));
+		return;
+	}
+
+	FVector SpawnLocation = GetActorLocation() + (GetActorForwardVector().GetSafeNormal() * 50);
+	FVector FiringDirection = GetActorForwardVector().GetSafeNormal();
+	FRotator SpawnRotation = GetActorRotation();
+
+	// Spawn the projectile
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(RangedAttackClass, SpawnLocation, SpawnRotation);
+		if (SpawnedProjectile)
+		{
+			GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan, TEXT("Spawned projectile"));
+			// Calculate the direction vector
+			//FVector Direction = SpawnLocation.GetSafeNormal();
+			SpawnedProjectile->Velocity = FiringDirection * 2000.f;
+		
+		}
+	}
+
+
 }
 
 void ATest_Character::Move(const FInputActionValue& Value)
@@ -230,9 +262,10 @@ void ATest_Character::Dash()
 	{
 		FVector direction = GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
 		//SetActorEnableCollision(false);
+		GetCharacterMovement()->GroundFriction = 0.1f;
 		LaunchCharacter(FVector(0,1600.f*direction.Y,0), false, false);
 		DashCooldown = 2.f;
-
+	
 		bIsDashing = true;
 	}
 
