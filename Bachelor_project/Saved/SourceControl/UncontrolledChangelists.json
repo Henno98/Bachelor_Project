@@ -5,6 +5,10 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/BB_Bug.uasset",
+				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/BT_Bug.uasset",
+				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/SmallCharger/SmallCharger_BB.uasset",
+				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/SmallCharger/SmallCharger_BT.uasset",
 				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Default.umap",
 				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Test_Enemy_BP.uasset",
 				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/BP_Test_Character.uasset",
