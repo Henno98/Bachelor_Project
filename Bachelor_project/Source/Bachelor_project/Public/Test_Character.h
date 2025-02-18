@@ -11,10 +11,11 @@
 #include "Power_WallLatch.h"
 #include "projectile.h"
 #include "SaveState.h"
+#include "AbilitySystemInterface.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
-class BACHELOR_PROJECT_API ATest_Character : public ACharacter
+class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface
 {
     GENERATED_BODY()
 public:
@@ -98,6 +99,15 @@ public:
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-    
+protected:
+    UPROPERTY(EditAnywhere)
+    TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+public:
+    virtual void PossessedBy(AController* NewController) override;
+    void InitAbilitySystem();
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+
  
 };

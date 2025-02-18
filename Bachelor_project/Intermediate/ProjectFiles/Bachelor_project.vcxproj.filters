@@ -25,6 +25,9 @@
     <None Include="..\..\Config\DefaultGame.ini">
       <Filter>Config</Filter>
     </None>
+    <None Include="..\..\Config\DefaultGameplayTags.ini">
+      <Filter>Config</Filter>
+    </None>
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
@@ -43,10 +46,19 @@
     <Filter Include="Source\Bachelor_project\Private">
       <UniqueIdentifier>{0AD54A38-9202-3549-BBA5-3807A508D236}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\AIController_SmallCharger.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\ASC_AbilitySystemComponent.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_PlayerState.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\PowerUpController.cpp">
@@ -64,19 +76,37 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SaveState.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_BTService.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Character.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Enemy.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Wandering_Target_Point.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <Filter Include="Source\Bachelor_project\Public">
       <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\AIController_SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\ASC_AbilitySystemComponent.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_PlayerState.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\PowerUpController.h">
@@ -94,10 +124,19 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SaveState.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_BTService.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Enemy.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Wandering_Target_Point.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
   </ItemGroup>

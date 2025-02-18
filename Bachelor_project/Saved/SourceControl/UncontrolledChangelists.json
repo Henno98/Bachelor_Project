@@ -5,25 +5,7 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/BB_Bug.uasset",
-				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/BT_Bug.uasset",
-				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/SmallCharger/SmallCharger_BB.uasset",
-				"C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/SmallCharger/SmallCharger_BT.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Default.umap",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Test_Enemy_BP.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/BP_Test_Character.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/RestartLevel.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/IMG_0526.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/IMG_0526_Sprite.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/RestartLevel.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Projectile_BP.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Levels/Default.umap",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Input/IM_Player.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Input/IA_Load.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Input/IA_Save.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Input/IA_RangedAttackInput.uasset",
-				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Projectile_BP.uasset"
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/BP_Test_Character.uasset"
 			]
 		}
 	]

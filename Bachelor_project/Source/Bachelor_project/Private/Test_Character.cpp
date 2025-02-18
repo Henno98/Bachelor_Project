@@ -8,10 +8,13 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "InputActionValue.h"
+#include "AbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include <Power_DoubleJump.h>
+
+#include "GAS_PlayerState.h"
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -38,7 +41,8 @@ ATest_Character::ATest_Character()
 	Springarm->TargetArmLength = 1000.f;
 	
 	
-	
+	//AbilitySystemComponent = CreateDefaultSubobject<UASC_AbilitySystem>("AbilitySystemComponent");
+
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
@@ -162,6 +166,33 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::RangedAttack);
 	}
+}
+
+void ATest_Character::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	InitAbilitySystem();
+
+}
+
+void ATest_Character::InitAbilitySystem()
+{
+	GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Initialize Ability System"));
+
+	AGAS_PlayerState* GASPlayerState = GetPlayerState<AGAS_PlayerState>();
+
+	if (ensure(GASPlayerState))
+	{
+		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
+		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
+
+	}
+
+}
+
+UAbilitySystemComponent* ATest_Character::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 void ATest_Character::RangedAttack()
