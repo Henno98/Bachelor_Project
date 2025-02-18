@@ -10,6 +10,7 @@
 
 
 
+
 EBTNodeResult::Type UBTTask_MoveToPlayer_SmallCharger::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	UBlackboardComponent* AI_smallcharger_BBC = Cast<UBlackboardComponent>(OwnerComp.GetBlackboardComponent());
@@ -17,34 +18,30 @@ EBTNodeResult::Type UBTTask_MoveToPlayer_SmallCharger::ExecuteTask(UBehaviorTree
 
 	ASmallCharger_AIController* AI_smallcharger_controller = Cast<ASmallCharger_AIController>(OwnerComp.GetAIOwner());
 	if (!AI_smallcharger_controller) return EBTNodeResult::Failed;
-
-	// Get last seen location of the player
-	FVector LastSeenLocation = AI_smallcharger_BBC->GetValueAsVector("LastSeenLocation");
-
-	// Calculate charge direction (AI moves past the last seen location)
-	FVector AI_Location = AI_smallcharger_controller->GetPawn()->GetActorLocation();
-	FVector ChargeDirection = (LastSeenLocation - AI_Location).GetSafeNormal(); // Normalize direction
-
 	
-	FVector ChargeTargetLocation = LastSeenLocation + (ChargeDirection * 600.0f);
+
+
+	FVector LastSeenLocation = AI_smallcharger_BBC->GetValueAsVector("LastSeenLocation");
+	FVector AI_Location = AI_smallcharger_controller->GetPawn()->GetActorLocation();
+
+	// Ignore the Z-axis and only move on X and Y
+	FVector ChargeDirection = (FVector(LastSeenLocation.X, LastSeenLocation.Y, AI_Location.Z) - AI_Location).GetSafeNormal();
+	FVector ChargeTargetLocation = FVector(LastSeenLocation.X, LastSeenLocation.Y, AI_Location.Z) + (ChargeDirection * 600.0f);
+
 
 	// Move AI to extended charge location
 	AI_smallcharger_controller->MoveToLocation(ChargeTargetLocation, 5.0f, true, true, false, true, 0, true);
 
-	// Set AI state in blackboard
-	AI_smallcharger_BBC->SetValueAsBool("Closed_To_Player", false);
-	AI_smallcharger_BBC->SetValueAsBool("Run_To_Player", false);
-
-	// Increase movement speed to simulate charging
+	
 	ACharacter* AICharacter = Cast<ACharacter>(AI_smallcharger_controller->GetPawn());
 	if (AICharacter)
 	{
 		AICharacter->GetCharacterMovement()->MaxWalkSpeed = 1200.0f;
-		
 	}
 
 	return EBTNodeResult::InProgress;
 }
+
 
 void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)
 {
@@ -55,9 +52,6 @@ void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& O
 
 	if (!AI_smallcharger_controller || !AI_smallcharger_BBC) return;
 
-	// Stop movement after charge
-	AI_smallcharger_controller->StopMovement();
-
 	// Reset speed to normal
 	ACharacter* AICharacter = Cast<ACharacter>(AI_smallcharger_controller->GetPawn());
 	if (AICharacter)
@@ -67,25 +61,62 @@ void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& O
 
 	// Check if the player is still nearby
 	AActor* PlayerPawn = Cast<AActor>(AI_smallcharger_BBC->GetValueAsObject("Player"));
-	if (PlayerPawn)
+
+	if (AICharacter && PlayerPawn)
 	{
 		float DistanceToPlayer = FVector::Distance(AICharacter->GetActorLocation(), PlayerPawn->GetActorLocation());
-		
 
-		// If the player is still close, charge again
-		if (DistanceToPlayer < 600.0f) // Adjust range as needed
+		if (DistanceToPlayer < 600.0f)
 		{
-			// Set AI state for charging again
-			AI_smallcharger_BBC->SetValueAsBool("Run_To_Player", true);
-			AI_smallcharger_BBC->SetValueAsBool("Closed_To_Player", false);
+			AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", true);
+			UE_LOG(LogTemp, Warning, TEXT("Player is still close, recharging"));
+			
 		}
 		else
 		{
-			AI_smallcharger_BBC->SetValueAsBool("Run_To_Player", false);
-			AI_smallcharger_BBC->SetValueAsBool("Closed_To_Player", true);
+			AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", false);
+			UE_LOG(LogTemp, Warning, TEXT("Player moved away, stopping charge"));
 		}
 	}
+	
 }
+
+
+
+// Get last seen location of the player
+	//FVector LastSeenLocation = AI_smallcharger_BBC->GetValueAsVector("LastSeenLocation");
+	// Calculate charge direction (AI moves past the last seen location)
+	//FVector AI_Location = AI_smallcharger_controller->GetPawn()->GetActorLocation();
+	//FVector ChargeDirection = (LastSeenLocation - AI_Location).GetSafeNormal(); // Normalize direction
+
+	//FVector ChargeTargetLocation = LastSeenLocation + (ChargeDirection * 600.0f);
+
+
+//if (PlayerPawn)
+	//{
+		//float DistanceToPlayer = FVector::Distance(AICharacter->GetActorLocation(), PlayerPawn->GetActorLocation());
+
+
+		//// If the player is still close, charge again
+		//if (DistanceToPlayer < 600.0f) // Adjust range as needed
+		//{
+		//	// Set AI state for charging again
+		//	AI_smallcharger_BBC->SetValueAsBool("Run_To_Player", true);
+		//	AI_smallcharger_BBC->SetValueAsBool("Closed_To_Player", false);
+
+		//	UE_LOG(LogTemp, Warning, TEXT("DistanceToPlayer < 600"));
+		//}
+		//else
+		//{
+		//	AI_smallcharger_BBC->SetValueAsBool("Run_To_Player", false);
+		//	AI_smallcharger_BBC->SetValueAsBool("Closed_To_Player", true);
+		//	UE_LOG(LogTemp, Warning, TEXT("DistanceToPlayer else"));
+		//}
+	//}
+
+
+
+
 
 
 //void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)

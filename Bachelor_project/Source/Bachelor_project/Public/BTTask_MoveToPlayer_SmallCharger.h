@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
 #include "BehaviorTree/Tasks/BTTask_MoveTo.h"
+#include "Navigation/PathFollowingComponent.h"
 #include "BTTask_MoveToPlayer_SmallCharger.generated.h"
 
 /**
@@ -15,5 +16,6 @@ class BACHELOR_PROJECT_API UBTTask_MoveToPlayer_SmallCharger : public UBTTask_Mo
 {
 	GENERATED_BODY()
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+	void OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result);
 	virtual void OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult) override;
 };

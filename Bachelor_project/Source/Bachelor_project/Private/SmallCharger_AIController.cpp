@@ -50,7 +50,7 @@ void ASmallCharger_AIController::ToCheckSpawnStillAround()
 		GetWorld()->GetTimerManager().ClearTimer(timerHandle);
 		seenPlayerFirstTime = true;
 
-		
+
 		ACharacter* SmallChargerCharacter = Cast<ACharacter>(GetPawn());
 		if (SmallChargerCharacter)
 		{
@@ -59,6 +59,10 @@ void ASmallCharger_AIController::ToCheckSpawnStillAround()
 	}
 }
 
+void ASmallCharger_AIController::RestartBehaviorTree()
+{
+	SmallCharger_BTC->RestartTree();
+}
 
 
 void ASmallCharger_AIController::OnEnemySeenItsOwner(APawn* SensedPawn)
@@ -72,7 +76,7 @@ void ASmallCharger_AIController::OnEnemySeenItsOwner(APawn* SensedPawn)
 			seenPlayerFirstTime = false;
 
 			SmallCharger_BBC->SetValueAsBool("SeenPlayer", true);
-			
+
 			SmallCharger_BBC->SetValueAsObject("Player", SensedPawn);
 
 			FVector LastSeenLocation = SensedPawn->GetActorLocation();

@@ -32,8 +32,8 @@ class BACHELOR_PROJECT_API ASmallCharger_AIController : public AAIController
 		FTimerHandle timerHandle;
 
 		void ToCheckSpawnStillAround();
-
-		bool seenPlayerFirstTime = true;
+		
+	bool seenPlayerFirstTime = true;
 
 	public:
 		FVector smallCharger_target_location;
@@ -44,11 +44,24 @@ class BACHELOR_PROJECT_API ASmallCharger_AIController : public AAIController
 
 		UFUNCTION()
 		void OnEnemySeenItsOwner(class APawn* SensedPawn);
+		void RestartBehaviorTree();
+
 
 		UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		class UPawnSensingComponent* SmallCharger_PercetionComponent;
 
+		FORCEINLINE FAIRequestID GetChargeRequestId() const { return ChargeRequestId; }
 
+		void ChargeToTarget(FVector NewTarget, float ArriveDistance);
+
+private:
+	static uint32 NextChargeRequestId;  // Incrementing ID for each charge request
+	FAIRequestID ChargeRequestId;
+
+	FORCEINLINE void StoreChargeRequestId() { ChargeRequestId = NextChargeRequestId++; }
+
+
+	
 
 };
 
