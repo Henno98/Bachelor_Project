@@ -28,7 +28,7 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 			FVector direction = Character->GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
 
 			// Disable collision temporarily
-			Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::Physics);
 
 			// Reduce ground friction
 			Character->GetCharacterMovement()->GroundFriction = 0.1f;

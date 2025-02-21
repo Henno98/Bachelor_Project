@@ -3646,32 +3646,3 @@ Script Stack (0 frames) :
 [2025.02.21-13.55.50:436][785]LogDemo: Cleaned up 0 splitscreen connections, owner deletion: enabled
 [2025.02.21-13.55.50:527][785]LogExit: Editor shut down
 [2025.02.21-13.55.50:541][785]LogExit: Transaction tracking system shut down
-[2025.02.21-13.55.54:114][785]LogWindows: Error: === Critical error: ===
-[2025.02.21-13.55.54:114][785]LogWindows: Error: 
-[2025.02.21-13.55.54:114][785]LogWindows: Error: Unhandled Exception: EXCEPTION_ACCESS_VIOLATION reading address 0xffffffffffffffff
-[2025.02.21-13.55.54:114][785]LogWindows: Error: 
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007fff18b9b6cb UnrealEditor-Core.dll!mi_free() [D:\build\++UE5\Sync\Engine\Source\ThirdParty\mimalloc\2.0.0\src\alloc.c:486]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007fff184e45dc UnrealEditor-Core.dll!FMemory::Free() [D:\build\++UE5\Sync\Engine\Source\Runtime\Core\Public\HAL\FMemory.inl:166]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffebab12b29 UnrealEditor-GameplayAbilities.dll!FGameplayAbilitySpec::~FGameplayAbilitySpec() [D:\build\++UE5\Sync\Engine\Plugins\Runtime\GameplayAbilities\Source\GameplayAbilities\Public\GameplayAbilitySpec.h:174]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x000001ac4e367f70 UnrealEditor-Bachelor_project.patch_9.exe!ATest_Character::~ATest_Character() [C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\UnrealEditor\Inc\Bachelor_project\UHT\Test_Character.gen.cpp:366]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x000001ac4e369a9b UnrealEditor-Bachelor_project.patch_9.exe!ATest_Character::`vector deleting destructor'() []
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffefabdf082 UnrealEditor-CoreUObject.dll!FObjectPurge::DestroyObjects() [D:\build\++UE5\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\GarbageCollection.cpp:827]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffefac28813 UnrealEditor-CoreUObject.dll!IncrementalDestroyGarbage() [D:\build\++UE5\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\GarbageCollection.cpp:4851]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffefac28c64 UnrealEditor-CoreUObject.dll!IncrementalPurgeGarbage() [D:\build\++UE5\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\GarbageCollection.cpp:4525]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffefac51566 UnrealEditor-CoreUObject.dll!PurgeAllUObjectsOnExit() [D:\build\++UE5\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\GarbageCollection.cpp:6103]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffefada65d4 UnrealEditor-CoreUObject.dll!StaticExit() [D:\build\++UE5\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\Obj.cpp:5496]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ffefa9db117 UnrealEditor-CoreUObject.dll!TBaseStaticDelegateInstance<void __cdecl(void),FDefaultDelegateUserPolicy>::ExecuteIfSafe() [D:\build\++UE5\Sync\Engine\Source\Runtime\Core\Public\Delegates\DelegateInstancesImpl.h:779]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c3d6d1 UnrealEditor.exe!TMulticastDelegate<void __cdecl(void),FDefaultDelegateUserPolicy>::Broadcast() [D:\build\++UE5\Sync\Engine\Source\Runtime\Core\Public\Delegates\DelegateSignatureImpl.inl:1079]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c3ce12 UnrealEditor.exe!FEngineLoop::AppPreExit() [D:\build\++UE5\Sync\Engine\Source\Runtime\Launch\Private\LaunchEngineLoop.cpp:6858]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c436ea UnrealEditor.exe!FEngineLoop::Exit() [D:\build\++UE5\Sync\Engine\Source\Runtime\Launch\Private\LaunchEngineLoop.cpp:5128]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c4583b UnrealEditor.exe!GuardedMain() [D:\build\++UE5\Sync\Engine\Source\Runtime\Launch\Private\Launch.cpp:202]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c4589a UnrealEditor.exe!GuardedMainWrapper() [D:\build\++UE5\Sync\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:123]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c49114 UnrealEditor.exe!LaunchWindowsStartup() [D:\build\++UE5\Sync\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:277]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c5bd04 UnrealEditor.exe!WinMain() [D:\build\++UE5\Sync\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:317]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff7f6c5f0ba UnrealEditor.exe!__scrt_common_main_seh() [D:\a\_work\1\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288]
-[2025.02.21-13.55.54:114][785]LogWindows: Error: [Callstack] 0x00007ff84ecae8d7 KERNEL32.DLL!UnknownFunction []
-[2025.02.21-13.55.54:114][785]LogWindows: Error: 
-[2025.02.21-13.55.54:122][785]LogExit: Executing StaticShutdownAfterError
-[2025.02.21-13.55.54:124][785]LogWindows: FPlatformMisc::RequestExit(1, LaunchWindowsStartup.ExceptionHandler)
-[2025.02.21-13.55.54:124][785]LogWindows: FPlatformMisc::RequestExitWithStatus(1, 3, LaunchWindowsStartup.ExceptionHandler)
-[2025.02.21-13.55.54:124][785]LogCore: Engine exit requested (reason: Win RequestExit; note: exit was already requested)

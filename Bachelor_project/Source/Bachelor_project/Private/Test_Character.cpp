@@ -174,7 +174,6 @@ void ATest_Character::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	InitAbilitySystem();
-
 }
 
 void ATest_Character::InitAbilitySystem()
