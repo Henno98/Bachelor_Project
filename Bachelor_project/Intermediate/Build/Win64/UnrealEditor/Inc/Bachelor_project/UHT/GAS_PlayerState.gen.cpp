@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeGAS_PlayerState() {}
 // Begin Cross Module References
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_AGAS_PlayerState();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_AGAS_PlayerState_NoRegister();
+BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UGAS_Dash_NoRegister();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UGAS_Double_Jump_NoRegister();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UGAS_Wall_Latch_NoRegister();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
@@ -47,9 +48,13 @@ struct Z_Construct_UClass_AGAS_PlayerState_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WallLatchAbility_MetaData[] = {
 		{ "ModuleRelativePath", "Public/GAS_PlayerState.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DashAbility_MetaData[] = {
+		{ "ModuleRelativePath", "Public/GAS_PlayerState.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FClassPropertyParams NewProp_JumpAbility;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_WallLatchAbility;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_DashAbility;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
@@ -60,9 +65,11 @@ struct Z_Construct_UClass_AGAS_PlayerState_Statics
 };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AGAS_PlayerState_Statics::NewProp_JumpAbility = { "JumpAbility", nullptr, (EPropertyFlags)0x0014000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGAS_PlayerState, JumpAbility), Z_Construct_UClass_UClass, Z_Construct_UClass_UGAS_Double_Jump_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpAbility_MetaData), NewProp_JumpAbility_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AGAS_PlayerState_Statics::NewProp_WallLatchAbility = { "WallLatchAbility", nullptr, (EPropertyFlags)0x0014000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGAS_PlayerState, WallLatchAbility), Z_Construct_UClass_UClass, Z_Construct_UClass_UGAS_Wall_Latch_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WallLatchAbility_MetaData), NewProp_WallLatchAbility_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AGAS_PlayerState_Statics::NewProp_DashAbility = { "DashAbility", nullptr, (EPropertyFlags)0x0014000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AGAS_PlayerState, DashAbility), Z_Construct_UClass_UClass, Z_Construct_UClass_UGAS_Dash_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DashAbility_MetaData), NewProp_DashAbility_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGAS_PlayerState_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGAS_PlayerState_Statics::NewProp_JumpAbility,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGAS_PlayerState_Statics::NewProp_WallLatchAbility,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGAS_PlayerState_Statics::NewProp_DashAbility,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AGAS_PlayerState_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AGAS_PlayerState_Statics::DependentSingletons[])() = {
@@ -108,10 +115,10 @@ AGAS_PlayerState::~AGAS_PlayerState() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_GAS_PlayerState_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AGAS_PlayerState, AGAS_PlayerState::StaticClass, TEXT("AGAS_PlayerState"), &Z_Registration_Info_UClass_AGAS_PlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGAS_PlayerState), 1277522325U) },
+		{ Z_Construct_UClass_AGAS_PlayerState, AGAS_PlayerState::StaticClass, TEXT("AGAS_PlayerState"), &Z_Registration_Info_UClass_AGAS_PlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AGAS_PlayerState), 1056208300U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_GAS_PlayerState_h_3109924145(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_GAS_PlayerState_h_4139101725(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_GAS_PlayerState_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_GAS_PlayerState_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

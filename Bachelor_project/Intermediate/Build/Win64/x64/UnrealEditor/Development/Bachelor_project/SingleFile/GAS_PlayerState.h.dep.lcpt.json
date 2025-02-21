@@ -816,6 +816,8 @@
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplaytasks\\uht\\gameplaytaskownerinterface.generated.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\plugins\\runtime\\gameplayabilities\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplayabilities\\uht\\gameplayability.generated.h",
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\gas_double_jump.generated.h",
+            "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\gas_wall_latch.h",
+            "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\gas_wall_latch.generated.h",
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\gas_playerstate.generated.h"
         ],
         "ImportedModules": [],

@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerState.h"
 
 #include "AbilitySystemInterface.h"
+#include "GAS_Dash.h"
 #include "GAS_Double_Jump.h"
 #include "GAS_Wall_Latch.h"
 
@@ -32,5 +33,7 @@ public:
 	TSubclassOf<UGAS_Double_Jump> JumpAbility;
 	UPROPERTY()
 	TSubclassOf<UGAS_Wall_Latch> WallLatchAbility;
+	UPROPERTY()
+	TSubclassOf<UGAS_Dash> DashAbility;
 
 };

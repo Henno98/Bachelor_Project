@@ -24,8 +24,6 @@ public: \
 
 
 #define FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_GAS_Dash_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UGAS_Dash(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UGAS_Dash(UGAS_Dash&&); \
@@ -33,7 +31,7 @@ private: \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UGAS_Dash); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UGAS_Dash); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UGAS_Dash) \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UGAS_Dash) \
 	NO_API virtual ~UGAS_Dash();
 
 

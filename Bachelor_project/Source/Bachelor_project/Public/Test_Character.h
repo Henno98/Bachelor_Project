@@ -112,7 +112,7 @@ public:
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
     void GASJump();
     void GASStopJump();
-
+    void GAS_Dash();
     void GASWallLatch();
     void GASStopWallLatch();
     void GAS_Space();
@@ -128,5 +128,11 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer WallLatchAbilityTag;
     FGameplayAbilitySpec WallLatchAbilitySpec;
- 
+
+    UPROPERTY()
+    TSubclassOf<UGAS_Wall_Latch> GA_Dash;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
+    FGameplayTagContainer DashAbilityTag;
+    FGameplayAbilitySpec DashAbilitySpec;
+
 };

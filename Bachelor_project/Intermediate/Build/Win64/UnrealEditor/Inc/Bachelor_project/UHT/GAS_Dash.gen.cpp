@@ -74,7 +74,6 @@ template<> BACHELOR_PROJECT_API UClass* StaticClass<UGAS_Dash>()
 {
 	return UGAS_Dash::StaticClass();
 }
-UGAS_Dash::UGAS_Dash(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(UGAS_Dash);
 UGAS_Dash::~UGAS_Dash() {}
 // End Class UGAS_Dash

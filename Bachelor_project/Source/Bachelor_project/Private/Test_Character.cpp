@@ -156,7 +156,7 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
 		//PowerUpInputs
-		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::Dash);
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::GAS_Dash);
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
@@ -195,7 +195,12 @@ void ATest_Character::InitAbilitySystem()
 		GA_Wall_Latch = GASPlayerState->WallLatchAbility;
 		WallLatchAbilitySpec = FGameplayAbilitySpec(GA_Wall_Latch);
 		AbilitySystemComponent->GiveAbility(WallLatchAbilitySpec);
-	}
+		//init Dash
+		GA_Dash = GASPlayerState->DashAbility;
+		DashAbilitySpec = FGameplayAbilitySpec(GA_Dash);
+		AbilitySystemComponent->GiveAbility(DashAbilitySpec);
+
+		}
 
 }
 
@@ -236,6 +241,22 @@ void ATest_Character::GASStopJump()
 		//AbilitySystemComponent->CancelAbilityHandle(JumpAbilitySpec.Handle);
 	}
 
+}
+
+void ATest_Character::GAS_Dash()
+{
+	if (AbilitySystemComponent && GA_Wall_Latch)
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Dash ability"));
+		}
+		FGameplayTagContainer jumpGameTagContainer;
+		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Dash")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+
+
+	}
 }
 
 void ATest_Character::GASWallLatch()
