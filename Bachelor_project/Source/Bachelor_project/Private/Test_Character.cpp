@@ -159,7 +159,9 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::Dash);
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 
-		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::WallLatch);
+		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
+		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
+
 		//Save
 		EnhancedInputComponent->BindAction(SaveAction, ETriggerEvent::Started, this, &ATest_Character::SaveGame);
 		EnhancedInputComponent->BindAction(LoadAction, ETriggerEvent::Started, this, &ATest_Character::LoadGame);
@@ -185,9 +187,14 @@ void ATest_Character::InitAbilitySystem()
 	{
 		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
 		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
+		//Init jump
 		GA_Double_Jump = GASPlayerState->JumpAbility;
 		JumpAbilitySpec = FGameplayAbilitySpec(GA_Double_Jump);
 		AbilitySystemComponent->GiveAbility(JumpAbilitySpec);
+		//init wall latch
+		GA_Wall_Latch = GASPlayerState->WallLatchAbility;
+		WallLatchAbilitySpec = FGameplayAbilitySpec(GA_Wall_Latch);
+		AbilitySystemComponent->GiveAbility(WallLatchAbilitySpec);
 	}
 
 }
@@ -229,6 +236,27 @@ void ATest_Character::GASStopJump()
 		//AbilitySystemComponent->CancelAbilityHandle(JumpAbilitySpec.Handle);
 	}
 
+}
+
+void ATest_Character::GASWallLatch()
+{
+	if (AbilitySystemComponent && GA_Wall_Latch)
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Wall latch ability"));
+		}
+		FGameplayTagContainer jumpGameTagContainer;
+		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Wall_Latch")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+
+
+	}
+}
+
+void ATest_Character::GASStopWallLatch()
+{
+	AbilitySystemComponent->AbilityLocalInputReleased(JumpAbilitySpec.InputID);
 }
 
 void ATest_Character::GAS_Space()

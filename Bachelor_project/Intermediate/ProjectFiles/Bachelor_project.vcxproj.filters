@@ -58,10 +58,22 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Dash.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Double_Jump.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Melee.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_PlayerState.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Ranged_Attack.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Wall_Latch.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\PowerUpController.cpp">
@@ -109,10 +121,22 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Dash.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Double_Jump.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Melee.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_PlayerState.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Ranged_Attack.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Wall_Latch.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\PowerUpController.h">

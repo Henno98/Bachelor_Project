@@ -14,6 +14,7 @@
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
 #include "GAS_Double_Jump.h"
+#include "GAS_Wall_Latch.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -112,6 +113,8 @@ public:
     void GASJump();
     void GASStopJump();
 
+    void GASWallLatch();
+    void GASStopWallLatch();
     void GAS_Space();
 
     UPROPERTY()
@@ -119,5 +122,11 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer JumpAbilityTag;
     FGameplayAbilitySpec JumpAbilitySpec;
+
+    UPROPERTY()
+    TSubclassOf<UGAS_Wall_Latch> GA_Wall_Latch;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
+    FGameplayTagContainer WallLatchAbilityTag;
+    FGameplayAbilitySpec WallLatchAbilitySpec;
  
 };
