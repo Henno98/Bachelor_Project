@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerState.h"
 
 #include "AbilitySystemInterface.h"
+#include "GAS_Double_Jump.h"
 
 #include "GAS_PlayerState.generated.h"
 
@@ -25,6 +26,8 @@ public:
 protected:
 
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
+public:
+	UPROPERTY()
+	TSubclassOf<UGAS_Double_Jump> JumpAbility;
 
 };

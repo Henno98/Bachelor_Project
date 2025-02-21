@@ -7,6 +7,7 @@
 AGAS_PlayerState::AGAS_PlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UASC_AbilitySystemComponent>("AbilitySystemComponent");
+	JumpAbility = UGAS_Double_Jump::StaticClass();
 
 }
 

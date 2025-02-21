@@ -12,6 +12,8 @@
 #include "projectile.h"
 #include "SaveState.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayAbilitySpec.h"
+#include "GAS_Double_Jump.h"
 #include "Test_Character.generated.h"
 
 UCLASS()
@@ -107,7 +109,15 @@ public:
     virtual void PossessedBy(AController* NewController) override;
     void InitAbilitySystem();
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+    void GASJump();
+    void GASStopJump();
 
+    void GAS_Space();
 
+    UPROPERTY()
+    TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
+    FGameplayTagContainer JumpAbilityTag;
+    FGameplayAbilitySpec JumpAbilitySpec;
  
 };

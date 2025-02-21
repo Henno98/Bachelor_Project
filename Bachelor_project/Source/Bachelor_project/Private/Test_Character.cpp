@@ -150,8 +150,8 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ATest_Character::GASJump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopJump);
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
@@ -185,7 +185,9 @@ void ATest_Character::InitAbilitySystem()
 	{
 		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
 		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
-
+		GA_Double_Jump = GASPlayerState->JumpAbility;
+		JumpAbilitySpec = FGameplayAbilitySpec(GA_Double_Jump);
+		AbilitySystemComponent->GiveAbility(JumpAbilitySpec);
 	}
 
 }
@@ -193,6 +195,44 @@ void ATest_Character::InitAbilitySystem()
 UAbilitySystemComponent* ATest_Character::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+void ATest_Character::GASJump()
+{
+	if (AbilitySystemComponent && GA_Double_Jump)
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Jumping ability"));
+
+
+		}
+		FGameplayTagContainer jumpGameTagContainer;
+		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+
+
+	}
+
+}
+
+void ATest_Character::GASStopJump()
+{
+	if (GetVelocity().Z > 0)
+	{
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Still jumping"));
+
+		AbilitySystemComponent->AbilityLocalInputReleased(JumpAbilitySpec.InputID);
+		//AbilitySystemComponent->CancelAllAbilities();
+		//AbilitySystemComponent->CancelAbility(GA_JumpAbility.GetDefaultObject());
+		//AbilitySystemComponent->CancelAbilityHandle(JumpAbilitySpec.Handle);
+	}
+
+}
+
+void ATest_Character::GAS_Space()
+{
 }
 
 void ATest_Character::RangedAttack()
