@@ -13,6 +13,8 @@
 
 EBTNodeResult::Type UBTTask_MoveToPlayer_SmallCharger::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+	Super::ExecuteTask(OwnerComp, NodeMemory);
+	
 	UBlackboardComponent* AI_smallcharger_BBC = Cast<UBlackboardComponent>(OwnerComp.GetBlackboardComponent());
 	if (!AI_smallcharger_BBC) return EBTNodeResult::Failed;
 
@@ -74,11 +76,12 @@ void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& O
 		}
 		else
 		{
-			AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", false);
+				AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", false);
 			UE_LOG(LogTemp, Warning, TEXT("Player moved away, stopping charge"));
+			
 		}
+		
 	}
-	
 }
 
 

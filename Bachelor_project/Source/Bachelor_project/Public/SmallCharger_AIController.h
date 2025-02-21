@@ -52,10 +52,11 @@ class BACHELOR_PROJECT_API ASmallCharger_AIController : public AAIController
 
 		FORCEINLINE FAIRequestID GetChargeRequestId() const { return ChargeRequestId; }
 
-		void ChargeToTarget(FVector NewTarget, float ArriveDistance);
+		void ChargeToTarget(FVector NewTarget, float ArriveDistance) {
+		};
 
 private:
-	static uint32 NextChargeRequestId;  // Incrementing ID for each charge request
+	 uint32 NextChargeRequestId;  // Incrementing ID for each charge request
 	FAIRequestID ChargeRequestId;
 
 	FORCEINLINE void StoreChargeRequestId() { ChargeRequestId = NextChargeRequestId++; }
