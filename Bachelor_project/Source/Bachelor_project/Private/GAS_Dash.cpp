@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+#include "GAS_Dash.h"
+
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTagsManager.h"
-#include "GAS_Dash.h"
 #include "Test_Character.h"
 #include "Components/CapsuleComponent.h"
 
@@ -28,7 +29,7 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 			FVector direction = Character->GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
 
 			// Disable collision temporarily
-			Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::Physics);
+			Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 
 			// Reduce ground friction
 			Character->GetCharacterMovement()->GroundFriction = 0.1f;
