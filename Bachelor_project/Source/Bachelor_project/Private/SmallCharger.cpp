@@ -32,3 +32,10 @@ void ASmallCharger::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 }
 
+void ASmallCharger::Destroy()
+{
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
+	
+}
+

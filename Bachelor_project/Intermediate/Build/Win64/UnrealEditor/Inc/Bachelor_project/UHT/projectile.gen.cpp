@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "Bachelor_project/Public/projectile.h"
+#include "Runtime/Engine/Classes/Engine/HitResult.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeprojectile() {}
 
@@ -14,8 +15,11 @@ BACHELOR_PROJECT_API UClass* Z_Construct_UClass_Aprojectile();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_Aprojectile_NoRegister();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
+ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
+ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
 UPackage* Z_Construct_UPackage__Script_Bachelor_project();
 // End Cross Module References
 
@@ -60,6 +64,87 @@ DEFINE_FUNCTION(Aprojectile::execDestroyActor)
 	P_NATIVE_END;
 }
 // End Class Aprojectile Function DestroyActor
+
+// Begin Class Aprojectile Function OnOverlap
+struct Z_Construct_UFunction_Aprojectile_OnOverlap_Statics
+{
+	struct projectile_eventOnOverlap_Parms
+	{
+		UPrimitiveComponent* OverlappedComponent;
+		AActor* OtherActor;
+		UPrimitiveComponent* OtherComponent;
+		int32 OtherBodyIndex;
+		bool bFromSweep;
+		FHitResult SweepResult;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/projectile.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SweepResult_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComponent;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+	static void NewProp_bFromSweep_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bFromSweep;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_SweepResult;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(projectile_eventOnOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlappedComponent_MetaData), NewProp_OverlappedComponent_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(projectile_eventOnOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OtherComponent = { "OtherComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(projectile_eventOnOverlap_Parms, OtherComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherComponent_MetaData), NewProp_OtherComponent_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(projectile_eventOnOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_bFromSweep_SetBit(void* Obj)
+{
+	((projectile_eventOnOverlap_Parms*)Obj)->bFromSweep = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_bFromSweep = { "bFromSweep", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(projectile_eventOnOverlap_Parms), &Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_bFromSweep_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_SweepResult = { "SweepResult", nullptr, (EPropertyFlags)0x0010008008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(projectile_eventOnOverlap_Parms, SweepResult), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SweepResult_MetaData), NewProp_SweepResult_MetaData) }; // 4100991306
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OverlappedComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OtherActor,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OtherComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_OtherBodyIndex,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_bFromSweep,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::NewProp_SweepResult,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Aprojectile, nullptr, "OnOverlap", nullptr, nullptr, Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::projectile_eventOnOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::projectile_eventOnOverlap_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_Aprojectile_OnOverlap()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Aprojectile_OnOverlap_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(Aprojectile::execOnOverlap)
+{
+	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+	P_GET_OBJECT(AActor,Z_Param_OtherActor);
+	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComponent);
+	P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+	P_GET_UBOOL(Z_Param_bFromSweep);
+	P_GET_STRUCT_REF(FHitResult,Z_Param_Out_SweepResult);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComponent,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
+	P_NATIVE_END;
+}
+// End Class Aprojectile Function OnOverlap
 
 // Begin Class Aprojectile Function SetPosition
 struct Z_Construct_UFunction_Aprojectile_SetPosition_Statics
@@ -151,6 +236,7 @@ void Aprojectile::StaticRegisterNativesAprojectile()
 	UClass* Class = Aprojectile::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "DestroyActor", &Aprojectile::execDestroyActor },
+		{ "OnOverlap", &Aprojectile::execOnOverlap },
 		{ "SetPosition", &Aprojectile::execSetPosition },
 		{ "Travel", &Aprojectile::execTravel },
 	};
@@ -205,6 +291,7 @@ struct Z_Construct_UClass_Aprojectile_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_Aprojectile_DestroyActor, "DestroyActor" }, // 3325200793
+		{ &Z_Construct_UFunction_Aprojectile_OnOverlap, "OnOverlap" }, // 3415405282
 		{ &Z_Construct_UFunction_Aprojectile_SetPosition, "SetPosition" }, // 2196613535
 		{ &Z_Construct_UFunction_Aprojectile_Travel, "Travel" }, // 350465836
 	};
@@ -269,10 +356,10 @@ Aprojectile::~Aprojectile() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_Aprojectile, Aprojectile::StaticClass, TEXT("Aprojectile"), &Z_Registration_Info_UClass_Aprojectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Aprojectile), 523371936U) },
+		{ Z_Construct_UClass_Aprojectile, Aprojectile::StaticClass, TEXT("Aprojectile"), &Z_Registration_Info_UClass_Aprojectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Aprojectile), 1496239372U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_1883782004(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_1608274801(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -18,7 +18,7 @@ class BACHELOR_PROJECT_API ATest_Enemy : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ATest_Enemy();
-
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -55,6 +55,7 @@ protected:
 	USphereComponent* Vision;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Subclass")
 	TSubclassOf<class Aprojectile> ProjectileClass;
+
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
@@ -66,5 +67,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	float Timer{ 0.f };
-
+	void Destroy();
+	UBoxComponent* GetCollision() { return Collider; }
 };

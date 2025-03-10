@@ -9,12 +9,19 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
 #ifdef BACHELOR_PROJECT_CrowBoss_generated_h
 #error "CrowBoss.generated.h already included, missing '#pragma once' in CrowBoss.h"
 #endif
 #define BACHELOR_PROJECT_CrowBoss_generated_h
 
 #define FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_CrowBoss_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execSetAttackTarget); \
+	DECLARE_FUNCTION(execGetAttackTarget); \
+	DECLARE_FUNCTION(execSetStamina); \
+	DECLARE_FUNCTION(execGetStamina); \
+	DECLARE_FUNCTION(execSetHealth); \
+	DECLARE_FUNCTION(execGetHealth); \
 	DECLARE_FUNCTION(execDeath); \
 	DECLARE_FUNCTION(execCollision); \
 	DECLARE_FUNCTION(execSpecialAttack); \

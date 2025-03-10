@@ -23,16 +23,11 @@ ATest_Character::ATest_Character()
 	PrimaryActorTick.bCanEverTick = true;
 
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-
-	
-
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
 	//GetCharacterMovement()->bOrientRotationToMovement = false;
 	//GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
-
 	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 
 
@@ -294,19 +289,22 @@ void ATest_Character::RangedAttack()
 	FVector SpawnLocation = GetActorLocation() + (GetActorForwardVector().GetSafeNormal() * 50);
 	FVector FiringDirection = GetActorForwardVector().GetSafeNormal();
 	FRotator SpawnRotation = GetActorRotation();
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
 
 	// Spawn the projectile
 	UWorld* World = GetWorld();
 	if (World)
 	{
-		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(RangedAttackClass, SpawnLocation, SpawnRotation);
+		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(RangedAttackClass, SpawnLocation, SpawnRotation, SpawnParams);
 		if (SpawnedProjectile)
 		{
-			GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan, TEXT("Spawned projectile"));
+			//GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan, TEXT("Spawned projectile"));
 			// Calculate the direction vector
 			//FVector Direction = SpawnLocation.GetSafeNormal();
 			SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-		
+			SpawnedProjectile->lifetime = 2.f;
+			SpawnedProjectile->Owner = this;
 		}
 	}
 

@@ -92,14 +92,16 @@ void ATest_Enemy::Attack(FVector location)
 	UWorld* World = GetWorld();
 	if (World)
 	{
-		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
 		if (SpawnedProjectile)
 		{
 			GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan,TEXT("Spawned projectile"));
 			// Calculate the direction vector
 			FVector Direction = (location - SpawnLocation).GetSafeNormal();
 			SpawnedProjectile->Velocity = Direction * 200.f;
-			
+			SpawnedProjectile->Owner = this;
 		}
 	}
 }
@@ -136,6 +138,13 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 		}
 	}
 	}
+
+void ATest_Enemy::Destroy()
+{
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
+	SetActorLocation(FVector(0));
+}
 
 void ATest_Enemy::OnOverlapEnd()
 {

@@ -19,13 +19,15 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UPROPERTY()
-	float Health;
+	int Health;
 	UPROPERTY()
 	float MovementSpeed;
 	UPROPERTY()
 	float AttackDamage;
 	UPROPERTY()
 	float Stamina;
+	UPROPERTY()
+	AActor* Target;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -42,5 +44,24 @@ public:
 	void Collision();
 	UFUNCTION()
 	void Death();
+
+
+	//Getters and setters
+	//Health
+	UFUNCTION()
+	int GetHealth(){return Health;}
+	UFUNCTION()
+	void SetHealth(int newHealth){Health = newHealth;}
+	//Stamina
+	UFUNCTION()
+	float GetStamina() { return Stamina; }
+	UFUNCTION()
+	void SetStamina(float newstamina) { Stamina = newstamina;}
+	//AttackTarget
+	UFUNCTION()
+	AActor* GetAttackTarget() { return Target; }
+	UFUNCTION()
+	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
+	
 
 };

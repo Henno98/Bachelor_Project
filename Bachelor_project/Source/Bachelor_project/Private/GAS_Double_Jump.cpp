@@ -43,12 +43,14 @@ void UGAS_Double_Jump::CancelAbility(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
 	bool bReplicateCancelAbility)
 {
+	
 	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
 	ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 	if (Character)
 	{
 		Character->StopJumping();
 	}
+	else return;
 
 	// Call EndAbility to finish the ability
 	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
