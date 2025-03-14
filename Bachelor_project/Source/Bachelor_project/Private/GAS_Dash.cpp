@@ -21,35 +21,39 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 	const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+
 	if (HasAuthorityOrPredictionKey(ActorInfo, &ActivationInfo))
 	{
-		ATest_Character* Character = CastChecked<ATest_Character>(ActorInfo->AvatarActor.Get());
-		if (Character && Character->GetCharacterMovement())
+		ATest_Character* Character = Cast<ATest_Character>(ActorInfo->AvatarActor.Get());
+		if (!Character || !Character->GetCharacterMovement())
 		{
-			FVector direction = Character->GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
+			EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
+			return;
+		}
 
-			// Disable collision temporarily
-			Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		// Get movement direction
+		FVector Direction = Character->GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
+		
 
-			// Reduce ground friction
-			Character->GetCharacterMovement()->GroundFriction = 0.1f;
+		// Temporarily disable collision
+		Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 
-			// Apply dash impulse
-			Character->LaunchCharacter(FVector(0, 1600.f * direction.Y, 0), false, false);
+		// Reduce friction to allow smooth dashing
+		Character->GetCharacterMovement()->GroundFriction = 0.1f;
 
-			// Reset friction after delay
-			FTimerHandle TimerHandle;
-			Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, [Character]()
+		// Apply dash force
+		Character->LaunchCharacter(FVector(0,Direction.Y * 1600.f,0), true, true);
+
+		// Reset friction and restore collision after delay
+		FTimerHandle TimerHandle;
+		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([Character]()
+			{
+				if (Character && Character->GetCharacterMovement())
 				{
 					Character->GetCharacterMovement()->GroundFriction = 8.0f; // Restore default friction
 					Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-				}, 0.5f, false);
-
-		}
-		else
-		{
-			EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
-		}
+				}
+			}), 1.f, false);
 	}
 }
 

@@ -15,6 +15,7 @@
 #include <Power_DoubleJump.h>
 
 #include "GAS_PlayerState.h"
+#include "Tools/UEdMode.h"
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -82,6 +83,12 @@ void ATest_Character::SaveGame()
 		SaveGameInstance->bHasDoubleJumpPowerUp = DoubleJumpPowerUp != nullptr;  // Save if the power-up is assigned
 		SaveGameInstance->bHasWallLatchPowerUp = WallLatchPowerUp != nullptr;  // Save if the power-up is assigned
 		SaveGameInstance->SavedWorld = GetWorld();
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATest_Enemy::StaticClass(), SaveGameInstance->Enemies);
+		for (int i = 0; i < SaveGameInstance->Enemies.Num(); i++)
+		{
+			SaveGameInstance->enemylocation.Add(SaveGameInstance->Enemies[i]->GetActorLocation());
+			SaveGameInstance->EnemyRotation.Add(SaveGameInstance->Enemies[i]->GetActorRotation());
+		}
 		// Save the data immediately.
 		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
 		{
@@ -96,7 +103,16 @@ void ATest_Character::LoadGame()
 	if(USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
 	{
 		SaveGameInstance = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot("Slot 1", 0));
+		TArray<AActor*> enemies;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATest_Enemy::StaticClass(), enemies);
+		for (int i = 0; i< enemies.Num();i++)
+		{
+			enemies[i]->SetActorLocation(SaveGameInstance->enemylocation[i]);
+		
+			enemies[i]->SetActorRotation(  SaveGameInstance->EnemyRotation[i]);
+			
 
+		}
 		this->SetActorLocation(SaveGameInstance->PlayerLocation);
 		// Reinitialize power-ups based on saved state
 		if (SaveGameInstance->bHasDoubleJumpPowerUp)
@@ -308,7 +324,7 @@ void ATest_Character::RangedAttack()
 			// Calculate the direction vector
 			//FVector Direction = SpawnLocation.GetSafeNormal();
 			SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-			SpawnedProjectile->lifetime = 1.f;
+			SpawnedProjectile->lifetime = 0.3f;
 			SpawnedProjectile->Owner = this;
 		}
 	}
@@ -369,7 +385,9 @@ void ATest_Character::WallLatch(const FInputActionValue& Value)
 		}
 		else
 		{
+			
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Wall Latch PowerUp not assigned!"));
+
 		}
 	}
 	else

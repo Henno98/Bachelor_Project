@@ -13,6 +13,7 @@ void EmptyLinkFunctionForGeneratedCodeSaveState() {}
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_USaveState();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_USaveState_NoRegister();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
+ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USaveGame();
 ENGINE_API UClass* Z_Construct_UClass_UWorld_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Bachelor_project();
@@ -62,6 +63,9 @@ struct Z_Construct_UClass_USaveState_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SavedWorld_MetaData[] = {
 		{ "ModuleRelativePath", "Public/SaveState.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Enemies_MetaData[] = {
+		{ "ModuleRelativePath", "Public/SaveState.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStrPropertyParams NewProp_PlayerName;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_SaveSlotName;
@@ -72,6 +76,8 @@ struct Z_Construct_UClass_USaveState_Statics
 	static void NewProp_bHasWallLatchPowerUp_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bHasWallLatchPowerUp;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SavedWorld;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Enemies_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_Enemies;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -94,6 +100,8 @@ void Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp_SetBit(
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp = { "bHasWallLatchPowerUp", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(USaveState), &Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bHasWallLatchPowerUp_MetaData), NewProp_bHasWallLatchPowerUp_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_SavedWorld = { "SavedWorld", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, SavedWorld), Z_Construct_UClass_UWorld_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedWorld_MetaData), NewProp_SavedWorld_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_Enemies_Inner = { "Enemies", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USaveState_Statics::NewProp_Enemies = { "Enemies", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USaveState, Enemies), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Enemies_MetaData), NewProp_Enemies_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USaveState_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_PlayerName,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_SaveSlotName,
@@ -102,6 +110,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USaveStat
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_bHasDoubleJumpPowerUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_bHasWallLatchPowerUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_SavedWorld,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_Enemies_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USaveState_Statics::NewProp_Enemies,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_USaveState_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_USaveState_Statics::DependentSingletons[])() = {
@@ -144,10 +154,10 @@ USaveState::~USaveState() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USaveState, USaveState::StaticClass, TEXT("USaveState"), &Z_Registration_Info_UClass_USaveState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USaveState), 1223445571U) },
+		{ Z_Construct_UClass_USaveState, USaveState::StaticClass, TEXT("USaveState"), &Z_Registration_Info_UClass_USaveState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USaveState), 510214319U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_571385131(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_3413120777(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_SaveState_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

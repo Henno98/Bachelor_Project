@@ -59,10 +59,10 @@ void Aprojectile::DestroyActor(float DeltaTime)
 {
 	
 	Timer += DeltaTime;
-	if (Timer > 5.f) {
+	if (Timer > lifetime) {
 		SetActorHiddenInGame(true);
 		SetActorEnableCollision(false);
-		Destroy();
+		
 		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Destroyed projectile", true);
 	}
 	
@@ -72,34 +72,35 @@ void Aprojectile::DestroyActor(float DeltaTime)
 void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	
-	if (OtherActor->IsA<ASmallCharger>())
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
 
-		if (OtherActor != GetOwner()) {
-			ASmallCharger* charger = Cast<ASmallCharger>(OtherActor);
-			charger->Destroy();
-			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Orange, TEXT("Hit Charger"));
-		}
-	}
-	 if (OtherActor->IsA<ATest_Character>())
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test character"));
-		if (OtherActor != GetOwner()) {
-			ATest_Character* player = Cast<ATest_Character>(OtherActor);
-			player->LaunchCharacter(player->GetActorForwardVector().GetSafeNormal() * -100.f, false, false);
-			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Player"));
-		}
-	}
-	 if (OtherActor->IsA<ATest_Enemy>())
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test_Enemy"));
+	if (OtherActor != GetOwner()) {
+		if (OtherActor->IsA<ASmallCharger>())
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
 
-		if (OtherActor != GetOwner()) {
-			ATest_Enemy* enemy = Cast<ATest_Enemy>(OtherActor);
-			enemy->Destroy();
-			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Enemy"));
+				ASmallCharger* charger = Cast<ASmallCharger>(OtherActor);
+				charger->Destroy();
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Orange, TEXT("Hit Charger"));
+			
+		}
+		if (OtherActor->IsA<ATest_Character>())
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test character"));
+			
+				ATest_Character* player = Cast<ATest_Character>(OtherActor);
+				player->LaunchCharacter(player->GetActorForwardVector().GetSafeNormal() * -100.f, false, false);
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Player"));
+			
+		}
+		if (OtherActor->IsA<ATest_Enemy>())
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test_Enemy"));
+
+			
+				ATest_Enemy* enemy = Cast<ATest_Enemy>(OtherActor);
+				enemy->Destroy();
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Enemy"));
+			
 		}
 	}
 }
