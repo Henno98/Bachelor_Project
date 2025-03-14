@@ -63,7 +63,7 @@ void Aprojectile::DestroyActor(float DeltaTime)
 		SetActorHiddenInGame(true);
 		SetActorEnableCollision(false);
 		Destroy();
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Destroyed projectile", true);
+		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Destroyed projectile", true);
 	}
 	
 
@@ -75,31 +75,31 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	
 	if (OtherActor->IsA<ASmallCharger>())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
 
 		if (OtherActor != GetOwner()) {
 			ASmallCharger* charger = Cast<ASmallCharger>(OtherActor);
 			charger->Destroy();
-			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Orange, TEXT("Hit Charger"));
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Orange, TEXT("Hit Charger"));
 		}
 	}
 	 if (OtherActor->IsA<ATest_Character>())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test character"));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test character"));
 		if (OtherActor != GetOwner()) {
 			ATest_Character* player = Cast<ATest_Character>(OtherActor);
 			player->LaunchCharacter(player->GetActorForwardVector().GetSafeNormal() * -100.f, false, false);
-			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Player"));
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Player"));
 		}
 	}
 	 if (OtherActor->IsA<ATest_Enemy>())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test_Enemy"));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test_Enemy"));
 
 		if (OtherActor != GetOwner()) {
 			ATest_Enemy* enemy = Cast<ATest_Enemy>(OtherActor);
 			enemy->Destroy();
-			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Enemy"));
+			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Enemy"));
 		}
 	}
 }

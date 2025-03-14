@@ -64,7 +64,12 @@ void ATest_Character::BeginPlay()
 
 	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
 	WallLatchPowerUp = NewObject<UPower_WallLatch>();
-	
+
+	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press E to use RANGED ATTACK"));
+	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press SPACE to use jump and double jump"));
+	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press CTRL to use wall latch"));
+	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press SHIFT to Dash"));
+
 
 }
 void ATest_Character::SaveGame()
@@ -303,7 +308,7 @@ void ATest_Character::RangedAttack()
 			// Calculate the direction vector
 			//FVector Direction = SpawnLocation.GetSafeNormal();
 			SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-			SpawnedProjectile->lifetime = 2.f;
+			SpawnedProjectile->lifetime = 1.f;
 			SpawnedProjectile->Owner = this;
 		}
 	}
