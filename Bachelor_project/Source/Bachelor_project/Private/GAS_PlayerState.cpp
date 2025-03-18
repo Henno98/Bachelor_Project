@@ -10,6 +10,7 @@ AGAS_PlayerState::AGAS_PlayerState()
 	JumpAbility = UGAS_Double_Jump::StaticClass();
 	WallLatchAbility = UGAS_Wall_Latch::StaticClass();
 	DashAbility = UGAS_Dash::StaticClass();
+	RangedAttack = UGAS_Ranged_Attack::StaticClass();
 }
 
 UAbilitySystemComponent* AGAS_PlayerState::GetAbilitySystemComponent() const

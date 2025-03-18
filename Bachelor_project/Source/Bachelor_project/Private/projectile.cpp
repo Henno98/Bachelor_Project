@@ -88,7 +88,8 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a test character"));
 			
 				ATest_Character* player = Cast<ATest_Character>(OtherActor);
-				player->LaunchCharacter(player->GetActorForwardVector().GetSafeNormal() * -100.f, false, false);
+				player->Dead();
+				//player->LaunchCharacter(player->GetActorForwardVector().GetSafeNormal() * -100.f, false, false);
 				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, TEXT("Hit Player"));
 			
 		}

@@ -30,11 +30,11 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 			EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 			return;
 		}
-
-		// Get movement direction
-		FVector Direction = Character->GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
 		
-
+		// Get movement direction
+		FVector Direction = Character->GetCharacterMovement()->GetForwardVector().GetSafeNormal();
+		Character->PauseInput();
+		
 		// Temporarily disable collision
 		Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 
@@ -42,18 +42,23 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 		Character->GetCharacterMovement()->GroundFriction = 0.1f;
 
 		// Apply dash force
-		Character->LaunchCharacter(FVector(0,Direction.Y * 1600.f,0), true, true);
+		Character->LaunchCharacter(FVector(0,Direction.Y * 2000.f,0), false, false);
 
 		// Reset friction and restore collision after delay
 		FTimerHandle TimerHandle;
 		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([Character]()
 			{
+
 				if (Character && Character->GetCharacterMovement())
 				{
 					Character->GetCharacterMovement()->GroundFriction = 8.0f; // Restore default friction
 					Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+					Character->ReEnableInput();
+				
+					
 				}
-			}), 1.f, false);
+
+			}), 0.5f, false);
 	}
 }
 

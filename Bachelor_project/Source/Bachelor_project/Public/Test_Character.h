@@ -14,8 +14,12 @@
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
 #include "GAS_Double_Jump.h"
+#include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
 #include "Test_Character.generated.h"
+
+class UInputAction;
+class UInputMappingContext;
 
 UCLASS()
 class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface
@@ -28,12 +32,12 @@ public:
 protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputMappingContext* DefaultMappingContext;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-        class UInputMappingContext* DefaultMappingContext;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-        class UInputAction* MoveAction;
+	UInputAction* MoveAction;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* JumpAction;
@@ -51,6 +55,8 @@ protected:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Input")
     UInputAction* RangedAttackInput;
 
+
+    //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
      UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Hurtbox")
@@ -63,25 +69,25 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PowerUps")
     UPowerUpController* DoubleJumpPowerUp;
 
-    UPROPERTY()
-    class UPowerUpController* WallLatchPowerUp;
+    //UPROPERTY()
+    //class UPowerUpController* WallLatchPowerUp;
 
    UPROPERTY()
     bool bHasDoubleJumpPowerUp;
-    UPROPERTY()
-    bool bHasWallLatchPowerUp;
+   /* UPROPERTY()
+    bool bHasWallLatchPowerUp;*/
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Projectile class")
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
 
-    void RangedAttack();
+   /* void RangedAttack();*/
     void Move(const FInputActionValue& Value);
-    void Jump();
+    //void Jump();
     void DoubleJump(const FInputActionValue& Value);
-    void WallLatch(const FInputActionValue& Value);
-    void Dash();
+  //  void WallLatch(const FInputActionValue& Value);
+   // void Dash();
     void MeleeAttack(const FInputActionValue& Value);
-    bool bIsDashing{false};
+    bool bIsDashing{ false };
     bool bHasDoubleJumped{ false };
     bool Attack1{false};
     bool Attack2{false};
@@ -93,8 +99,6 @@ protected:
     void SaveGame();
     UFUNCTION()
     void LoadGame();
-
-public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
@@ -107,7 +111,10 @@ protected:
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 public:
+   
+    void Dead();
     virtual void PossessedBy(AController* NewController) override;
+
     void InitAbilitySystem();
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
     void GASJump();
@@ -116,7 +123,10 @@ public:
     void GASWallLatch();
     void GASStopWallLatch();
     void GAS_Space();
+    void GAS_RangedAttack();
 
+    void ReEnableInput();
+    void PauseInput();
     UPROPERTY()
     TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
@@ -135,4 +145,9 @@ public:
     FGameplayTagContainer DashAbilityTag;
     FGameplayAbilitySpec DashAbilitySpec;
 
+    UPROPERTY()
+    TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
+    FGameplayTagContainer RangedAttackAbilityTag;
+    FGameplayAbilitySpec RangedAttackAbilitySpec;
 };

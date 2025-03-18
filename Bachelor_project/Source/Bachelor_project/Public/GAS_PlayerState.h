@@ -8,6 +8,7 @@
 #include "AbilitySystemInterface.h"
 #include "GAS_Dash.h"
 #include "GAS_Double_Jump.h"
+#include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
 
 #include "GAS_PlayerState.generated.h"
@@ -35,5 +36,7 @@ public:
 	TSubclassOf<UGAS_Wall_Latch> WallLatchAbility;
 	UPROPERTY()
 	TSubclassOf<UGAS_Dash> DashAbility;
+	UPROPERTY()
+	TSubclassOf<UGAS_Ranged_Attack> RangedAttack;
 
 };
