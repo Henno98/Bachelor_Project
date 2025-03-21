@@ -10,17 +10,17 @@
                         "text": "'UPawnSensingComponent': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                     },
                     "locations": [
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 17,
-                                    "startColumn": 59
+                                    "startLine": 19,
+                                    "startColumn": 60
                                 }
                             }
                         }
@@ -32,17 +32,17 @@
                         "text": "'UPawnSensingComponent::OnSeePawn': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                     },
                     "locations": [
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 33,
-                                    "startColumn": 34
+                                    "startLine": 46,
+                                    "startColumn": 35
                                 }
                             }
                         }
@@ -54,17 +54,17 @@
                         "text": "'UPawnSensingComponent::SightRadius': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                     },
                     "locations": [
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 47,
-                                    "startColumn": 66
+                                    "startLine": 59,
+                                    "startColumn": 110
                                 }
                             }
                         }
@@ -76,7 +76,7 @@
                         "text": "'UPawnSensingComponent': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                     },
                     "locations": [
                         {
@@ -111,11 +111,11 @@
                             "id": 1,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 17,
-                                    "startColumn": 36
+                                    "startLine": 19,
+                                    "startColumn": 37
                                 }
                             },
                             "message": {
@@ -133,7 +133,7 @@
                         "text": "'UPawnSensingComponent::StaticClass': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
+                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/SmallCharger_AIController.cpp"
                     },
                     "locations": [
                         {

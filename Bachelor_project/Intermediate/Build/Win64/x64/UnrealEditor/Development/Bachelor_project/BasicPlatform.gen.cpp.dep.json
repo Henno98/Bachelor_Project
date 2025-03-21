@@ -1,13 +1,13 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\basicplatform.gen.cpp",
+        "Source": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\basicplatform.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_4.h.pch",
+        "PCH": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_4.h.pch",
         "Includes": [
-            "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
-            "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\basicplatform.h",
-            "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\basicplatform.generated.h"
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\basicplatform.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\basicplatform.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

@@ -46,6 +46,12 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_Movement_SmallCharger.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -86,6 +92,12 @@
       <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle_AIController.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_Movement_SmallCharger.h">

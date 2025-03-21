@@ -12,10 +12,17 @@
  * 
  */
 UCLASS()
-class BACHELOR_PROJECT_API UBTTask_MoveToPlayer_SmallCharger : public UBTTask_MoveTo
+class BACHELOR_PROJECT_API UBTTask_MoveToPlayer_SmallCharger : public UBTTaskNode
 {
 	GENERATED_BODY()
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	void OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result);
-	virtual void OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult) override;
+	//virtual void OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult) override;
 };
+
+
+
+
+
+
+

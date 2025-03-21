@@ -1,5 +1,40 @@
 {
 	"RemapUnityFiles": 
 	{
+		"Module.Bachelor_project.cpp.obj": [
+			"PerModuleInline.gen.cpp.obj",
+			"Bachelor_project.cpp.obj",
+			"BasicPlatform.cpp.obj",
+			"PowerUpController.cpp.obj",
+			"Power_DoubleJump.cpp.obj",
+			"Power_WallLatch.cpp.obj",
+			"projectile.cpp.obj",
+			"SmallCharger.cpp.obj",
+			"Test_Character.cpp.obj",
+			"Test_Enemy.cpp.obj",
+			"Wandering_Target_Point.cpp.obj",
+			"Bachelor_project.init.gen.cpp.obj",
+			"BasicPlatform.gen.cpp.obj",
+			"Beetle.gen.cpp.obj",
+			"Beetle_AIController.gen.cpp.obj",
+			"BTTask_Movement_SmallCharger.gen.cpp.obj",
+			"BTTask_MoveToPlayer_SmallCharger.gen.cpp.obj",
+			"PowerUpController.gen.cpp.obj",
+			"Power_DoubleJump.gen.cpp.obj",
+			"Power_WallLatch.gen.cpp.obj",
+			"projectile.gen.cpp.obj",
+			"SmallCharger.gen.cpp.obj",
+			"SmallCharger_AIController.gen.cpp.obj",
+			"SmallCharger_BTService.gen.cpp.obj",
+			"Test_Character.gen.cpp.obj",
+			"Test_Enemy.gen.cpp.obj",
+			"Wandering_Target_Point.gen.cpp.obj",
+			"Beetle.cpp.obj",
+			"Beetle_AIController.cpp.obj",
+			"BTTask_Movement_SmallCharger.cpp.obj",
+			"BTTask_MoveToPlayer_SmallCharger.cpp.obj",
+			"SmallCharger_AIController.cpp.obj",
+			"SmallCharger_BTService.cpp.obj"
+		]
 	}
 }

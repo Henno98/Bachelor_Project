@@ -5,84 +5,105 @@
 #include "SmallCharger_AIController.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetStringLibrary.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeComponent.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BlackboardComponent.h"
 
 
-
-
 EBTNodeResult::Type UBTTask_MoveToPlayer_SmallCharger::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	Super::ExecuteTask(OwnerComp, NodeMemory);
-	
-	UBlackboardComponent* AI_smallcharger_BBC = Cast<UBlackboardComponent>(OwnerComp.GetBlackboardComponent());
-	if (!AI_smallcharger_BBC) return EBTNodeResult::Failed;
-
-	ASmallCharger_AIController* AI_smallcharger_controller = Cast<ASmallCharger_AIController>(OwnerComp.GetAIOwner());
-	if (!AI_smallcharger_controller) return EBTNodeResult::Failed;
-	
-
-
-	FVector LastSeenLocation = AI_smallcharger_BBC->GetValueAsVector("LastSeenLocation");
-	FVector AI_Location = AI_smallcharger_controller->GetPawn()->GetActorLocation();
-
-	// Ignore the Z-axis and only move on X and Y
-	FVector ChargeDirection = (FVector(LastSeenLocation.X, LastSeenLocation.Y, AI_Location.Z) - AI_Location).GetSafeNormal();
-	FVector ChargeTargetLocation = FVector(LastSeenLocation.X, LastSeenLocation.Y, AI_Location.Z) + (ChargeDirection * 600.0f);
-
-
-	// Move AI to extended charge location
-	AI_smallcharger_controller->MoveToLocation(ChargeTargetLocation, 5.0f, true, true, false, true, 0, true);
-
-	
-	ACharacter* AICharacter = Cast<ACharacter>(AI_smallcharger_controller->GetPawn());
-	if (AICharacter)
+	EBTNodeResult::Type result = EBTNodeResult::Failed;
+	UBlackboardComponent* BB = OwnerComp.GetBlackboardComponent();
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Seen Player");
+	if (AActor* player = Cast<AActor>(BB->GetValueAsObject("Player")))
 	{
-		AICharacter->GetCharacterMovement()->MaxWalkSpeed = 1200.0f;
-	}
+		FVector Direction = (player->GetActorLocation() - OwnerComp.GetOwner()->GetActorLocation()).GetSafeNormal();
 
-	return EBTNodeResult::InProgress;
+		float OvershootDistance = 200.f;
+		FVector TargetLocation = player->GetActorLocation() + Direction * OvershootDistance;
+
+		TargetLocation.Z = OwnerComp.GetOwner()->GetActorLocation().Z;
+		BB->SetValueAsVector("TargetLocation", FVector(TargetLocation.X, TargetLocation.Y, OwnerComp.GetOwner()->GetActorLocation().Z));
+		FString Message = UKismetStringLibrary::Conv_VectorToString(FVector(TargetLocation.X, TargetLocation.Y, OwnerComp.GetOwner()->GetActorLocation().Z));
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, Message);
+		result = EBTNodeResult::Succeeded;
+	}
+	return result;
 }
 
 
-void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)
-{
-	Super::OnTaskFinished(OwnerComp, NodeMemory, TaskResult);
-
-	ASmallCharger_AIController* AI_smallcharger_controller = Cast<ASmallCharger_AIController>(OwnerComp.GetAIOwner());
-	UBlackboardComponent* AI_smallcharger_BBC = Cast<UBlackboardComponent>(OwnerComp.GetBlackboardComponent());
-
-	if (!AI_smallcharger_controller || !AI_smallcharger_BBC) return;
-
-	// Reset speed to normal
-	ACharacter* AICharacter = Cast<ACharacter>(AI_smallcharger_controller->GetPawn());
-	if (AICharacter)
-	{
-		AICharacter->GetCharacterMovement()->MaxWalkSpeed = 300.0f; // Normal speed
-	}
-
-	// Check if the player is still nearby
-	AActor* PlayerPawn = Cast<AActor>(AI_smallcharger_BBC->GetValueAsObject("Player"));
-
-	if (AICharacter && PlayerPawn)
-	{
-		float DistanceToPlayer = FVector::Distance(AICharacter->GetActorLocation(), PlayerPawn->GetActorLocation());
-
-		if (DistanceToPlayer < 600.0f)
-		{
-			AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", true);
-			UE_LOG(LogTemp, Warning, TEXT("Player is still close, recharging"));
-			
-		}
-		else
-		{
-				AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", false);
-			UE_LOG(LogTemp, Warning, TEXT("Player moved away, stopping charge"));
-			
-		}
-		
-	}
-}
+//EBTNodeResult::Type UBTTask_MoveToPlayer_SmallCharger::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+//{
+//	Super::ExecuteTask(OwnerComp, NodeMemory);
+//	
+//	UBlackboardComponent* AI_smallcharger_BBC = Cast<UBlackboardComponent>(OwnerComp.GetBlackboardComponent());
+//	if (!AI_smallcharger_BBC) return EBTNodeResult::Failed;
+//
+//	ASmallCharger_AIController* AI_smallcharger_controller = Cast<ASmallCharger_AIController>(OwnerComp.GetAIOwner());
+//	if (!AI_smallcharger_controller) return EBTNodeResult::Failed;
+//	
+//
+//
+//	FVector LastSeenLocation = AI_smallcharger_BBC->GetValueAsVector("LastSeenLocation");
+//	FVector AI_Location = AI_smallcharger_controller->GetPawn()->GetActorLocation();
+//
+//	// Ignore the Z-axis and only move on X and Y
+//	FVector ChargeDirection = (FVector(LastSeenLocation.X, LastSeenLocation.Y, AI_Location.Z) - AI_Location).GetSafeNormal();
+//	FVector ChargeTargetLocation = FVector(LastSeenLocation.X, LastSeenLocation.Y, AI_Location.Z) + (ChargeDirection * 600.0f);
+//
+//
+//	// Move AI to extended charge location
+//	AI_smallcharger_controller->MoveToLocation(ChargeTargetLocation, 5.0f, true, true, false, true, 0, true);
+//
+//	
+//	ACharacter* AICharacter = Cast<ACharacter>(AI_smallcharger_controller->GetPawn());
+//	if (AICharacter)
+//	{
+//		AICharacter->GetCharacterMovement()->MaxWalkSpeed = 1200.0f;
+//	}
+//
+//	return EBTNodeResult::InProgress;
+//}
+//
+//
+//void UBTTask_MoveToPlayer_SmallCharger::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult)
+//{
+//	Super::OnTaskFinished(OwnerComp, NodeMemory, TaskResult);
+//
+//	ASmallCharger_AIController* AI_smallcharger_controller = Cast<ASmallCharger_AIController>(OwnerComp.GetAIOwner());
+//	UBlackboardComponent* AI_smallcharger_BBC = Cast<UBlackboardComponent>(OwnerComp.GetBlackboardComponent());
+//
+//	if (!AI_smallcharger_controller || !AI_smallcharger_BBC) return;
+//
+//	// Reset speed to normal
+//	ACharacter* AICharacter = Cast<ACharacter>(AI_smallcharger_controller->GetPawn());
+//	if (AICharacter)
+//	{
+//		AICharacter->GetCharacterMovement()->MaxWalkSpeed = 300.0f; // Normal speed
+//	}
+//
+//	// Check if the player is still nearby
+//	AActor* PlayerPawn = Cast<AActor>(AI_smallcharger_BBC->GetValueAsObject("Player"));
+//
+//	if (AICharacter && PlayerPawn)
+//	{
+//		float DistanceToPlayer = FVector::Distance(AICharacter->GetActorLocation(), PlayerPawn->GetActorLocation());
+//
+//		if (DistanceToPlayer < 600.0f)
+//		{
+//			AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", true);
+//			UE_LOG(LogTemp, Warning, TEXT("Player is still close, recharging"));
+//			
+//		}
+//		else
+//		{
+//				AI_smallcharger_BBC->SetValueAsBool("SeenPlayer", false);
+//			UE_LOG(LogTemp, Warning, TEXT("Player moved away, stopping charge"));
+//			
+//		}
+//		
+//	}
+//}
 
 
 
