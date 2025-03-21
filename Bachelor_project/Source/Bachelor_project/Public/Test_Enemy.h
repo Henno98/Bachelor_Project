@@ -20,13 +20,18 @@ public:
 	ATest_Enemy();
 	
 protected:
+
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	void Walk(float deltatime);
-	
 	void Look();
 	void Attack(FVector location);
+	
+
 	bool bHasSpawnedProjectile = false;
+
+
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
 	float LookDistance{300.f};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
@@ -42,12 +47,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	bool bHasAttacked;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+
 	FVector Position;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	FVector SpawnLocation;
+
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StaticMesh")
 	UStaticMeshComponent* StaticMesh;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collider")
 	UBoxComponent* Collider;
 
@@ -63,10 +71,23 @@ protected:
 	UFUNCTION()
 	void OnOverlapEnd();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int Health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int Damage;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	float Timer{ 0.f };
 	void Destroy();
 	UBoxComponent* GetCollision() { return Collider; }
+	void OnHit(int Damage);
+	int GetHealth() { return Health; }
+	void SetHealth(int newhealth)
+	{
+		Health = newhealth;
+	}
+	int GetDamage() { return Damage; }
 };

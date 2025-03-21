@@ -53,6 +53,10 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 				ASC->ApplyGameplayEffectSpecToSelf(*CooldownSpecHandle.Data.Get());
 			}
 		}
+		Character->PauseInput();
+		Character->GetCharacterMovement()->StopMovementImmediately();
+		Character->GetCharacterMovement()->Velocity = FVector::ZeroVector;
+		Character->GetCharacterMovement()->GravityScale = 0.1f;
 
 		FVector SpawnLocation = Character->GetActorLocation() + (Character->GetActorForwardVector().GetSafeNormal() * 50);
 		FVector FiringDirection = Character->GetActorForwardVector().GetSafeNormal();
@@ -71,11 +75,25 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 			{
 				
 				SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-				SpawnedProjectile->lifetime = 0.3f;
+				SpawnedProjectile->lifetime = 0.8f;
 				SpawnedProjectile->Owner = Character;
 			}
 		}
-		
+		FTimerHandle TimerHandle;
+		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([Character]()
+			{
+
+				if (Character && Character->GetCharacterMovement())
+				{
+					
+					Character->ReEnableInput();
+				
+					Character->GetCharacterMovement()->GravityScale = 4.5;
+
+
+				}
+
+			}), 0.2f, false);
 	}
 }
 

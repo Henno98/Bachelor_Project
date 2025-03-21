@@ -30,7 +30,8 @@ void ATest_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
 	Position = GetActorLocation();
-
+	Health = 6;
+	Damage = 1;
 }
 
 void ATest_Enemy::Walk(float deltatime)
@@ -106,6 +107,7 @@ void ATest_Enemy::Attack(FVector location)
 	}
 }
 
+
 void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor->IsA<ATest_Character>() && OverlappedComponent->IsA<USphereComponent>())
@@ -146,6 +148,11 @@ void ATest_Enemy::Destroy()
 	SetActorLocation(FVector(0));
 }
 
+void ATest_Enemy::OnHit(int damage)
+{
+	Health -= damage;
+}
+
 void ATest_Enemy::OnOverlapEnd()
 {
 	bHasSpawnedProjectile = false;
@@ -156,5 +163,10 @@ void ATest_Enemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Walk(DeltaTime);
+	if (Health <= 0)
+	{
+
+		Destroy();
+	}
 }
 

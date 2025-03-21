@@ -47,12 +47,21 @@ ATest_Character::ATest_Character()
 	HurtVisibility = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HurtVisibility"));
 	HurtVisibility->SetupAttachment(HurtBox);
 	HurtVisibility->SetWorldScale3D(FVector(0.1f));
+
+	
+	Health = 10;
+	RangedDamage = 5;
+	MeleeDamage = 1;
+	BioMass = 0;
+	
 }
 // Called when the game starts or when spawned
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
+
+	
 
 	SaveGame();
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
@@ -124,10 +133,18 @@ void ATest_Character::LoadGame()
 void ATest_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (BioMass < 500) {
+		BioMass += 1;
+	}
+	GEngine->AddOnScreenDebugMessage(1, 0.2f, FColor::Green, FString::Printf(TEXT("Biomass: %d"), BioMass), true);
 
-	
-	
-	if (DoubleJumpPowerUp && !GetCharacterMovement()->IsFalling())
+	if (Health <= 0)
+	{
+		Dead();
+	}
+	GEngine->AddOnScreenDebugMessage(0, 0.2f, FColor::Green, FString::Printf(TEXT("Health: %d"), Health), true);
+
+		if (DoubleJumpPowerUp && !GetCharacterMovement()->IsFalling())
 	{
 		UPower_DoubleJump* DoubleJump = Cast<UPower_DoubleJump>(DoubleJumpPowerUp);
 		if (DoubleJump)
@@ -163,6 +180,13 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
 	}
+}
+
+
+
+void ATest_Character::Hit(int Damage)
+{
+	Health -= Damage;
 }
 
 void ATest_Character::Dead()
@@ -297,10 +321,12 @@ void ATest_Character::GAS_RangedAttack()
 		{
 			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Ranged attack ability"));
 		}
-		FGameplayTagContainer jumpGameTagContainer;
-		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
-		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
-
+		if (BioMass > 100) {
+			FGameplayTagContainer jumpGameTagContainer;
+			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+			AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+			BioMass -= 100;
+		}
 
 	}
 }

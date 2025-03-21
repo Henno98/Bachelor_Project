@@ -40,9 +40,11 @@ public:
 	void Travel(float deltatime);
 	UFUNCTION()
 	void SetPosition(FVector position);
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Collider data")
+	float Size{5.f};
 
 	UFUNCTION()
-	void DestroyActor(float DeltaTime);
+	void DestroyActor();
 
 	float Timer;
 

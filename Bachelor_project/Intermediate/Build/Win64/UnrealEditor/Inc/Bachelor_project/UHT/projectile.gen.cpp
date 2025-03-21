@@ -26,26 +26,14 @@ UPackage* Z_Construct_UPackage__Script_Bachelor_project();
 // Begin Class Aprojectile Function DestroyActor
 struct Z_Construct_UFunction_Aprojectile_DestroyActor_Statics
 {
-	struct projectile_eventDestroyActor_Parms
-	{
-		float DeltaTime;
-	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "Public/projectile.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_DeltaTime;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::NewProp_DeltaTime = { "DeltaTime", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(projectile_eventDestroyActor_Parms, DeltaTime), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::NewProp_DeltaTime,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Aprojectile, nullptr, "DestroyActor", nullptr, nullptr, Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::PropPointers), sizeof(Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::projectile_eventDestroyActor_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::Function_MetaDataParams), Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::projectile_eventDestroyActor_Parms) < MAX_uint16);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Aprojectile, nullptr, "DestroyActor", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::Function_MetaDataParams), Z_Construct_UFunction_Aprojectile_DestroyActor_Statics::Function_MetaDataParams) };
 UFunction* Z_Construct_UFunction_Aprojectile_DestroyActor()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -57,10 +45,9 @@ UFunction* Z_Construct_UFunction_Aprojectile_DestroyActor()
 }
 DEFINE_FUNCTION(Aprojectile::execDestroyActor)
 {
-	P_GET_PROPERTY(FFloatProperty,Z_Param_DeltaTime);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->DestroyActor(Z_Param_DeltaTime);
+	P_THIS->DestroyActor();
 	P_NATIVE_END;
 }
 // End Class Aprojectile Function DestroyActor
@@ -280,6 +267,10 @@ struct Z_Construct_UClass_Aprojectile_Statics
 		{ "Category", "staticmesh" },
 		{ "ModuleRelativePath", "Public/projectile.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Size_MetaData[] = {
+		{ "Category", "Collider data" },
+		{ "ModuleRelativePath", "Public/projectile.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_staticmesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_collider;
@@ -287,10 +278,11 @@ struct Z_Construct_UClass_Aprojectile_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetLocation;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_CurrentLocation;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Velocity;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_Size;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_Aprojectile_DestroyActor, "DestroyActor" }, // 3325200793
+		{ &Z_Construct_UFunction_Aprojectile_DestroyActor, "DestroyActor" }, // 612621014
 		{ &Z_Construct_UFunction_Aprojectile_OnOverlap, "OnOverlap" }, // 3415405282
 		{ &Z_Construct_UFunction_Aprojectile_SetPosition, "SetPosition" }, // 2196613535
 		{ &Z_Construct_UFunction_Aprojectile_Travel, "Travel" }, // 350465836
@@ -307,6 +299,7 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Aprojectile_Sta
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_Aprojectile_Statics::NewProp_TargetLocation = { "TargetLocation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Aprojectile, TargetLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetLocation_MetaData), NewProp_TargetLocation_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_Aprojectile_Statics::NewProp_CurrentLocation = { "CurrentLocation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Aprojectile, CurrentLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentLocation_MetaData), NewProp_CurrentLocation_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_Aprojectile_Statics::NewProp_Velocity = { "Velocity", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Aprojectile, Velocity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Velocity_MetaData), NewProp_Velocity_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Aprojectile_Statics::NewProp_Size = { "Size", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Aprojectile, Size), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Size_MetaData), NewProp_Size_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_Aprojectile_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Aprojectile_Statics::NewProp_staticmesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Aprojectile_Statics::NewProp_collider,
@@ -314,6 +307,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_Aprojecti
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Aprojectile_Statics::NewProp_TargetLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Aprojectile_Statics::NewProp_CurrentLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Aprojectile_Statics::NewProp_Velocity,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Aprojectile_Statics::NewProp_Size,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_Aprojectile_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_Aprojectile_Statics::DependentSingletons[])() = {
@@ -356,10 +350,10 @@ Aprojectile::~Aprojectile() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_Aprojectile, Aprojectile::StaticClass, TEXT("Aprojectile"), &Z_Registration_Info_UClass_Aprojectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Aprojectile), 1496239372U) },
+		{ Z_Construct_UClass_Aprojectile, Aprojectile::StaticClass, TEXT("Aprojectile"), &Z_Registration_Info_UClass_Aprojectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Aprojectile), 2804055537U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_1608274801(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_1765241320(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_projectile_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -110,8 +110,26 @@ protected:
     UPROPERTY(EditAnywhere)
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Stats")
+    int Health;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    int BioMass;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    int MeleeDamage;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    int RangedDamage;
 public:
-   
+
+    int GetHealth() { return Health; }
+    void SetHealth(int newhealth)
+    {
+        Health = newhealth;
+    }
+    int GetRangedDamage() { return RangedDamage; }
+    int GetMeleeDamage() { return MeleeDamage; }
+
+
+   void Hit(int Damage);
     void Dead();
     virtual void PossessedBy(AController* NewController) override;
 
