@@ -3,20 +3,39 @@
 
 #include "SmallCharger.h"
 
-// Sets default values
+#include "SmallCharger_AIController.h"
+#include "Perception/PawnSensingComponent.h"
+
 ASmallCharger::ASmallCharger()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	SmallCharger_PerceptionComponent = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
+
+	// Set sensing range and FOV here or in Blueprint
+	SmallCharger_PerceptionComponent->SightRadius = 1500.f;
+	SmallCharger_PerceptionComponent->SetPeripheralVisionAngle(90.f);
+	SmallCharger_PerceptionComponent->bHearNoises = false;
 }
 
 // Called when the game starts or when spawned
 void ASmallCharger::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (SmallCharger_PerceptionComponent)
+	{
+		if (ASmallCharger_AIController* AIController = Cast<ASmallCharger_AIController>(GetController()))
+		{
+			SmallCharger_PerceptionComponent->OnSeePawn.AddDynamic(AIController, &ASmallCharger_AIController::OnSeenPawn);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("SmallCharger AIController is null in BeginPlay!"));
+		}
+	}
 }
+
 
 // Called every frame
 void ASmallCharger::Tick(float DeltaTime)
@@ -32,10 +51,10 @@ void ASmallCharger::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 }
 
-void ASmallCharger::Destroy()
-{
-	SetActorHiddenInGame(true);
-	SetActorEnableCollision(false);
-	
-}
+//void ASmallCharger::Destroy()
+//{
+//	SetActorHiddenInGame(true);
+//	SetActorEnableCollision(false);
+//	
+//}
 

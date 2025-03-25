@@ -6,28 +6,28 @@
 #include "GameFramework/Character.h"
 #include "SmallCharger.generated.h"
 
+class UPawnSensingComponent;
+
 UCLASS()
 class BACHELOR_PROJECT_API ASmallCharger : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ASmallCharger();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void Destroy();
+	
 
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
+	UPawnSensingComponent* SmallCharger_PerceptionComponent;
 };
 
 

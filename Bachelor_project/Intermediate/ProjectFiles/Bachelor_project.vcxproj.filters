@@ -70,6 +70,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Dash.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -146,6 +149,9 @@
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss_AIController.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Dash.h">
