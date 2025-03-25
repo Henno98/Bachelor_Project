@@ -8,7 +8,11 @@ public class Bachelor_project : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
+<<<<<<< HEAD
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput","AIModule","GameplayAbilities","GameplayTasks","GameplayTags"});
+=======
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "AIModule"});
+>>>>>>> Niklas
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

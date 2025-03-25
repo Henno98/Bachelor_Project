@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "AIController_SmallCharger.generated.h"
+#include "SmallCharger_AIController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
-class BACHELOR_PROJECT_API AAIController_SmallCharger : public AAIController
+class BACHELOR_PROJECT_API ASmallCharger_AIController : public AAIController
 {
 	GENERATED_BODY()
 
@@ -21,9 +21,10 @@ class BACHELOR_PROJECT_API AAIController_SmallCharger : public AAIController
 	class UBlackboardComponent* SmallCharger_BBC;
 
 
-	AAIController_SmallCharger();
+	ASmallCharger_AIController();
 
-	virtual void OnPossess(APawn* InPawn)override;
+	//virtual void OnPossess(APawn* InPawn)override;
+
 
 	APawn* detectPlayer;
 
@@ -40,12 +41,21 @@ public:
 
 	float initialDistance;
 
-	UFUNCTION()
-	void OnEnemySeenItsOwner(class APawn* SensedPawn);
+	//UFUNCTION()
+	//void OnEnemySeenItsOwner(class APawn* SensedPawn);
+
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float deltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void OnSeenPawn(APawn* _pawn);
+	void RestartBehaviorTree();
+
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class UPawnSensingComponent* SmallCharger_PercetionComponent;
+	class UPawnSensingComponent* SmallCharger_PerceptionComponent;
 
 
-	
 };
+

@@ -46,13 +46,29 @@
     <Filter Include="Source\Bachelor_project\Private">
       <UniqueIdentifier>{0AD54A38-9202-3549-BBA5-3807A508D236}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\AIController_SmallCharger.cpp">
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\..\Source\Bachelor_project\Private\ASC_AbilitySystemComponent.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
+=======
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BirdBoss.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_Movement_SmallCharger.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_MoveToPlayer_SmallCharger.cpp">
+>>>>>>> Niklas
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
@@ -94,6 +110,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_BTService.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -109,13 +128,29 @@
     <Filter Include="Source\Bachelor_project\Public">
       <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\AIController_SmallCharger.h">
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\..\Source\Bachelor_project\Public\ASC_AbilitySystemComponent.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+=======
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle_AIController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BirdBoss.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_Movement_SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_MoveToPlayer_SmallCharger.h">
+>>>>>>> Niklas
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
@@ -155,6 +190,9 @@
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_AIController.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_BTService.h">

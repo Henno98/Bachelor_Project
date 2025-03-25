@@ -274,13 +274,29 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.h">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\AIController_SmallCharger.cpp">
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\..\Source\Bachelor_project\Private\ASC_AbilitySystemComponent.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
+=======
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle_AIController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BirdBoss.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_Movement_SmallCharger.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_MoveToPlayer_SmallCharger.cpp">
+>>>>>>> Niklas
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
@@ -322,6 +338,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_AIController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_BTService.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -334,13 +353,29 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\Wandering_Target_Point.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\AIController_SmallCharger.h">
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\..\Source\Bachelor_project\Public\ASC_AbilitySystemComponent.h">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+=======
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle.h">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle_AIController.h">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BirdBoss.h">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_Movement_SmallCharger.h">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_MoveToPlayer_SmallCharger.h">
+>>>>>>> Niklas
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
@@ -380,6 +415,9 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger.h">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_AIController.h">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_BTService.h">

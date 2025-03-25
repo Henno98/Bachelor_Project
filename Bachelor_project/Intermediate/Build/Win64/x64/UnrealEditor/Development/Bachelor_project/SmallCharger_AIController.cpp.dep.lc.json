@@ -1,12 +1,36 @@
 {
     "Version": "1.2",
     "Data": {
+<<<<<<< HEAD:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/Test_Character.cpp.dep.json
         "Source": "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\source\\bachelor_project\\private\\test_character.cpp",
+=======
+        "Source": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\private\\smallcharger_aicontroller.cpp",
+>>>>>>> Niklas:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/SmallCharger_AIController.cpp.dep.lc.json
         "ProvidedModule": "",
         "PCH": "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_4.h.pch",
         "Includes": [
+<<<<<<< HEAD:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/Test_Character.cpp.dep.json
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\test_character.h",
+=======
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\smallcharger_aicontroller.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\aicontroller.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\aitypes.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\navigationsystem\\public\\navigationsystemtypes.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\ai\\navigation\\navagentselector.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\navagentselector.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aitypes.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\perception\\aiperceptionlistenerinterface.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aiperceptionlistenerinterface.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\genericteamagentinterface.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\genericteamagentinterface.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\public\\visuallogger\\visualloggerdebugsnapshotinterface.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\visualloggerdebugsnapshotinterface.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aicontroller.generated.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\smallcharger_aicontroller.generated.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\test_character.h",
+>>>>>>> Niklas:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/SmallCharger_AIController.cpp.dep.lc.json
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\net\\core\\public\\net\\core\\nettoken\\nettokenexportcontext.h",
@@ -31,6 +55,7 @@
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\math\\unitconversion.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\math\\unitconversion.inl",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\internationalization\\polyglottextdata.h",
+<<<<<<< HEAD:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/Test_Character.cpp.dep.json
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\powerupcontroller.generated.h",
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\power_walllatch.h",
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\power_walllatch.generated.h",
@@ -123,6 +148,46 @@
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\cameracomponent.generated.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\components\\capsulecomponent.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\capsulecomponent.generated.h",
+=======
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\powerupcontroller.generated.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\power_walllatch.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\power_walllatch.generated.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\test_character.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\behaviortree.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\btcompositenode.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\btnode.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\behaviortreetypes.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\blackboard\\blackboardkey.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\behaviortreetypes.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\behaviortreecomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\gameplaytags\\classes\\gameplaytagcontainer.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\misc\\comparisonutility.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplaytags\\uht\\gameplaytagcontainer.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\braincomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\airesourceinterface.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\airesourceinterface.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\braincomponent.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\behaviortreecomponent.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\blackboardassetprovider.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\blackboardassetprovider.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\tasks\\aitask.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aitask.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\btnode.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\btcompositenode.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\behaviortree.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\blackboardcomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\blackboard\\blackboardkeytype.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\blackboard\\blackboardkeyenums.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\blackboardkeyenums.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\blackboardkeytype.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\aisystem.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\ai\\aisystembase.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\aisystembase.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aisystem.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\behaviortree\\blackboarddata.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\blackboarddata.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\blackboardcomponent.generated.h",
+>>>>>>> Niklas:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/SmallCharger_AIController.cpp.dep.lc.json
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementcomponent.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\ai\\navigation\\navigationavoidancetypes.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\navigationavoidancetypes.generated.h",
@@ -143,6 +208,7 @@
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\public\\charactermovementcomponentasync.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementcomponentasync.generated.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementcomponent.generated.h",
+<<<<<<< HEAD:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/Test_Character.cpp.dep.json
             "c:\\program files\\epic games\\ue_5.5\\engine\\plugins\\runtime\\gameplayabilities\\source\\gameplayabilities\\public\\abilitysystemcomponent.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\plugins\\runtime\\gameplayabilities\\source\\gameplayabilities\\public\\gameplaycueinterface.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\plugins\\runtime\\gameplayabilities\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplayabilities\\uht\\gameplaycueinterface.generated.h",
@@ -165,6 +231,10 @@
             "c:\\users\\larss\\documents\\github repositories\\inventory\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\gas_playerstate.generated.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\editor\\unrealed\\public\\tools\\uedmode.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\unrealed\\uht\\uedmode.generated.h"
+=======
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\perception\\pawnsensingcomponent.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\pawnsensingcomponent.generated.h"
+>>>>>>> Niklas:Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/SmallCharger_AIController.cpp.dep.lc.json
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
