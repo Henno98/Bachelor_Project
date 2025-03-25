@@ -72,7 +72,7 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	
-	if (OtherActor != GetOwner()) {
+	if (OtherActor != GetOwner() && GetOwner() !=nullptr) {
 		if (OtherActor->IsA<ASmallCharger>())
 		{
 			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
