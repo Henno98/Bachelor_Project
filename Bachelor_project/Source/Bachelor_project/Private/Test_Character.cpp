@@ -42,11 +42,10 @@ ATest_Character::ATest_Character()
 	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
 	
 	HurtBox = CreateDefaultSubobject<USphereComponent>(TEXT("Hurtbox"));
+	HurtBox->SetRelativeLocation(FVector(GetActorLocation().X,GetActorLocation().Y + 100,GetActorLocation().Z));
 	HurtBox->SetSphereRadius(01.f);
 	HurtBox->SetupAttachment(RootComponent);
-	HurtVisibility = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HurtVisibility"));
-	HurtVisibility->SetupAttachment(HurtBox);
-	HurtVisibility->SetWorldScale3D(FVector(0.1f));
+
 
 	
 	Health = 10;
