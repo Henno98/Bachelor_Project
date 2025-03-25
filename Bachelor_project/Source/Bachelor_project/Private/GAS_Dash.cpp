@@ -40,9 +40,11 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 
 		// Reduce friction to allow smooth dashing
 		Character->GetCharacterMovement()->GroundFriction = 0.1f;
+		// Reduce friction to allow smooth dashing
+		Character->GetCharacterMovement()->GravityScale = 0.f;
 
 		// Apply dash force
-		Character->LaunchCharacter(FVector(0,Direction.Y * 1000.f,0), false, false);
+		Character->LaunchCharacter(FVector(0,Direction.Y * 2000.f,0), true, false);
 
 		// Reset friction and restore collision after delay
 		FTimerHandle TimerHandle;
@@ -52,6 +54,7 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 				if (Character && Character->GetCharacterMovement())
 				{
 					Character->GetCharacterMovement()->GroundFriction = 8.0f; // Restore default friction
+					Character->GetCharacterMovement()->GravityScale = 4.5f;
 					Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					Character->ReEnableInput();
 				

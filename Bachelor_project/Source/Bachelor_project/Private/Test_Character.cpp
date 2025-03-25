@@ -380,7 +380,8 @@ void ATest_Character::Move(const FInputActionValue& Value)
 	const FVector2D moveVector = Value.Get<FVector2D>();
 	const FRotator moveRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
 
-	if (moveVector.X > 0.05f || moveVector.X < -0.05f) {
+	if (moveVector.X > 0.05f ) {
+		 SetActorRotation(FRotator(0.f,90.f,0.f));
 		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(directionVector, moveVector.X);
 
@@ -389,6 +390,13 @@ void ATest_Character::Move(const FInputActionValue& Value)
 		//
 		// 	if (moveVector.X > 0.05f)
 		// 		//Springarm->SetRelativeRotation(FRotator(0, -90.f, 0));)
+	}
+	if ( moveVector.X < -0.05f)
+	{
+		SetActorRotation(FRotator(0.f, -90.f, 0.f));
+		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
+		AddMovementInput(directionVector, moveVector.X);
+
 	}
 	
 	if (moveVector.Y > 0.05f || moveVector.Y < -0.05f) {

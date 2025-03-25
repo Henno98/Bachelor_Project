@@ -70,17 +70,19 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 		UWorld* World = GetWorld();
 		if (World)
 		{
-			Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(Character->RangedAttackClass, SpawnLocation, SpawnRotation, SpawnParams);
-			if (SpawnedProjectile)
-			{
-				
-				SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-				SpawnedProjectile->lifetime = 0.8f;
-				SpawnedProjectile->Owner = Character;
+			if (bCanShoot) {
+				Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(Character->RangedAttackClass, SpawnLocation, SpawnRotation, SpawnParams);
+				if (SpawnedProjectile)
+				{
+					bCanShoot = false;
+					SpawnedProjectile->Velocity = FiringDirection * 2000.f;
+					SpawnedProjectile->lifetime = 0.8f;
+					SpawnedProjectile->Owner = Character;
+				}
 			}
 		}
 		FTimerHandle TimerHandle;
-		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([Character]()
+		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([Character,this]()
 			{
 
 				if (Character && Character->GetCharacterMovement())
@@ -89,8 +91,8 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 					Character->ReEnableInput();
 				
 					Character->GetCharacterMovement()->GravityScale = 4.5;
-
-
+				
+					bCanShoot = true;
 				}
 
 			}), 0.2f, false);

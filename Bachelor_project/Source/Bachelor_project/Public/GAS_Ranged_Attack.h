@@ -27,5 +27,5 @@ protected:
 	// Cooldown effect applied when ability is used
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Ability")
 	TSubclassOf<UGameplayEffect> CooldownGameplayEffect;
-
+	bool bCanShoot{ true };
 };

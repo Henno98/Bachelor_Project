@@ -2,12 +2,6 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Bachelor_project.cpp.obj": [
-			"Beetle.gen.cpp.obj",
-			"Beetle_AIController.gen.cpp.obj",
-			"BirdBoss.gen.cpp.obj",
-			"BTTask_Movement_SmallCharger.gen.cpp.obj",
-			"BTTask_MoveToPlayer_SmallCharger.gen.cpp.obj",
-			"SmallCharger_AIController.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"Bachelor_project.cpp.obj",
 			"ASC_AbilitySystemComponent.cpp.obj",
@@ -18,11 +12,9 @@
 			"BTTask_Movement_SmallCharger.cpp.obj",
 			"BTTask_MoveToPlayer_SmallCharger.cpp.obj",
 			"CrowBoss.cpp.obj",
-			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
 			"GAS_PlayerState.cpp.obj",
-			"GAS_Ranged_Attack.cpp.obj",
 			"GAS_Wall_Latch.cpp.obj",
 			"PowerUpController.cpp.obj",
 			"Power_DoubleJump.cpp.obj",
@@ -32,12 +24,16 @@
 			"SmallCharger.cpp.obj",
 			"SmallCharger_AIController.cpp.obj",
 			"SmallCharger_BTService.cpp.obj",
-			"Test_Character.cpp.obj",
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
 			"ASC_AbilitySystemComponent.gen.cpp.obj",
 			"Bachelor_project.init.gen.cpp.obj",
 			"BasicPlatform.gen.cpp.obj",
+			"Beetle.gen.cpp.obj",
+			"Beetle_AIController.gen.cpp.obj",
+			"BirdBoss.gen.cpp.obj",
+			"BTTask_Movement_SmallCharger.gen.cpp.obj",
+			"BTTask_MoveToPlayer_SmallCharger.gen.cpp.obj",
 			"CrowBoss.gen.cpp.obj",
 			"GAS_Dash.gen.cpp.obj",
 			"GAS_Double_Jump.gen.cpp.obj",
@@ -51,10 +47,14 @@
 			"projectile.gen.cpp.obj",
 			"SaveState.gen.cpp.obj",
 			"SmallCharger.gen.cpp.obj",
+			"SmallCharger_AIController.gen.cpp.obj",
 			"SmallCharger_BTService.gen.cpp.obj",
 			"Test_Character.gen.cpp.obj",
 			"Test_Enemy.gen.cpp.obj",
-			"Wandering_Target_Point.gen.cpp.obj"
+			"Wandering_Target_Point.gen.cpp.obj",
+			"GAS_Dash.cpp.obj",
+			"GAS_Ranged_Attack.cpp.obj",
+			"Test_Character.cpp.obj"
 		]
 	}
 }

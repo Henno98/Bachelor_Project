@@ -2,6 +2,7 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Bachelor_project.cpp.obj": [
+			"PerModuleInline.gen.cpp.obj",
 			"Bachelor_project.cpp.obj",
 			"ASC_AbilitySystemComponent.cpp.obj",
 			"BasicPlatform.cpp.obj",
@@ -11,7 +12,6 @@
 			"BTTask_Movement_SmallCharger.cpp.obj",
 			"BTTask_MoveToPlayer_SmallCharger.cpp.obj",
 			"CrowBoss.cpp.obj",
-			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
 			"GAS_PlayerState.cpp.obj",
@@ -25,7 +25,6 @@
 			"SmallCharger.cpp.obj",
 			"SmallCharger_AIController.cpp.obj",
 			"SmallCharger_BTService.cpp.obj",
-			"Test_Character.cpp.obj",
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
 			"ASC_AbilitySystemComponent.gen.cpp.obj",
@@ -54,7 +53,8 @@
 			"Test_Character.gen.cpp.obj",
 			"Test_Enemy.gen.cpp.obj",
 			"Wandering_Target_Point.gen.cpp.obj",
-			"PerModuleInline.gen.cpp.obj"
+			"GAS_Dash.cpp.obj",
+			"Test_Character.cpp.obj"
 		]
 	}
 }
