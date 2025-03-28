@@ -3,11 +3,34 @@
 
 #include "CrowBoss.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
+
 // Sets default values
 ACrowBoss::ACrowBoss()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+
+	auto Movement = GetCharacterMovement();
+	Movement->SetMovementMode(MOVE_Flying);
+	Movement->MaxFlySpeed = 800.f;
+
+	// Aggressive deceleration
+	Movement->BrakingDecelerationFlying = 2000.f;  // Increased from previous values
+
+	// Enhanced stopping behavior
+	Movement->bUseSeparateBrakingFriction = true;
+	Movement->BrakingFrictionFactor = 2.0f;
+
+	// Additional flying-specific tuning
+	Movement->AirControl = 0.80f;  // Increased air control
+	Movement->AirControlBoostMultiplier = 2.0f;
+	
+
+	
+
 
 }
 

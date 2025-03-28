@@ -23,6 +23,8 @@ class BACHELOR_PROJECT_API ACrowBoss_AIController : public AAIController
 	UPROPERTY(EditDefaultsOnly)
 	class UBlackboardComponent* CrowBoss_BBC;
 
+	
+
 
 	ACrowBoss_AIController();
 	
@@ -43,4 +45,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	class UPawnSensingComponent* CrowBoss_PerceptionComponent;
 
+
+
+
+	
 };
