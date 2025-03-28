@@ -54,7 +54,7 @@ void ALevelStreamingActor::OverlapEnds(UPrimitiveComponent* OverlappedComponent,
 	{
 		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Overlapped actor left collision zone"));
 
-		if (LevelToUnLoad != "") {
+		if (LevelToLoad != "") {
 			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Level should unload"));
 
 			FLatentActionInfo LatentInfo;

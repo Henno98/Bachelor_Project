@@ -22,6 +22,7 @@ UGAS_Wall_Latch::UGAS_Wall_Latch()
 	SetAssetTags(RequestTag);
 }
 
+
 void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNormal)
 {
     if (!Character)

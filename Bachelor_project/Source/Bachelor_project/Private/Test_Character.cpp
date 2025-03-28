@@ -166,8 +166,9 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
+		EnhancedInputComponent->BindAction(DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
 		//PowerUpInputs
-		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &ATest_Character::GAS_Dash);
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
 		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
@@ -328,6 +329,49 @@ void ATest_Character::GAS_RangedAttack()
 		}
 
 	}
+}
+
+void ATest_Character::DropDown()
+{
+	FVector Direction = GetActorUpVector();
+	FVector Start = GetActorLocation();
+	FVector End = Start - (Direction * 120.f);
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	bool bSingleHit = GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		Start,
+		End,
+		ECC_WorldStatic,
+		Params);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 2.0f);
+
+	if (bSingleHit)
+	{
+		if (IsValid(HitResult.GetActor()))
+		{
+			if (HitResult.GetActor()->GetFName().ToString().Contains(FString("Platform")) == true)
+			{
+				DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
+
+				HitResult.GetActor()->SetActorEnableCollision(false);
+
+				FTimerHandle TimerHandle;
+				GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([HitResult]()
+					{
+						HitResult.GetActor()->SetActorEnableCollision(true);
+
+					}), 1.f, false);
+			
+
+			}
+
+		}
+
+	}
+	
 }
 
 void ATest_Character::ReEnableInput()

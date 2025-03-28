@@ -26,6 +26,44 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 
 		ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 
+		FVector Direction = Character->GetActorUpVector();
+		FVector Start = Character->GetActorLocation();
+		FVector End = Start + (Direction * 300.f);
+		FHitResult HitResult;
+		FCollisionQueryParams Params;
+		Params.AddIgnoredActor(Character);
+
+		bool bSingleHit = GetWorld()->LineTraceSingleByChannel(
+			HitResult,
+			Start,
+			End,
+			ECC_WorldStatic,
+			Params);
+		DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 2.0f);
+
+		if (bSingleHit)
+		{
+			if (IsValid(HitResult.GetActor()))
+			{
+				if (HitResult.GetActor()->GetFName().ToString().Contains(FString("Platform")) == true)
+				{
+					DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
+
+					HitResult.GetActor()->SetActorEnableCollision(false);
+
+					FTimerHandle TimerHandle;
+					GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([HitResult]()
+						{
+							HitResult.GetActor()->SetActorEnableCollision(true);
+
+						}), 0.5f, false);
+
+
+				}
+
+			}
+
+		}
 		if (Character)
 		{
 			Character->Jump();

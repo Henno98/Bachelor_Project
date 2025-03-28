@@ -44,7 +44,7 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 		Character->GetCharacterMovement()->GravityScale = 0.f;
 
 		// Apply dash force
-		Character->LaunchCharacter(FVector(0,Direction.Y * 2000.f,0), true, false);
+		Character->LaunchCharacter(FVector(0,Direction.Y * 4000.f,0), true, true);
 
 		// Reset friction and restore collision after delay
 		FTimerHandle TimerHandle;
@@ -61,7 +61,7 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 					
 				}
 
-			}), 0.5f, false);
+			}), 0.2f, false);
 	}
 }
 

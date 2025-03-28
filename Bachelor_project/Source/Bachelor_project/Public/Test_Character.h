@@ -54,7 +54,8 @@ public:
 
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Input")
     UInputAction* RangedAttackInput;
-
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* DropDownInput;
 
     //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -142,7 +143,7 @@ public:
     void GASStopWallLatch();
     void GAS_Space();
     void GAS_RangedAttack();
-
+    void DropDown();
     void ReEnableInput();
     void PauseInput();
     UPROPERTY()
