@@ -48,10 +48,7 @@ void UPower_WallLatch::OnActivate(AActor* Player)
 
     if (!World)
     {
-
-        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("World not Found"));
-            return;
-
+    	return;
     }
         for (const FVector& Direction : DirectionsToCheck)
         {
@@ -87,6 +84,9 @@ void UPower_WallLatch::OnActivate(AActor* Player)
         // Handle wall latching if a wall is detected
         if (bHit)
         {
+			Character->GetCharacterMovement()->StopMovementImmediately();
+            Character->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+            Character->ResetJumpState();
             LatchToWall(Character, BestHitResult.Normal);
         }
         else

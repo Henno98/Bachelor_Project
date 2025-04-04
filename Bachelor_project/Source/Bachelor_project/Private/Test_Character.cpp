@@ -72,8 +72,6 @@ void ATest_Character::BeginPlay()
 	}
 	DashCooldown = 2.f;
 
-	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
-	//WallLatchPowerUp = NewObject<UPower_WallLatch>();
 
 	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press E to use RANGED ATTACK"));
 	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press SPACE to use jump and double jump"));
@@ -135,22 +133,11 @@ void ATest_Character::Tick(float DeltaTime)
 	if (BioMass < 500) {
 		BioMass += 1;
 	}
-	GEngine->AddOnScreenDebugMessage(1, 0.2f, FColor::Green, FString::Printf(TEXT("Biomass: %d"), BioMass), true);
-
 	if (Health <= 0)
 	{
 		Dead();
 	}
-	GEngine->AddOnScreenDebugMessage(0, 0.2f, FColor::Green, FString::Printf(TEXT("Health: %d"), Health), true);
-
-		if (DoubleJumpPowerUp && !GetCharacterMovement()->IsFalling())
-	{
-		UPower_DoubleJump* DoubleJump = Cast<UPower_DoubleJump>(DoubleJumpPowerUp);
-		if (DoubleJump)
-		{
-			DoubleJump->bHasDoubleJumped = false;
-		}
-	}
+	
 
 }
 // Called to bind functionality to input
@@ -187,6 +174,16 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 void ATest_Character::Hit(int Damage)
 {
 	Health -= Damage;
+	//// Reduce health
+	//CurrentHealth -= Damage;
+	//if (CurrentHealth < 0) CurrentHealth = 0;
+
+	//// Update health bar widget (if it's available)
+	//AMyHUD* MyHUD = Cast<AMyHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	//if (MyHUD && MyHUD->HealthBarWidget)
+	//{
+	//	MyHUD->HealthBarWidget->UpdateHealth(CurrentHealth);
+	//}
 }
 
 void ATest_Character::Dead()
@@ -275,14 +272,21 @@ void ATest_Character::GAS_Dash()
 {
 	if (AbilitySystemComponent && GA_Wall_Latch)
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Dash ability"));
-		}
-		FGameplayTagContainer jumpGameTagContainer;
-		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Dash")));
-		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+		if (!bIsDashing) {
+			bIsDashing = true;
+			FGameplayTagContainer jumpGameTagContainer;
+			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Dash")));
+			AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
 
+			FTimerHandle TimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
+				{
+
+					bIsDashing = false;
+
+				}), 1.f, false);
+		}
+		
 
 	}
 }
@@ -458,14 +462,7 @@ void ATest_Character::Move(const FInputActionValue& Value)
 //
 void ATest_Character::DoubleJump(const FInputActionValue& Value)
 {
-    if (DoubleJumpPowerUp)
-    {
-        DoubleJumpPowerUp->Activate(this);
-    }
-    else
-    {
-        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Double Jump PowerUp not assigned!"));
-    }
+   
 }
 
 //void ATest_Character::WallLatch(const FInputActionValue& Value)

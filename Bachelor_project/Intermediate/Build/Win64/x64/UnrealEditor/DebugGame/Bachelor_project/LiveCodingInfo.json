@@ -3,7 +3,6 @@
 	{
 		"Module.Bachelor_project.cpp.obj": [
 			"ASC_AbilitySystemComponent.gen.cpp.obj",
-			"Bachelor_project.init.gen.cpp.obj",
 			"BasicPlatform.gen.cpp.obj",
 			"Beetle.gen.cpp.obj",
 			"Beetle_AIController.gen.cpp.obj",
@@ -11,6 +10,8 @@
 			"BTTask_Movement_SmallCharger.gen.cpp.obj",
 			"BTTask_MoveToPlayer_SmallCharger.gen.cpp.obj",
 			"CrowBoss.gen.cpp.obj",
+			"CrowBoss_AIController.gen.cpp.obj",
+			"CrowMovement_Task.gen.cpp.obj",
 			"GAS_Dash.gen.cpp.obj",
 			"GAS_Double_Jump.gen.cpp.obj",
 			"GAS_Melee.gen.cpp.obj",
@@ -29,6 +30,7 @@
 			"Test_Character.gen.cpp.obj",
 			"Test_Enemy.gen.cpp.obj",
 			"Wandering_Target_Point.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
 			"Bachelor_project.cpp.obj",
 			"ASC_AbilitySystemComponent.cpp.obj",
 			"BasicPlatform.cpp.obj",
@@ -40,7 +42,6 @@
 			"CrowBoss.cpp.obj",
 			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
-			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
 			"GAS_PlayerState.cpp.obj",
@@ -49,18 +50,21 @@
 			"LevelStreamingActor.cpp.obj",
 			"PowerUpController.cpp.obj",
 			"Power_DoubleJump.cpp.obj",
-			"Power_WallLatch.cpp.obj",
 			"projectile.cpp.obj",
 			"SaveState.cpp.obj",
 			"SmallCharger.cpp.obj",
 			"SmallCharger_AIController.cpp.obj",
 			"SmallCharger_BTService.cpp.obj",
-			"Test_Character.cpp.obj",
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
-			"CrowBoss_AIController.gen.cpp.obj",
-			"CrowMovement_Task.gen.cpp.obj",
-			"PerModuleInline.gen.cpp.obj"
+			"Bachelor_project.init.gen.cpp.obj",
+			"Player_HUD.gen.cpp.obj",
+			"Player_Stat_Widget.gen.cpp.obj",
+			"GAS_Dash.cpp.obj",
+			"Player_HUD.cpp.obj",
+			"Player_Stat_Widget.cpp.obj",
+			"Power_WallLatch.cpp.obj",
+			"Test_Character.cpp.obj"
 		]
 	}
 }
