@@ -62,6 +62,7 @@ public:
 	AActor* GetAttackTarget() { return Target; }
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
+
 	
 
 };

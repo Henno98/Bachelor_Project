@@ -17,16 +17,19 @@ class BACHELOR_PROJECT_API ASmallCharger_AIController : public AAIController
 	UPROPERTY(EditDefaultsOnly)
 	class UBehaviorTree* SmallCharger_BT;
 
+	UPROPERTY(EditDefaultsOnly)
 	class UBehaviorTreeComponent* SmallCharger_BTC;
+
+	UPROPERTY(EditDefaultsOnly)
 	class UBlackboardComponent* SmallCharger_BBC;
 
 
 	ASmallCharger_AIController();
 
-	//virtual void OnPossess(APawn* InPawn)override;
+	virtual void OnPossess(APawn* InPawn)override;
 
 
-	APawn* detectPlayer;
+	APawn* Player;
 
 	FTimerHandle timerHandle;
 
@@ -49,7 +52,7 @@ public:
 	virtual void Tick(float deltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void OnSeenPawn(APawn* _pawn);
+	void OnSeenPawn(APawn* SeenPawn);
 	void RestartBehaviorTree();
 
 
