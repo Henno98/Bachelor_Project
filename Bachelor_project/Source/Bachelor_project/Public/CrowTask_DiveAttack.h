@@ -19,6 +19,18 @@ public:
 
     virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
+private:
+    struct FReturnData {
+        FVector LastPosition;
+        float StationaryTime;
+        bool HasMoved;
+    };
+
+    void StartReturnJourneyTracking(ACharacter* CrowBoss, UBlackboardComponent* BlackboardComp, FVector OriginalPosition);
+
+    FTimerHandle CheckPositionTimerHandle;
+    FTimerHandle SafetyTimerHandle;
+
 protected:
     UPROPERTY(EditAnywhere, Category = "Blackboard")
     FBlackboardKeySelector TargetLocationKey;

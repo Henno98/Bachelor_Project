@@ -3,6 +3,7 @@
 	{
 		"Module.Bachelor_project.cpp.obj": [
 			"ASC_AbilitySystemComponent.gen.cpp.obj",
+			"Bachelor_project.init.gen.cpp.obj",
 			"BasicPlatform.gen.cpp.obj",
 			"Beetle.gen.cpp.obj",
 			"Beetle_AIController.gen.cpp.obj",
@@ -12,6 +13,7 @@
 			"CrowBoss.gen.cpp.obj",
 			"CrowBoss_AIController.gen.cpp.obj",
 			"CrowMovement_Task.gen.cpp.obj",
+			"CrowTask_DiveAttack.gen.cpp.obj",
 			"GAS_Dash.gen.cpp.obj",
 			"GAS_Double_Jump.gen.cpp.obj",
 			"GAS_Melee.gen.cpp.obj",
@@ -22,6 +24,7 @@
 			"Power_DoubleJump.gen.cpp.obj",
 			"Power_WallLatch.gen.cpp.obj",
 			"projectile.gen.cpp.obj",
+			"ReturnToOrigin_Task.gen.cpp.obj",
 			"SaveState.gen.cpp.obj",
 			"SmallCharger.gen.cpp.obj",
 			"SmallCharger_AIController.gen.cpp.obj",
@@ -39,6 +42,7 @@
 			"BTTask_Movement_SmallCharger.cpp.obj",
 			"BTTask_MoveToPlayer_SmallCharger.cpp.obj",
 			"CrowBoss.cpp.obj",
+			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
 			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
@@ -50,6 +54,7 @@
 			"Power_DoubleJump.cpp.obj",
 			"Power_WallLatch.cpp.obj",
 			"projectile.cpp.obj",
+			"ReturnToOrigin_Task.cpp.obj",
 			"SaveState.cpp.obj",
 			"SmallCharger.cpp.obj",
 			"SmallCharger_AIController.cpp.obj",
@@ -57,12 +62,7 @@
 			"Test_Character.cpp.obj",
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
-			"Bachelor_project.init.gen.cpp.obj",
-			"CrowTask_DiveAttack.gen.cpp.obj",
-			"ReturnToOrigin_Task.gen.cpp.obj",
-			"CrowBoss_AIController.cpp.obj",
-			"CrowTask_DiveAttack.cpp.obj",
-			"ReturnToOrigin_Task.cpp.obj"
+			"CrowTask_DiveAttack.cpp.obj"
 		]
 	}
 }

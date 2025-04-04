@@ -95,44 +95,25 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
         FTimerHandle ReturnTimerHandle;
         CrowBoss->GetWorldTimerManager().SetTimer(
             ReturnTimerHandle,
-            [CrowBoss, BlackboardComp, this]()
+            [this, CrowBoss, BlackboardComp]()
             {
                 CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Flying);
-
                 FVector CurrentPos = CrowBoss->GetActorLocation();
                 FVector OriginalPosition = BlackboardComp->GetValueAsVector("OriginalPosition");
 
+                // Log starting position for debugging
+                UE_LOG(LogTemp, Warning, TEXT("Starting return journey from %s to %s"),
+                    *CurrentPos.ToString(), *OriginalPosition.ToString());
+
+                // Calculate return direction and launch
                 FVector ReturnDirection = (OriginalPosition - CurrentPos).GetSafeNormal();
                 CrowBoss->LaunchCharacter(ReturnDirection * (DiveSpeed * 0.5f), true, true);
 
-                // Create a persistent timer that checks if we've reached the destination
-                FTimerHandle CheckPositionTimerHandle;
-                CrowBoss->GetWorldTimerManager().SetTimer(
-                    CheckPositionTimerHandle,
-                    [CrowBoss, BlackboardComp, OriginalPosition, &CheckPositionTimerHandle]()
-                    {
-                        FVector CurrentPos = CrowBoss->GetActorLocation();
-                        float DistToOriginal = FVector::Dist(CurrentPos, OriginalPosition);
-
-                        // If we're close enough to the original position
-                        if (DistToOriginal < 100.0f)
-                        {
-                            // Stop movement immediately
-                            CrowBoss->GetCharacterMovement()->StopMovementImmediately();
-                            // Force position to exactly match original
-                            CrowBoss->SetActorLocation(OriginalPosition);
-                            // Reset attack flag
-                            BlackboardComp->SetValueAsBool("IsAttacking", false);
-                            // Clear this timer since we've reached our destination
-                            CrowBoss->GetWorldTimerManager().ClearTimer(CheckPositionTimerHandle);
-                            UE_LOG(LogTemp, Warning, TEXT("Boss returned to original position"));
-                        }
-                    },
-                    0.1f, // Check every 0.1 seconds
-                    true   // Loop until we reach the destination
-                );
+                // Instead of nested lambdas with timer handles, use a class member
+                // to track the return journey
+                StartReturnJourneyTracking(CrowBoss, BlackboardComp, OriginalPosition);
             },
-            5.0f, // Wait 3 seconds after dive before starting return
+            5.0f, // Wait 5 seconds after dive before starting return
             false
         );
 
@@ -141,5 +122,75 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 
     return EBTNodeResult::Failed;
 }
+
+void UCrowTask_DiveAttack::StartReturnJourneyTracking(ACharacter* CrowBoss, UBlackboardComponent* BlackboardComp, FVector OriginalPosition)
+{
+    struct FReturnData* ReturnData = new FReturnData();
+    ReturnData->LastPosition = CrowBoss->GetActorLocation();
+    ReturnData->StationaryTime = 0.0f;
+    ReturnData->HasMoved = false;
+
+    // Use member variables instead of local variables
+    CrowBoss->GetWorldTimerManager().SetTimer(
+        CheckPositionTimerHandle,
+        [CrowBoss, BlackboardComp, OriginalPosition, ReturnData, this]()
+        {
+            FVector CurrentPos = CrowBoss->GetActorLocation();
+            float DistToOriginal = FVector::Dist(CurrentPos, OriginalPosition);
+            float MovementSinceLast = FVector::Dist(CurrentPos, ReturnData->LastPosition);
+
+            if (MovementSinceLast > 10.0f) {
+                ReturnData->HasMoved = true;
+                ReturnData->StationaryTime = 0.0f;
+            }
+            else {
+                ReturnData->StationaryTime += 0.1f;
+            }
+
+            ReturnData->LastPosition = CurrentPos;
+
+            bool isComplete = (DistToOriginal < 100.0f) ||
+                (ReturnData->HasMoved && ReturnData->StationaryTime > 0.5f);
+
+            if (isComplete)
+            {
+                CrowBoss->GetCharacterMovement()->StopMovementImmediately();
+
+                if (DistToOriginal > 50.0f) {
+                    CrowBoss->SetActorLocation(OriginalPosition);
+                }
+
+                BlackboardComp->SetValueAsBool("IsAttacking", false);
+
+                // Clear both timers using member variables
+                CrowBoss->GetWorldTimerManager().ClearTimer(CheckPositionTimerHandle);
+                CrowBoss->GetWorldTimerManager().ClearTimer(SafetyTimerHandle);
+
+                UE_LOG(LogTemp, Warning, TEXT("Boss returned to position. Distance: %f, Stationary time: %f"),
+                    DistToOriginal, ReturnData->StationaryTime);
+
+                delete ReturnData;
+            }
+        },
+        0.1f, true
+    );
+
+    CrowBoss->GetWorldTimerManager().SetTimer(
+        SafetyTimerHandle,
+        [CrowBoss, BlackboardComp, ReturnData, this]()
+        {
+            CrowBoss->GetCharacterMovement()->StopMovementImmediately();
+            BlackboardComp->SetValueAsBool("IsAttacking", false);
+
+            CrowBoss->GetWorldTimerManager().ClearTimer(CheckPositionTimerHandle);
+
+            UE_LOG(LogTemp, Warning, TEXT("Safety timer triggered - force stopping return"));
+
+            delete ReturnData;
+        },
+        5.0f, false
+    );
+}
+
 
 
