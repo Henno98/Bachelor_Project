@@ -76,6 +76,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowMovement_Task.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowTask_DiveAttack.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Dash.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -104,6 +107,9 @@
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\projectile.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\ReturnToOrigin_Task.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SaveState.cpp">
@@ -160,6 +166,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowMovement_Task.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowTask_DiveAttack.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Dash.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
@@ -188,6 +197,9 @@
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\projectile.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\ReturnToOrigin_Task.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SaveState.h">

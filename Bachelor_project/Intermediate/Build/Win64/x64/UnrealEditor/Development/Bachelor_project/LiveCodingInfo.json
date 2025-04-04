@@ -11,6 +11,7 @@
 			"BTTask_MoveToPlayer_SmallCharger.gen.cpp.obj",
 			"CrowBoss.gen.cpp.obj",
 			"CrowBoss_AIController.gen.cpp.obj",
+			"CrowMovement_Task.gen.cpp.obj",
 			"GAS_Dash.gen.cpp.obj",
 			"GAS_Double_Jump.gen.cpp.obj",
 			"GAS_Melee.gen.cpp.obj",
@@ -37,6 +38,8 @@
 			"BirdBoss.cpp.obj",
 			"BTTask_Movement_SmallCharger.cpp.obj",
 			"BTTask_MoveToPlayer_SmallCharger.cpp.obj",
+			"CrowBoss.cpp.obj",
+			"CrowMovement_Task.cpp.obj",
 			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
@@ -55,10 +58,11 @@
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
 			"Bachelor_project.init.gen.cpp.obj",
-			"CrowMovement_Task.gen.cpp.obj",
-			"CrowBoss.cpp.obj",
+			"CrowTask_DiveAttack.gen.cpp.obj",
+			"ReturnToOrigin_Task.gen.cpp.obj",
 			"CrowBoss_AIController.cpp.obj",
-			"CrowMovement_Task.cpp.obj"
+			"CrowTask_DiveAttack.cpp.obj",
+			"ReturnToOrigin_Task.cpp.obj"
 		]
 	}
 }

@@ -41,6 +41,16 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
     APawn* Crow = GetPawn();
     if (!Crow) return;
 
+    // Check if we're currently in attack mode
+    bool bIsAttacking = CrowBoss_BBC->GetValueAsBool("IsAttacking");
+
+    // Skip normal movement behavior during attack
+    if (bIsAttacking)
+    {
+        return; // Let the attack sequence control movement
+    }
+
+    // Normal flying behavior when not attacking
     if (Player)
     {
         FVector PlayerLocation = Player->GetActorLocation();
@@ -55,7 +65,7 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
             return;
         }
 
-        // Improved hovering logic
+        // Hover above the player
         FVector TargetLocation = PlayerLocation + FVector(0.f, 0.f, 300.f);
         FVector DirectionToTarget = (TargetLocation - CrowLocation);
         float DistanceToTarget = DirectionToTarget.Size();
@@ -68,13 +78,13 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
         // Update Blackboard
         CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
 
-        // Smooth rotation toward player with improved interpolation
+        // Smooth rotation toward player
         FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
         Crow->SetActorRotation(FMath::RInterpTo(
             Crow->GetActorRotation(),
             LookAt,
             DeltaTime,
-            5.0f  // Reduced interpolation speed for smoother rotation
+            5.0f
         ));
     }
     else
@@ -82,45 +92,6 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
         CrowBoss_BBC->SetValueAsBool("SeenPlayer", false);
     }
 }
-
-//void ACrowBoss_AIController::Tick(float DeltaTime)
-//{
-//	Super::Tick(DeltaTime);
-//
-//	APawn* Crow = GetPawn();
-//	if (!Crow) return;
-//
-//	if (Player)
-//	{
-//		FVector PlayerLocation = Player->GetActorLocation();
-//		FVector CrowLocation = Crow->GetActorLocation();
-//		float Distance = FVector::Dist(PlayerLocation, CrowLocation);
-//
-//		if (Distance > 1500.f)
-//		{
-//			Player = nullptr;
-//			CrowBoss_BBC->SetValueAsObject("Player", nullptr);
-//			CrowBoss_BBC->SetValueAsBool("SeenPlayer", false);
-//			return;
-//		}
-//
-//		// Hover above the player
-//		FVector TargetLocation = PlayerLocation + FVector(0.f, 0.f, 300.f);
-//		FVector Direction = (TargetLocation - CrowLocation).GetSafeNormal();
-//		Crow->AddMovementInput(Direction);
-//
-//		// Update Blackboard
-//		CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
-//
-//		// Smooth rotation toward player
-//		FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
-//		Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), LookAt, DeltaTime, 6.0f));
-//	}
-//	else
-//	{
-//		CrowBoss_BBC->SetValueAsBool("SeenPlayer", false);
-//	}
-//}
 
 void ACrowBoss_AIController::OnSeenPawn(APawn* SeenPawn)
 {
