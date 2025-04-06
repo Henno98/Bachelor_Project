@@ -5,12 +5,7 @@
 #include "GameplayTagsManager.h"
 #include "Test_Character.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Engine/World.h"
-#include "TimerManager.h"
-#include "DrawDebugHelpers.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "Components/CapsuleComponent.h"
 
 UGAS_Wall_Latch::UGAS_Wall_Latch()
@@ -32,10 +27,7 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
     }
     UWorld* World = Character->GetWorld();
     if (!World) {
-
-
         GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("World not Found"));
-
         return;
     }
 
@@ -48,6 +40,7 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
 
     // Temporarily reduce gravity while wall latching
     Movement->GravityScale = 0.1f;  // Slow descent
+
 
     FVector CurrentVelocity = Movement->Velocity;
     CurrentVelocity.Z *= 0.f;  // Stop vertical movement
@@ -72,7 +65,7 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
         {
             if (Movement)
             {
-                Movement->GravityScale = 3.0f;  // Set gravity back to normal
+                Movement->GravityScale = 4.0f;  // Set gravity back to normal
             }
         }, 0.1f, false);
 }
@@ -146,13 +139,13 @@ void UGAS_Wall_Latch::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                     bHit = true;
                     BestHitResult = HitResult;
                     // Debug the trace
-                    DrawDebugLine(World, Start, End, FColor::Red, false, 1.f, 0, 1.f);
+                  //  DrawDebugLine(World, Start, End, FColor::Red, false, 1.f, 0, 1.f);
                     break;
                 }
                 else
                 {
                     // Debug the trace when no hit occurs
-                    DrawDebugLine(World, Start, End, FColor::Blue, false, 1.f, 0, 1.f);
+                   // DrawDebugLine(World, Start, End, FColor::Blue, false, 1.f, 0, 1.f);
                 }
             }
 
@@ -160,7 +153,10 @@ void UGAS_Wall_Latch::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
             // Handle wall latching if a wall is detected
             if (bHit)
             {
-                LatchToWall(Character, BestHitResult.Normal);
+               
+                Character->ResetJumpState();
+                Character->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+            	LatchToWall(Character, BestHitResult.Normal);
             }
 		}
 		else

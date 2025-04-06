@@ -7,10 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
 #include "Components/SphereComponent.h"
-#include "PowerUpController.h"
-#include "Power_WallLatch.h"
 #include "projectile.h"
-#include "SaveState.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
 #include "GAS_Double_Jump.h"
@@ -22,7 +19,6 @@ class UInputAction;
 class UInputMappingContext;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, int32, NewHealth);
-
 
 UCLASS()
 class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface
@@ -100,6 +96,8 @@ public:
 
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
     float JumpVelocity{ 1300.f };
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FVector BulletSize {FVector(1.f)};
 
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

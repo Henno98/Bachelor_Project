@@ -10,17 +10,6 @@
 
 
 
-//EBTNodeResult::Type UBTTask_Movement_SmallCharger::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
-//{
-//	int i = FMath::RandRange(0, 3);
-//
-//	TArray<AActor*> targets;
-//	UGameplayStatics::GetAllActorsOfClass(OwnerComp.GetOwner()->GetWorld(), AWandering_Target_Point::StaticClass(), targets);
-//	OwnerComp.GetBlackboardComponent()->SetValueAsVector("Wandering_Point", targets[i]->GetActorLocation());
-//	return EBTNodeResult::Succeeded;
-//}
-
-
 EBTNodeResult::Type UBTTask_Movement_SmallCharger::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 

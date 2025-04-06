@@ -6,9 +6,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTagsManager.h"
 #include "Test_Character.h"
-#include "GameplayEffect.h"
 #include "AbilitySystemComponent.h"
-#include "Components/CapsuleComponent.h"
+
 
 UGAS_Ranged_Attack::UGAS_Ranged_Attack()
 {
@@ -78,6 +77,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 					SpawnedProjectile->Velocity = FiringDirection * 2000.f;
 					SpawnedProjectile->lifetime = 0.8f;
 					SpawnedProjectile->Owner = Character;
+					SpawnedProjectile->SetActorScale3D(Character->BulletSize);
 				}
 			}
 		}

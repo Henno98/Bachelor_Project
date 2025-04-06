@@ -2,10 +2,7 @@
 
 
 #include "BTTask_MoveToPlayer_SmallCharger.h"
-#include "SmallCharger_AIController.h"
-#include "GameFramework/Character.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/KismetStringLibrary.h"
+
 #include "Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeComponent.h"
 #include "Runtime/AIModule/Classes/BehaviorTree/BlackboardComponent.h"
 
@@ -24,8 +21,6 @@ EBTNodeResult::Type UBTTask_MoveToPlayer_SmallCharger::ExecuteTask(UBehaviorTree
 
 		TargetLocation.Z = OwnerComp.GetOwner()->GetActorLocation().Z;
 		BB->SetValueAsVector("TargetLocation", FVector(TargetLocation.X, TargetLocation.Y, OwnerComp.GetOwner()->GetActorLocation().Z));
-		FString Message = UKismetStringLibrary::Conv_VectorToString(FVector(TargetLocation.X, TargetLocation.Y, OwnerComp.GetOwner()->GetActorLocation().Z));
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, Message);
 		result = EBTNodeResult::Succeeded;
 	}
 	return result;

@@ -2,11 +2,9 @@
 
 
 #include "Test_Enemy.h"
-
 #include "projectile.h"
 #include "Test_Character.h"
 #include "Components/BoxComponent.h"
-#include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "GameFramework/PawnMovementComponent.h"
 
 // Sets default values
@@ -43,10 +41,13 @@ void ATest_Enemy::Walk(float deltatime)
 	if (Timer <= 2.f)
 	{
 		CurrentPosition.Y += WalkSpeed * deltatime;
+		SetActorRotation(FRotator(0.f, 0.f, 0.f));
 	}
 	else if (Timer <= 4.f)
 	{
 		CurrentPosition.Y -= WalkSpeed * deltatime;
+		SetActorRotation(FRotator(0.f, -180.f, 0.f));
+
 	}
 	else if (Timer >= 5.f)
 	{
@@ -103,6 +104,7 @@ void ATest_Enemy::Attack(FVector location)
 			FVector Direction = (location - SpawnLocation).GetSafeNormal();
 			SpawnedProjectile->Velocity = Direction * 200.f;
 			SpawnedProjectile->Owner = this;
+			SpawnedProjectile->SetActorScale3D(BulletSize);
 		}
 	}
 }

@@ -6,15 +6,13 @@
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "InputActionValue.h"
 #include "AbilitySystemComponent.h"
-#include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include <Power_DoubleJump.h>
 #include "GAS_PlayerState.h"
-#include "Tools/UEdMode.h"
+#include "SaveState.h"
+
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -26,28 +24,14 @@ ATest_Character::ATest_Character()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-	//GetCharacterMovement()->bOrientRotationToMovement = false;
-	//GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 	
-
 	Springarm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Springarm"));
 	Springarm->SetupAttachment(RootComponent);
 	Springarm->TargetArmLength = 1000.f;
-	
-	
-	//AbilitySystemComponent = CreateDefaultSubobject<UASC_AbilitySystem>("AbilitySystemComponent");
-
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
-	
-	HurtBox = CreateDefaultSubobject<USphereComponent>(TEXT("Hurtbox"));
-	HurtBox->SetRelativeLocation(FVector(GetActorLocation().X,GetActorLocation().Y + 100,GetActorLocation().Z));
-	HurtBox->SetSphereRadius(01.f);
-	HurtBox->SetupAttachment(RootComponent);
 
-
-	
 	Health = 10;
 	RangedDamage = 5;
 	MeleeDamage = 1;
@@ -61,7 +45,6 @@ ATest_Character::ATest_Character()
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 	SaveGame();
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -213,12 +196,7 @@ void ATest_Character::GASJump()
 {
 	if (AbilitySystemComponent && GA_Double_Jump)
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Jumping ability"));
-
-
-		}
+	
 		FGameplayTagContainer jumpGameTagContainer;
 		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump")));
 		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
@@ -232,8 +210,6 @@ void ATest_Character::GASStopJump()
 {
 	if (GetVelocity().Z > 0)
 	{
-		if (GEngine)
-			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Still jumping"));
 
 		AbilitySystemComponent->AbilityLocalInputReleased(JumpAbilitySpec.InputID);
 		//AbilitySystemComponent->CancelAllAbilities();
@@ -270,10 +246,7 @@ void ATest_Character::GASWallLatch()
 {
 	if (AbilitySystemComponent && GA_Wall_Latch)
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Wall latch ability"));
-		}
+		
 		FGameplayTagContainer jumpGameTagContainer;
 		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Wall_Latch")));
 		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
@@ -296,10 +269,7 @@ void ATest_Character::GAS_RangedAttack()
 
 	if (AbilitySystemComponent && GA_Ranged_Attack)
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Ranged attack ability"));
-		}
+		
 		if (BioMass > 100) {
 			FGameplayTagContainer jumpGameTagContainer;
 			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
@@ -325,7 +295,7 @@ void ATest_Character::DropDown()
 		End,
 		ECC_WorldStatic,
 		Params);
-	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 2.0f);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 2.0f);
 
 	if (bSingleHit)
 	{
@@ -333,7 +303,7 @@ void ATest_Character::DropDown()
 		{
 			if (HitResult.GetActor()->GetFName().ToString().Contains(FString("Platform")) == true)
 			{
-				DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
+				//DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
 
 				HitResult.GetActor()->SetActorEnableCollision(false);
 

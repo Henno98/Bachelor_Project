@@ -52,8 +52,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	FVector SpawnLocation;
 
-
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+	FVector BulletSize{FVector(1.f)};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StaticMesh")
 	UStaticMeshComponent* StaticMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collider")

@@ -6,9 +6,6 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"                
-#include "TimerManager.h"
-#include "Engine/World.h"
 #include "GameFramework/Actor.h"
 
 

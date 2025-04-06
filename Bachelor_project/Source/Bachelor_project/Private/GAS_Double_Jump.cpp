@@ -27,7 +27,7 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 
 		FVector Direction = Character->GetActorUpVector();
-		FVector Start = Character->GetActorLocation();
+		FVector Start = Character->GetActorLocation() + FVector(0.f,30.f,0.f);
 		FVector End = Start + (Direction * 300.f);
 		FHitResult HitResult;
 		FCollisionQueryParams Params;
@@ -39,16 +39,14 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 			End,
 			ECC_WorldStatic,
 			Params);
-		DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 2.0f);
-
+		
 		if (bSingleHit)
 		{
 			if (IsValid(HitResult.GetActor()))
 			{
 				if (HitResult.GetActor()->GetFName().ToString().Contains(FString("Platform")) == true)
 				{
-					DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-
+					
 					HitResult.GetActor()->SetActorEnableCollision(false);
 
 					FTimerHandle TimerHandle;
@@ -99,9 +97,7 @@ void UGAS_Double_Jump::InputReleased(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
 {
 	Super::InputReleased(Handle, ActorInfo, ActivationInfo);
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Cancel Jumping UUUU"));
-
+	
 	if (ActorInfo != NULL && ActorInfo->AvatarActor != NULL)
 	{
 		CancelAbility(Handle, ActorInfo, ActivationInfo, true);
