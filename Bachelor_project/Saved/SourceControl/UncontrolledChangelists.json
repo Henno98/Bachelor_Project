@@ -1,0 +1,22 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Levels/Entrance_Int.umap",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Levels/Wending_Int.umap",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Player_HUD_BP.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Player_Stat_Widget_BP.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/BP_GameMode.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Player/Player_HUD_BP.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Player/Player_Stat_Widget_BP.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/TutorialTextTriggerBox.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/Input/IM_Player.uasset",
+				"C:/Users/larss/Documents/Github repositories/Inventory/Bachelor_Project/Bachelor_project/Content/BP/Player/BP_Test_Character.uasset"
+			]
+		}
+	]
+}

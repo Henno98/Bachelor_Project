@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Bachelor_project.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Bachelor_project.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\Bachelor_projectEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Bachelor_project.png" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGameplayTags.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Bachelor_project">
+      <UniqueIdentifier>{AF03B20F-8C0A-3EFE-A0E3-70862FB57731}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Bachelor_project\Bachelor_project.Build.cs">
+      <Filter>Source\Bachelor_project</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.cpp">
+      <Filter>Source\Bachelor_project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Bachelor_project.h">
+      <Filter>Source\Bachelor_project</Filter>
+    </ClCompile>
+    <Filter Include="Source\Bachelor_project\Private">
+      <UniqueIdentifier>{0AD54A38-9202-3549-BBA5-3807A508D236}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\ASC_AbilitySystemComponent.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BasicPlatform.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Beetle_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BirdBoss.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_Movement_SmallCharger.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_MoveToPlayer_SmallCharger.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowMovement_Task.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowTask_DiveAttack.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Dash.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Double_Jump.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Melee.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_PlayerState.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Ranged_Attack.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Wall_Latch.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\LevelStreamingActor.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Player_HUD.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Player_Stat_Widget.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\PowerUpController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Power_DoubleJump.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Power_WallLatch.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\projectile.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\ReturnToOrigin_Task.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SaveState.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_BTService.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Character.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Enemy.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Wandering_Target_Point.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\Bachelor_project\Public">
+      <UniqueIdentifier>{18076C2A-578B-3D94-9F36-D6E08B75DC42}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\ASC_AbilitySystemComponent.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BasicPlatform.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Beetle_AIController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BirdBoss.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_Movement_SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_MoveToPlayer_SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss_AIController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowMovement_Task.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowTask_DiveAttack.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Dash.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Double_Jump.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Melee.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_PlayerState.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Ranged_Attack.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Wall_Latch.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\LevelStreamingActor.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Player_HUD.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Player_Stat_Widget.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\PowerUpController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Power_DoubleJump.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Power_WallLatch.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\projectile.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\ReturnToOrigin_Task.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SaveState.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_AIController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_BTService.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Character.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Enemy.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Wandering_Target_Point.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

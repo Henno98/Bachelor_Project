@@ -21,6 +21,9 @@
 class UInputAction;
 class UInputMappingContext;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, int32, NewHealth);
+
+
 UCLASS()
 class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface
 {
@@ -29,6 +32,10 @@ public:
     // Sets default values for this character's properties
     ATest_Character();
 
+    UPROPERTY(BlueprintAssignable, Category = "Events")
+    FOnHealthChangedSignature OnHealthChanged;
+    UPROPERTY(BlueprintAssignable, Category = "Events")
+    FOnHealthChangedSignature OnEnergyChanged;  // Same delegate type is fine
 protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
@@ -60,39 +67,26 @@ public:
     //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
+
      UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Hurtbox")
      USphereComponent* HurtBox;
-     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Hurtbox")
-     UStaticMeshComponent* HurtVisibility;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     class UCameraComponent* Camera;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PowerUps")
-    UPowerUpController* DoubleJumpPowerUp;
-
-    //UPROPERTY()
-    //class UPowerUpController* WallLatchPowerUp;
-
-   UPROPERTY()
-    bool bHasDoubleJumpPowerUp;
-   /* UPROPERTY()
-    bool bHasWallLatchPowerUp;*/
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Projectile class")
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
-
-   /* void RangedAttack();*/
     void Move(const FInputActionValue& Value);
-    //void Jump();
-    void DoubleJump(const FInputActionValue& Value);
-  //  void WallLatch(const FInputActionValue& Value);
-   // void Dash();
+
     void MeleeAttack(const FInputActionValue& Value);
+
     bool bIsDashing{ false };
     bool bHasDoubleJumped{ false };
     bool Attack1{false};
     bool Attack2{false};
     bool Attack3{false};
+
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
     float DashCooldown;
 
@@ -100,17 +94,21 @@ public:
     void SaveGame();
     UFUNCTION()
     void LoadGame();
+
     // Called every frame
     virtual void Tick(float DeltaTime) override;
+
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
-    float JumpVelocity{ 600.f };
+    float JumpVelocity{ 1300.f };
+
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
     UPROPERTY(EditAnywhere)
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    int MaxHealth;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Stats")
     int Health;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
@@ -122,10 +120,8 @@ protected:
 public:
 
     int GetHealth() { return Health; }
-    void SetHealth(int newhealth)
-    {
-        Health = newhealth;
-    }
+    void SetHealth(int newhealth){Health = newhealth;}
+    int GetBioMass() { return BioMass; }
     int GetRangedDamage() { return RangedDamage; }
     int GetMeleeDamage() { return MeleeDamage; }
 
@@ -133,6 +129,7 @@ public:
    void Hit(int Damage);
     void Dead();
     virtual void PossessedBy(AController* NewController) override;
+
 
     void InitAbilitySystem();
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
@@ -146,6 +143,7 @@ public:
     void DropDown();
     void ReEnableInput();
     void PauseInput();
+
     UPROPERTY()
     TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")

@@ -54,14 +54,14 @@ ATest_Character::ATest_Character()
 	BioMass = 0;
 	
 }
+
+
+
 // Called when the game starts or when spawned
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
-
-	
-
 	SaveGame();
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -73,12 +73,6 @@ void ATest_Character::BeginPlay()
 	DashCooldown = 2.f;
 
 
-	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press E to use RANGED ATTACK"));
-	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press SPACE to use jump and double jump"));
-	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press CTRL to use wall latch"));
-	GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Orange, TEXT("Press SHIFT to Dash"));
-
-
 }
 void ATest_Character::SaveGame()
 {
@@ -87,8 +81,6 @@ void ATest_Character::SaveGame()
 		// Set data on the savegame object.
 		SaveGameInstance->PlayerName = TEXT("PlayerOne");
 		SaveGameInstance->PlayerLocation = this->GetActorLocation();
-		//SaveGameInstance->bHasDoubleJumpPowerUp = DoubleJumpPowerUp != nullptr;  // Save if the power-up is assigned
-		//SaveGameInstance->bHasWallLatchPowerUp = WallLatchPowerUp != nullptr;  // Save if the power-up is assigned
 		SaveGameInstance->SavedWorld = GetWorld();
 		// Save the data immediately.
 		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
@@ -108,17 +100,7 @@ void ATest_Character::LoadGame()
 			SetActorEnableCollision(true);
 			SetActorHiddenInGame(false);
 			this->SetActorLocation(SaveGameInstance->PlayerLocation);
-			//// Reinitialize power-ups based on saved state
-			//if (SaveGameInstance->bHasDoubleJumpPowerUp)
-			//{
-			//	// You would reassign or reinitialize the DoubleJumpPowerUp here
-			//	DoubleJumpPowerUp = NewObject<UPower_DoubleJump>();
-			//}
-			//if (SaveGameInstance->bHasWallLatchPowerUp)
-			//{
-			//	// You would reassign or reinitialize the WallLatchPowerUp here
-			//	WallLatchPowerUp = NewObject<UPower_WallLatch>();
-			//}
+			
 
 
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Loaded Game"));
@@ -130,8 +112,10 @@ void ATest_Character::LoadGame()
 void ATest_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (BioMass < 500) {
+	if (BioMass <= 500) {
 		BioMass += 1;
+
+		OnEnergyChanged.Broadcast(BioMass);
 	}
 	if (Health <= 0)
 	{
@@ -156,7 +140,6 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
 		//PowerUpInputs
 		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
-		EnhancedInputComponent->BindAction(DoubleJumpAction, ETriggerEvent::Started, this, &ATest_Character::DoubleJump);
 
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
@@ -174,16 +157,8 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 void ATest_Character::Hit(int Damage)
 {
 	Health -= Damage;
-	//// Reduce health
-	//CurrentHealth -= Damage;
-	//if (CurrentHealth < 0) CurrentHealth = 0;
-
-	//// Update health bar widget (if it's available)
-	//AMyHUD* MyHUD = Cast<AMyHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
-	//if (MyHUD && MyHUD->HealthBarWidget)
-	//{
-	//	MyHUD->HealthBarWidget->UpdateHealth(CurrentHealth);
-	//}
+	// Broadcast to any listeners
+	OnHealthChanged.Broadcast(Health);
 }
 
 void ATest_Character::Dead()
@@ -390,38 +365,6 @@ void ATest_Character::PauseInput()
 	this->DisableInput(PlayerController);
 }
 
-//void ATest_Character::RangedAttack()
-//{
-//	if (!RangedAttackClass)
-//	{
-//		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ProjectileClass is not set!"));
-//		return;
-//	}
-//
-//	FVector SpawnLocation = GetActorLocation() + (GetActorForwardVector().GetSafeNormal() * 50);
-//	FVector FiringDirection = GetActorForwardVector().GetSafeNormal();
-//	FRotator SpawnRotation = GetActorRotation();
-//	FActorSpawnParameters SpawnParams;
-//	SpawnParams.Owner = this;
-//
-//	// Spawn the projectile
-//	UWorld* World = GetWorld();
-//	if (World)
-//	{
-//		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(RangedAttackClass, SpawnLocation, SpawnRotation, SpawnParams);
-//		if (SpawnedProjectile)
-//		{
-//			//GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan, TEXT("Spawned projectile"));
-//			// Calculate the direction vector
-//			//FVector Direction = SpawnLocation.GetSafeNormal();
-//			SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-//			SpawnedProjectile->lifetime = 0.3f;
-//			SpawnedProjectile->Owner = this;
-//		}
-//	}
-//
-//
-//}
 
 void ATest_Character::Move(const FInputActionValue& Value)
 {
@@ -433,11 +376,6 @@ void ATest_Character::Move(const FInputActionValue& Value)
 		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(directionVector, moveVector.X);
 
-		// (if (moveVector.X < -0.05f)
-		// 	//	Springarm->SetRelativeRotation(FRotator(0,90.f , 0));
-		//
-		// 	if (moveVector.X > 0.05f)
-		// 		//Springarm->SetRelativeRotation(FRotator(0, -90.f, 0));)
 	}
 	if ( moveVector.X < -0.05f)
 	{
@@ -454,54 +392,6 @@ void ATest_Character::Move(const FInputActionValue& Value)
 
 	}
 }
-
-//void ATest_Character::Jump()
-//{
-//	ACharacter::Jump();
-//}
-//
-void ATest_Character::DoubleJump(const FInputActionValue& Value)
-{
-   
-}
-
-//void ATest_Character::WallLatch(const FInputActionValue& Value)
-//{
-//	
-//	if (GetCharacterMovement()->IsFalling())
-//	{
-//		if (WallLatchPowerUp)
-//		{
-//			WallLatchPowerUp->Activate(this);
-//			JumpCurrentCount = 0;
-//		}
-//		else
-//		{
-//			
-//			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Wall Latch PowerUp not assigned!"));
-//
-//		}
-//	}
-//	else
-//	{
-//		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("Can only wall latch while falling!"));
-//	}
-//}
-//
-//void ATest_Character::Dash()
-//{
-//	if(!bIsDashing && !GetCharacterMovement()->IsFalling())
-//	{
-//		FVector direction = GetCharacterMovement()->GetLastUpdateVelocity().GetSafeNormal();
-//		//SetActorEnableCollision(false);
-//		GetCharacterMovement()->GroundFriction = 0.1f;
-//		LaunchCharacter(FVector(0,1600.f*direction.Y,0), false, false);
-//		DashCooldown = 2.f;
-//	
-//		bIsDashing = true;
-//	}
-//
-//}
 
 void ATest_Character::MeleeAttack(const FInputActionValue& Value)
 { 

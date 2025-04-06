@@ -2,6 +2,8 @@
 
 
 #include "Player_Stat_Widget.h"
+
+#include "Test_Character.h"
 #include "Components/PanelWidget.h"
 #include "Components/Image.h"
 #include "Components/ProgressBar.h"
@@ -10,10 +12,19 @@ void UPlayer_Stat_Widget::NativeConstruct()
 {
 	Super::NativeConstruct();
 	// Initialize the health (for example, set it to max health)
-	CurrentHealth = MaxHealth;
+	ATest_Character* character = Cast<ATest_Character>(GetWorld()->GetFirstPlayerController()->GetCharacter());
+	if (character)
+	{
+		CurrentHealth = character->GetHealth();
+		CurrentBioMass = character->GetBioMass();
+		// Do any additional setup here
+		character->OnHealthChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateHealth);
+		character->OnEnergyChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateBioMass);
+	}
 
 	// Initially, create all health points (images) when the widget is constructed
 	CreateHealthPointImages();
+UpdateBioMass(CurrentBioMass);
 }
 
 void UPlayer_Stat_Widget::UpdateHealth(int32 currenthealth)
@@ -30,13 +41,32 @@ void UPlayer_Stat_Widget::UpdateHealth(int32 currenthealth)
 	CreateHealthPointImages();
 }
 
+void UPlayer_Stat_Widget::UpdateBioMass(int32 currenthealth)
+{
+	if (EnergyBar)
+	{
+		CurrentBioMass = currenthealth;
+		float Percent = static_cast<float>(CurrentBioMass) / 500.0f;
+		EnergyBar->SetPercent(Percent);
+	}
+
+}
+
+void UPlayer_Stat_Widget::UpdateTutorialText(const FString& newtext)
+{
+	if (TutorialTextBlock)
+	{
+		TutorialTextBlock->SetText(FText::FromString(newtext));
+	}
+}
+
 void UPlayer_Stat_Widget::CreateHealthPointImages()
 {
  if(!HealthBarPanel || !HealthPointImage)
 		return;
 
 	// Loop through and add images for each health point
-	for (int32 i = 0; i < MaxHealth; i++)
+	for (int32 i = 0; i < CurrentHealth; i++)
 	{
 		UImage* HealthImage = NewObject<UImage>(this);
 
@@ -53,5 +83,11 @@ void UPlayer_Stat_Widget::CreateHealthPointImages()
 		FVector2D NewPosition = FVector2D(i * 30.f, 0.f); // Space them 30 units apart
 		HealthImage->SetRenderTranslation(NewPosition);
 	}
+}
+
+void UPlayer_Stat_Widget::CreateBioMassImages()
+{
+
+	
 }
 

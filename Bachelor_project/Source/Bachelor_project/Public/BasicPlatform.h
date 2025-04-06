@@ -22,12 +22,19 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Mesh")
-	 UStaticMeshComponent* StaticMesh;
-	 UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Collider")
-	UBoxComponent* Collider;
-	
-	bool CanWallLatch();
+    // Trigger Volume component
+    UPROPERTY(VisibleAnywhere)
+    class UBoxComponent* TriggerBox;
+    FTimerHandle TutorialTextTimerHandle;
+    // Tutorial text to show when player enters the volume
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tutorial")
+    FString TutorialText;
+
+    // When the player enters the trigger, show tutorial text
+    UFUNCTION()
+    void OnPlayerEnterTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    // Function to handle the end overlap event
+    UFUNCTION()
+    void LeftTriggerBox();
+
 };

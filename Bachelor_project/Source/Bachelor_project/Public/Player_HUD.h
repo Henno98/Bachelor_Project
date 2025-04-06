@@ -19,10 +19,17 @@ class BACHELOR_PROJECT_API APlayer_HUD : public AHUD
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<class UUserWidget> HUDWidgetClass;
 
-	UPROPERTY()
-	class UUserWidget* CurrentWidget;
+	
 
 	// Pointer to the actual health bar widget
 	UPROPERTY()
-	class UPlayer_Stat_Widget* HealthBarWidget;
+	class UPlayer_Stat_Widget* Player_Stat_Widget;
+public:
+	// Show tutorial text on the screen
+	UFUNCTION()
+	void ShowTutorialText(const FString& Text);
+	UFUNCTION()
+	void ClearText();
 };
+
+

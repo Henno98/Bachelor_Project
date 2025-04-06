@@ -21,12 +21,42 @@ void APlayer_HUD::BeginPlay()
         }
 
     }*/
+
+    
     if (HUDWidgetClass)
     {
-        HealthBarWidget = CreateWidget<UPlayer_Stat_Widget>(GetWorld(), HUDWidgetClass);
-        if (HealthBarWidget)
+        Player_Stat_Widget = CreateWidget<UPlayer_Stat_Widget>(GetWorld(), HUDWidgetClass);
+        if (Player_Stat_Widget)
         {
-            HealthBarWidget->AddToViewport();
+            
+            Player_Stat_Widget->AddToViewport();
+        }
+    }
+}
+
+void APlayer_HUD::ShowTutorialText(const FString& Text)
+{
+
+    if (Player_Stat_Widget)
+    {
+        UTextBlock* TextBlock = Cast<UTextBlock>(Player_Stat_Widget->GetWidgetFromName(TEXT("TutorialTextBlock")));
+        if (TextBlock)
+        {
+            TextBlock->SetText(FText::FromString(Text));
+        }
+    }
+}
+
+void APlayer_HUD::ClearText()
+{
+    if (Player_Stat_Widget)
+    {
+        // Ensure the widget is added to the viewport
+        UTextBlock* TextBlock = Cast<UTextBlock>(Player_Stat_Widget->GetWidgetFromName(TEXT("TutorialTextBlock")));
+        if (TextBlock)
+        {
+            // Clear the text
+            TextBlock->SetText(FText::FromString(""));
         }
     }
 }
