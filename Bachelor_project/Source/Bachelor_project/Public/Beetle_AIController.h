@@ -42,4 +42,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	class UPawnSensingComponent* Beetle_PerceptionComponent;
 
+
+
 };

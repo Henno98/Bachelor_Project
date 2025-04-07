@@ -31,8 +31,7 @@ void ASmallCharger::BeginPlay()
 		}
 		else
 		{
-			UE_LOG(LogTemp, Error, TEXT("SmallCharger AIController is null in BeginPlay!"));
-		}
+				}
 	}
 }
 

@@ -30,17 +30,14 @@ void ALevelStreamingActor::OverlapBegins(UPrimitiveComponent* OverlappedComponen
 
 	if (OtherActor == MyCharacter)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Overlapped actor found"));
 		if ( LevelToLoad != " ") {
-			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Level to load found"));
-
+			
 			FLatentActionInfo LatentInfo;
 			UGameplayStatics::LoadStreamLevel(this, LevelToLoad, true, true, LatentInfo);
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Level not found"));
-
+			
 		}
 	}
 }
@@ -52,11 +49,9 @@ void ALevelStreamingActor::OverlapEnds(UPrimitiveComponent* OverlappedComponent,
 	ACharacter* MyCharacter = UGameplayStatics::GetPlayerCharacter(this, 0);
 	if (OtherActor == MyCharacter)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Overlapped actor left collision zone"));
-
+		
 		if (LevelToLoad != "") {
-			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Level should unload"));
-
+		
 			FLatentActionInfo LatentInfo;
 			UGameplayStatics::UnloadStreamLevel(this, LevelToLoad, LatentInfo,false);
 		}

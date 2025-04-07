@@ -62,8 +62,7 @@ void ABeetle_AIController::OnEnemySeeItsTarget(APawn* SensedPawn)
 {
 	if (Beetle_BTC != nullptr && SensedPawn != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AI saw player at: %s"), *SensedPawn->GetActorLocation().ToString());
-
+		
 
 			Beetle_BBC->SetValueAsBool("SeenPlayer", true);
 
@@ -72,8 +71,7 @@ void ABeetle_AIController::OnEnemySeeItsTarget(APawn* SensedPawn)
 			FVector LastSeenLocation = SensedPawn->GetActorLocation();
 			Beetle_BBC->SetValueAsVector("LastSeenLocation", LastSeenLocation);
 
-			UE_LOG(LogTemp, Warning, TEXT("LastSeenLocation set to: %s"), *LastSeenLocation.ToString());
-
+		
 			detectPlayer = SensedPawn;
 
 			GetWorldTimerManager().SetTimer(timerHandle, this, &ABeetle_AIController::ToCheckSpawnStillAround, 2.0f, true, 3.0f);

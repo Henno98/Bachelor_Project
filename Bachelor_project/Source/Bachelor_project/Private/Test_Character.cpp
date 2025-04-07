@@ -69,8 +69,7 @@ void ATest_Character::SaveGame()
 		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
 		{
 			// Save succeeded.
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Saved Game"));
-
+			
 		}
 	}
 }
@@ -86,8 +85,7 @@ void ATest_Character::LoadGame()
 			
 
 
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Loaded Game"));
-
+		
 		}
 	}
 }
@@ -158,8 +156,7 @@ void ATest_Character::PossessedBy(AController* NewController)
 
 void ATest_Character::InitAbilitySystem()
 {
-	GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Initialize Ability System"));
-
+	
 	AGAS_PlayerState* GASPlayerState = GetPlayerState<AGAS_PlayerState>();
 
 	if (ensure(GASPlayerState))
@@ -295,15 +292,13 @@ void ATest_Character::DropDown()
 		End,
 		ECC_WorldStatic,
 		Params);
-	//DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 2.0f);
-
+	
 	if (bSingleHit)
 	{
 		if (IsValid(HitResult.GetActor()))
 		{
 			if (HitResult.GetActor()->GetFName().ToString().Contains(FString("Platform")) == true)
 			{
-				//DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
 
 				HitResult.GetActor()->SetActorEnableCollision(false);
 

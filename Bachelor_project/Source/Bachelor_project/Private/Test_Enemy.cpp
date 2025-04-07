@@ -70,7 +70,6 @@ void ATest_Enemy::Attack(FVector location)
 	// Spawn the projectile
 	if (!ProjectileClass)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ProjectileClass is not set!"));
 		return;
 	}
 
@@ -81,12 +80,10 @@ void ATest_Enemy::Attack(FVector location)
 
 	if (location.IsZero())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Target location is zero!"));
 		return;
 	}
 	if (SpawnLocation.IsZero())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT(" Spawn location is zero!"));
 		return;
 	}
 
@@ -99,7 +96,6 @@ void ATest_Enemy::Attack(FVector location)
 		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
 		if (SpawnedProjectile)
 		{
-			GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Cyan,TEXT("Spawned projectile"));
 			// Calculate the direction vector
 			FVector Direction = (location - SpawnLocation).GetSafeNormal();
 			SpawnedProjectile->Velocity = Direction * 200.f;
@@ -117,7 +113,6 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 		if (!bHasSpawnedProjectile) 
 		{
 			bHasSpawnedProjectile = true;
-		GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Red, TEXT("Collided"));
 		FVector position = OtherActor->GetActorLocation();
 		Attack(position);
 		}
@@ -130,15 +125,7 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 			FVector velocity = collidedPlayer->GetMovementComponent()->Velocity;
 			collidedPlayer->LaunchCharacter(velocity * -1, true, true);
 
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(
-					-1, // Use -1 to avoid overwriting messages.
-					2.f,
-					FColor::Orange,
-					TEXT("Pushed player")
-				);
-			}
+			
 		}
 	}
 	}

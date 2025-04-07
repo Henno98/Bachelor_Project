@@ -101,9 +101,7 @@ void ACrowBoss_AIController::OnSeenPawn(APawn* SeenPawn)
 		Player = SeenPawn; 
 		CrowBoss_BBC->SetValueAsObject("Player", SeenPawn);
 		CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
-		UE_LOG(LogTemp, Warning, TEXT("Boss saw the player!"));
-
-		
+			
 	}
 }
 

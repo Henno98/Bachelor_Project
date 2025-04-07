@@ -56,8 +56,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     if (bHit)
     {
         LandingSpot = Hit.ImpactPoint;
-        DrawDebugSphere(AIPawn->GetWorld(), LandingSpot, 50.f, 12, FColor::Red, false, 3.0f);
-    }
+          }
 
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);
     BlackboardComp->SetValueAsVector("OriginalPosition", CurrentLocation);
@@ -99,9 +98,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
                 FVector OriginalPosition = BlackboardComp->GetValueAsVector("OriginalPosition");
 
                 // Log starting position for debugging
-                UE_LOG(LogTemp, Warning, TEXT("Starting return journey from %s to %s"),
-                    *CurrentPos.ToString(), *OriginalPosition.ToString());
-
+              
                 // Calculate return direction and launch
                 FVector ReturnDirection = (OriginalPosition - CurrentPos).GetSafeNormal();
                 CrowBoss->LaunchCharacter(ReturnDirection * (DiveSpeed * 0.5f), true, true);
@@ -163,9 +160,7 @@ void UCrowTask_DiveAttack::StartReturnJourneyTracking(ACharacter* CrowBoss, UBla
                 CrowBoss->GetWorldTimerManager().ClearTimer(CheckPositionTimerHandle);
                 CrowBoss->GetWorldTimerManager().ClearTimer(SafetyTimerHandle);
 
-                UE_LOG(LogTemp, Warning, TEXT("Boss returned to position. Distance: %f, Stationary time: %f"),
-                    DistToOriginal, ReturnData->StationaryTime);
-
+               
                 delete ReturnData;
             }
         },
@@ -180,8 +175,6 @@ void UCrowTask_DiveAttack::StartReturnJourneyTracking(ACharacter* CrowBoss, UBla
             BlackboardComp->SetValueAsBool("IsAttacking", false);
 
             CrowBoss->GetWorldTimerManager().ClearTimer(CheckPositionTimerHandle);
-
-            UE_LOG(LogTemp, Warning, TEXT("Safety timer triggered - force stopping return"));
 
             delete ReturnData;
         },

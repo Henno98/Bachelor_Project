@@ -34,7 +34,6 @@ void ABasicPlatform::OnPlayerEnterTrigger(UPrimitiveComponent* OverlappedCompone
 {
 	if (OtherActor && OtherActor->IsA(ATest_Character::StaticClass()))
 	{
-		UE_LOG(LogTemp, Log, TEXT("Player entered the trigger"));
 		// Assuming you have a reference to your HUD to show the tutorial text
 		APlayer_HUD* HUD = Cast<APlayer_HUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD());
 		if (HUD)

@@ -22,20 +22,17 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
 {
     if (!Character)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Character is null in LatchToWall"));
         return;
     }
     UWorld* World = Character->GetWorld();
     if (!World) {
-        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("World not Found"));
         return;
     }
 
     UCharacterMovementComponent* Movement = Character->GetCharacterMovement();
     if (!Movement)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Movement component is null in LatchToWall"));
-        return;
+         return;
     }
 
     // Temporarily reduce gravity while wall latching
@@ -49,16 +46,14 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
     FVector NewPosition = Character->GetActorLocation() - WallNormal * 20.0f;
 
     // Ensure the new position is valid
-    UE_LOG(LogTemp, Warning, TEXT("Latched Position: %s"), *NewPosition.ToString());
-
+ 
     // Check if the position is valid before setting it
     if (!NewPosition.IsZero())
     {
         Character->SetActorLocation(NewPosition);
     }
 
-    // GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Latched to wall!"));
-
+   
      // Timer to restore gravity
     FTimerHandle TimerHandle;
     World->GetTimerManager().SetTimer(TimerHandle, [Movement]()
@@ -93,8 +88,7 @@ void UGAS_Wall_Latch::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
             // Get capsule for line trace start position
             UCapsuleComponent* Capsule = Character->GetCapsuleComponent();
             if (!Capsule) {
-                GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("Capsule Not Found"));
-
+              
 
                 return;
             }
@@ -115,7 +109,6 @@ void UGAS_Wall_Latch::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
             if (!World)
             {
 
-                GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("World not Found"));
                 return;
 
             }
@@ -139,13 +132,11 @@ void UGAS_Wall_Latch::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                     bHit = true;
                     BestHitResult = HitResult;
                     // Debug the trace
-                  //  DrawDebugLine(World, Start, End, FColor::Red, false, 1.f, 0, 1.f);
-                    break;
+                  break;
                 }
                 else
                 {
-                    // Debug the trace when no hit occurs
-                   // DrawDebugLine(World, Start, End, FColor::Blue, false, 1.f, 0, 1.f);
+                   
                 }
             }
 
@@ -180,9 +171,7 @@ void UGAS_Wall_Latch::InputReleased(const FGameplayAbilitySpecHandle Handle, con
 	const FGameplayAbilityActivationInfo ActivationInfo)
 {
 	Super::InputReleased(Handle, ActorInfo, ActivationInfo);
-    if (GEngine)
-        GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Cancel Jumping UUUU"));
-
+    
     if (ActorInfo != NULL && ActorInfo->AvatarActor != NULL)
     {
         CancelAbility(Handle, ActorInfo, ActivationInfo, true);
