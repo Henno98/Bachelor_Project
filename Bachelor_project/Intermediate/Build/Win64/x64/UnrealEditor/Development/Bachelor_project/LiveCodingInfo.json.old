@@ -44,7 +44,6 @@
 			"CrowBoss.cpp.obj",
 			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
-			"CrowTask_DiveAttack.cpp.obj",
 			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
@@ -62,7 +61,8 @@
 			"SmallCharger_BTService.cpp.obj",
 			"Test_Character.cpp.obj",
 			"Test_Enemy.cpp.obj",
-			"Wandering_Target_Point.cpp.obj"
+			"Wandering_Target_Point.cpp.obj",
+			"CrowTask_DiveAttack.cpp.obj"
 		]
 	}
 }
