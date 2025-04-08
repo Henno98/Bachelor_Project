@@ -28,8 +28,7 @@ void ATest_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
 	Position = GetActorLocation();
-	Health = 6;
-	Damage = 1;
+	
 }
 
 void ATest_Enemy::Walk(float deltatime)
@@ -49,10 +48,11 @@ void ATest_Enemy::Walk(float deltatime)
 		SetActorRotation(FRotator(0.f, -180.f, 0.f));
 
 	}
-	else if (Timer >= 5.f)
+	else if (Timer >= 2.f)
 	{
 		Timer = 0.f;
 		bHasSpawnedProjectile = false;
+		
 	}
 	SetActorLocation(CurrentPosition);
 	
@@ -64,46 +64,55 @@ void ATest_Enemy::Look()
 
 }
 
-void ATest_Enemy::Attack(FVector location)
+void ATest_Enemy::AttackLoop()
 {
 
-	// Spawn the projectile
-	if (!ProjectileClass)
+
+}
+
+void ATest_Enemy::Attack(FVector TargetLocation)
+{
+	if (!ProjectileClass || TargetLocation.IsZero())
 	{
 		return;
 	}
 
-	// Get the spawn location and rotation
-	 // Adjust Z to avoid ground collisions
-	SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 100.f);
-	FRotator SpawnRotation = (location - SpawnLocation).Rotation();
-
-	if (location.IsZero())
-	{
-		return;
-	}
-	if (SpawnLocation.IsZero())
+	// Calculate spawn location and rotation
+	FVector SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 100.f);
+	if (SpawnLocation.IsZero()) // Very unlikely, but for safety
 	{
 		return;
 	}
 
-	// Spawn the projectile
+	FRotator SpawnRotation = (TargetLocation - SpawnLocation).Rotation();
+	FTimerHandle AttackDelayHandle;
 	UWorld* World = GetWorld();
 	if (World)
 	{
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
-		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
+
+		Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(
+			ProjectileClass,
+			SpawnLocation,
+			SpawnRotation,
+			SpawnParams
+		);
+
 		if (SpawnedProjectile)
 		{
-			// Calculate the direction vector
-			FVector Direction = (location - SpawnLocation).GetSafeNormal();
+			FVector Direction = (TargetLocation - SpawnLocation).GetSafeNormal();
 			SpawnedProjectile->Velocity = Direction * 200.f;
 			SpawnedProjectile->Owner = this;
 			SpawnedProjectile->SetActorScale3D(BulletSize);
 		}
+
+		// Optional: call Attack again after a delay (e.g., attack cooldown)
+		GetWorldTimerManager().SetTimer(AttackDelayHandle, this, &ATest_Enemy::AttackLoop, 1.f, false);
+		bHasSpawnedProjectile = true;
 	}
 }
+
 
 
 void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -112,7 +121,7 @@ void ATest_Enemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	{
 		if (!bHasSpawnedProjectile) 
 		{
-			bHasSpawnedProjectile = true;
+			
 		FVector position = OtherActor->GetActorLocation();
 		Attack(position);
 		}

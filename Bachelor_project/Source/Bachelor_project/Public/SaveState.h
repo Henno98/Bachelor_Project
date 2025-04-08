@@ -26,6 +26,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 	FVector PlayerLocation;
+
+	UPROPERTY(VisibleAnywhere, Category = Basic)
+	int Health;
+	UPROPERTY(VisibleAnywhere, Category = Basic)
+	int BioMass;
 	UPROPERTY()
 	bool bHasDoubleJumpPowerUp;
 	UPROPERTY()

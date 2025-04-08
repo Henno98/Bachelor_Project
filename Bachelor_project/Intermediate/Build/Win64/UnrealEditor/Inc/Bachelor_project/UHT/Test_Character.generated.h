@@ -9,6 +9,10 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
+class UPrimitiveComponent;
+struct FHitResult;
+struct FInputActionValue;
 #ifdef BACHELOR_PROJECT_Test_Character_generated_h
 #error "Test_Character.generated.h already included, missing '#pragma once' in Test_Character.h"
 #endif
@@ -20,7 +24,11 @@ BACHELOR_PROJECT_API void FOnHealthChangedSignature_DelegateWrapper(const FMulti
 
 #define FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execLoadGame); \
-	DECLARE_FUNCTION(execSaveGame);
+	DECLARE_FUNCTION(execSaveGame); \
+	DECLARE_FUNCTION(execOnOverlap); \
+	DECLARE_FUNCTION(execEndMeleeAttack); \
+	DECLARE_FUNCTION(execMeleeAttack); \
+	DECLARE_FUNCTION(execMove);
 
 
 #define FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_26_INCLASS_NO_PURE_DECLS \

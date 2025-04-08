@@ -12,6 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GAS_PlayerState.h"
 #include "SaveState.h"
+#include "Test_Enemy.h"
 
 
 // Sets default values
@@ -32,9 +33,15 @@ ATest_Character::ATest_Character()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
 
+	HurtBox = CreateDefaultSubobject<USphereComponent>(TEXT("HurtBox"));
+	HurtBox->SetupAttachment(RootComponent); // or to RootComponent initially
+	HurtBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	HurtBox->SetGenerateOverlapEvents(false);
+	HurtBox->SetHiddenInGame(false); // Optional
+	HurtBox->OnComponentBeginOverlap.AddDynamic(this, &ATest_Character::OnOverlap);
 	Health = 10;
 	RangedDamage = 5;
-	MeleeDamage = 1;
+	MeleeDamage = 3;
 	BioMass = 0;
 	
 }
@@ -65,6 +72,8 @@ void ATest_Character::SaveGame()
 		SaveGameInstance->PlayerName = TEXT("PlayerOne");
 		SaveGameInstance->PlayerLocation = this->GetActorLocation();
 		SaveGameInstance->SavedWorld = GetWorld();
+		SaveGameInstance->Health = Health;
+		SaveGameInstance->BioMass = BioMass;
 		// Save the data immediately.
 		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
 		{
@@ -82,9 +91,10 @@ void ATest_Character::LoadGame()
 			SetActorEnableCollision(true);
 			SetActorHiddenInGame(false);
 			this->SetActorLocation(SaveGameInstance->PlayerLocation);
-			
-
-
+			SetHealth(SaveGameInstance->Health);
+			BioMass = SaveGameInstance->BioMass;
+			OnHealthChanged.Broadcast(Health);
+			OnEnergyChanged.Broadcast(BioMass);
 		
 		}
 	}
@@ -130,6 +140,8 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(LoadAction, ETriggerEvent::Started, this, &ATest_Character::LoadGame);
 
 		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
+		EnhancedInputComponent->BindAction(MeleeInput, ETriggerEvent::Started, this, &ATest_Character::MeleeAttack);
+
 	}
 }
 
@@ -335,7 +347,11 @@ void ATest_Character::Move(const FInputActionValue& Value)
 {
 	const FVector2D moveVector = Value.Get<FVector2D>();
 	const FRotator moveRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
+	if (MoveAnim)
+	{
 
+		GetMesh()->PlayAnimation(MoveAnim, true);
+	}
 	if (moveVector.X > 0.05f ) {
 		 SetActorRotation(FRotator(0.f,90.f,0.f));
 		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
@@ -359,35 +375,59 @@ void ATest_Character::Move(const FInputActionValue& Value)
 }
 
 void ATest_Character::MeleeAttack(const FInputActionValue& Value)
-{ 
-
+{
 	FTimerHandle AttackTimer;
-	if (!Attack1)
+
+	if (MeleeAnim)
 	{
-		Attack1 = true;
-		//Play Animation
-		HurtBox->SetRelativeLocation(FVector(0.f, 100.f, 20.f));
-		HurtBox->SetWorldScale3D(FVector(10.f));
+		GetMesh()->PlayAnimation(MeleeAnim, false);
 
+		// Example condition: check if the socket exists before proceeding
+		if (GetMesh()->DoesSocketExist(TEXT("Hitbox_Right_Hand")))
+		{
+			if (HurtBox) {
+				/*FTransform SocketTransform = GetMesh()->GetSocketTransform(TEXT("Hitbox_Right_Hand"));
+				HurtBox->SetWorldTransform(SocketTransform);*/
+				HurtBox->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, TEXT("Hitbox_Right_Hand"));
+				HurtBox->SetSphereRadius(200.f); // Adjust radius as needed
+				HurtBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+				HurtBox->SetGenerateOverlapEvents(true);
 
+				FVector Location = HurtBox->GetComponentLocation();
+				UE_LOG(LogTemp, Warning, TEXT("HurtBox location: %s"), *Location.ToString());
 
+				float AnimDuration = MeleeAnim->GetPlayLength();
+				GetWorldTimerManager().SetTimer(AttackTimer, this, &ATest_Character::EndMeleeAttack, AnimDuration, false);
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Socket 'Hitbox_Right_Hand' does not exist on the mesh!"));
+		}
 	}
-	if (Attack1 && !Attack2)
+
+	
+
+
+}
+
+void ATest_Character::EndMeleeAttack()
+{
+	// Optional: Detach the HurtBox or disable its collision
+	HurtBox->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+	HurtBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor && OtherActor != this)
 	{
-		Attack2 = true;
-		//play anim
+		
+			// Handle the overlap event here
+			UE_LOG(LogTemp, Warning, TEXT("Hit"));
+			ATest_Enemy* enemy = Cast<ATest_Enemy>(OtherActor);
+			enemy->OnHit(MeleeDamage);
+		
 	}
-	if (Attack1 && Attack2)
-	{
-		Attack3 = true;
-		//Play anim
-
-	}
-	Attack1 = false;
-	Attack2 = false;
-	Attack3 = false;
-	//Play Animation
-	/*HurtBox->SetRelativeLocation(FVector(0.f));
-	HurtBox->SetWorldScale3D(FVector(1.f));*/
 
 }

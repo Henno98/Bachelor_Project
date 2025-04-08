@@ -6,6 +6,8 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "Bachelor_project/Public/Test_Character.h"
+#include "EnhancedInput/Public/InputActionValue.h"
+#include "Runtime/Engine/Classes/Engine/HitResult.h"
 #include "Runtime/GameplayTags/Classes/GameplayTagContainer.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTest_Character() {}
@@ -20,12 +22,17 @@ BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UGAS_Wall_Latch_NoRegister();
 BACHELOR_PROJECT_API UFunction* Z_Construct_UDelegateFunction_Bachelor_project_OnHealthChangedSignature__DelegateSignature();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
+ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
+ENGINE_API UClass* Z_Construct_UClass_UAnimationAsset_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
+ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
+ENHANCEDINPUT_API UScriptStruct* Z_Construct_UScriptStruct_FInputActionValue();
 GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAbilitySystemComponent_NoRegister();
 GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAbilitySystemInterface_NoRegister();
 GAMEPLAYTAGS_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayTagContainer();
@@ -76,6 +83,35 @@ void FOnHealthChangedSignature_DelegateWrapper(const FMulticastScriptDelegate& O
 }
 // End Delegate FOnHealthChangedSignature
 
+// Begin Class ATest_Character Function EndMeleeAttack
+struct Z_Construct_UFunction_ATest_Character_EndMeleeAttack_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_EndMeleeAttack_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "EndMeleeAttack", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_EndMeleeAttack_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_EndMeleeAttack_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ATest_Character_EndMeleeAttack()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATest_Character_EndMeleeAttack_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ATest_Character::execEndMeleeAttack)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->EndMeleeAttack();
+	P_NATIVE_END;
+}
+// End Class ATest_Character Function EndMeleeAttack
+
 // Begin Class ATest_Character Function LoadGame
 struct Z_Construct_UFunction_ATest_Character_LoadGame_Statics
 {
@@ -104,6 +140,177 @@ DEFINE_FUNCTION(ATest_Character::execLoadGame)
 	P_NATIVE_END;
 }
 // End Class ATest_Character Function LoadGame
+
+// Begin Class ATest_Character Function MeleeAttack
+struct Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics
+{
+	struct Test_Character_eventMeleeAttack_Parms
+	{
+		FInputActionValue Value;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Value_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_Value;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventMeleeAttack_Parms, Value), Z_Construct_UScriptStruct_FInputActionValue, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) }; // 494646648
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::NewProp_Value,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "MeleeAttack", nullptr, nullptr, Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::Test_Character_eventMeleeAttack_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::Test_Character_eventMeleeAttack_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ATest_Character_MeleeAttack()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATest_Character_MeleeAttack_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ATest_Character::execMeleeAttack)
+{
+	P_GET_STRUCT_REF(FInputActionValue,Z_Param_Out_Value);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->MeleeAttack(Z_Param_Out_Value);
+	P_NATIVE_END;
+}
+// End Class ATest_Character Function MeleeAttack
+
+// Begin Class ATest_Character Function Move
+struct Z_Construct_UFunction_ATest_Character_Move_Statics
+{
+	struct Test_Character_eventMove_Parms
+	{
+		FInputActionValue Value;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Value_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_Value;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ATest_Character_Move_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventMove_Parms, Value), Z_Construct_UScriptStruct_FInputActionValue, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) }; // 494646648
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATest_Character_Move_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_Move_Statics::NewProp_Value,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_Move_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_Move_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "Move", nullptr, nullptr, Z_Construct_UFunction_ATest_Character_Move_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_Move_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATest_Character_Move_Statics::Test_Character_eventMove_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_Move_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_Move_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ATest_Character_Move_Statics::Test_Character_eventMove_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ATest_Character_Move()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATest_Character_Move_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ATest_Character::execMove)
+{
+	P_GET_STRUCT_REF(FInputActionValue,Z_Param_Out_Value);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->Move(Z_Param_Out_Value);
+	P_NATIVE_END;
+}
+// End Class ATest_Character Function Move
+
+// Begin Class ATest_Character Function OnOverlap
+struct Z_Construct_UFunction_ATest_Character_OnOverlap_Statics
+{
+	struct Test_Character_eventOnOverlap_Parms
+	{
+		UPrimitiveComponent* OverlappedComponent;
+		AActor* OtherActor;
+		UPrimitiveComponent* OtherComponent;
+		int32 OtherBodyIndex;
+		bool bFromSweep;
+		FHitResult SweepResult;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SweepResult_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComponent;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+	static void NewProp_bFromSweep_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bFromSweep;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_SweepResult;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventOnOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlappedComponent_MetaData), NewProp_OverlappedComponent_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventOnOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OtherComponent = { "OtherComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventOnOverlap_Parms, OtherComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherComponent_MetaData), NewProp_OtherComponent_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventOnOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_bFromSweep_SetBit(void* Obj)
+{
+	((Test_Character_eventOnOverlap_Parms*)Obj)->bFromSweep = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_bFromSweep = { "bFromSweep", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Test_Character_eventOnOverlap_Parms), &Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_bFromSweep_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_SweepResult = { "SweepResult", nullptr, (EPropertyFlags)0x0010008008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventOnOverlap_Parms, SweepResult), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SweepResult_MetaData), NewProp_SweepResult_MetaData) }; // 4100991306
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OverlappedComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OtherActor,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OtherComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_OtherBodyIndex,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_bFromSweep,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::NewProp_SweepResult,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "OnOverlap", nullptr, nullptr, Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::Test_Character_eventOnOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::Test_Character_eventOnOverlap_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ATest_Character_OnOverlap()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATest_Character_OnOverlap_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ATest_Character::execOnOverlap)
+{
+	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+	P_GET_OBJECT(AActor,Z_Param_OtherActor);
+	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComponent);
+	P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+	P_GET_UBOOL(Z_Param_bFromSweep);
+	P_GET_STRUCT_REF(FHitResult,Z_Param_Out_SweepResult);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComponent,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
+	P_NATIVE_END;
+}
+// End Class ATest_Character Function OnOverlap
 
 // Begin Class ATest_Character Function SaveGame
 struct Z_Construct_UFunction_ATest_Character_SaveGame_Statics
@@ -139,7 +346,11 @@ void ATest_Character::StaticRegisterNativesATest_Character()
 {
 	UClass* Class = ATest_Character::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "EndMeleeAttack", &ATest_Character::execEndMeleeAttack },
 		{ "LoadGame", &ATest_Character::execLoadGame },
+		{ "MeleeAttack", &ATest_Character::execMeleeAttack },
+		{ "Move", &ATest_Character::execMove },
+		{ "OnOverlap", &ATest_Character::execOnOverlap },
 		{ "SaveGame", &ATest_Character::execSaveGame },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -163,6 +374,32 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OnEnergyChanged_MetaData[] = {
 		{ "Category", "Events" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_IdleAnim_MetaData[] = {
+		{ "Category", "Animations" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Animations\n" },
+#endif
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Animations" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MeleeAnim_MetaData[] = {
+		{ "Category", "Animations" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_RangedAttackAnim_MetaData[] = {
+		{ "Category", "Animations" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DeathAnim_MetaData[] = {
+		{ "Category", "Animations" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveAnim_MetaData[] = {
+		{ "Category", "Animations" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DefaultMappingContext_MetaData[] = {
@@ -202,6 +439,10 @@ struct Z_Construct_UClass_ATest_Character_Statics
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DropDownInput_MetaData[] = {
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MeleeInput_MetaData[] = {
 		{ "Category", "Input" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
@@ -298,6 +539,11 @@ struct Z_Construct_UClass_ATest_Character_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FMulticastDelegatePropertyParams NewProp_OnHealthChanged;
 	static const UECodeGen_Private::FMulticastDelegatePropertyParams NewProp_OnEnergyChanged;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_IdleAnim;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MeleeAnim;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_RangedAttackAnim;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DeathAnim;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAnim;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DefaultMappingContext;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_JumpAction;
@@ -308,6 +554,7 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LoadAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_RangedAttackInput;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_DropDownInput;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MeleeInput;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Springarm;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_HurtBox;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Camera;
@@ -332,7 +579,11 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ATest_Character_EndMeleeAttack, "EndMeleeAttack" }, // 2682887269
 		{ &Z_Construct_UFunction_ATest_Character_LoadGame, "LoadGame" }, // 4061129715
+		{ &Z_Construct_UFunction_ATest_Character_MeleeAttack, "MeleeAttack" }, // 3475471497
+		{ &Z_Construct_UFunction_ATest_Character_Move, "Move" }, // 1696860261
+		{ &Z_Construct_UFunction_ATest_Character_OnOverlap, "OnOverlap" }, // 2261956986
 		{ &Z_Construct_UFunction_ATest_Character_SaveGame, "SaveGame" }, // 1249613369
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -344,6 +595,11 @@ struct Z_Construct_UClass_ATest_Character_Statics
 };
 const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_OnHealthChanged = { "OnHealthChanged", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, OnHealthChanged), Z_Construct_UDelegateFunction_Bachelor_project_OnHealthChangedSignature__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnHealthChanged_MetaData), NewProp_OnHealthChanged_MetaData) }; // 1274488757
 const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_OnEnergyChanged = { "OnEnergyChanged", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, OnEnergyChanged), Z_Construct_UDelegateFunction_Bachelor_project_OnHealthChangedSignature__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnEnergyChanged_MetaData), NewProp_OnEnergyChanged_MetaData) }; // 1274488757
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_IdleAnim = { "IdleAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, IdleAnim), Z_Construct_UClass_UAnimationAsset_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_IdleAnim_MetaData), NewProp_IdleAnim_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MeleeAnim = { "MeleeAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MeleeAnim), Z_Construct_UClass_UAnimationAsset_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeleeAnim_MetaData), NewProp_MeleeAnim_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackAnim = { "RangedAttackAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, RangedAttackAnim), Z_Construct_UClass_UAnimationAsset_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RangedAttackAnim_MetaData), NewProp_RangedAttackAnim_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DeathAnim = { "DeathAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DeathAnim), Z_Construct_UClass_UAnimationAsset_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DeathAnim_MetaData), NewProp_DeathAnim_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MoveAnim = { "MoveAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MoveAnim), Z_Construct_UClass_UAnimationAsset_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveAnim_MetaData), NewProp_MoveAnim_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DefaultMappingContext = { "DefaultMappingContext", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DefaultMappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultMappingContext_MetaData), NewProp_DefaultMappingContext_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MoveAction = { "MoveAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveAction_MetaData), NewProp_MoveAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpAction = { "JumpAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, JumpAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpAction_MetaData), NewProp_JumpAction_MetaData) };
@@ -354,6 +610,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Characte
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_LoadAction = { "LoadAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, LoadAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LoadAction_MetaData), NewProp_LoadAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackInput = { "RangedAttackInput", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, RangedAttackInput), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RangedAttackInput_MetaData), NewProp_RangedAttackInput_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_DropDownInput = { "DropDownInput", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, DropDownInput), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DropDownInput_MetaData), NewProp_DropDownInput_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MeleeInput = { "MeleeInput", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MeleeInput), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeleeInput_MetaData), NewProp_MeleeInput_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_Springarm = { "Springarm", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, Springarm), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Springarm_MetaData), NewProp_Springarm_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_HurtBox = { "HurtBox", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, HurtBox), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HurtBox_MetaData), NewProp_HurtBox_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_Camera = { "Camera", nullptr, (EPropertyFlags)0x001000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, Camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Camera_MetaData), NewProp_Camera_MetaData) };
@@ -378,6 +635,11 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ATest_Characte
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Character_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_OnHealthChanged,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_OnEnergyChanged,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_IdleAnim,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MeleeAnim,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackAnim,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DeathAnim,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MoveAnim,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DefaultMappingContext,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MoveAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpAction,
@@ -388,6 +650,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Cha
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_LoadAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedAttackInput,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_DropDownInput,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MeleeInput,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_Springarm,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_HurtBox,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_Camera,
@@ -454,10 +717,10 @@ ATest_Character::~ATest_Character() {}
 struct Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 2007928587U) },
+		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 2609026721U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_2076044466(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_1269916493(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_larss_Documents_Github_repositories_Inventory_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

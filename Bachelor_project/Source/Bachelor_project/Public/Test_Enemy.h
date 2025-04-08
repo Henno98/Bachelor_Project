@@ -26,6 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 	void Walk(float deltatime);
 	void Look();
+	void AttackLoop();
 	void Attack(FVector location);
 	
 

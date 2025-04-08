@@ -25,7 +25,6 @@ class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilityS
 {
     GENERATED_BODY()
 public:
-    // Sets default values for this character's properties
     ATest_Character();
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -36,6 +35,18 @@ protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 public:
+    // Animations
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* IdleAnim;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* MeleeAnim;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* RangedAttackAnim;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* DeathAnim;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* MoveAnim;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
 
@@ -59,7 +70,8 @@ public:
     UInputAction* RangedAttackInput;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* DropDownInput;
-
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* MeleeInput;
     //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
@@ -72,10 +84,15 @@ public:
 
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Projectile class")
     TSubclassOf<class Aprojectile> RangedAttackClass;
-
+    UFUNCTION()
     void Move(const FInputActionValue& Value);
-
+    UFUNCTION()
     void MeleeAttack(const FInputActionValue& Value);
+    UFUNCTION()
+    void EndMeleeAttack();
+    UFUNCTION()
+    void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
+                   int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
     bool bIsDashing{ false };
     bool bHasDoubleJumped{ false };
