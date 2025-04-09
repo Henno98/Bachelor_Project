@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeBachelor_project_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x9E12B4C4,
-				0x4F69CFF3,
+				0x881FC8E4,
+				0xC40783AB,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_Bachelor_project.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_Bachelor_project.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Bachelor_project(Z_Construct_UPackage__Script_Bachelor_project, TEXT("/Script/Bachelor_project"), Z_Registration_Info_UPackage__Script_Bachelor_project, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x9E12B4C4, 0x4F69CFF3));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Bachelor_project(Z_Construct_UPackage__Script_Bachelor_project, TEXT("/Script/Bachelor_project"), Z_Registration_Info_UPackage__Script_Bachelor_project, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x881FC8E4, 0xC40783AB));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

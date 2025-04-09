@@ -41,16 +41,16 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
     APawn* Crow = GetPawn();
     if (!Crow) return;
 
-    // Check if we're currently in attack mode
+    
     bool bIsAttacking = CrowBoss_BBC->GetValueAsBool("IsAttacking");
 
-    // Skip normal movement behavior during attack
+    
     if (bIsAttacking)
     {
-        return; // Let the attack sequence control movement
+        return; 
     }
 
-    // Normal flying behavior when not attacking
+    
     if (Player)
     {
         FVector PlayerLocation = Player->GetActorLocation();
@@ -71,14 +71,14 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
         float DistanceToTarget = DirectionToTarget.Size();
         DirectionToTarget = DirectionToTarget.GetSafeNormal();
 
-        // Proportional movement speed based on distance
+        
         float MovementSpeed = FMath::Clamp(DistanceToTarget / 500.f, 0.1f, 1.0f);
         Crow->AddMovementInput(DirectionToTarget, MovementSpeed);
 
-        // Update Blackboard
+        
         CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
 
-        // Smooth rotation toward player
+        
         FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
         Crow->SetActorRotation(FMath::RInterpTo(
             Crow->GetActorRotation(),

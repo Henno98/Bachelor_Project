@@ -3,7 +3,7 @@
 
 #include "projectile.h"
 
-#include "SmallCharger.h"
+//#include "SmallCharger.h"
 #include "Test_Character.h"
 #include "Test_Enemy.h"
 #include "Components/BoxComponent.h"
@@ -73,16 +73,16 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 {
 	
 	if (OtherActor != GetOwner()) {
-		if (OtherActor->IsA<ASmallCharger>())
-		{
-			//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
-			if (OtherComponent->IsA<UBoxComponent>()) {
-				ASmallCharger* charger = Cast<ASmallCharger>(OtherActor);
-				charger->Destroy();
-				this->DestroyActor();
-				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Orange, TEXT("Hit Charger"));
-			}
-		}
+		//if (OtherActor->IsA<ASmallCharger>())
+		//{
+		//	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TEXT("Hit a Charger"));
+		//	if (OtherComponent->IsA<UBoxComponent>()) {
+		//		ASmallCharger* charger = Cast<ASmallCharger>(OtherActor);
+		//		charger->Destroy();
+		//		this->DestroyActor();
+		//		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Orange, TEXT("Hit Charger"));
+		//	}
+		//}
 		if (OtherActor->IsA<ATest_Character>())
 		{
 			if (OtherComponent->IsA<UCapsuleComponent>()) {

@@ -61,10 +61,16 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\BirdBoss.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_Movement_SmallCharger.cpp">
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Charger.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\BTTask_MoveToPlayer_SmallCharger.cpp">
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Charger_AIController.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Charger_ChargeTask.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Charger_WanderingTask.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowBoss.cpp">
@@ -115,15 +121,6 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SaveState.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger.cpp">
-      <Filter>Source\Bachelor_project\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_AIController.cpp">
-      <Filter>Source\Bachelor_project\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Private\SmallCharger_BTService.cpp">
-      <Filter>Source\Bachelor_project\Private</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\Test_Character.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -151,10 +148,16 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Public\BirdBoss.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_Movement_SmallCharger.h">
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Charger.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\BTTask_MoveToPlayer_SmallCharger.h">
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Charger_AIController.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Charger_ChargeTask.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Charger_WanderingTask.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowBoss.h">
@@ -203,15 +206,6 @@
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SaveState.h">
-      <Filter>Source\Bachelor_project\Public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger.h">
-      <Filter>Source\Bachelor_project\Public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_AIController.h">
-      <Filter>Source\Bachelor_project\Public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Bachelor_project\Public\SmallCharger_BTService.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\Test_Character.h">

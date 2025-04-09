@@ -34,13 +34,15 @@ public:
 	FVector crowBoss_start_location;
 	FVector crowBoss_existing_location;
 	FTimerHandle TimerHandle;
+
+	UPROPERTY()
 	APawn* Player;
 
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void Tick(float deltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void OnSeenPawn(APawn* _pawn);
+	void OnSeenPawn(APawn* SeenPawn);
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	class UPawnSensingComponent* CrowBoss_PerceptionComponent;
