@@ -24,7 +24,7 @@ void UPlayer_Stat_Widget::NativeConstruct()
 
 	// Initially, create all health points (images) when the widget is constructed
 	CreateHealthPointImages();
-UpdateBioMass(CurrentBioMass);
+	UpdateBioMass(CurrentBioMass);
 }
 
 void UPlayer_Stat_Widget::UpdateHealth(int32 currenthealth)

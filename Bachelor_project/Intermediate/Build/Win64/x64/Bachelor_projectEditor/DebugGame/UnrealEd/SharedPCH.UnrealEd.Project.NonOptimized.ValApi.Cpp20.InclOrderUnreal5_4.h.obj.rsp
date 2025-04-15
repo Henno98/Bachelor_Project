@@ -1,4 +1,4 @@
-"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.cpp"
+"C:\Users\Bruker\Documents\GitHub\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.cpp"
 /I "."
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\UnrealEd\UHT"
 /I "Programs\UnrealLightmass\Public"
@@ -292,16 +292,16 @@
 /external:I "ThirdParty\LibTiff\Source\Win64"
 /external:I "ThirdParty\LibTiff\Source"
 /external:I "ThirdParty\OpenGL"
-/external:I "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\INCLUDE"
+/external:I "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.38.33130\INCLUDE"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\shared"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\winrt"
 /Yc"SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h"
-/Fp"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.pch"
-/Fo"C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.obj"
-/experimental:log "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.sarif"
-/sourceDependencies "C:\Users\larss\Documents\Github repositories\Inventory\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.dep.json"
+/Fp"C:\Users\Bruker\Documents\GitHub\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.pch"
+/Fo"C:\Users\Bruker\Documents\GitHub\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.obj"
+/experimental:log "C:\Users\Bruker\Documents\GitHub\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.sarif"
+/sourceDependencies "C:\Users\Bruker\Documents\GitHub\Bachelor_Project\Bachelor_project\Intermediate\Build\Win64\x64\Bachelor_projectEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.InclOrderUnreal5_4.h.dep.json"
 /d2ssa-cfg-question-
 /Zc:inline
 /nologo

@@ -78,7 +78,7 @@ void ATest_Enemy::Attack(FVector TargetLocation)
 	}
 
 	// Calculate spawn location and rotation
-	FVector SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 100.f);
+	 SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 100.f);
 	if (SpawnLocation.IsZero()) // Very unlikely, but for safety
 	{
 		return;
