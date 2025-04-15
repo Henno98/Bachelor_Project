@@ -85,6 +85,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowTask_DiveAttack.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\CrowTask_MeleeAttack.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\GAS_Dash.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -170,6 +173,9 @@
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowTask_DiveAttack.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\CrowTask_MeleeAttack.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\GAS_Dash.h">
