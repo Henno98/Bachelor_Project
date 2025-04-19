@@ -32,5 +32,5 @@ public:
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
 		bool bFromSweep, const FHitResult& SweepResult);
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Basic attributes")
-	bool FirstTime =false;
+	bool FirstTime =true;
 };

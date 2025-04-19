@@ -5,7 +5,10 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap"
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/level/Platform.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Vending_Machine_BP.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Levels/Wending_Int.umap"
 			]
 		}
 	]

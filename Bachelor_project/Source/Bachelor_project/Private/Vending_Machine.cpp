@@ -49,6 +49,7 @@ void AVending_Machine::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 		if (FirstTime) {
 			Player->SaveGame();
 		}
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Auto save complete"));
 		//Player inputs save action to save
 	}
 	else return;

@@ -177,9 +177,15 @@ struct Z_Construct_UClass_AVending_Machine_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Vending_Machine.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_FirstTime_MetaData[] = {
+		{ "Category", "Basic attributes" },
+		{ "ModuleRelativePath", "Public/Vending_Machine.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_StaticMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_HitBox;
+	static void NewProp_FirstTime_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_FirstTime;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -194,9 +200,15 @@ struct Z_Construct_UClass_AVending_Machine_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVending_Machine_Statics::NewProp_StaticMesh = { "StaticMesh", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVending_Machine, StaticMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StaticMesh_MetaData), NewProp_StaticMesh_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVending_Machine_Statics::NewProp_HitBox = { "HitBox", nullptr, (EPropertyFlags)0x002008000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVending_Machine, HitBox), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HitBox_MetaData), NewProp_HitBox_MetaData) };
+void Z_Construct_UClass_AVending_Machine_Statics::NewProp_FirstTime_SetBit(void* Obj)
+{
+	((AVending_Machine*)Obj)->FirstTime = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AVending_Machine_Statics::NewProp_FirstTime = { "FirstTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AVending_Machine), &Z_Construct_UClass_AVending_Machine_Statics::NewProp_FirstTime_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FirstTime_MetaData), NewProp_FirstTime_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AVending_Machine_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVending_Machine_Statics::NewProp_StaticMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVending_Machine_Statics::NewProp_HitBox,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVending_Machine_Statics::NewProp_FirstTime,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AVending_Machine_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AVending_Machine_Statics::DependentSingletons[])() = {
@@ -239,10 +251,10 @@ AVending_Machine::~AVending_Machine() {}
 struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AVending_Machine, AVending_Machine::StaticClass, TEXT("AVending_Machine"), &Z_Registration_Info_UClass_AVending_Machine, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AVending_Machine), 1825860251U) },
+		{ Z_Construct_UClass_AVending_Machine, AVending_Machine::StaticClass, TEXT("AVending_Machine"), &Z_Registration_Info_UClass_AVending_Machine, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AVending_Machine), 2742283991U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_4196504405(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_2411862145(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
