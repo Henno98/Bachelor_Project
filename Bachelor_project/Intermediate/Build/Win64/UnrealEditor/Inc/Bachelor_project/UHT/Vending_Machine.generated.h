@@ -18,6 +18,7 @@ struct FHitResult;
 #define BACHELOR_PROJECT_Vending_Machine_generated_h
 
 #define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execEndOverlap); \
 	DECLARE_FUNCTION(execOnOverlap); \
 	DECLARE_FUNCTION(execSave);
 

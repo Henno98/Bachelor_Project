@@ -126,20 +126,27 @@ protected:
     int MaxHealth;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Stats")
     int Health;
+    
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    int BioMass;
+    int MaxBioMass;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int BioMass;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     int MeleeDamage;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     int RangedDamage;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Save")
+    bool bCanSave = false;
 public:
 
     int GetHealth() { return Health; }
-    void SetHealth(int newhealth){Health = newhealth;}
+    void SetHealth(int newhealth){Health = newhealth;OnHealthChanged.Broadcast(Health);}
+    int GetMaxHealth() { return MaxHealth; }
     int GetBioMass() { return BioMass; }
+    void SetBioMass(int newbiomass) { BioMass = newbiomass; OnEnergyChanged.Broadcast(BioMass);}
+    int GetMaxBioMass() { return MaxBioMass; }
     int GetRangedDamage() { return RangedDamage; }
     int GetMeleeDamage() { return MeleeDamage; }
-
 
    void Hit(int Damage);
     void Dead();

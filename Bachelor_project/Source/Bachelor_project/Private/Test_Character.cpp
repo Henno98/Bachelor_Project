@@ -39,10 +39,12 @@ ATest_Character::ATest_Character()
 	HurtBox->SetGenerateOverlapEvents(false);
 	HurtBox->SetHiddenInGame(false); // Optional
 	HurtBox->OnComponentBeginOverlap.AddDynamic(this, &ATest_Character::OnOverlap);
-	Health = 10;
+	MaxHealth = 10;
+	Health = MaxHealth;
 	RangedDamage = 5;
 	MeleeDamage = 3;
 	BioMass = 0;
+	MaxBioMass = 400;
 	
 }
 
@@ -66,19 +68,21 @@ void ATest_Character::BeginPlay()
 }
 void ATest_Character::SaveGame()
 {
-	if (USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
-	{
-		// Set data on the savegame object.
-		SaveGameInstance->PlayerName = TEXT("PlayerOne");
-		SaveGameInstance->PlayerLocation = this->GetActorLocation();
-		SaveGameInstance->SavedWorld = GetWorld();
-		SaveGameInstance->Health = Health;
-		SaveGameInstance->BioMass = BioMass;
-		// Save the data immediately.
-		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
+	if (bCanSave) {
+		if (USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
 		{
-			// Save succeeded.
-			
+			// Set data on the savegame object.
+			SaveGameInstance->PlayerName = TEXT("PlayerOne");
+			SaveGameInstance->PlayerLocation = this->GetActorLocation();
+			SaveGameInstance->SavedWorld = GetWorld();
+			SaveGameInstance->Health = Health;
+			SaveGameInstance->BioMass = BioMass;
+			// Save the data immediately.
+			if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
+			{
+				// Save succeeded.
+
+			}
 		}
 	}
 }
@@ -103,10 +107,8 @@ void ATest_Character::LoadGame()
 void ATest_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (BioMass <= 500) {
-		BioMass += 1;
-
-		OnEnergyChanged.Broadcast(BioMass);
+	if (GetBioMass() <= MaxBioMass) {
+		SetBioMass(GetBioMass()+1);
 	}
 	if (Health <= 0)
 	{
@@ -147,11 +149,12 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 
 
+
 void ATest_Character::Hit(int Damage)
 {
-	Health -= Damage;
+	SetHealth(GetHealth() - Damage);
 	// Broadcast to any listeners
-	OnHealthChanged.Broadcast(Health);
+	
 }
 
 void ATest_Character::Dead()

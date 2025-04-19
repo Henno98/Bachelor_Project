@@ -496,6 +496,10 @@ struct Z_Construct_UClass_ATest_Character_Statics
 		{ "Category", "Stats" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxBioMass_MetaData[] = {
+		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BioMass_MetaData[] = {
 		{ "Category", "Stats" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
@@ -506,6 +510,10 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_RangedDamage_MetaData[] = {
 		{ "Category", "Stats" },
+		{ "ModuleRelativePath", "Public/Test_Character.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bCanSave_MetaData[] = {
+		{ "Category", "Save" },
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GA_Double_Jump_MetaData[] = {
@@ -565,9 +573,12 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_AbilitySystemComponent;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxHealth;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_Health;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxBioMass;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_BioMass;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MeleeDamage;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_RangedDamage;
+	static void NewProp_bCanSave_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bCanSave;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_GA_Double_Jump;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JumpAbilityTag;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_GA_Wall_Latch;
@@ -621,9 +632,15 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ATest_Characte
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_AbilitySystemComponent = { "AbilitySystemComponent", nullptr, (EPropertyFlags)0x0124080000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, AbilitySystemComponent), Z_Construct_UClass_UAbilitySystemComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilitySystemComponent_MetaData), NewProp_AbilitySystemComponent_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MaxHealth = { "MaxHealth", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MaxHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxHealth_MetaData), NewProp_MaxHealth_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_Health = { "Health", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, Health), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Health_MetaData), NewProp_Health_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MaxBioMass = { "MaxBioMass", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MaxBioMass), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxBioMass_MetaData), NewProp_MaxBioMass_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_BioMass = { "BioMass", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, BioMass), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BioMass_MetaData), NewProp_BioMass_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_MeleeDamage = { "MeleeDamage", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, MeleeDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeleeDamage_MetaData), NewProp_MeleeDamage_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedDamage = { "RangedDamage", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, RangedDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RangedDamage_MetaData), NewProp_RangedDamage_MetaData) };
+void Z_Construct_UClass_ATest_Character_Statics::NewProp_bCanSave_SetBit(void* Obj)
+{
+	((ATest_Character*)Obj)->bCanSave = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_bCanSave = { "bCanSave", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ATest_Character), &Z_Construct_UClass_ATest_Character_Statics::NewProp_bCanSave_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bCanSave_MetaData), NewProp_bCanSave_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_GA_Double_Jump = { "GA_Double_Jump", nullptr, (EPropertyFlags)0x0014000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, GA_Double_Jump), Z_Construct_UClass_UClass, Z_Construct_UClass_UGAS_Double_Jump_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GA_Double_Jump_MetaData), NewProp_GA_Double_Jump_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpAbilityTag = { "JumpAbilityTag", nullptr, (EPropertyFlags)0x0010000000010015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, JumpAbilityTag), Z_Construct_UScriptStruct_FGameplayTagContainer, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpAbilityTag_MetaData), NewProp_JumpAbilityTag_MetaData) }; // 3352185621
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATest_Character_Statics::NewProp_GA_Wall_Latch = { "GA_Wall_Latch", nullptr, (EPropertyFlags)0x0014000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATest_Character, GA_Wall_Latch), Z_Construct_UClass_UClass, Z_Construct_UClass_UGAS_Wall_Latch_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GA_Wall_Latch_MetaData), NewProp_GA_Wall_Latch_MetaData) };
@@ -661,9 +678,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATest_Cha
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_AbilitySystemComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MaxHealth,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_Health,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MaxBioMass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_BioMass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_MeleeDamage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_RangedDamage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_bCanSave,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_GA_Double_Jump,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_JumpAbilityTag,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATest_Character_Statics::NewProp_GA_Wall_Latch,
@@ -717,10 +736,10 @@ ATest_Character::~ATest_Character() {}
 struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 2609026721U) },
+		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 4211722673U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_1269916493(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_2096300635(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

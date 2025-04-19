@@ -56,6 +56,7 @@ protected:
     // Current health (we will dynamically set this from the player)
     int32 CurrentBioMass;
 
+    int32 MaxBioMass;
     // Helper function to create health point images
     void CreateHealthPointImages();
 

@@ -17,6 +17,8 @@ void UPlayer_Stat_Widget::NativeConstruct()
 	{
 		CurrentHealth = character->GetHealth();
 		CurrentBioMass = character->GetBioMass();
+		MaxBioMass = character->GetMaxBioMass();
+
 		// Do any additional setup here
 		character->OnHealthChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateHealth);
 		character->OnEnergyChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateBioMass);
@@ -46,7 +48,7 @@ void UPlayer_Stat_Widget::UpdateBioMass(int32 currenthealth)
 	if (EnergyBar)
 	{
 		CurrentBioMass = currenthealth;
-		float Percent = static_cast<float>(CurrentBioMass) / 500.0f;
+		float Percent = static_cast<float>(CurrentBioMass) / MaxBioMass;
 		EnergyBar->SetPercent(Percent);
 	}
 

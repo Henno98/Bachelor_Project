@@ -16,6 +16,7 @@ AVending_Machine::AVending_Machine()
 	HitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	HitBox->SetupAttachment(RootComponent);
 	HitBox->OnComponentBeginOverlap.AddDynamic(this, &AVending_Machine::OnOverlap);
+	HitBox->OnComponentEndOverlap.AddDynamic(this, &AVending_Machine::EndOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -45,15 +46,34 @@ void AVending_Machine::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 		ATest_Character* Player = Cast<ATest_Character>(OtherActor);
 		//Play saving anim
 
+
+		Player->SetHealth(Player->GetMaxHealth());
+		Player->SetBioMass(Player->GetMaxBioMass());
+		
+		//play refresh effect
+
 		//AutoSave when encountering the first time
 		if (FirstTime) {
 			Player->SaveGame();
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Auto save complete"));
 		//Player inputs save action to save
+
+
 	}
 	else return;
 
+
+}
+
+void AVending_Machine::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor->IsA<ATest_Character>())
+	{
+		ATest_Character* Player = Cast<ATest_Character>(OtherActor);
+		//Play saving anim
+	}
 
 }
 
