@@ -31,8 +31,6 @@ struct Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics
 		AActor* OtherActor;
 		UPrimitiveComponent* OtherComponent;
 		int32 OtherBodyIndex;
-		bool bFromSweep;
-		FHitResult SweepResult;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -44,17 +42,11 @@ struct Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherComponent_MetaData[] = {
 		{ "EditInline", "true" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SweepResult_MetaData[] = {
-		{ "NativeConst", "" },
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComponent;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
-	static void NewProp_bFromSweep_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_bFromSweep;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_SweepResult;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
@@ -62,22 +54,14 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AVending_Ma
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Vending_Machine_eventEndOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OtherComponent = { "OtherComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Vending_Machine_eventEndOverlap_Parms, OtherComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherComponent_MetaData), NewProp_OtherComponent_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Vending_Machine_eventEndOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
-void Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_bFromSweep_SetBit(void* Obj)
-{
-	((Vending_Machine_eventEndOverlap_Parms*)Obj)->bFromSweep = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_bFromSweep = { "bFromSweep", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Vending_Machine_eventEndOverlap_Parms), &Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_bFromSweep_SetBit, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_SweepResult = { "SweepResult", nullptr, (EPropertyFlags)0x0010008008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Vending_Machine_eventEndOverlap_Parms, SweepResult), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SweepResult_MetaData), NewProp_SweepResult_MetaData) }; // 4100991306
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OverlappedComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OtherActor,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OtherComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_OtherBodyIndex,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_bFromSweep,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::NewProp_SweepResult,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AVending_Machine, nullptr, "EndOverlap", nullptr, nullptr, Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Vending_Machine_eventEndOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AVending_Machine, nullptr, "EndOverlap", nullptr, nullptr, Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Vending_Machine_eventEndOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Function_MetaDataParams) };
 static_assert(sizeof(Z_Construct_UFunction_AVending_Machine_EndOverlap_Statics::Vending_Machine_eventEndOverlap_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_AVending_Machine_EndOverlap()
 {
@@ -94,11 +78,9 @@ DEFINE_FUNCTION(AVending_Machine::execEndOverlap)
 	P_GET_OBJECT(AActor,Z_Param_OtherActor);
 	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComponent);
 	P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
-	P_GET_UBOOL(Z_Param_bFromSweep);
-	P_GET_STRUCT_REF(FHitResult,Z_Param_Out_SweepResult);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->EndOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComponent,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
+	P_THIS->EndOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComponent,Z_Param_OtherBodyIndex);
 	P_NATIVE_END;
 }
 // End Class AVending_Machine Function EndOverlap
@@ -271,7 +253,7 @@ struct Z_Construct_UClass_AVending_Machine_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AVending_Machine_EndOverlap, "EndOverlap" }, // 3652279219
+		{ &Z_Construct_UFunction_AVending_Machine_EndOverlap, "EndOverlap" }, // 3388817806
 		{ &Z_Construct_UFunction_AVending_Machine_OnOverlap, "OnOverlap" }, // 2094833276
 		{ &Z_Construct_UFunction_AVending_Machine_Save, "Save" }, // 874611484
 	};
@@ -334,10 +316,10 @@ AVending_Machine::~AVending_Machine() {}
 struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AVending_Machine, AVending_Machine::StaticClass, TEXT("AVending_Machine"), &Z_Registration_Info_UClass_AVending_Machine, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AVending_Machine), 2547692419U) },
+		{ Z_Construct_UClass_AVending_Machine, AVending_Machine::StaticClass, TEXT("AVending_Machine"), &Z_Registration_Info_UClass_AVending_Machine, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AVending_Machine), 2517979707U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_3267740411(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_1420416256(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Vending_Machine_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

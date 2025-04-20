@@ -140,6 +140,7 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		//Save
 		EnhancedInputComponent->BindAction(SaveAction, ETriggerEvent::Started, this, &ATest_Character::SaveGame);
 		EnhancedInputComponent->BindAction(LoadAction, ETriggerEvent::Started, this, &ATest_Character::LoadGame);
+		EnhancedInputComponent->BindAction(MenuInput, ETriggerEvent::Triggered, this, &ATest_Character::ToggleMenu);
 
 		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
 		EnhancedInputComponent->BindAction(MeleeInput, ETriggerEvent::Started, this, &ATest_Character::MeleeAttack);
@@ -344,6 +345,16 @@ void ATest_Character::PauseInput()
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 	this->DisableInput(PlayerController);
 }
+
+void ATest_Character::ToggleMenu()
+{
+	if (PlayerHUD)
+	{
+		PlayerHUD->ToggleMenu();
+	}
+}
+
+
 
 
 void ATest_Character::Move(const FInputActionValue& Value)

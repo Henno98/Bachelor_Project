@@ -67,7 +67,7 @@ void AVending_Machine::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 }
 
 void AVending_Machine::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
 	if (OtherActor->IsA<ATest_Character>())
 	{

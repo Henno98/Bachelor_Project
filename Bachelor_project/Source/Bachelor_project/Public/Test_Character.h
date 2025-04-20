@@ -13,6 +13,7 @@
 #include "GAS_Double_Jump.h"
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
+#include "Player_HUD.h"
 #include "Test_Character.generated.h"
 
 class UInputAction;
@@ -72,6 +73,8 @@ public:
     UInputAction* DropDownInput;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* MeleeInput;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* MenuInput;
     //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
      USpringArmComponent* Springarm;
@@ -148,7 +151,7 @@ public:
     int GetRangedDamage() { return RangedDamage; }
     int GetMeleeDamage() { return MeleeDamage; }
 
-   void Hit(int Damage);
+	void Hit(int Damage);
     void Dead();
     virtual void PossessedBy(AController* NewController) override;
 
@@ -165,6 +168,8 @@ public:
     void DropDown();
     void ReEnableInput();
     void PauseInput();
+    void ToggleMenu();
+
 
     UPROPERTY()
     TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
@@ -189,4 +194,7 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer RangedAttackAbilityTag;
     FGameplayAbilitySpec RangedAttackAbilitySpec;
+
+    UPROPERTY()
+    APlayer_HUD* PlayerHUD;
 };
