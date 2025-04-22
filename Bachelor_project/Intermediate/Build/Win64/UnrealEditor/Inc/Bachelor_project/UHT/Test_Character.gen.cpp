@@ -116,14 +116,30 @@ DEFINE_FUNCTION(ATest_Character::execEndMeleeAttack)
 // Begin Class ATest_Character Function LoadGame
 struct Z_Construct_UFunction_ATest_Character_LoadGame_Statics
 {
+	struct Test_Character_eventLoadGame_Parms
+	{
+		FString slotname;
+		int32 slotnumber;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_slotname;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_slotnumber;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_LoadGame_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "LoadGame", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_LoadGame_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_LoadGame_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ATest_Character_LoadGame_Statics::NewProp_slotname = { "slotname", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventLoadGame_Parms, slotname), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATest_Character_LoadGame_Statics::NewProp_slotnumber = { "slotnumber", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventLoadGame_Parms, slotnumber), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATest_Character_LoadGame_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_LoadGame_Statics::NewProp_slotname,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_LoadGame_Statics::NewProp_slotnumber,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_LoadGame_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_LoadGame_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "LoadGame", nullptr, nullptr, Z_Construct_UFunction_ATest_Character_LoadGame_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_LoadGame_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATest_Character_LoadGame_Statics::Test_Character_eventLoadGame_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_LoadGame_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_LoadGame_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ATest_Character_LoadGame_Statics::Test_Character_eventLoadGame_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_ATest_Character_LoadGame()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -135,9 +151,11 @@ UFunction* Z_Construct_UFunction_ATest_Character_LoadGame()
 }
 DEFINE_FUNCTION(ATest_Character::execLoadGame)
 {
+	P_GET_PROPERTY(FStrProperty,Z_Param_slotname);
+	P_GET_PROPERTY(FIntProperty,Z_Param_slotnumber);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->LoadGame();
+	P_THIS->LoadGame(Z_Param_slotname,Z_Param_slotnumber);
 	P_NATIVE_END;
 }
 // End Class ATest_Character Function LoadGame
@@ -316,14 +334,30 @@ DEFINE_FUNCTION(ATest_Character::execOnOverlap)
 // Begin Class ATest_Character Function SaveGame
 struct Z_Construct_UFunction_ATest_Character_SaveGame_Statics
 {
+	struct Test_Character_eventSaveGame_Parms
+	{
+		FString slotname;
+		int32 slotnumber;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "Public/Test_Character.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_slotname;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_slotnumber;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_SaveGame_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "SaveGame", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_SaveGame_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_SaveGame_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ATest_Character_SaveGame_Statics::NewProp_slotname = { "slotname", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventSaveGame_Parms, slotname), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATest_Character_SaveGame_Statics::NewProp_slotnumber = { "slotnumber", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Test_Character_eventSaveGame_Parms, slotnumber), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATest_Character_SaveGame_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_SaveGame_Statics::NewProp_slotname,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATest_Character_SaveGame_Statics::NewProp_slotnumber,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_SaveGame_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATest_Character_SaveGame_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATest_Character, nullptr, "SaveGame", nullptr, nullptr, Z_Construct_UFunction_ATest_Character_SaveGame_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_SaveGame_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATest_Character_SaveGame_Statics::Test_Character_eventSaveGame_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATest_Character_SaveGame_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATest_Character_SaveGame_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ATest_Character_SaveGame_Statics::Test_Character_eventSaveGame_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_ATest_Character_SaveGame()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -335,9 +369,11 @@ UFunction* Z_Construct_UFunction_ATest_Character_SaveGame()
 }
 DEFINE_FUNCTION(ATest_Character::execSaveGame)
 {
+	P_GET_PROPERTY(FStrProperty,Z_Param_slotname);
+	P_GET_PROPERTY(FIntProperty,Z_Param_slotnumber);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->SaveGame();
+	P_THIS->SaveGame(Z_Param_slotname,Z_Param_slotnumber);
 	P_NATIVE_END;
 }
 // End Class ATest_Character Function SaveGame
@@ -601,11 +637,11 @@ struct Z_Construct_UClass_ATest_Character_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ATest_Character_EndMeleeAttack, "EndMeleeAttack" }, // 2682887269
-		{ &Z_Construct_UFunction_ATest_Character_LoadGame, "LoadGame" }, // 4061129715
+		{ &Z_Construct_UFunction_ATest_Character_LoadGame, "LoadGame" }, // 1703141057
 		{ &Z_Construct_UFunction_ATest_Character_MeleeAttack, "MeleeAttack" }, // 3475471497
 		{ &Z_Construct_UFunction_ATest_Character_Move, "Move" }, // 1696860261
 		{ &Z_Construct_UFunction_ATest_Character_OnOverlap, "OnOverlap" }, // 2261956986
-		{ &Z_Construct_UFunction_ATest_Character_SaveGame, "SaveGame" }, // 1249613369
+		{ &Z_Construct_UFunction_ATest_Character_SaveGame, "SaveGame" }, // 1759194524
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
@@ -750,10 +786,10 @@ ATest_Character::~ATest_Character() {}
 struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 1913342226U) },
+		{ Z_Construct_UClass_ATest_Character, ATest_Character::StaticClass, TEXT("ATest_Character"), &Z_Registration_Info_UClass_ATest_Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATest_Character), 166649863U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_1570792826(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_1929304938(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Test_Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -22,6 +22,7 @@ void APlayer_HUD::BeginPlay()
     {
         Main_Menu = CreateWidget<UMain_Menu_Widget>(GetWorld(), MainMenuWidgetClass);
         OpenMenu(); // You can comment this out if you don't want the menu at start
+        
     }
 }
 
@@ -80,6 +81,7 @@ void APlayer_HUD::OpenMenu()
     {
 
         Main_Menu->AddToViewport();
+      //  Main_Menu->SlotListContainer->ClearChildren();
     }
 }
 void APlayer_HUD::CloseMenu()

@@ -121,6 +121,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\ReturnToOrigin_Task.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\SaveSlotListWidget.cpp">
+      <Filter>Source\Bachelor_project\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\SaveState.cpp">
       <Filter>Source\Bachelor_project\Private</Filter>
     </ClCompile>
@@ -227,6 +230,9 @@
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\ReturnToOrigin_Task.h">
+      <Filter>Source\Bachelor_project\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\SaveSlotListWidget.h">
       <Filter>Source\Bachelor_project\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\SaveState.h">

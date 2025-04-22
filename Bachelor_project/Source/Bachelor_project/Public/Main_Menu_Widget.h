@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "Player_Stat_Widget.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/VerticalBox.h"
 #include "Main_Menu_Widget.generated.h"
 
+class USaveSlotListWidget;
 /**
  * 
  */
@@ -30,17 +32,34 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UPlayer_Stat_Widget> PlayerStatsWidgetClass;
 
+	
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	TSubclassOf<USaveSlotListWidget> SaveSlotWidgetClass;
 	// Function to update the health bar
 public:
+
+	UPROPERTY(meta = (BindWidget))
+	UVerticalBox* SlotListContainer;
 	UFUNCTION()
-	void OnLoadClicked();
+	void OnLoadClicked(const FString& slotname, int32 slotnumber);
 
 	UFUNCTION()
-	void OnSaveClicked();
+	void OnSaveClicked(const FString& slotname, int32 slotnumber);
 
 	UFUNCTION()
 	void OnQuitClicked();
 
 	UFUNCTION()
 	void OnCloseClicked();
+
+
+	UFUNCTION()
+	void CreateSaveSlotList();
+	UFUNCTION()
+	void CreateSaveSlotButton(const FString& slotname, int32 slotnumber);
+	UFUNCTION()
+	void OnPressedSave();
+	UFUNCTION()
+	void OnPresseedLoad();
 };

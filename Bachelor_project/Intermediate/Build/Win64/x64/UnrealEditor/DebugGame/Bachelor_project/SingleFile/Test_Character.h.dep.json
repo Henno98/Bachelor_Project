@@ -1031,6 +1031,13 @@
             "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\gas_ranged_attack.generated.h",
             "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\gas_wall_latch.h",
             "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\gas_wall_latch.generated.h",
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\player_hud.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\hud.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\hudhitbox.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\debugtextinfo.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\debugtextinfo.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\hud.generated.h",
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\player_hud.generated.h",
             "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\test_character.generated.h"
         ],
         "ImportedModules": [],

@@ -30,6 +30,7 @@ void AVending_Machine::BeginPlay()
 void AVending_Machine::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FTimerHandle AutoSave;
 
 }
 
@@ -54,7 +55,9 @@ void AVending_Machine::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 
 		//AutoSave when encountering the first time
 		if (FirstTime) {
-			Player->SaveGame();
+			
+			Player->SaveGame("Slot_2",1);
+			FirstTime = false;
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Auto save complete"));
 		//Player inputs save action to save

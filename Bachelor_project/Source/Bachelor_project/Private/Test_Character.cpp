@@ -54,7 +54,7 @@ ATest_Character::ATest_Character()
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
-	SaveGame();
+	SaveGame("Slot_0",0);
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -66,43 +66,60 @@ void ATest_Character::BeginPlay()
 
 
 }
-void ATest_Character::SaveGame()
+void ATest_Character::SaveGame(FString SlotName, int32 SlotNumber)
 {
-	if (bCanSave) {
-		if (USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
-		{
-			// Set data on the savegame object.
-			SaveGameInstance->PlayerName = TEXT("PlayerOne");
-			SaveGameInstance->PlayerLocation = this->GetActorLocation();
-			SaveGameInstance->SavedWorld = GetWorld();
-			SaveGameInstance->Health = Health;
-			SaveGameInstance->BioMass = BioMass;
-			// Save the data immediately.
-			if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Slot 1"), 0))
-			{
-				// Save succeeded.
 
-			}
+	USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass()));
+	if (SaveGameInstance)
+	{
+		// Set data
+		SaveGameInstance->PlayerName = TEXT("PlayerOne");
+		SaveGameInstance->PlayerLocation = GetActorLocation();
+		SaveGameInstance->SavedWorld = GetWorld(); // Optional, only if needed
+		SaveGameInstance->Health = Health;
+		SaveGameInstance->BioMass = BioMass;
+
+		// Save to slot
+		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
+		{
+			UE_LOG(LogTemp, Log, TEXT("Game saved successfully to slot: %s (%d)"), *SlotName, SlotNumber);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Failed to save game to slot: %s (%d)"), *SlotName, SlotNumber);
 		}
 	}
 }
-void ATest_Character::LoadGame()
+
+void ATest_Character::LoadGame(FString SlotName, int32 SlotNumber)
 {
-	if (USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass())))
+	if (UGameplayStatics::DoesSaveGameExist(SlotName, SlotNumber))
 	{
-		if (SaveGameInstance = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot("Slot 1", 0)))
+		USaveState* LoadedGame = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, SlotNumber));
+		if (LoadedGame)
 		{
 			SetActorEnableCollision(true);
 			SetActorHiddenInGame(false);
-			this->SetActorLocation(SaveGameInstance->PlayerLocation);
-			SetHealth(SaveGameInstance->Health);
-			BioMass = SaveGameInstance->BioMass;
+			SetActorLocation(LoadedGame->PlayerLocation);
+			SetHealth(LoadedGame->Health);
+			BioMass = LoadedGame->BioMass;
+
 			OnHealthChanged.Broadcast(Health);
 			OnEnergyChanged.Broadcast(BioMass);
-		
+
+			UE_LOG(LogTemp, Log, TEXT("Game loaded successfully from slot: %s (%d)"), *SlotName, SlotNumber);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Failed to load game from slot: %s (%d)"), *SlotName, SlotNumber);
 		}
 	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No save game found in slot: %s (%d)"), *SlotName, SlotNumber);
+	}
 }
+
 // Called every frame
 void ATest_Character::Tick(float DeltaTime)
 {
@@ -138,8 +155,6 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
 
 		//Save
-		EnhancedInputComponent->BindAction(SaveAction, ETriggerEvent::Started, this, &ATest_Character::SaveGame);
-		EnhancedInputComponent->BindAction(LoadAction, ETriggerEvent::Started, this, &ATest_Character::LoadGame);
 		EnhancedInputComponent->BindAction(MenuInput, ETriggerEvent::Triggered, this, &ATest_Character::ToggleMenu);
 
 		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);

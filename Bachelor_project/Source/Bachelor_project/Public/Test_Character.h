@@ -107,9 +107,9 @@ public:
     float DashCooldown;
 
     UFUNCTION()
-    void SaveGame();
+    void SaveGame( FString slotname,int32 slotnumber);
     UFUNCTION()
-    void LoadGame();
+    void LoadGame( FString slotname, int32 slotnumber);
 
     // Called every frame
     virtual void Tick(float DeltaTime) override;
