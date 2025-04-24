@@ -12,16 +12,27 @@
 UCLASS()
 class BACHELOR_PROJECT_API UCrowTask_MeleeAttack : public UBTTaskNode
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UCrowTask_MeleeAttack();
-
-	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+public:
+    UCrowTask_MeleeAttack();
 
 protected:
-	UPROPERTY(EditAnywhere, Category = "Melee")
-	float MeleeRange = 150.f;
+    virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+    virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
-	UPROPERTY(EditAnywhere, Category = "Melee")
-	float AttackDelay = 1.0f;//Endre til kan attack etter animation e ferdi
+private:
+    class ACrowBoss_AIController* BossAI;
+    class ACharacter* CrowBoss;
+    class AActor* PlayerActor;
+    class UBlackboardComponent* Blackboard;
+
+    FTimerHandle AttackTimer;
+
+    float ChaseRange = 250.f;     
+    float HitRange = 200.f;       
+
+
+    bool bHasAttacked;
+    float AttackRange;
 };

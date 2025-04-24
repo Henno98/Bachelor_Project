@@ -44,6 +44,7 @@
 			"CrowBoss.cpp.obj",
 			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
+			"CrowTask_DiveAttack.cpp.obj",
 			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
@@ -54,15 +55,16 @@
 			"Power_DoubleJump.cpp.obj",
 			"Power_WallLatch.cpp.obj",
 			"projectile.cpp.obj",
+			"ReturnToOrigin_Task.cpp.obj",
 			"SaveState.cpp.obj",
 			"Test_Character.cpp.obj",
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
 			"Bachelor_project.init.gen.cpp.obj",
 			"CrowTask_MeleeAttack.gen.cpp.obj",
-			"CrowTask_DiveAttack.cpp.obj",
+			"CrowTask_RankedAttack.gen.cpp.obj",
 			"CrowTask_MeleeAttack.cpp.obj",
-			"ReturnToOrigin_Task.cpp.obj"
+			"CrowTask_RankedAttack.cpp.obj"
 		]
 	}
 }
