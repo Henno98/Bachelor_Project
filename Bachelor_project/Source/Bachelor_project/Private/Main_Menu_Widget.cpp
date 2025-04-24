@@ -11,8 +11,7 @@
 
 void UMain_Menu_Widget::NativeConstruct()
 {// Setup main buttons
-    if (Load_Button)
-        Load_Button->OnClicked.AddDynamic(this,&UMain_Menu_Widget)
+   
 
     if (Quit_Button)
         Quit_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnQuitClicked);
