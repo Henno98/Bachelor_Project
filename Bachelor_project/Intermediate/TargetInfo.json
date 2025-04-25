@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Bachelor_project",
+			"Path": "..\\Source\\Bachelor_project.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "Bachelor_projectEditor",
+			"Path": "..\\Source\\Bachelor_projectEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

@@ -2,12 +2,10 @@
 
 
 #include "projectile.h"
-
-//#include "SmallCharger.h"
-#include "Test_Character.h"
-#include "Test_Enemy.h"
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Enemies/Test_Enemy.h"
+#include "Player/Test_Character.h"
 
 // Sets default values
 Aprojectile::Aprojectile()
