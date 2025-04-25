@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "NiagaraSystem.h"
 #include "GameFramework/Character.h"
 #include "CrowBoss.generated.h"
 
@@ -28,6 +29,8 @@ protected:
 	float Stamina;
 	UPROPERTY()
 	AActor* Target;
+
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -63,6 +66,8 @@ public:
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
 
-	
+
+	UPROPERTY(EditDefaultsOnly, Category = "VFX")
+	UNiagaraSystem* DiveImpactEffect;
 
 };

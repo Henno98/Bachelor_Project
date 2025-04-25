@@ -11,10 +11,11 @@
 			"Charger_AIController.gen.cpp.obj",
 			"Charger_ChargeTask.gen.cpp.obj",
 			"Charger_WanderingTask.gen.cpp.obj",
-			"CrowBoss.gen.cpp.obj",
 			"CrowBoss_AIController.gen.cpp.obj",
 			"CrowMovement_Task.gen.cpp.obj",
 			"CrowTask_DiveAttack.gen.cpp.obj",
+			"CrowTask_MeleeAttack.gen.cpp.obj",
+			"CrowTask_RankedAttack.gen.cpp.obj",
 			"GAS_Dash.gen.cpp.obj",
 			"GAS_Double_Jump.gen.cpp.obj",
 			"GAS_Melee.gen.cpp.obj",
@@ -41,10 +42,10 @@
 			"Charger_AIController.cpp.obj",
 			"Charger_ChargeTask.cpp.obj",
 			"Charger_WanderingTask.cpp.obj",
-			"CrowBoss.cpp.obj",
 			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
-			"CrowTask_DiveAttack.cpp.obj",
+			"CrowTask_MeleeAttack.cpp.obj",
+			"CrowTask_RankedAttack.cpp.obj",
 			"GAS_Dash.cpp.obj",
 			"GAS_Double_Jump.cpp.obj",
 			"GAS_Melee.cpp.obj",
@@ -61,10 +62,9 @@
 			"Test_Enemy.cpp.obj",
 			"Wandering_Target_Point.cpp.obj",
 			"Bachelor_project.init.gen.cpp.obj",
-			"CrowTask_MeleeAttack.gen.cpp.obj",
-			"CrowTask_RankedAttack.gen.cpp.obj",
-			"CrowTask_MeleeAttack.cpp.obj",
-			"CrowTask_RankedAttack.cpp.obj"
+			"CrowBoss.gen.cpp.obj",
+			"CrowBoss.cpp.obj",
+			"CrowTask_DiveAttack.cpp.obj"
 		]
 	}
 }
