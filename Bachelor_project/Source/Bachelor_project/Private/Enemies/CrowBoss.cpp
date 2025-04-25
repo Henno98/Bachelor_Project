@@ -2,6 +2,8 @@
 
 
 #include "Enemies/CrowBoss.h"
+
+#include "projectile.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
@@ -107,11 +109,38 @@ void ACrowBoss::Collision()
 
 void ACrowBoss::Death()
 {
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
 	//Health Reaches 0
 
 	//Despawn boss
 
 	//Spawn PowerUp
 
+}
+
+void ACrowBoss::OnHit(int damage)
+{
+
+	SetHealth(GetHealth() - damage);
+}
+
+
+void ACrowBoss::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor != this || OtherActor->GetOwner() != this)
+	{
+		if (OtherActor->IsA<Aprojectile>())
+		{
+			Aprojectile* projectile = Cast<Aprojectile>(OtherActor);
+			float dmg = projectile->GetDamage();
+			OnHit(dmg);
+
+
+		}
+
+
+	}
 }
 

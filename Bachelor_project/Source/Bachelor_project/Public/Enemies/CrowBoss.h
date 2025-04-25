@@ -51,7 +51,17 @@ public:
 	void Collision();
 	UFUNCTION()
 	void Death();
+	UFUNCTION()
+	void OnHit(int damage);
 
+
+	UFUNCTION()
+	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+		bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
 
 	//Getters and setters
 	//Health

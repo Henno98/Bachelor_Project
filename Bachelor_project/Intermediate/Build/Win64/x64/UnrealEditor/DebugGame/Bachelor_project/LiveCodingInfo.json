@@ -3,7 +3,6 @@
 	{
 		"Module.Bachelor_project.cpp.obj": [
 			"ASC_AbilitySystemComponent.gen.cpp.obj",
-			"Bachelor_project.init.gen.cpp.obj",
 			"BasicPlatform.gen.cpp.obj",
 			"Beetle.gen.cpp.obj",
 			"Beetle_AIController.gen.cpp.obj",
@@ -12,7 +11,6 @@
 			"Charger_AIController.gen.cpp.obj",
 			"Charger_ChargeTask.gen.cpp.obj",
 			"Charger_WanderingTask.gen.cpp.obj",
-			"CrowBoss.gen.cpp.obj",
 			"CrowBoss_AIController.gen.cpp.obj",
 			"CrowMovement_Task.gen.cpp.obj",
 			"CrowTask_DiveAttack.gen.cpp.obj",
@@ -46,9 +44,7 @@
 			"Beetle_AIController.cpp.obj",
 			"BirdBoss.cpp.obj",
 			"Charger.cpp.obj",
-			"Charger_AIController.cpp.obj",
 			"Charger_ChargeTask.cpp.obj",
-			"Charger_WanderingTask.cpp.obj",
 			"CrowBoss.cpp.obj",
 			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
@@ -78,7 +74,11 @@
 			"BasicPlatform.cpp.obj",
 			"LevelStreamingActor.cpp.obj",
 			"Vending_Machine.cpp.obj",
-			"Voice_Recorder.cpp.obj"
+			"Voice_Recorder.cpp.obj",
+			"Bachelor_project.init.gen.cpp.obj",
+			"CrowBoss.gen.cpp.obj",
+			"Charger_AIController.cpp.obj",
+			"Charger_WanderingTask.cpp.obj"
 		]
 	}
 }

@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\power_doublejump.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\debuggame\\unrealed\\sharedpch.unrealed.project.nonoptimized.valapi.cpp20.inclorderunreal5_4.h.pch",
+        "Includes": [
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\debuggame\\bachelor_project\\definitions.bachelor_project.h",
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\power_doublejump.h",
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\powerupcontroller.h",
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\powerupcontroller.generated.h",
+            "c:\\users\\bruker\\documents\\github\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\power_doublejump.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

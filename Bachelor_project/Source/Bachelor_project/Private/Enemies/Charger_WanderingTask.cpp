@@ -52,6 +52,8 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
 
     if (!NewWanderingPoint) return EBTNodeResult::Failed;
 
+    if (FVector::Dist(OwnerComp.GetOwner()->GetActorLocation(), NewWanderingPoint->GetActorLocation()) > 2000)   return EBTNodeResult::Failed;
+
     UE_LOG(LogTemp, Warning, TEXT("Selected new wandering point: %s"), *NewWanderingPoint->GetName());
 
     // Set the new wandering point in the blackboard
