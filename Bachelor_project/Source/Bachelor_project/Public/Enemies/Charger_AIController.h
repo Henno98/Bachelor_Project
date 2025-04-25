@@ -55,6 +55,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	class UPawnSensingComponent* Charger_PerceptionComponent;
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	float ChargingDistance = 300.f;
 
