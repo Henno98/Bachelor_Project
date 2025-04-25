@@ -2,6 +2,8 @@
 
 
 #include "CrowTask_DiveAttack.h"
+
+#include "CrowBoss.h"
 #include "CrowBoss_AIController.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -32,8 +34,16 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject("Player"));
     if (!TargetActor) return EBTNodeResult::Failed;
 
-    float DistanceToPlayer = FVector::Dist(AIPawn->GetActorLocation(), TargetActor->GetActorLocation());
-    if (DistanceToPlayer > 600.0f) return EBTNodeResult::Failed;
+    ACrowBoss* CrowBoss = Cast<ACrowBoss>(AIPawn);
+    if (!CrowBoss) return EBTNodeResult::Failed;
+
+    float DiveRange = CrowBoss->DiveAttackRange;
+	float DistanceToPlayer = FVector::Dist(AIPawn->GetActorLocation(), TargetActor->GetActorLocation());
+
+    if (DistanceToPlayer > DiveRange) return EBTNodeResult::Failed;
+    
+
+    //if (DistanceToPlayer > 600.0f) return EBTNodeResult::Failed;
 
     if (BlackboardComp->GetValueAsBool("IsAttacking")) return EBTNodeResult::Failed;
 
@@ -62,7 +72,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);
     BlackboardComp->SetValueAsVector("OriginalPosition", CurrentLocation);
 
-    ACharacter* CrowBoss = Cast<ACharacter>(AIPawn);
+    //ACharacter* CrowBoss = Cast<ACharacter>(AIPawn);
     if (CrowBoss)
     {
         FVector HorizontalDirection = (LandingSpot - CurrentLocation);
@@ -72,23 +82,29 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
         CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Flying);
         CrowBoss->LaunchCharacter(DiveDirection * DiveSpeed, true, true);
 
+        float DiveDistance = FVector::Dist(CurrentLocation, LandingSpot);
+        float FlightTime = DiveDistance / DiveSpeed;
+        FlightTime = FMath::Clamp(FlightTime, 0.1f, 3.0f); // min max flight time
+
+
         
         FTimerHandle DelayHandle;
         CrowBoss->GetWorldTimerManager().SetTimer(
             DelayHandle,
             [CrowBoss, BlackboardComp]()
             {
-                // Ensure the boss stops moving completely
+                // Stop movement and reset mode
                 CrowBoss->GetCharacterMovement()->StopMovementImmediately();
                 CrowBoss->GetCharacterMovement()->Velocity = FVector::ZeroVector;
                 CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 
-                // Set blackboard key to continue behavior
+                // Mark dive complete
                 BlackboardComp->SetValueAsBool("LandedFromDive", true);
             },
-            0.3f,
+            FlightTime,
             false
         );
+
 
 
         return EBTNodeResult::Succeeded;

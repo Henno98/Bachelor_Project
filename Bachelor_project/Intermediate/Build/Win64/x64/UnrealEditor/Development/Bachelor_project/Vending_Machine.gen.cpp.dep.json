@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\vending_machine.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_4.h.pch",
+        "Includes": [
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\vending_machine.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\unrealeditor\\inc\\bachelor_project\\uht\\vending_machine.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

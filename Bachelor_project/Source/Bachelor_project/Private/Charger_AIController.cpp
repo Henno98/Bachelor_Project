@@ -8,6 +8,7 @@
 #include "Perception/PawnSensingComponent.h"
 #include <Test_Character.h>
 #include "Wandering_Target_Point.h"
+#include "Kismet/GameplayStatics.h"
 
 ACharger_AIController::ACharger_AIController()
 {
@@ -23,6 +24,8 @@ ACharger_AIController::ACharger_AIController()
 		Charger_PerceptionComponent->LOSHearingThreshold = 2000.0f;
 		Charger_PerceptionComponent->HearingThreshold = 1000.0f;
 		Charger_PerceptionComponent->bHearNoises = true;
+
+		
 	}
 }
 
@@ -38,6 +41,7 @@ void ACharger_AIController::OnPossess(APawn* InPawn)
 		Charger_BBC->SetValueAsFloat("ChargeCooldown", 0.0f);
 		Charger_BBC->InitializeBlackboard(*Charger_BT->BlackboardAsset);
 		Charger_BTC->StartTree(*Charger_BT);
+		Charger_PerceptionComponent->OnSeePawn.AddDynamic(this, &ACharger_AIController::OnSeenPawn);
 	}
 	else
 	{
