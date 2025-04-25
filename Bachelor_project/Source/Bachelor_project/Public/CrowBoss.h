@@ -18,6 +18,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackRange")
+	float AttackRange = 2000.f;
 	UPROPERTY()
 	int Health;
 	UPROPERTY()
@@ -62,7 +64,8 @@ public:
 	AActor* GetAttackTarget() { return Target; }
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
-
+	UFUNCTION()
+	float GetAttackRange(){return AttackRange;}
 	
 
 };

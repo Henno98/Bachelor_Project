@@ -27,16 +27,16 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
-
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities system")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 public:
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
 	TSubclassOf<UGAS_Double_Jump> JumpAbility;
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
 	TSubclassOf<UGAS_Wall_Latch> WallLatchAbility;
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
 	TSubclassOf<UGAS_Dash> DashAbility;
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
 	TSubclassOf<UGAS_Ranged_Attack> RangedAttack;
 
 };

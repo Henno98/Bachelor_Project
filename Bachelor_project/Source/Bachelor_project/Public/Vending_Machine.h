@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Basic attributes")
-	class UStaticMeshComponent* StaticMesh;
+	class USkeletalMeshComponent* SkeletalMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic attributes")
 	class UBoxComponent* HitBox;
 public:	

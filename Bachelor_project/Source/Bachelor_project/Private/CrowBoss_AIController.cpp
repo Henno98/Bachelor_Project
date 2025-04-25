@@ -2,6 +2,8 @@
 
 
 #include "CrowBoss_AIController.h"
+
+#include "CrowBoss.h"
 #include "Test_Character.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
@@ -21,12 +23,12 @@ ACrowBoss_AIController::ACrowBoss_AIController()
 void ACrowBoss_AIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-
+   
 	if (CrowBoss_BT != NULL) 
 	{
 		CrowBoss_BBC->InitializeBlackboard(*CrowBoss_BT->BlackboardAsset);
 		CrowBoss_BTC->StartTree(*CrowBoss_BT);
-
+       
 		CrowBoss_PerceptionComponent->OnSeePawn.AddDynamic(this, &ACrowBoss_AIController::OnSeenPawn);
 
 	}
@@ -36,7 +38,7 @@ void ACrowBoss_AIController::OnPossess(APawn* InPawn)
 void ACrowBoss_AIController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    APawn* Crow = GetPawn();
+    ACrowBoss* Crow = Cast<ACrowBoss>(GetOwner());
     if (!Crow) return;
 
     
@@ -55,7 +57,7 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
         FVector CrowLocation = Crow->GetActorLocation();
         float Distance = FVector::Dist(PlayerLocation, CrowLocation);
 
-        if (Distance > 1500.f)
+        if (Distance > Crow->GetAttackRange())
         {
             Player = nullptr;
             CrowBoss_BBC->SetValueAsObject("Player", nullptr);

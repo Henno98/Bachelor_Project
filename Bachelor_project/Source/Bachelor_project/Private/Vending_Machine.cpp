@@ -11,8 +11,8 @@ AVending_Machine::AVending_Machine()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
-	SetRootComponent(StaticMesh);
+	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Static Mesh"));
+	SetRootComponent(SkeletalMesh);
 	HitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	HitBox->SetupAttachment(RootComponent);
 	HitBox->OnComponentBeginOverlap.AddDynamic(this, &AVending_Machine::OnOverlap);

@@ -10,6 +10,7 @@
 #include "projectile.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
+#include "GAS_Dash.h"
 #include "GAS_Double_Jump.h"
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
@@ -90,15 +91,31 @@ public:
     UFUNCTION()
     void Move(const FInputActionValue& Value);
     UFUNCTION()
+    void StopMoving();
+    UFUNCTION()
     void MeleeAttack(const FInputActionValue& Value);
     UFUNCTION()
     void EndMeleeAttack();
     UFUNCTION()
     void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
                    int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
+    // Animation/State flags
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bIsDashing{ false };
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bHasDoubleJumped{ false };
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bIsRunning{ false };
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bIsMeleeAttacking{ false };
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bIsRangedAttacking{ false };
+
+
     bool Attack1{false};
     bool Attack2{false};
     bool Attack3{false};
@@ -184,7 +201,7 @@ public:
     FGameplayAbilitySpec WallLatchAbilitySpec;
 
     UPROPERTY()
-    TSubclassOf<UGAS_Wall_Latch> GA_Dash;
+    TSubclassOf<UGAS_Dash> GA_Dash;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer DashAbilityTag;
     FGameplayAbilitySpec DashAbilitySpec;

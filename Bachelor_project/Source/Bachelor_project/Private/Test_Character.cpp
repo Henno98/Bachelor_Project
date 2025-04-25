@@ -147,6 +147,7 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
 		EnhancedInputComponent->BindAction(DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
 		//PowerUpInputs
 		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
@@ -206,7 +207,7 @@ void ATest_Character::InitAbilitySystem()
 		GA_Dash = GASPlayerState->DashAbility;
 		DashAbilitySpec = FGameplayAbilitySpec(GA_Dash);
 		AbilitySystemComponent->GiveAbility(DashAbilitySpec);
-
+		
 		GA_Ranged_Attack = GASPlayerState->RangedAttack;
 		RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
 		AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
@@ -224,12 +225,17 @@ void ATest_Character::GASJump()
 {
 	if (AbilitySystemComponent && GA_Double_Jump)
 	{
-	
-		FGameplayTagContainer jumpGameTagContainer;
-		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump")));
-		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+		bHasDoubleJumped = true;
+		FGameplayTagContainer tags;
+		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
 
-
+		// Optionally reset after a delay
+		FTimerHandle TimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				bHasDoubleJumped = false;
+			}), 0.5f, false);
 	}
 
 }
@@ -249,15 +255,19 @@ void ATest_Character::GASStopJump()
 
 void ATest_Character::GAS_Dash()
 {
-	if (AbilitySystemComponent && GA_Wall_Latch)
+	if (AbilitySystemComponent && GA_Dash)
 	{
 		if (!bIsDashing) {
+
 			bIsDashing = true;
+
+
 			FGameplayTagContainer jumpGameTagContainer;
 			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Dash")));
 			AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
 
 			FTimerHandle TimerHandle;
+			
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
 				{
 
@@ -295,16 +305,33 @@ void ATest_Character::GAS_Space()
 void ATest_Character::GAS_RangedAttack()
 {
 
-	if (AbilitySystemComponent && GA_Ranged_Attack)
+	if (AbilitySystemComponent && GA_Ranged_Attack && BioMass > 100)
 	{
-		
-		if (BioMass > 100) {
-			FGameplayTagContainer jumpGameTagContainer;
-			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
-			AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
-			BioMass -= 100;
+		bIsRangedAttacking = true;
+
+
+		FGameplayTagContainer tags;
+		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+
+
+		BioMass -= 100;
+
+		FTimerHandle TimerHandle;
+		float AnimDuration;
+
+		if (RangedAttackAnim) {
+			 AnimDuration = RangedAttackAnim->GetPlayLength();
+		}
+		else
+		{
+			AnimDuration = 0.5f;
 		}
 
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				bIsRangedAttacking = false;
+			}), AnimDuration, false); // Adjust based on anim length
 	}
 }
 
@@ -334,6 +361,7 @@ void ATest_Character::DropDown()
 				HitResult.GetActor()->SetActorEnableCollision(false);
 
 				FTimerHandle TimerHandle;
+				
 				GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([HitResult]()
 					{
 						HitResult.GetActor()->SetActorEnableCollision(true);
@@ -376,31 +404,33 @@ void ATest_Character::Move(const FInputActionValue& Value)
 {
 	const FVector2D moveVector = Value.Get<FVector2D>();
 	const FRotator moveRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
-	if (MoveAnim)
-	{
 
-		GetMesh()->PlayAnimation(MoveAnim, true);
-	}
-	if (moveVector.X > 0.05f ) {
-		 SetActorRotation(FRotator(0.f,90.f,0.f));
+	// Set running state when moving
+	if (abs(moveVector.X) > 0.05f) {
+		// Calculate the direction of movement relative to the control rotation
+		SetActorRotation(FRotator(0.f, 90.f * moveVector.X, 0.f)); // You might want to update this rotation to better match your movement logic
+
 		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
+
+		// Add movement input based on the direction
 		AddMovementInput(directionVector, moveVector.X);
 
+		// Set running state
+		bIsRunning = true;
 	}
-	if ( moveVector.X < -0.05f)
+	/*if ( moveVector.X < -0.05f)
 	{
 		SetActorRotation(FRotator(0.f, -90.f, 0.f));
 		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(directionVector, moveVector.X);
-
-	}
+		bIsRunning = true;
+	}*/
 	
-	if (moveVector.Y > 0.05f || moveVector.Y < -0.05f) {
-		const FVector directionVector = moveRotation.RotateVector(FVector::ForwardVector);
-		AddMovementInput(directionVector, moveVector.Y);
-		//Springarm->SetRelativeRotation(FRotator(0, 10, 0));
+}
 
-	}
+void ATest_Character::StopMoving()
+{
+	bIsRunning = false;
 }
 
 void ATest_Character::MeleeAttack(const FInputActionValue& Value)
@@ -409,8 +439,11 @@ void ATest_Character::MeleeAttack(const FInputActionValue& Value)
 
 	if (MeleeAnim)
 	{
-		GetMesh()->PlayAnimation(MeleeAnim, false);
 
+	}
+			bIsMeleeAttacking = true;
+			float AnimDuration = MeleeAnim->GetPlayLength();
+			GetWorldTimerManager().SetTimer(AttackTimer, this, &ATest_Character::EndMeleeAttack, AnimDuration, false);
 		// Example condition: check if the socket exists before proceeding
 		if (GetMesh()->DoesSocketExist(TEXT("Hitbox_Right_Hand")))
 		{
@@ -425,26 +458,23 @@ void ATest_Character::MeleeAttack(const FInputActionValue& Value)
 				FVector Location = HurtBox->GetComponentLocation();
 				UE_LOG(LogTemp, Warning, TEXT("HurtBox location: %s"), *Location.ToString());
 
-				float AnimDuration = MeleeAnim->GetPlayLength();
-				GetWorldTimerManager().SetTimer(AttackTimer, this, &ATest_Character::EndMeleeAttack, AnimDuration, false);
+				
 			}
 		}
 		else
 		{
 			UE_LOG(LogTemp, Error, TEXT("Socket 'Hitbox_Right_Hand' does not exist on the mesh!"));
 		}
-	}
-
-	
-
-
 }
+
 
 void ATest_Character::EndMeleeAttack()
 {
-	// Optional: Detach the HurtBox or disable its collision
-	HurtBox->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
-	HurtBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		bIsMeleeAttacking = false;
+		if (HurtBox) {
+			HurtBox->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+			HurtBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		}
 }
 void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
