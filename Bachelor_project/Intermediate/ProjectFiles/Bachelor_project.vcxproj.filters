@@ -85,6 +85,9 @@
     <ClCompile Include="..\..\Source\Bachelor_project\Private\Enemies\CrowBoss_AIController.cpp">
       <Filter>Source\Bachelor_project\Private\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Private\Enemies\CrowBoss_Projectile.cpp">
+      <Filter>Source\Bachelor_project\Private\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Private\Enemies\CrowMovement_Task.cpp">
       <Filter>Source\Bachelor_project\Private\Enemies</Filter>
     </ClCompile>
@@ -206,6 +209,9 @@
       <Filter>Source\Bachelor_project\Public\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\Enemies\CrowBoss_AIController.h">
+      <Filter>Source\Bachelor_project\Public\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bachelor_project\Public\Enemies\CrowBoss_Projectile.h">
       <Filter>Source\Bachelor_project\Public\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Bachelor_project\Public\Enemies\CrowMovement_Task.h">

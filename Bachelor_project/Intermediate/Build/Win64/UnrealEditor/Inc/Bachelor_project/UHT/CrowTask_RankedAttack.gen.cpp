@@ -10,7 +10,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeCrowTask_RankedAttack() {}
 
 // Begin Cross Module References
-AIMODULE_API UClass* Z_Construct_UClass_UBTNode();
+AIMODULE_API UClass* Z_Construct_UClass_UBTTaskNode();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UCrowTask_RankedAttack();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_UCrowTask_RankedAttack_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Bachelor_project();
@@ -43,7 +43,7 @@ struct Z_Construct_UClass_UCrowTask_RankedAttack_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 UObject* (*const Z_Construct_UClass_UCrowTask_RankedAttack_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UBTNode,
+	(UObject* (*)())Z_Construct_UClass_UBTTaskNode,
 	(UObject* (*)())Z_Construct_UPackage__Script_Bachelor_project,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UCrowTask_RankedAttack_Statics::DependentSingletons) < 16);
@@ -74,20 +74,19 @@ template<> BACHELOR_PROJECT_API UClass* StaticClass<UCrowTask_RankedAttack>()
 {
 	return UCrowTask_RankedAttack::StaticClass();
 }
-UCrowTask_RankedAttack::UCrowTask_RankedAttack(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(UCrowTask_RankedAttack);
 UCrowTask_RankedAttack::~UCrowTask_RankedAttack() {}
 // End Class UCrowTask_RankedAttack
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_Statics
+struct Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCrowTask_RankedAttack, UCrowTask_RankedAttack::StaticClass, TEXT("UCrowTask_RankedAttack"), &Z_Registration_Info_UClass_UCrowTask_RankedAttack, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCrowTask_RankedAttack), 1321056859U) },
+		{ Z_Construct_UClass_UCrowTask_RankedAttack, UCrowTask_RankedAttack::StaticClass, TEXT("UCrowTask_RankedAttack"), &Z_Registration_Info_UClass_UCrowTask_RankedAttack, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCrowTask_RankedAttack), 670939451U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_4229572715(TEXT("/Script/Bachelor_project"),
-	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_2278507898(TEXT("/Script/Bachelor_project"),
+	Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowTask_RankedAttack_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

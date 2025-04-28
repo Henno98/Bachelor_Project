@@ -6,7 +6,7 @@
         "PCH": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_4.h.pch",
         "Includes": [
             "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
-            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\gas_ranged_attack.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\player\\gas_ranged_attack.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\plugins\\runtime\\gameplayabilities\\source\\gameplayabilities\\public\\abilities\\gameplayability.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\gameplaytags\\classes\\gameplaytagcontainer.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\misc\\comparisonutility.h",

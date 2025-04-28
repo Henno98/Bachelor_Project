@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Charger_AIController.h"
+#include "Enemies/Charger_AIController.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/PawnSensingComponent.h"
-#include <Test_Character.h>
-#include "Wandering_Target_Point.h"
+#include "Player/Test_Character.h"
+
 #include "Kismet/GameplayStatics.h"
 
 ACharger_AIController::ACharger_AIController()

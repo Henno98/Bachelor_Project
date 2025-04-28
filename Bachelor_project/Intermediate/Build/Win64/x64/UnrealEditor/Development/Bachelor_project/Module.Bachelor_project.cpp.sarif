@@ -16,10 +16,10 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Beetle_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Enemies/Beetle_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 17,
+                                    "startLine": 18,
                                     "startColumn": 54
                                 }
                             }
@@ -38,10 +38,10 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Beetle_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Enemies/Beetle_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 31,
+                                    "startLine": 32,
                                     "startColumn": 29
                                 }
                             }
@@ -60,55 +60,11 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Beetle_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Enemies/Beetle_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 45,
+                                    "startLine": 46,
                                     "startColumn": 61
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4996",
-                    "message": {
-                        "text": "'UPawnSensingComponent': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/Module.Bachelor_project.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/CrowBoss_AIController.cpp"
-                                },
-                                "region": {
-                                    "startLine": 14,
-                                    "startColumn": 56
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4996",
-                    "message": {
-                        "text": "'UPawnSensingComponent::OnSeePawn': Pawn sensing is deprecated. AI Perception should be used instead. Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Intermediate/Build/Win64/x64/UnrealEditor/Development/Bachelor_project/Module.Bachelor_project.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/CrowBoss_AIController.cpp"
-                                },
-                                "region": {
-                                    "startLine": 30,
-                                    "startColumn": 31
                                 }
                             }
                         }
@@ -155,10 +111,10 @@
                             "id": 1,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Beetle_AIController.cpp"
+                                    "uri": "file:///C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Source/Bachelor_project/Private/Enemies/Beetle_AIController.cpp"
                                 },
                                 "region": {
-                                    "startLine": 17,
+                                    "startLine": 18,
                                     "startColumn": 31
                                 }
                             },

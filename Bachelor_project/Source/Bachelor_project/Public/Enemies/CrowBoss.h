@@ -41,6 +41,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DiveAttackRange = 600.f;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float RangedAttackDistance = 1500.f;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class ACrowBoss_Projectile> ProjectileClass;
+
 	UFUNCTION()
 	void MeleeAttack();
 	UFUNCTION()

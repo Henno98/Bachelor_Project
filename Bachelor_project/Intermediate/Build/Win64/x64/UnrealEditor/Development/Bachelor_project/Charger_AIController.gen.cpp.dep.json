@@ -6,7 +6,7 @@
         "PCH": "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\bachelor_projecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_4.h.pch",
         "Includes": [
             "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\bachelor_project\\definitions.bachelor_project.h",
-            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\charger_aicontroller.h",
+            "c:\\github\\bachelor\\bachelor_project\\bachelor_project\\source\\bachelor_project\\public\\enemies\\charger_aicontroller.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\aicontroller.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\aimodule\\classes\\aitypes.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\navigationsystem\\public\\navigationsystemtypes.h",

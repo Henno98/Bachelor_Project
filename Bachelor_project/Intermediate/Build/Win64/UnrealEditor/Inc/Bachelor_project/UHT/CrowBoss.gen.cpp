@@ -12,6 +12,8 @@ void EmptyLinkFunctionForGeneratedCodeCrowBoss() {}
 // Begin Cross Module References
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ACrowBoss();
 BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ACrowBoss_NoRegister();
+BACHELOR_PROJECT_API UClass* Z_Construct_UClass_ACrowBoss_Projectile_NoRegister();
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 UPackage* Z_Construct_UPackage__Script_Bachelor_project();
@@ -522,6 +524,18 @@ struct Z_Construct_UClass_ACrowBoss_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Target_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DiveAttackRange_MetaData[] = {
+		{ "Category", "CrowBoss" },
+		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_RangedAttackDistance_MetaData[] = {
+		{ "Category", "Combat" },
+		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ProjectileClass_MetaData[] = {
+		{ "Category", "Combat" },
+		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackRange;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_Health;
@@ -529,6 +543,9 @@ struct Z_Construct_UClass_ACrowBoss_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackDamage;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_Stamina;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Target;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_DiveAttackRange;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_RangedAttackDistance;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_ProjectileClass;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -557,6 +574,9 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Stati
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackDamage = { "AttackDamage", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, AttackDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackDamage_MetaData), NewProp_AttackDamage_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_Stamina = { "Stamina", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, Stamina), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Stamina_MetaData), NewProp_Stamina_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_Target = { "Target", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, Target), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Target_MetaData), NewProp_Target_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_DiveAttackRange = { "DiveAttackRange", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, DiveAttackRange), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DiveAttackRange_MetaData), NewProp_DiveAttackRange_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_RangedAttackDistance = { "RangedAttackDistance", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, RangedAttackDistance), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RangedAttackDistance_MetaData), NewProp_RangedAttackDistance_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_ProjectileClass = { "ProjectileClass", nullptr, (EPropertyFlags)0x0014000000000001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, ProjectileClass), Z_Construct_UClass_UClass, Z_Construct_UClass_ACrowBoss_Projectile_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ProjectileClass_MetaData), NewProp_ProjectileClass_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACrowBoss_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackRange,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_Health,
@@ -564,6 +584,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACrowBoss
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackDamage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_Stamina,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_Target,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_DiveAttackRange,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_RangedAttackDistance,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_ProjectileClass,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ACrowBoss_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ACrowBoss_Statics::DependentSingletons[])() = {
@@ -603,14 +626,14 @@ ACrowBoss::~ACrowBoss() {}
 // End Class ACrowBoss
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics
+struct Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACrowBoss, ACrowBoss::StaticClass, TEXT("ACrowBoss"), &Z_Registration_Info_UClass_ACrowBoss, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACrowBoss), 589277567U) },
+		{ Z_Construct_UClass_ACrowBoss, ACrowBoss::StaticClass, TEXT("ACrowBoss"), &Z_Registration_Info_UClass_ACrowBoss, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACrowBoss), 1396670888U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_2541871097(TEXT("/Script/Bachelor_project"),
-	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_3925446960(TEXT("/Script/Bachelor_project"),
+	Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Bachelor_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration
