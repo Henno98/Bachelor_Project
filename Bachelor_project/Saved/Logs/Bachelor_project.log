@@ -1556,3 +1556,821 @@ FPackageName: Skipped package /Game/Levels/ModularKit/dirt_wet has a valid, moun
 [2025.04.28-10.41.23:031][131]LogDerivedDataCache: C:/Users/bobaw/AppData/Local/UnrealEngine/Common/DerivedDataCache: Maintenance finished in +00:00:00.003 and deleted 0 files with total size 0 MiB and 0 empty folders. Scanned 0 files in 1 folders with total size 0 MiB.
 [2025.04.28-10.41.26:813][137]LogSlate: Window 'Message Log' being destroyed
 [2025.04.28-10.41.27:890][137]LogSlate: Window 'Message Log' being destroyed
+[2025.04.28-10.43.35:275][913]LogContentBrowserAssetDataSource: Warning: Unable to convert short ParentClass name "None" to path name
+[2025.04.28-10.43.35:437][916]LogChaosDD: Creating Chaos Debug Draw Scene for world World_0
+[2025.04.28-10.43.43:607][127]LogChaosDD: Creating Chaos Debug Draw Scene for world World_1
+[2025.04.28-10.43.43:914][128]LogChaosDD: Creating Chaos Debug Draw Scene for world World_2
+[2025.04.28-10.43.54:620][435]LogLiveCoding: Display: Starting Live Coding compile.
+[2025.04.28-10.44.51:210][ 29]LogLiveCoding: Display:    Creating library C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Binaries\Win64\UnrealEditor-Bachelor_project.patch_0.lib and object C:\Github\Bachelor\Bachelor_Project\Bachelor_project\Binaries\Win64\UnrealEditor-Bachelor_project.patch_0.exp
+[2025.04.28-10.44.52:046][ 31]LogClass: UPackage /Script/Bachelor_project Reload.
+[2025.04.28-10.44.52:059][ 31]LogClass: UClass CrowBoss Reload.
+[2025.04.28-10.44.52:063][ 31]LogClass: UClass CrowTask_RankedAttack Reload.
+[2025.04.28-10.44.52:087][ 31]LogClass: Could not find existing class CrowBoss in package /Script/Bachelor_project for reload, assuming new or modified class
+[2025.04.28-10.44.52:087][ 31]LogClass: Function Collision is new or belongs to a modified class.
+[2025.04.28-10.44.52:088][ 31]LogClass: Function Death is new or belongs to a modified class.
+[2025.04.28-10.44.52:088][ 31]LogClass: Function FeatherAttack is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function GetAttackRange is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function GetAttackTarget is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function GetHealth is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function GetStamina is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function MeleeAttack is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function SetAttackTarget is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function SetHealth is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function SetStamina is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Function SpecialAttack is new or belongs to a modified class.
+[2025.04.28-10.44.52:089][ 31]LogClass: Could not find existing class CrowBoss_Projectile in package /Script/Bachelor_project for reload, assuming new or modified class
+[2025.04.28-10.44.52:089][ 31]LogClass: Function OnHit is new or belongs to a modified class.
+[2025.04.28-10.44.52:094][ 31]LogClass: Could not find existing class CrowTask_RankedAttack in package /Script/Bachelor_project for reload, assuming new or modified class
+[2025.04.28-10.44.52:262][ 31]Re-instancing CrowBoss after reload.
+[2025.04.28-10.44.52:877][ 31]Re-instancing CrowTask_RankedAttack after reload.
+[2025.04.28-10.44.53:238][ 31]LogBlueprint: Warning: Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile is missing GeneratedClass asset tag
+[2025.04.28-10.44.53:602][ 31]LogUObjectHash: Compacting FUObjectHashTables data took   2.56ms
+[2025.04.28-10.44.54:120][ 32]LogAutomationController: Ignoring very large delta of 2.85 seconds in calls to FAutomationControllerManager::Tick() and not penalizing unresponsive tests
+[2025.04.28-10.44.54:241][ 32]Display: Reload/Re-instancing Complete: 1 package changed, 1 class new, 2 classes changed, 35 classes unchanged, 43 functions remapped
+[2025.04.28-10.44.54:241][ 32]LogLiveCoding: Warning: Live coding succeeded, data type changes may cause packaging to fail if assets reference the new or updated data types
+[2025.04.28-10.45.54:246][101]LogEOSSDK: LogEOS: Updating Product SDK Config, Time: 368.536163
+[2025.04.28-10.45.54:411][111]LogEOSSDK: LogEOS: SDK Config Product Update Request Completed - No Change
+[2025.04.28-10.45.54:412][111]LogEOSSDK: LogEOS: ScheduleNextSDKConfigDataUpdate - Time: 368.701141, Update Interval: 337.301544
+[2025.04.28-10.50.10:061][635]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2025.04.28-10.50.10:129][635]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2025.04.28-10.50.10:234][635]LogOnline: OSS: Created online subsystem instance for: NULL
+[2025.04.28-10.50.10:235][635]LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for type [NULL]
+[2025.04.28-10.50.10:238][635]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.50.10:387][635]LogPlayLevel: PIE: StaticDuplicateObject took: (0.145792s)
+[2025.04.28-10.50.10:387][635]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Tutorial.Tutorial to /Game/Levels/UEDPIE_0_Tutorial.Tutorial (0.148452s)
+[2025.04.28-10.50.10:425][635]LogUObjectHash: Compacting FUObjectHashTables data took   1.55ms
+[2025.04.28-10.50.10:431][635]LogChaosDD: Creating Chaos Debug Draw Scene for world Tutorial
+[2025.04.28-10.50.10:468][635]LogPlayLevel: PIE: World Init took: (0.036276s)
+[2025.04.28-10.50.10:470][635]LogAudio: Display: Creating Audio Device:                 Id: 2, Scope: Unique, Realtime: True
+[2025.04.28-10.50.10:474][635]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2025.04.28-10.50.10:474][635]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2025.04.28-10.50.10:474][635]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2025.04.28-10.50.10:474][635]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2025.04.28-10.50.10:474][635]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2025.04.28-10.50.10:475][635]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2025.04.28-10.50.10:475][635]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2025.04.28-10.50.10:475][635]LogAudio: Display: AudioDevice MaxSources: 32
+[2025.04.28-10.50.10:477][635]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2025.04.28-10.50.10:477][635]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2025.04.28-10.50.10:477][635]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2025.04.28-10.50.10:488][635]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2025.04.28-10.50.10:578][635]LogAudioMixer: Display: Using Audio Hardware Device Speakers (C-Media(R) Audio)
+[2025.04.28-10.50.10:585][635]LogAudioMixer: Display: Initializing Sound Submixes...
+[2025.04.28-10.50.10:585][635]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2025.04.28-10.50.10:586][635]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2025.04.28-10.50.10:593][635]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=2
+[2025.04.28-10.50.10:594][635]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=2
+[2025.04.28-10.50.10:600][635]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=2
+[2025.04.28-10.50.10:600][635]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=2
+[2025.04.28-10.50.10:600][635]LogInit: FAudioDevice initialized with ID 2.
+[2025.04.28-10.50.10:602][635]LogAudio: Display: Audio Device (ID: 2) registered with world 'Tutorial'.
+[2025.04.28-10.50.10:604][635]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 2
+[2025.04.28-10.50.10:665][635]LogStreaming: Display: FlushAsyncLoading(340): 1 QueuedPackages, 0 AsyncPackages
+[2025.04.28-10.50.10:723][635]LogStreaming: Display: ImportPackages: SkipPackage: /Game/BP/Main_Menu_Widget_BP (0x6DB200E2DF9ACA04) /Game/BP/Main_Menu_Widget_BP (0x6DB200E2DF9ACA04) - Skipping non mounted imported package /Game/Texture/1314645 (0xDFC5552138B7BFA1)
+[2025.04.28-10.50.11:278][635]LogLoad: Game class is 'BP_GameMode_C'
+[2025.04.28-10.50.11:325][635]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Tutorial.Tutorial up for play (max tick rate 0) at 2025.04.28-12.50.11
+[2025.04.28-10.50.11:379][635]LogWorld: Bringing up level for play took: 0.100037
+[2025.04.28-10.50.11:387][635]LogOnline: OSS: Created online subsystem instance for: :Context_4
+[2025.04.28-10.50.11:413][635]LogStats: UGameplayCueManager::InitializeEditorObjectLibrary -  0.016 s
+[2025.04.28-10.50.11:413][635]LogAbilitySystem: Warning: No GameplayCueNotifyPaths were specified in DefaultGame.ini under [/Script/GameplayAbilities.AbilitySystemGlobals]. Falling back to using all of /Game/. This may be slow on large projects. Consider specifying which paths are to be searched.
+[2025.04.28-10.50.11:579][635]LogWindows: WindowsPlatformFeatures enabled
+[2025.04.28-10.50.11:583][635]LogTemp: Game saved successfully to slot: Slot_0 (0)
+[2025.04.28-10.50.11:589][635]PIE: Server logged in
+[2025.04.28-10.50.11:592][635]PIE: Play in editor total start time 1.498 seconds.
+[2025.04.28-10.50.11:710][635]LogPackageName: Warning: GetLocalFullPath called on FPackagePath ../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/Texture/1314645 which has an unspecified header extension, and the path does not exist on disk. Assuming EPackageExtension::Asset.
+[2025.04.28-10.50.11:712][635]LoadErrors: Warning: While trying to load package /Game/BP/Main_Menu_Widget_BP, a dependent package /Game/Texture/1314645 was not available. Additional explanatory information follows:
+FPackageName: Skipped package /Game/Texture/1314645 has a valid, mounted, mount point but does not exist either on disk or in iostore. The uncooked file would be expected on disk at 'C:/Github/Bachelor/Bachelor_Project/Bachelor_project/Content/Texture/1314645.uasset'. Perhaps it has been deleted or was not synced?
+
+[2025.04.28-10.50.14:828][753]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.15:359][762]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.15:860][785]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.16:389][809]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.16:926][821]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.18:022][842]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.18:539][867]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.18:558][868]LogAbilitySystem: Warning: AbilityLocalInputReleased: Default__GAS_Double_Jump is InstancedPerExecution. This is unreliable for Input as you may only interact with the latest spawned Instance
+[2025.04.28-10.50.19:047][890]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.19:562][913]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.19:834][919]LogAbilitySystem: Warning: AbilityLocalInputReleased: Default__GAS_Double_Jump is InstancedPerExecution. This is unreliable for Input as you may only interact with the latest spawned Instance
+[2025.04.28-10.50.20:039][924]LogAbilitySystem: Warning: AbilityLocalInputReleased: Default__GAS_Double_Jump is InstancedPerExecution. This is unreliable for Input as you may only interact with the latest spawned Instance
+[2025.04.28-10.50.20:085][925]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.20:597][935]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.21:104][959]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.21:609][982]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.22:133][995]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.23:177][ 28]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.25:068][ 59]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.27:068][ 65]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.28:240][ 88]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.29:247][125]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.29:794][134]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.30:296][141]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.30:808][164]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.31:341][185]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.34:494][290]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.35:015][300]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.36:171][334]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.36:686][353]LogAssetEditorSubsystem: Opening Asset editor for BehaviorTree /Game/AI/CrowBoss_AI/CrowBoss_BT.CrowBoss_BT
+[2025.04.28-10.50.37:270][353]LogSlate: Took 0.001530 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2025.04.28-10.50.37:342][354]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.38:438][377]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.38:943][399]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.39:969][445]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.40:513][467]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.41:047][480]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.42:849][488]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.43:368][514]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.43:858][536]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.50.43:858][536]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.50.43:862][536]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-10.50.43:867][536]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.50.43:888][536]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2025.04.28-10.50.43:893][536]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.50.43:920][536]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2025.04.28-10.50.43:920][536]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 2
+[2025.04.28-10.50.43:922][536]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=2
+[2025.04.28-10.50.43:926][536]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=2
+[2025.04.28-10.50.43:947][536]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.50.43:984][536]LogUObjectHash: Compacting FUObjectHashTables data took   1.74ms
+[2025.04.28-10.50.44:270][537]LogPlayLevel: Display: Destroying online subsystem :Context_4
+[2025.04.28-10.50.45:293][566]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2025.04.28-10.50.45:315][566]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2025.04.28-10.50.45:315][566]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.50.45:342][566]LogPlayLevel: PIE: StaticDuplicateObject took: (0.025965s)
+[2025.04.28-10.50.45:342][566]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Tutorial.Tutorial to /Game/Levels/UEDPIE_0_Tutorial.Tutorial (0.026632s)
+[2025.04.28-10.50.45:364][566]LogUObjectHash: Compacting FUObjectHashTables data took   1.34ms
+[2025.04.28-10.50.45:366][566]LogChaosDD: Creating Chaos Debug Draw Scene for world Tutorial
+[2025.04.28-10.50.45:370][566]LogPlayLevel: PIE: World Init took: (0.003806s)
+[2025.04.28-10.50.45:371][566]LogAudio: Display: Creating Audio Device:                 Id: 3, Scope: Unique, Realtime: True
+[2025.04.28-10.50.45:371][566]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2025.04.28-10.50.45:371][566]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2025.04.28-10.50.45:371][566]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2025.04.28-10.50.45:371][566]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2025.04.28-10.50.45:371][566]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2025.04.28-10.50.45:371][566]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2025.04.28-10.50.45:372][566]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2025.04.28-10.50.45:372][566]LogAudio: Display: AudioDevice MaxSources: 32
+[2025.04.28-10.50.45:372][566]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2025.04.28-10.50.45:372][566]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2025.04.28-10.50.45:372][566]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2025.04.28-10.50.45:375][566]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2025.04.28-10.50.45:420][566]LogAudioMixer: Display: Using Audio Hardware Device Speakers (C-Media(R) Audio)
+[2025.04.28-10.50.45:421][566]LogAudioMixer: Display: Initializing Sound Submixes...
+[2025.04.28-10.50.45:421][566]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2025.04.28-10.50.45:421][566]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2025.04.28-10.50.45:422][566]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=3
+[2025.04.28-10.50.45:422][566]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=3
+[2025.04.28-10.50.45:427][566]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=3
+[2025.04.28-10.50.45:427][566]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=3
+[2025.04.28-10.50.45:428][566]LogInit: FAudioDevice initialized with ID 3.
+[2025.04.28-10.50.45:428][566]LogAudio: Display: Audio Device (ID: 3) registered with world 'Tutorial'.
+[2025.04.28-10.50.45:428][566]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 3
+[2025.04.28-10.50.45:432][566]LogLoad: Game class is 'BP_GameMode_C'
+[2025.04.28-10.50.45:441][566]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Tutorial.Tutorial up for play (max tick rate 0) at 2025.04.28-12.50.45
+[2025.04.28-10.50.45:446][566]LogWorld: Bringing up level for play took: 0.012920
+[2025.04.28-10.50.45:451][566]LogOnline: OSS: Created online subsystem instance for: :Context_5
+[2025.04.28-10.50.45:460][566]LogTemp: Game saved successfully to slot: Slot_0 (0)
+[2025.04.28-10.50.45:462][566]PIE: Server logged in
+[2025.04.28-10.50.45:464][566]PIE: Play in editor total start time 0.158 seconds.
+[2025.04.28-10.50.48:611][664]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.49:124][687]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.49:641][697]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.50:167][708]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.50:673][725]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.51:191][747]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.51:692][758]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.52:218][769]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.52:726][787]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.53:747][834]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.54:263][858]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.54:833][870]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.55:338][881]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.55:855][892]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.56:373][903]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.56:929][921]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.57:435][934]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.57:944][957]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.58:445][979]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.58:966][994]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.50.59:497][  3]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.00:001][ 15]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.00:518][ 39]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.01:047][ 54]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.02:671][ 97]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.03:179][119]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.03:687][141]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.04:202][157]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.05:195][176]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.51.05:195][176]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.51.05:195][176]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-10.51.05:198][176]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.51.05:206][176]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2025.04.28-10.51.05:212][176]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.51.05:232][176]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.51.05:232][176]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 3
+[2025.04.28-10.51.05:233][176]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=3
+[2025.04.28-10.51.05:243][176]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=3
+[2025.04.28-10.51.05:260][176]LogUObjectHash: Compacting FUObjectHashTables data took   1.22ms
+[2025.04.28-10.51.05:493][177]LogPlayLevel: Display: Destroying online subsystem :Context_5
+[2025.04.28-10.51.23:526][720]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-10.51.23:714][720]OBJ SavePackage: Generating thumbnails for [0] asset(s) in package [/Game/AI/CrowBoss_AI/CrowBoss_BT] ([1] browsable assets)...
+[2025.04.28-10.51.23:714][720]OBJ SavePackage: Finished generating thumbnails for package [/Game/AI/CrowBoss_AI/CrowBoss_BT]
+[2025.04.28-10.51.23:714][720]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/AI/CrowBoss_AI/CrowBoss_BT" FILE="../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/CrowBoss_AI/CrowBoss_BT.uasset" SILENT=true
+[2025.04.28-10.51.23:732][720]LogSavePackage: Moving output files for package: /Game/AI/CrowBoss_AI/CrowBoss_BT
+[2025.04.28-10.51.23:734][720]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/CrowBoss_BTCE46FD564342D0FBB42FDABBD2CB07BC.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/AI/CrowBoss_AI/CrowBoss_BT.uasset'
+[2025.04.28-10.51.23:778][720]LogFileHelpers: InternalPromptForCheckoutAndSave took 250.604 ms
+[2025.04.28-10.51.23:924][720]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-10.51.23:924][720]LogContentValidation: Enabled validators:
+[2025.04.28-10.51.23:926][720]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-10.51.23:926][720]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-10.51.23:926][720]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-10.51.23:926][720]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-10.51.23:926][720]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-10.51.23:926][720]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-10.51.23:928][720]AssetCheck: /Game/AI/CrowBoss_AI/CrowBoss_BT Validating asset
+[2025.04.28-10.51.26:790][816]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2025.04.28-10.51.26:809][816]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2025.04.28-10.51.26:809][816]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.51.26:828][816]LogPlayLevel: PIE: StaticDuplicateObject took: (0.019198s)
+[2025.04.28-10.51.26:828][816]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Tutorial.Tutorial to /Game/Levels/UEDPIE_0_Tutorial.Tutorial (0.019273s)
+[2025.04.28-10.51.26:848][816]LogUObjectHash: Compacting FUObjectHashTables data took   0.91ms
+[2025.04.28-10.51.26:850][816]LogChaosDD: Creating Chaos Debug Draw Scene for world Tutorial
+[2025.04.28-10.51.26:854][816]LogPlayLevel: PIE: World Init took: (0.003258s)
+[2025.04.28-10.51.26:856][816]LogAudio: Display: Creating Audio Device:                 Id: 4, Scope: Unique, Realtime: True
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2025.04.28-10.51.26:856][816]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2025.04.28-10.51.26:856][816]LogAudio: Display: AudioDevice MaxSources: 32
+[2025.04.28-10.51.26:856][816]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2025.04.28-10.51.26:856][816]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2025.04.28-10.51.26:856][816]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2025.04.28-10.51.26:861][816]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2025.04.28-10.51.26:898][816]LogAudioMixer: Display: Using Audio Hardware Device Speakers (C-Media(R) Audio)
+[2025.04.28-10.51.26:899][816]LogAudioMixer: Display: Initializing Sound Submixes...
+[2025.04.28-10.51.26:899][816]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2025.04.28-10.51.26:899][816]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2025.04.28-10.51.26:900][816]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=4
+[2025.04.28-10.51.26:900][816]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=4
+[2025.04.28-10.51.26:904][816]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=4
+[2025.04.28-10.51.26:905][816]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=4
+[2025.04.28-10.51.26:905][816]LogInit: FAudioDevice initialized with ID 4.
+[2025.04.28-10.51.26:905][816]LogAudio: Display: Audio Device (ID: 4) registered with world 'Tutorial'.
+[2025.04.28-10.51.26:905][816]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 4
+[2025.04.28-10.51.26:910][816]LogLoad: Game class is 'BP_GameMode_C'
+[2025.04.28-10.51.26:917][816]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Tutorial.Tutorial up for play (max tick rate 0) at 2025.04.28-12.51.26
+[2025.04.28-10.51.26:922][816]LogWorld: Bringing up level for play took: 0.012251
+[2025.04.28-10.51.26:926][816]LogOnline: OSS: Created online subsystem instance for: :Context_6
+[2025.04.28-10.51.26:934][816]LogTemp: Game saved successfully to slot: Slot_0 (0)
+[2025.04.28-10.51.26:936][816]PIE: Server logged in
+[2025.04.28-10.51.26:938][816]PIE: Play in editor total start time 0.137 seconds.
+[2025.04.28-10.51.29:300][907]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.29:810][918]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.30:347][926]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.31:364][968]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.31:884][991]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.32:402][ 16]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.32:929][ 28]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.33:439][ 36]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.33:952][ 55]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.34:472][ 80]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.34:659][ 84]LogEOSSDK: LogEOS: Updating Product SDK Config, Time: 708.967407
+[2025.04.28-10.51.34:935][ 90]LogEOSSDK: LogEOS: SDK Config Product Update Request Completed - No Change
+[2025.04.28-10.51.34:935][ 90]LogEOSSDK: LogEOS: ScheduleNextSDKConfigDataUpdate - Time: 709.202393, Update Interval: 331.423676
+[2025.04.28-10.51.34:978][ 92]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.35:517][105]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.36:019][114]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.36:525][137]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.37:030][160]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.37:535][183]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.39:584][243]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.40:120][261]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.40:630][273]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.41:158][283]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.41:673][305]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.42:180][329]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.51.42:346][335]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.51.42:347][335]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.51.42:347][335]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-10.51.42:349][335]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.51.42:357][335]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2025.04.28-10.51.42:364][335]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.51.42:388][335]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.51.42:389][335]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 4
+[2025.04.28-10.51.42:389][335]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=4
+[2025.04.28-10.51.42:393][335]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=4
+[2025.04.28-10.51.42:408][335]LogUObjectHash: Compacting FUObjectHashTables data took   1.28ms
+[2025.04.28-10.51.42:684][336]LogPlayLevel: Display: Destroying online subsystem :Context_6
+[2025.04.28-10.54.50:580][225]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2025.04.28-10.54.50:592][225]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2025.04.28-10.54.50:592][225]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.54.50:605][225]LogPlayLevel: PIE: StaticDuplicateObject took: (0.012974s)
+[2025.04.28-10.54.50:605][225]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Tutorial.Tutorial to /Game/Levels/UEDPIE_0_Tutorial.Tutorial (0.013040s)
+[2025.04.28-10.54.50:619][225]LogUObjectHash: Compacting FUObjectHashTables data took   1.55ms
+[2025.04.28-10.54.50:622][225]LogChaosDD: Creating Chaos Debug Draw Scene for world Tutorial
+[2025.04.28-10.54.50:626][225]LogPlayLevel: PIE: World Init took: (0.004365s)
+[2025.04.28-10.54.50:627][225]LogAudio: Display: Creating Audio Device:                 Id: 5, Scope: Unique, Realtime: True
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2025.04.28-10.54.50:627][225]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2025.04.28-10.54.50:627][225]LogAudio: Display: AudioDevice MaxSources: 32
+[2025.04.28-10.54.50:627][225]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2025.04.28-10.54.50:627][225]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2025.04.28-10.54.50:627][225]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2025.04.28-10.54.50:632][225]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2025.04.28-10.54.50:656][225]LogAudioMixer: Display: Using Audio Hardware Device Speakers (C-Media(R) Audio)
+[2025.04.28-10.54.50:656][225]LogAudioMixer: Display: Initializing Sound Submixes...
+[2025.04.28-10.54.50:656][225]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2025.04.28-10.54.50:656][225]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2025.04.28-10.54.50:657][225]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=5
+[2025.04.28-10.54.50:657][225]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=5
+[2025.04.28-10.54.50:660][225]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=5
+[2025.04.28-10.54.50:660][225]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=5
+[2025.04.28-10.54.50:660][225]LogInit: FAudioDevice initialized with ID 5.
+[2025.04.28-10.54.50:660][225]LogAudio: Display: Audio Device (ID: 5) registered with world 'Tutorial'.
+[2025.04.28-10.54.50:660][225]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 5
+[2025.04.28-10.54.50:663][225]LogLoad: Game class is 'BP_GameMode_C'
+[2025.04.28-10.54.50:669][225]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Tutorial.Tutorial up for play (max tick rate 0) at 2025.04.28-12.54.50
+[2025.04.28-10.54.50:671][225]LogWorld: Bringing up level for play took: 0.007690
+[2025.04.28-10.54.50:674][225]LogOnline: OSS: Created online subsystem instance for: :Context_7
+[2025.04.28-10.54.50:679][225]LogTemp: Game saved successfully to slot: Slot_0 (0)
+[2025.04.28-10.54.50:681][225]PIE: Server logged in
+[2025.04.28-10.54.50:682][225]PIE: Play in editor total start time 0.095 seconds.
+[2025.04.28-10.54.53:854][331]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.54:355][354]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.54:869][380]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.55:912][404]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.56:413][420]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.56:919][446]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.57:434][460]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.57:969][473]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.58:477][493]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.59:003][519]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.54.59:522][534]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.00:055][547]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.00:603][561]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.01:148][569]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.01:699][574]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.02:198][598]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.02:716][624]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.03:220][649]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.03:744][674]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.04:778][712]LogTemp: Warning: Boss saw the player!
+[2025.04.28-10.55.05:176][730]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.55.05:176][730]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-10.55.05:176][730]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-10.55.05:179][730]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.55.05:188][730]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2025.04.28-10.55.05:192][730]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.55.05:226][730]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-10.55.05:227][730]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 5
+[2025.04.28-10.55.05:227][730]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=5
+[2025.04.28-10.55.05:232][730]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=5
+[2025.04.28-10.55.05:248][730]LogUObjectHash: Compacting FUObjectHashTables data took   1.29ms
+[2025.04.28-10.55.05:519][731]LogPlayLevel: Display: Destroying online subsystem :Context_7
+[2025.04.28-10.55.42:311][242]LogContentBrowserAssetDataSource: Warning: Unable to convert short ParentClass name "None" to path name
+[2025.04.28-10.55.43:571][280]LogAssetEditorSubsystem: Opening Asset editor for Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss.BP_CrowBoss
+[2025.04.28-10.55.43:576][280]LogChaosDD: Creating Chaos Debug Draw Scene for world World_3
+[2025.04.28-10.55.43:686][280]LogStreaming: Display: FlushAsyncLoading(341): 1 QueuedPackages, 0 AsyncPackages
+[2025.04.28-10.55.44:592][283]LogChaosDD: Creating Chaos Debug Draw Scene for world World_4
+[2025.04.28-10.57.12:230][127]LogEOSSDK: LogEOS: Updating Product SDK Config, Time: 1046.539307
+[2025.04.28-10.57.12:417][136]LogEOSSDK: LogEOS: SDK Config Product Update Request Completed - No Change
+[2025.04.28-10.57.12:417][136]LogEOSSDK: LogEOS: ScheduleNextSDKConfigDataUpdate - Time: 1046.705811, Update Interval: 332.106689
+[2025.04.28-10.58.07:716][733]LogWorld: UWorld::CleanupWorld for World_3, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-10.58.07:717][733]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-10.58.07:745][733]LogAssetEditorSubsystem: Opening Asset editor for Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss.BP_CrowBoss
+[2025.04.28-10.58.07:745][733]LogChaosDD: Creating Chaos Debug Draw Scene for world World_5
+[2025.04.28-10.58.07:785][733]LogStreaming: Display: FlushAsyncLoading(472): 1 QueuedPackages, 0 AsyncPackages
+[2025.04.28-10.58.09:441][733]LogBlueprint: Warning: Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile is missing GeneratedClass asset tag
+[2025.04.28-10.58.09:528][733]LogUObjectHash: Compacting FUObjectHashTables data took   1.04ms
+[2025.04.28-10.58.22:967][  5]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-10.58.23:243][  5]OBJ SavePackage: Generating thumbnails for [1] asset(s) in package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss] ([2] browsable assets)...
+[2025.04.28-10.58.23:267][  5]OBJ SavePackage:     Rendered thumbnail for [Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss.BP_CrowBoss]
+[2025.04.28-10.58.23:267][  5]OBJ SavePackage: Finished generating thumbnails for package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss]
+[2025.04.28-10.58.23:267][  5]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/BP/Enemies/BirdBoss/BP_CrowBoss" FILE="../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss.uasset" SILENT=true
+[2025.04.28-10.58.23:291][  5]LogSavePackage: Moving output files for package: /Game/BP/Enemies/BirdBoss/BP_CrowBoss
+[2025.04.28-10.58.23:293][  5]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/BP_CrowBoss28BB86EA402D439A9D50A083C7C7639D.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss.uasset'
+[2025.04.28-10.58.23:312][  5]LogFileHelpers: InternalPromptForCheckoutAndSave took 345.737 ms (total: 596.341 ms)
+[2025.04.28-10.58.23:459][  5]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-10.58.23:459][  5]LogContentValidation: Enabled validators:
+[2025.04.28-10.58.23:459][  5]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-10.58.23:459][  5]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-10.58.23:459][  5]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-10.58.23:459][  5]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-10.58.23:459][  5]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-10.58.23:459][  5]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-10.58.23:459][  5]AssetCheck: /Game/BP/Enemies/BirdBoss/BP_CrowBoss Validating asset
+[2025.04.28-10.58.25:017][ 59]LogUObjectHash: Compacting FUObjectHashTables data took   1.13ms
+[2025.04.28-10.58.36:189][332]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-10.58.36:385][332]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/Tutorial" FILE="../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2025.04.28-10.58.36:442][332]LogUObjectHash: Compacting FUObjectHashTables data took   1.80ms
+[2025.04.28-10.58.36:617][332]LogSavePackage: Moving output files for package: /Game/Levels/Tutorial
+[2025.04.28-10.58.36:618][332]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/TutorialBF28FBFB4B8531F6683C0A9E3C9FFB95.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap'
+[2025.04.28-10.58.36:643][332]LogFileHelpers: Saving map 'Tutorial' took 0.262
+[2025.04.28-10.58.36:689][332]LogFileHelpers: InternalPromptForCheckoutAndSave took 500.489 ms (total: 1.09 sec)
+[2025.04.28-10.58.36:864][332]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-10.58.36:864][332]LogContentValidation: Enabled validators:
+[2025.04.28-10.58.36:865][332]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-10.58.36:865][332]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-10.58.36:865][332]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-10.58.36:865][332]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-10.58.36:865][332]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-10.58.36:865][332]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-10.58.36:865][332]AssetCheck: /Game/Levels/Tutorial Validating asset
+[2025.04.28-11.01.06:752][ 63]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2025.04.28-11.01.06:780][ 63]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2025.04.28-11.01.06:780][ 63]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-11.01.06:803][ 63]LogPlayLevel: PIE: StaticDuplicateObject took: (0.022684s)
+[2025.04.28-11.01.06:804][ 63]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Tutorial.Tutorial to /Game/Levels/UEDPIE_0_Tutorial.Tutorial (0.022820s)
+[2025.04.28-11.01.06:843][ 63]LogUObjectHash: Compacting FUObjectHashTables data took   2.84ms
+[2025.04.28-11.01.06:847][ 63]LogChaosDD: Creating Chaos Debug Draw Scene for world Tutorial
+[2025.04.28-11.01.06:850][ 63]LogPlayLevel: PIE: World Init took: (0.003301s)
+[2025.04.28-11.01.06:852][ 63]LogAudio: Display: Creating Audio Device:                 Id: 6, Scope: Unique, Realtime: True
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2025.04.28-11.01.06:852][ 63]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2025.04.28-11.01.06:852][ 63]LogAudio: Display: AudioDevice MaxSources: 32
+[2025.04.28-11.01.06:852][ 63]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2025.04.28-11.01.06:852][ 63]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2025.04.28-11.01.06:852][ 63]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2025.04.28-11.01.06:858][ 63]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2025.04.28-11.01.06:904][ 63]LogAudioMixer: Display: Using Audio Hardware Device Speakers (C-Media(R) Audio)
+[2025.04.28-11.01.06:904][ 63]LogAudioMixer: Display: Initializing Sound Submixes...
+[2025.04.28-11.01.06:904][ 63]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2025.04.28-11.01.06:904][ 63]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2025.04.28-11.01.06:906][ 63]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=6
+[2025.04.28-11.01.06:906][ 63]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=6
+[2025.04.28-11.01.06:911][ 63]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=6
+[2025.04.28-11.01.06:911][ 63]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=6
+[2025.04.28-11.01.06:911][ 63]LogInit: FAudioDevice initialized with ID 6.
+[2025.04.28-11.01.06:911][ 63]LogAudio: Display: Audio Device (ID: 6) registered with world 'Tutorial'.
+[2025.04.28-11.01.06:911][ 63]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 6
+[2025.04.28-11.01.06:917][ 63]LogLoad: Game class is 'BP_GameMode_C'
+[2025.04.28-11.01.06:929][ 63]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Tutorial.Tutorial up for play (max tick rate 0) at 2025.04.28-13.01.06
+[2025.04.28-11.01.06:935][ 63]LogWorld: Bringing up level for play took: 0.016403
+[2025.04.28-11.01.06:940][ 63]LogOnline: OSS: Created online subsystem instance for: :Context_11
+[2025.04.28-11.01.06:950][ 63]LogTemp: Game saved successfully to slot: Slot_0 (0)
+[2025.04.28-11.01.06:951][ 63]PIE: Server logged in
+[2025.04.28-11.01.06:953][ 63]PIE: Play in editor total start time 0.188 seconds.
+[2025.04.28-11.01.09:182][135]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.09:703][142]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.10:228][163]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.11:253][192]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.11:772][204]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.12:343][212]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.12:863][222]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.13:373][246]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.13:908][263]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.14:431][275]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.14:998][286]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.15:502][298]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.16:030][310]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.16:547][322]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.17:078][334]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.17:618][341]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.01.20:403][424]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-11.01.20:403][424]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-11.01.20:405][424]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.01.20:407][424]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.01.20:547][424]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2025.04.28-11.01.20:556][424]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.01.20:592][424]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2025.04.28-11.01.20:592][424]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 6
+[2025.04.28-11.01.20:592][424]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=6
+[2025.04.28-11.01.20:597][424]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=6
+[2025.04.28-11.01.20:608][424]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-11.01.20:616][424]LogUObjectHash: Compacting FUObjectHashTables data took   2.34ms
+[2025.04.28-11.01.20:887][425]LogPlayLevel: Display: Destroying online subsystem :Context_11
+[2025.04.28-11.02.10:415][915]LogEditorClassViewer: Warning: AssetRegistry Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile is missing tag value for GeneratedClass. Blueprint will not be available to ClassViewer when unloaded.
+[2025.04.28-11.02.18:128][128]LogAssetEditorSubsystem: Opening Asset editor for Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile
+[2025.04.28-11.02.24:367][128]LogSlate: Window 'Message' being destroyed
+[2025.04.28-11.02.24:372][128]Message dialog closed, result: No, title: Message, text: Blueprint could not be loaded because it derives from an invalid class.  Check to make sure the parent class for this blueprint hasn't been removed! Do you want to continue (it can crash the editor)?
+[2025.04.28-11.02.24:505][128]LogAutomationController: Ignoring very large delta of 6.43 seconds in calls to FAutomationControllerManager::Tick() and not penalizing unresponsive tests
+[2025.04.28-11.02.26:325][195]LogUObjectHash: Compacting FUObjectHashTables data took   1.84ms
+[2025.04.28-11.02.28:446][195]LogSlate: Window 'Delete Assets' being destroyed
+[2025.04.28-11.02.28:490][195]LogUObjectHash: Compacting FUObjectHashTables data took   1.22ms
+[2025.04.28-11.02.28:514][195]LogUObjectHash: Compacting FUObjectHashTables data took   1.52ms
+[2025.04.28-11.02.28:535][195]LogUObjectHash: Compacting FUObjectHashTables data took   0.66ms
+[2025.04.28-11.02.28:549][195]LogAutomationController: Ignoring very large delta of 2.27 seconds in calls to FAutomationControllerManager::Tick() and not penalizing unresponsive tests
+[2025.04.28-11.02.31:384][288]LogChaosDD: Creating Chaos Debug Draw Scene for world World_6
+[2025.04.28-11.02.44:359][620]LogToolMenus: Warning: Menu item not found: 'Rename' for insert: 'BatchRenameObject'
+[2025.04.28-11.02.50:594][769]LogToolMenus: Warning: Menu item not found: 'Rename' for insert: 'BatchRenameObject'
+[2025.04.28-11.02.54:177][880]LogEOSSDK: LogEOS: Updating Product SDK Config, Time: 1388.485840
+[2025.04.28-11.02.54:343][891]LogEOSSDK: LogEOS: SDK Config Product Update Request Completed - No Change
+[2025.04.28-11.02.54:343][892]LogEOSSDK: LogEOS: ScheduleNextSDKConfigDataUpdate - Time: 1388.635132, Update Interval: 320.189819
+[2025.04.28-11.03.17:729][207]LogToolMenus: Warning: Menu item not found: 'Rename' for insert: 'BatchRenameObject'
+[2025.04.28-11.03.39:082][723]LogPackageName: SearchForPackageOnDisk took   0.000s, but failed to resolve /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.
+[2025.04.28-11.03.39:184][723]LogAssetEditorSubsystem: Opening Asset editor for Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile
+[2025.04.28-11.03.39:185][723]LogChaosDD: Creating Chaos Debug Draw Scene for world World_7
+[2025.04.28-11.03.39:457][723]LogSlate: Window 'Add Blueprint Class' being destroyed
+[2025.04.28-11.03.47:024][901]LogSlate: Warning: Unable to rasterize '../../../Engine/Content/Editor/Slate/Starship/AssetIcons/SkeletalMesh_64.svg'. File could not be found
+[2025.04.28-11.03.59:640][201]LogShaderCompilers: Display: ================================================
+[2025.04.28-11.03.59:640][201]LogShaderCompilers: Display: === FShaderJobCache stats ===
+[2025.04.28-11.03.59:641][201]LogShaderCompilers: Display: Total job queries 369, among them cache hits 47 (12.74%), DDC hits 307 (83.20%), Duplicates 7 (1.90%)
+[2025.04.28-11.03.59:641][201]LogShaderCompilers: Display: Tracking 315 distinct input hashes that result in 266 distinct outputs (84.44%)
+[2025.04.28-11.03.59:641][201]LogShaderCompilers: Display: RAM used: 169.73 KiB of 819.20 MiB budget. Usage: 0.02%
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: === Shader Compilation stats ===
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Shaders Compiled: 8
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Jobs assigned 8, completed 8 (100%)
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Time job spent in pending queue: average 0.05 s, longest 0.05 s
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Job execution time: average 2.39 s, max 2.84 s
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Job life time (pending + execution): average 2.43 s, max 2.88
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Shader code size: average 7.145 KiB, min 3.832 KiB, max 10.969 KiB
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Time at least one job was in flight (either pending or executed): 2.90 s
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Mutex wait stall in FShaderJobCache::SubmitJobs:  0.62%
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Jobs were issued in 8 batches (only local compilation was used), average 1.00 jobs/batch
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Average processing rate: 2.76 jobs/sec
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Total thread time: 5.963 s
+[2025.04.28-11.03.59:642][201]LogShaderCompilers: Display: Total thread preprocess time: 23.208 s
+[2025.04.28-11.03.59:643][201]LogShaderCompilers: Display: Percentage time preprocessing: 389.19%
+[2025.04.28-11.03.59:643][201]LogShaderCompilers: Display: Effective parallelization: 2.06 (times faster than compiling all shaders on one thread). Compare with number of workers: 8
+[2025.04.28-11.03.59:643][201]LogShaderCompilers: Display: Top 5 most expensive shader types by average time:
+[2025.04.28-11.03.59:643][201]LogShaderCompilers: Display:                                 TBasePassPSFNoLightMapPolicy (compiled    1 times, average 0.86 sec, max 0.86 sec, min 0.86 sec)
+[2025.04.28-11.03.59:643][201]LogShaderCompilers: Display:                                                  FVelocityPS (compiled    1 times, average 0.63 sec, max 0.63 sec, min 0.63 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:              TShadowDepthPSPixelShadowDepth_VirtualShadowMap (compiled    1 times, average 0.62 sec, max 0.62 sec, min 0.62 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:                                                 FLumenCardPS (compiled    1 times, average 0.61 sec, max 0.61 sec, min 0.61 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:                                                 FDepthOnlyPS (compiled    1 times, average 0.60 sec, max 0.60 sec, min 0.60 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Top 5 shader types by total compile time:
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:                                 TBasePassPSFNoLightMapPolicy - 14.43% of total time (compiled    1 times, average 0.86 sec, max 0.86 sec, min 0.86 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:                                                  FVelocityPS - 10.53% of total time (compiled    1 times, average 0.63 sec, max 0.63 sec, min 0.63 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:              TShadowDepthPSPixelShadowDepth_VirtualShadowMap - 10.31% of total time (compiled    1 times, average 0.62 sec, max 0.62 sec, min 0.62 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:                                                 FLumenCardPS - 10.27% of total time (compiled    1 times, average 0.61 sec, max 0.61 sec, min 0.61 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display:                                                 FDepthOnlyPS - 9.99% of total time (compiled    1 times, average 0.60 sec, max 0.60 sec, min 0.60 sec)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: === Material stats ===
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Materials Cooked:        0
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Materials Translated:    193
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Material Total Translate Time: 0.32 s
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Material Translation Only: 0.13 s (40%)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Material DDC Serialization Only: 0.00 s (1%)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: Material Cache Hits: 21 (11%)
+[2025.04.28-11.03.59:644][201]LogShaderCompilers: Display: ================================================
+[2025.04.28-11.04.08:961][392]LogSlate: Took 0.001354 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2025.04.28-11.04.21:939][635]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-11.04.22:178][635]OBJ SavePackage: Generating thumbnails for [2] asset(s) in package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile] ([2] browsable assets)...
+[2025.04.28-11.04.22:179][635]LogChaosDD: Creating Chaos Debug Draw Scene for world World_8
+[2025.04.28-11.04.22:215][635]OBJ SavePackage:     Rendered thumbnail for [Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile]
+[2025.04.28-11.04.22:215][635]LogChaosDD: Creating Chaos Debug Draw Scene for world World_9
+[2025.04.28-11.04.22:246][635]OBJ SavePackage:     Rendered thumbnail for [BlueprintGeneratedClass /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C]
+[2025.04.28-11.04.22:247][635]OBJ SavePackage: Finished generating thumbnails for package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile]
+[2025.04.28-11.04.22:254][635]LogWorldPartition: Can't find class descriptor '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C' for saving '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C'
+[2025.04.28-11.04.22:254][635]LogWorldPartition: Can't find class descriptor '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C' for saving '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C'
+[2025.04.28-11.04.22:256][635]LogSavePackage: Moving output files for package: /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile
+[2025.04.28-11.04.22:256][635]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/BP_CrowBoss_ProjectileEF55B89B43D45BC77BF481B8B486D9FD.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.uasset'
+[2025.04.28-11.04.22:261][635]LogPackageName: SearchForPackageOnDisk took   0.000s to resolve /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.
+[2025.04.28-11.04.22:294][635]LogFileHelpers: InternalPromptForCheckoutAndSave took 354.403 ms (total: 1.45 sec)
+[2025.04.28-11.04.22:471][635]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-11.04.22:472][635]LogContentValidation: Enabled validators:
+[2025.04.28-11.04.22:472][635]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-11.04.22:472][635]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-11.04.22:472][635]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-11.04.22:472][635]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-11.04.22:472][635]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-11.04.22:472][635]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-11.04.22:472][635]AssetCheck: /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile Validating asset
+[2025.04.28-11.04.23:594][650]LogUObjectHash: Compacting FUObjectHashTables data took   2.39ms
+[2025.04.28-11.05.15:966][726]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-11.05.16:088][726]OBJ SavePackage: Generating thumbnails for [1] asset(s) in package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile] ([2] browsable assets)...
+[2025.04.28-11.05.16:101][726]OBJ SavePackage:     Rendered thumbnail for [Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile]
+[2025.04.28-11.05.16:101][726]OBJ SavePackage: Finished generating thumbnails for package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile]
+[2025.04.28-11.05.16:106][726]LogWorldPartition: Can't find class descriptor '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C' for saving '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C'
+[2025.04.28-11.05.16:106][726]LogWorldPartition: Can't find class descriptor '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C' for saving '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C'
+[2025.04.28-11.05.16:108][726]LogSavePackage: Moving output files for package: /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile
+[2025.04.28-11.05.16:109][726]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/BP_CrowBoss_Projectile294B2E1146AA63251CEC06915A724527.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.uasset'
+[2025.04.28-11.05.16:125][726]LogFileHelpers: InternalPromptForCheckoutAndSave took 160.068 ms (total: 1.61 sec)
+[2025.04.28-11.05.16:247][726]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-11.05.16:247][726]LogContentValidation: Enabled validators:
+[2025.04.28-11.05.16:247][726]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-11.05.16:247][726]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-11.05.16:247][726]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-11.05.16:247][726]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-11.05.16:247][726]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-11.05.16:247][726]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-11.05.16:247][726]AssetCheck: /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile Validating asset
+[2025.04.28-11.05.17:649][753]LogUObjectHash: Compacting FUObjectHashTables data took   1.96ms
+[2025.04.28-11.05.23:172][879]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-11.05.23:366][879]OBJ SavePackage: Generating thumbnails for [1] asset(s) in package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile] ([2] browsable assets)...
+[2025.04.28-11.05.23:385][879]OBJ SavePackage:     Rendered thumbnail for [Blueprint /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile]
+[2025.04.28-11.05.23:385][879]OBJ SavePackage: Finished generating thumbnails for package [/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile]
+[2025.04.28-11.05.23:389][879]LogWorldPartition: Can't find class descriptor '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C' for saving '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C'
+[2025.04.28-11.05.23:390][879]LogWorldPartition: Can't find class descriptor '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C' for saving '/Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.BP_CrowBoss_Projectile_C'
+[2025.04.28-11.05.23:391][879]LogSavePackage: Moving output files for package: /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile
+[2025.04.28-11.05.23:392][879]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/BP_CrowBoss_ProjectileA26C1BD749E6A34428517084ABE03B7D.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile.uasset'
+[2025.04.28-11.05.23:411][879]LogFileHelpers: InternalPromptForCheckoutAndSave took 238.819 ms (total: 1.85 sec)
+[2025.04.28-11.05.23:553][879]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-11.05.23:553][879]LogContentValidation: Enabled validators:
+[2025.04.28-11.05.23:553][879]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-11.05.23:553][879]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-11.05.23:553][879]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-11.05.23:554][879]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-11.05.23:554][879]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-11.05.23:554][879]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-11.05.23:554][879]AssetCheck: /Game/BP/Enemies/BirdBoss/BP_CrowBoss_Projectile Validating asset
+[2025.04.28-11.05.56:493][609]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2025.04.28-11.05.56:654][609]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/Tutorial" FILE="../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2025.04.28-11.05.56:718][609]LogUObjectHash: Compacting FUObjectHashTables data took   2.57ms
+[2025.04.28-11.05.56:869][609]LogSavePackage: Moving output files for package: /Game/Levels/Tutorial
+[2025.04.28-11.05.56:870][609]LogSavePackage: Moving '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Saved/TutorialB26C13D94E6F5EF17B4072B1C7592899.tmp' to '../../../../../../Github/Bachelor/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap'
+[2025.04.28-11.05.56:886][609]LogFileHelpers: Saving map 'Tutorial' took 0.232
+[2025.04.28-11.05.56:907][609]LogFileHelpers: InternalPromptForCheckoutAndSave took 414.845 ms (total: 2.26 sec)
+[2025.04.28-11.05.57:069][609]LogContentValidation: Display: Starting to validate 1 assets
+[2025.04.28-11.05.57:069][609]LogContentValidation: Enabled validators:
+[2025.04.28-11.05.57:069][609]LogContentValidation: 	/Script/DataValidation.EditorValidator_Material
+[2025.04.28-11.05.57:069][609]LogContentValidation: 	/Script/DataValidation.DirtyFilesChangelistValidator
+[2025.04.28-11.05.57:069][609]LogContentValidation: 	/Script/DataValidation.EditorValidator_Localization
+[2025.04.28-11.05.57:069][609]LogContentValidation: 	/Script/DataValidation.PackageFileValidator
+[2025.04.28-11.05.57:069][609]LogContentValidation: 	/Script/DataValidation.WorldPartitionChangelistValidator
+[2025.04.28-11.05.57:069][609]LogContentValidation: 	/Script/InputBlueprintNodes.EnhancedInputUserWidgetValidator
+[2025.04.28-11.05.57:070][609]AssetCheck: /Game/Levels/Tutorial Validating asset
+[2025.04.28-11.05.58:473][678]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2025.04.28-11.05.58:492][678]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2025.04.28-11.05.58:492][678]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-11.05.58:510][678]LogPlayLevel: PIE: StaticDuplicateObject took: (0.018031s)
+[2025.04.28-11.05.58:510][678]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Tutorial.Tutorial to /Game/Levels/UEDPIE_0_Tutorial.Tutorial (0.018121s)
+[2025.04.28-11.05.58:545][678]LogUObjectHash: Compacting FUObjectHashTables data took   1.90ms
+[2025.04.28-11.05.58:547][678]LogChaosDD: Creating Chaos Debug Draw Scene for world Tutorial
+[2025.04.28-11.05.58:549][678]LogPlayLevel: PIE: World Init took: (0.003016s)
+[2025.04.28-11.05.58:551][678]LogAudio: Display: Creating Audio Device:                 Id: 7, Scope: Unique, Realtime: True
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2025.04.28-11.05.58:551][678]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2025.04.28-11.05.58:551][678]LogAudio: Display: AudioDevice MaxSources: 32
+[2025.04.28-11.05.58:551][678]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2025.04.28-11.05.58:551][678]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2025.04.28-11.05.58:551][678]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2025.04.28-11.05.58:555][678]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2025.04.28-11.05.58:605][678]LogAudioMixer: Display: Using Audio Hardware Device Speakers (C-Media(R) Audio)
+[2025.04.28-11.05.58:606][678]LogAudioMixer: Display: Initializing Sound Submixes...
+[2025.04.28-11.05.58:606][678]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2025.04.28-11.05.58:606][678]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2025.04.28-11.05.58:608][678]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=7
+[2025.04.28-11.05.58:608][678]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=7
+[2025.04.28-11.05.58:611][678]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=7
+[2025.04.28-11.05.58:612][678]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=7
+[2025.04.28-11.05.58:612][678]LogInit: FAudioDevice initialized with ID 7.
+[2025.04.28-11.05.58:612][678]LogAudio: Display: Audio Device (ID: 7) registered with world 'Tutorial'.
+[2025.04.28-11.05.58:612][678]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 7
+[2025.04.28-11.05.58:619][678]LogLoad: Game class is 'BP_GameMode_C'
+[2025.04.28-11.05.58:630][678]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Tutorial.Tutorial up for play (max tick rate 60) at 2025.04.28-13.05.58
+[2025.04.28-11.05.58:636][678]LogWorld: Bringing up level for play took: 0.017311
+[2025.04.28-11.05.58:641][678]LogOnline: OSS: Created online subsystem instance for: :Context_16
+[2025.04.28-11.05.58:652][678]LogTemp: Game saved successfully to slot: Slot_0 (0)
+[2025.04.28-11.05.58:653][678]PIE: Server logged in
+[2025.04.28-11.05.58:655][678]PIE: Play in editor total start time 0.173 seconds.
+[2025.04.28-11.06.00:245][715]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.01:302][741]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.01:814][753]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.02:320][765]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.02:826][777]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.03:336][789]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.03:851][801]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.04:353][813]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.04:891][826]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.05:395][838]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.05:906][850]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.06:414][862]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.06:927][874]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.07:438][886]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.07:938][898]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.08:443][910]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.08:950][922]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.09:479][935]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.09:982][947]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.10:494][959]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.11:045][972]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.11:559][984]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.12:076][996]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.12:595][  8]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.13:124][ 20]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.13:631][ 32]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.14:136][ 44]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.14:640][ 56]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.15:154][ 68]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.15:665][ 80]LogTemp: Warning: Boss saw the player!
+[2025.04.28-11.06.15:991][ 87]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-11.06.15:991][ 87]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Tutorial
+[2025.04.28-11.06.15:992][ 87]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.15:994][ 87]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.16:037][ 87]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2025.04.28-11.06.16:045][ 87]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.16:086][ 87]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2025.04.28-11.06.16:087][ 87]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 7
+[2025.04.28-11.06.16:087][ 87]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=7
+[2025.04.28-11.06.16:091][ 87]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=7
+[2025.04.28-11.06.16:110][ 87]LogUObjectHash: Compacting FUObjectHashTables data took   2.78ms
+[2025.04.28-11.06.16:387][ 88]LogPlayLevel: Display: Destroying online subsystem :Context_16
+[2025.04.28-11.06.19:486][189]LogUObjectHash: Compacting FUObjectHashTables data took   2.31ms
+[2025.04.28-11.06.19:552][189]LogStall: Shutdown...
+[2025.04.28-11.06.19:552][189]LogStall: Shutdown complete.
+[2025.04.28-11.06.19:658][189]LogWorld: UWorld::CleanupWorld for World_5, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.19:658][189]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.19:719][189]LogSlate: Window 'BP_CrowBoss_Projectile' being destroyed
+[2025.04.28-11.06.19:733][189]LogActorComponent: UnregisterComponent: (/Engine/Transient.EditorFloorComp) Not registered. Aborting.
+[2025.04.28-11.06.19:733][189]LogWorld: UWorld::CleanupWorld for World_7, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.19:733][189]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.19:832][189]LogSlate: Window 'Content Browser' being destroyed
+[2025.04.28-11.06.19:887][189]LogSlate: Window 'Bachelor_project - Unreal Editor' being destroyed
+[2025.04.28-11.06.20:275][189]LogUObjectHash: Compacting FUObjectHashTables data took   2.48ms
+[2025.04.28-11.06.20:289][189]Cmd: QUIT_EDITOR
+[2025.04.28-11.06.20:290][189]LogCore: Engine exit requested (reason: UUnrealEdEngine::CloseEditor())
+[2025.04.28-11.06.20:307][190]LogCore: Engine exit requested (reason: EngineExit() was called; note: exit was already requested)
+[2025.04.28-11.06.20:309][190]LogStaticMesh: Abandoning remaining async distance field tasks for shutdown
+[2025.04.28-11.06.20:309][190]LogStaticMesh: Abandoning remaining async card representation tasks for shutdown
+[2025.04.28-11.06.20:348][190]LogWorld: UWorld::CleanupWorld for Tutorial, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:349][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:349][190]LogWorld: UWorld::CleanupWorld for Wending_Int, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:349][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:349][190]LogWorld: UWorld::CleanupWorld for Entrance_Int, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:349][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:389][190]LogStylusInput: Shutting down StylusInput subsystem.
+[2025.04.28-11.06.20:402][190]LogLevelSequenceEditor: LevelSequenceEditor subsystem deinitialized.
+[2025.04.28-11.06.20:416][190]LogWorld: UWorld::CleanupWorld for World_9, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:416][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:422][190]LogWorld: UWorld::CleanupWorld for World_4, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:422][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:428][190]LogWorld: UWorld::CleanupWorld for World_2, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:428][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:433][190]LogWorld: UWorld::CleanupWorld for World_1, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:433][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:438][190]LogWorld: UWorld::CleanupWorld for World_0, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:438][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:444][190]LogWorld: UWorld::CleanupWorld for World_6, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:444][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:449][190]LogWorld: UWorld::CleanupWorld for World_8, bSessionEnded=true, bCleanupResources=true
+[2025.04.28-11.06.20:449][190]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2025.04.28-11.06.20:472][190]LogStudioTelemetry: Ended StudioTelemetry Session
+[2025.04.28-11.06.20:480][190]LogAnalytics: Display: [UEEditor.Rocket.Release] Destroying ET Analytics provider
+[2025.04.28-11.06.20:480][190]LogAnalytics: Display: [UEEditor.Rocket.Release] Ended ET Analytics provider session
+[2025.04.28-11.06.20:481][190]LogAnalytics: Display: [UEEditor.Rocket.Release] Destroyed ET Analytics provider
+[2025.04.28-11.06.20:977][190]LogAudio: Display: Beginning Audio Device Manager Shutdown (Module: AudioMixerXAudio2)...
+[2025.04.28-11.06.20:978][190]LogAudio: Display: Destroying 1 Remaining Audio Device(s)...
+[2025.04.28-11.06.20:978][190]LogAudio: Display: Audio Device unregistered from world 'Tutorial'.
+[2025.04.28-11.06.20:978][190]LogAudio: Display: Shutting down audio device while 1 references to it are still alive. For more information, compile with INSTRUMENT_AUDIODEVICE_HANDLES.
+[2025.04.28-11.06.20:979][190]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=1
+[2025.04.28-11.06.20:993][190]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=1
+[2025.04.28-11.06.21:072][190]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID -1
+[2025.04.28-11.06.21:072][190]LogAudio: Display: Audio Device Manager Shutdown
+[2025.04.28-11.06.21:074][190]LogWindowsTextInputMethodSystem: Activated input method: Norwegian Bokmål (Norway) - (Keyboard).
+[2025.04.28-11.06.21:086][190]LogSlate: Slate User Destroyed.  User Index 0, Is Virtual User: 0
+[2025.04.28-11.06.21:087][190]LogExit: Preparing to exit.
+[2025.04.28-11.06.21:161][190]LogUObjectHash: Compacting FUObjectHashTables data took   1.75ms
+[2025.04.28-11.06.21:165][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/add_controls_for_selected_PY.add_controls_for_selected_options' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:166][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/add_controls_for_selected_PY.add_controls_for_selected' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:177][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/add_null_above_selected_PY.add_null_above_selected' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_translation_rotation' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_translation_all' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_translation_x' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_translation_y' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_translation_z' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_rotation' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/align_items_PY.align_scale' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.search_replace_name_dialog' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:178][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.search_replace_entry' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:179][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.add_prefix_dialog' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:179][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.add_prefix_entry' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:179][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.add_suffix_dialog' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:179][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.add_suffix_entry' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:179][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.do_rename_dialog' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:179][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/rename_items_PY.do_rename_entry' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:180][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/set_bone_reference_pose_PY.set_bone_reference_pose' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:181][190]LogPython: Display: Object '/ControlRig/Python/ControlRigWorkflows/workflow_fbik_import_ik_rig_PY.import_ik_rig_options' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:181][190]LogPython: Display: Object '/ControlRig/Python/RigHierarchy/add_controls_for_selected_PY.ControlOutputFormat' was externally referenced when shutting down Python. Forcibly releasing its Python resources!
+[2025.04.28-11.06.21:895][190]LogEditorDataStorage: Deinitializing
+[2025.04.28-11.06.22:315][190]LogDemo: Cleaned up 0 splitscreen connections, owner deletion: enabled
+[2025.04.28-11.06.22:488][190]LogExit: Editor shut down
+[2025.04.28-11.06.22:518][190]LogExit: Transaction tracking system shut down
+[2025.04.28-11.06.23:195][190]LogCore: Error: PropertyBag: Expecting RefCount to be zero on destructor, but it is 2.
+[2025.04.28-11.06.23:252][190]LogExit: Object subsystem successfully closed.
+[2025.04.28-11.06.23:318][190]LogShaderCompilers: Display: Shaders left to compile 0
+[2025.04.28-11.06.24:199][190]LogMemoryProfiler: Shutdown
+[2025.04.28-11.06.24:200][190]LogNetworkingProfiler: Shutdown
+[2025.04.28-11.06.24:200][190]LoadingProfiler: Shutdown
+[2025.04.28-11.06.24:201][190]LogTimingProfiler: Shutdown
+[2025.04.28-11.06.25:117][190]LogChaosDD: Chaos Debug Draw Shutdown
+[2025.04.28-11.06.25:121][190]LogStudioTelemetry: Display: Shutdown StudioTelemetry Module
+[2025.04.28-11.06.25:122][190]LogNFORDenoise: NFORDenoise function shutting down
+[2025.04.28-11.06.25:125][190]RenderDocPlugin: plugin has been unloaded.
+[2025.04.28-11.06.25:148][190]LogHttp: Warning: [FHttpManager::Shutdown] Unbinding delegates for 1 outstanding Http Requests:
+[2025.04.28-11.06.25:148][190]LogHttp: Warning: 	verb=[POST] url=[https://datarouter.ol.epicgames.com/datarouter/api/v1/public/data?SessionID=%7BEB4E227C-4D95-310C-D804-0B873B3A0736%7D&AppID=UEEditor.Rocket.Release&AppVersion=5.5.1-38445549%2B%2B%2BUE5%2BRelease-5.5&UserID=08b1941d41ec5162c5e71cb2e8e506b6%7C0ac9dba5cb7c4241b851cbb04b7d2fe6%7C42d975e1-cebf-4c5e-946a-fcdfa05d5fce&AppEnvironment=datacollector-binary&UploadType=eteventstream] refs=[2] status=Processing
+[2025.04.28-11.06.26:262][190]LogEOSSDK: FEOSSDKManager::Shutdown EOS_Shutdown Result=[EOS_Success]
+[2025.04.28-11.06.26:281][190]LogXGEController: Cleaning working directory: C:/Users/bobaw/AppData/Local/Temp/UnrealXGEWorkingDir/
+[2025.04.28-11.06.26:302][190]LogIris: FNetObjectFactoryRegistry::UnregisterFactory is unregistering factory: None name: NetActorFactory id: 0
+[2025.04.28-11.06.26:303][190]LogIris: FNetObjectFactoryRegistry::UnregisterFactory is unregistering factory: None name: NetSubObjectFactory id: 1
+[2025.04.28-11.06.26:304][190]LogPakFile: Destroying PakPlatformFile
+[2025.04.28-11.06.26:918][190]LogD3D12RHI: ~FD3D12DynamicRHI
+[2025.04.28-11.06.26:970][190]LogExit: Exiting.
+[2025.04.28-11.06.27:014][190]Log file closed, 04/28/25 13:06:27

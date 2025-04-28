@@ -10,7 +10,6 @@
 			"Charger.cpp.obj",
 			"Charger_ChargeTask.cpp.obj",
 			"Charger_WanderingTask.cpp.obj",
-			"CrowBoss_AIController.cpp.obj",
 			"CrowMovement_Task.cpp.obj",
 			"CrowTask_MeleeAttack.cpp.obj",
 			"ReturnToOrigin_Task.cpp.obj",
@@ -78,6 +77,7 @@
 			"Wandering_Target_Point.gen.cpp.obj",
 			"Charger_AIController.cpp.obj",
 			"CrowBoss.cpp.obj",
+			"CrowBoss_AIController.cpp.obj",
 			"CrowBoss_Projectile.cpp.obj",
 			"CrowTask_DiveAttack.cpp.obj",
 			"CrowTask_RankedAttack.cpp.obj"
