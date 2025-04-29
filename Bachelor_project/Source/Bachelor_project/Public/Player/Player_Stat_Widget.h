@@ -24,7 +24,7 @@ class BACHELOR_PROJECT_API UPlayer_Stat_Widget : public UUserWidget
     void UpdateHealth(int32 currenthealth);
 
     UFUNCTION()
-    void UpdateBioMass(int32 currenthealth);
+    void UpdateBioMass(int32 currentbiomass);
 
     UFUNCTION()
     void UpdateTutorialText(const FString& newtext);

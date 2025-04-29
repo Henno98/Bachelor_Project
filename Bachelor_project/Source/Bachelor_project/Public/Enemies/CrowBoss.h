@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "CrowBoss.generated.h"
-
+/**
+ *
+ */
 UCLASS()
 class BACHELOR_PROJECT_API ACrowBoss : public ACharacter
 {
@@ -21,11 +23,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackRange")
 	float AttackRange = 2000.f;
 	UPROPERTY()
-	int Health;
+	int Health{50};
 	UPROPERTY()
 	float MovementSpeed;
 	UPROPERTY()
-	float AttackDamage;
+	float AttackDamage{2};
 	UPROPERTY()
 	float Stamina;
 	UPROPERTY()
@@ -37,6 +39,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DiveAttackRange = 600.f;
@@ -81,6 +84,7 @@ public:
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
 	UFUNCTION()
 	float GetAttackRange(){return AttackRange;}
-	
+	UFUNCTION()
+	int GetDamage() { return AttackDamage; }
 
 };

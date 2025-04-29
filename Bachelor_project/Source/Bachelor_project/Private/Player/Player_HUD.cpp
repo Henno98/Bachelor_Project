@@ -19,7 +19,8 @@ void APlayer_HUD::BeginPlay()
     if (MainMenuWidgetClass)
     {
         Main_Menu = CreateWidget<UMain_Menu_Widget>(GetWorld(), MainMenuWidgetClass);
-        OpenMenu(); // You can comment this out if you don't want the menu at start
+        ToggleMenu(); // You can comment this out if you don't want the menu at start
+
         
     }
 }
@@ -53,11 +54,6 @@ void APlayer_HUD::ClearText()
 
 void APlayer_HUD::LoadPlayerHud()
 {
-  
-    if (!Player_Stat_Widget && StatWidgetClass)
-    {
-        Player_Stat_Widget = CreateWidget<UPlayer_Stat_Widget>(GetWorld(), StatWidgetClass);
-    }
 
     if (Player_Stat_Widget && !Player_Stat_Widget->IsInViewport())
     {
@@ -67,7 +63,7 @@ void APlayer_HUD::LoadPlayerHud()
 
 void APlayer_HUD::ClosePlayerHud()
 {
-    if (Player_Stat_Widget && Player_Stat_Widget->IsInViewport())
+    if (Player_Stat_Widget)
     {
         Player_Stat_Widget->RemoveFromParent();
     }
@@ -77,7 +73,6 @@ void APlayer_HUD::OpenMenu()
 {
     if (Main_Menu)
     {
-
         Main_Menu->AddToViewport();
       //  Main_Menu->SlotListContainer->ClearChildren();
     }
@@ -85,7 +80,7 @@ void APlayer_HUD::OpenMenu()
 void APlayer_HUD::CloseMenu()
 {
 
-    if (Main_Menu && Main_Menu->IsInViewport())
+    if (Main_Menu)
     {
         Main_Menu->RemoveFromParent();
     }
@@ -98,17 +93,30 @@ void APlayer_HUD::ToggleMenu()
 
     if (Main_Menu && Main_Menu->IsInViewport())
     {
+        // If menu is open, close it
         CloseMenu();
         LoadPlayerHud();
+
         PC->bShowMouseCursor = false;
         PC->SetInputMode(FInputModeGameOnly());
+        PC->SetPause(false); // unpause when closing menu
     }
     else
     {
+       
+        // If menu is not open, open it
         ClosePlayerHud();
         OpenMenu();
+
+        // Set input mode for UI
+        FInputModeUIOnly InputMode;
+        InputMode.SetWidgetToFocus(Main_Menu->TakeWidget());
+        InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+
+        PC->SetInputMode(InputMode);
         PC->bShowMouseCursor = true;
-        PC->SetInputMode(FInputModeUIOnly());
+        PC->SetPause(true); // Pause after input mode is set
+
     }
 
 }

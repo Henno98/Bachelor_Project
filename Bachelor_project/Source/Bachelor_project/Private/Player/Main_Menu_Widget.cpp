@@ -7,15 +7,25 @@
 
 void UMain_Menu_Widget::NativeConstruct()
 {// Setup main buttons
-   
+    Super::NativeConstruct();
 
-    if (Quit_Button)
+    if (Quit_Button) {
+        Quit_Button->OnClicked.Clear();
         Quit_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnQuitClicked);
-
-    if (Close_Button)
+    }
+    if (Close_Button) {
+        Close_Button->OnClicked.Clear();
         Close_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnCloseClicked);
-
+    }
     CreateSaveSlotList();
+    FTimerHandle TimerHandle;
+    GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
+        {
+            if (Close_Button)
+            {
+                Close_Button->SetKeyboardFocus();
+            }
+        }), 0.1f, false);
 
 }
 void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
@@ -58,7 +68,7 @@ void UMain_Menu_Widget::OnCloseClicked()
         {
             PC->bShowMouseCursor = false;
             PC->SetInputMode(FInputModeGameOnly());
-
+            PC->SetPause(false);
             if (PlayerStatsWidgetClass)
             {
                 UPlayer_Stat_Widget* StatsWidget = CreateWidget<UPlayer_Stat_Widget>(GetWorld(), PlayerStatsWidgetClass);
@@ -76,6 +86,7 @@ void UMain_Menu_Widget::OnCloseClicked()
 void UMain_Menu_Widget::CreateSaveSlotList()
 {
     const int32 MaxSlots = 3; // Arbitrary max slot count
+    SlotListContainer->ClearChildren();
     for (int32 i = 0; i < MaxSlots; ++i)
     {
         FString SlotName = FString::Printf(TEXT("Slot_%d"), i);

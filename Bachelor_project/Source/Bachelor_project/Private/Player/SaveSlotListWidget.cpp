@@ -1,23 +1,25 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-
 #include "Player/SaveSlotListWidget.h"
-
+#include "Player/Main_menu_Widget.h"
 void USaveSlotListWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    if (Button)
+    if (Button) {
+        Button->OnClicked.Clear();
         Button->OnClicked.AddDynamic(this, &USaveSlotListWidget::HandleLoadClicked);
-
-    if (SlotNameText)
+    }
+    if (SlotNameText) {
+     
         SlotNameText->SetText(FText::FromString(SlotName));
+    }
 }
 
 void USaveSlotListWidget::HandleLoadClicked()
 {
-    if (ParentMenu.IsValid()) // Check if the weak pointer is valid
+    if (ParentMenu) // Check if the weak pointer is valid
     {
         ParentMenu->OnLoadClicked(SlotName, SlotIndex);
     }
@@ -25,7 +27,7 @@ void USaveSlotListWidget::HandleLoadClicked()
 
 void USaveSlotListWidget::HandleSaveClicked()
 {
-    if (ParentMenu.IsValid()) // Same check for the weak pointer
+    if (ParentMenu) // Same check for the weak pointer
     {
         ParentMenu->OnSaveClicked(SlotName, SlotIndex);
     }

@@ -29,44 +29,61 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 
 		FVector Direction = Character->GetActorUpVector();
-		FVector Start = Character->GetActorLocation() + FVector(0.f,30.f,0.f);
-		FVector End = Start + (Direction * 300.f);
-		FHitResult HitResult;
+		FVector Start = Character->GetActorLocation() + FVector(0.f, 30.f, 0.f);
+		FVector End = Start + (Direction * 100.f);
+
+		TArray<FHitResult> HitResult;
 		FCollisionQueryParams Params;
 		Params.AddIgnoredActor(Character);
 
-		bool bSingleHit = GetWorld()->LineTraceSingleByChannel(
+		// Define the sweep shape (e.g., a sphere with radius x units)
+		FCollisionShape SweepShape = FCollisionShape::MakeSphere(150.f);
+
+		DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
+		//DrawDebugSphere(GetWorld(), Start, 100.f, 12, FColor::Blue, false, 1.0f);
+		DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
+
+		bool bSweepHit = GetWorld()->SweepMultiByChannel(
 			HitResult,
 			Start,
 			End,
+			FQuat::Identity,
 			ECC_WorldStatic,
-			Params);
+			SweepShape,
+			Params
+		);
 		
-		if (bSingleHit)
+		
+		if (bSweepHit)
 		{
-			if (IsValid(HitResult.GetActor()))
+			for (const FHitResult& Hit : HitResult)
 			{
-				if (HitResult.GetActor()->GetFName().ToString().Contains(FString("Platform")) == true)
+				AActor* HitActor = Hit.GetActor();
+				if (IsValid(HitActor))
 				{
-					
-					HitResult.GetActor()->SetActorEnableCollision(false);
+					if (HitActor->GetFName().ToString().Contains(FString("Platform")) == true)
+					{
+						UE_LOG(LogTemp, Warning, TEXT("Hit actor: %s"), *Hit.GetActor()->GetName());
+						HitActor->SetActorEnableCollision(false);
 
-					FTimerHandle TimerHandle;
-					GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([HitResult]()
-						{
-							HitResult.GetActor()->SetActorEnableCollision(true);
+						FTimerHandle TimerHandle;
+						GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([HitActor]()
+							{
+								HitActor->SetActorEnableCollision(true);
 
-						}), 0.5f, false);
+							}), 0.5f, false);
 
+
+					}
 
 				}
-
 			}
-
 		}
 		if (Character)
 		{
+
 			Character->Jump();
+		
 		}
 		else
 		{
@@ -86,6 +103,7 @@ void UGAS_Double_Jump::CancelAbility(const FGameplayAbilitySpecHandle Handle,
 	ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 	if (Character)
 	{
+		
 		Character->StopJumping();
 	}
 	else return;

@@ -19,10 +19,6 @@ protected:
 	UFUNCTION()
 	virtual void NativeConstruct() override;
 	UPROPERTY(meta = (BindWidget))
-	class UButton* Load_Button;
-	UPROPERTY(meta = (BindWidget))
-	class UButton* Save_Button;
-	UPROPERTY(meta = (BindWidget))
 	class UButton* Quit_Button;
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Close_Button;

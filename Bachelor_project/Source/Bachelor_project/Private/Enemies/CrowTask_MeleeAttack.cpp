@@ -3,7 +3,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "DrawDebugHelpers.h"
+
 #include "TimerManager.h"
 #include "Engine/World.h"
 
@@ -57,7 +57,8 @@ void UCrowTask_MeleeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* N
         {
             // In range to ATTEMPT an attack (whether it lands or not)
             FVector HitLocation = CrowBoss->GetActorLocation() + CrowBoss->GetActorForwardVector() * HitRange;
-            DrawDebugSphere(CrowBoss->GetWorld(), HitLocation, 60.f, 12, FColor::Red, false, 1.0f);
+            //Draw
+            // Sphere(CrowBoss->GetWorld(), HitLocation, 60.f, 12, FColor::Red, false, 1.0f);
 
             bHasAttacked = true;
 

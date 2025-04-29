@@ -26,7 +26,7 @@ public:
     FString SlotName;
     int32 SlotIndex;
     UPROPERTY()
-    TWeakObjectPtr<UMain_Menu_Widget> ParentMenu;
+    TObjectPtr<UMain_Menu_Widget> ParentMenu;
 
     virtual void NativeConstruct() override;
 

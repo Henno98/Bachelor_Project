@@ -21,7 +21,7 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
     TArray<AActor*> WanderingPoints;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWandering_Target_Point::StaticClass(), WanderingPoints);
 
-    UE_LOG(LogTemp, Warning, TEXT("Found %d wandering points"), WanderingPoints.Num());
+    //UE_LOG(LogTemp, Warning, TEXT("Found %d wandering points"), WanderingPoints.Num());
 
     if (WanderingPoints.Num() == 0)
     {

@@ -4,7 +4,8 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"                
+
+
 #include "TimerManager.h"
 #include "Enemies/CrowBoss_AIController.h"
 #include "Engine/World.h"
@@ -55,7 +56,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     if (bHit)
     {
         LandingSpot = Hit.ImpactPoint;
-        DrawDebugSphere(AIPawn->GetWorld(), LandingSpot, 50.f, 12, FColor::Red, false, 3.0f);
+       //DrawDebugSphere(AIPawn->GetWorld(), LandingSpot, 50.f, 12, FColor::Red, false, 3.0f);
     }
 
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);

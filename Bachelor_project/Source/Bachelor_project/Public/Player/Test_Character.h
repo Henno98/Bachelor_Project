@@ -27,6 +27,8 @@ class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilityS
 {
     GENERATED_BODY()
 public:
+    UFUNCTION(BlueprintCallable)
+    void OnMeleeHitNotify();
     ATest_Character();
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -36,7 +38,16 @@ public:
 protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
+    //checks for landing
+    virtual void Landed(const FHitResult& Hit) override;
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+    // Called to bind functionality to input
+    virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 public:
+
+
+
     // Animations
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
     UAnimationAsset* IdleAnim;
@@ -48,7 +59,18 @@ public:
     UAnimationAsset* DeathAnim;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
     UAnimationAsset* MoveAnim;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* StartJumpAnim;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* MidJumpAnim;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+    UAnimationAsset* EndJumpAnim;
+
+
+
+
+    //Input mapping and input actions
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
 
@@ -76,72 +98,59 @@ public:
     UInputAction* MeleeInput;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* MenuInput;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* RunInput;
+
+
+
+
+
     //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
-     USpringArmComponent* Springarm;
-
-     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Hurtbox")
-     USphereComponent* HurtBox;
-
+    USpringArmComponent* Springarm;
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     class UCameraComponent* Camera;
 
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Projectile class")
-    TSubclassOf<class Aprojectile> RangedAttackClass;
-    UFUNCTION()
-    void Move(const FInputActionValue& Value);
-    UFUNCTION()
-    void StopMoving();
-    UFUNCTION()
-    void MeleeAttack(const FInputActionValue& Value);
-    UFUNCTION()
-    void EndMeleeAttack();
-    UFUNCTION()
-    void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
-                   int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+
+
+
     // Animation/State flags
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bIsDashing{ false };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bHasDoubleJumped{ false };
-
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-    bool bIsRunning{ false };
+    bool bIsMoving{ false };
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bIsRunning;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bIsMeleeAttacking{ false };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bIsRangedAttacking{ false };
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bStartedJump{ false };
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bMidJump{ false };
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+    bool bFinishJump{ false };
 
 
     bool Attack1{false};
     bool Attack2{false};
     bool Attack3{false};
+  
 
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
-    float DashCooldown;
-
-    UFUNCTION()
-    void SaveGame( FString slotname,int32 slotnumber);
-    UFUNCTION()
-    void LoadGame( FString slotname, int32 slotnumber);
-
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
-
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
-    float JumpVelocity{ 1300.f };
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-    FVector BulletSize {FVector(1.f)};
-
-    // Called to bind functionality to input
-    virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
+    //AbilitySystemComponent
     UPROPERTY(EditAnywhere)
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+    //Stats and variables
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     int MaxHealth;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Stats")
@@ -152,27 +161,48 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int BioMass;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    int MeleeDamage;
+    int MeleeDamage{2};
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    int RangedDamage;
+    int RangedDamage{5};
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Save")
     bool bCanSave = false;
-public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float DashCooldown;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float VerticalVelocity;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float JumpVelocity;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FVector BulletSize{ FVector(1.f) };
 
+
+
+
+
+public:
+    //Functions
     int GetHealth() { return Health; }
-    void SetHealth(int newhealth){Health = newhealth;OnHealthChanged.Broadcast(Health);}
+   
+    void SetHealth(int newhealth){Health = newhealth; OnHealthChanged.Broadcast(Health);}
+   
     int GetMaxHealth() { return MaxHealth; }
+ 
     int GetBioMass() { return BioMass; }
+ 
     void SetBioMass(int newbiomass) { BioMass = newbiomass; OnEnergyChanged.Broadcast(BioMass);}
+
     int GetMaxBioMass() { return MaxBioMass; }
+ 
     int GetRangedDamage() { return RangedDamage; }
+  
     int GetMeleeDamage() { return MeleeDamage; }
 
+    float GetJumpVelocity() { return JumpVelocity; }
+
+    FVector GetBulletSize() { return BulletSize; }
 	void Hit(int Damage);
     void Dead();
     virtual void PossessedBy(AController* NewController) override;
-
-
     void InitAbilitySystem();
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
     void GASJump();
@@ -186,9 +216,32 @@ public:
     void ReEnableInput();
     void PauseInput();
     void ToggleMenu();
+    void Run(const FInputActionValue& Value);
+    void StopRun();
+    void UpdateJumpState();
+    float GetAnimationDuration(UAnimMontage* Montage);
+    UFUNCTION()
+    void SaveGame(FString slotname, int32 slotnumber);
+    UFUNCTION()
+    void LoadGame(FString slotname, int32 slotnumber);
+    UFUNCTION()
+    void Move(const FInputActionValue& Value);
+    UFUNCTION()
+    void StopMoving();
+    UFUNCTION()
+    void MeleeAttack(const FInputActionValue& Value);
+    UFUNCTION()
+    void EndMeleeAttack();
+    UFUNCTION()
+    void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
+        int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 
-    UPROPERTY()
+
+
+
+    //Subclasses
+	UPROPERTY()
     TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer JumpAbilityTag;
@@ -212,6 +265,7 @@ public:
     FGameplayTagContainer RangedAttackAbilityTag;
     FGameplayAbilitySpec RangedAttackAbilitySpec;
 
-    UPROPERTY()
-    APlayer_HUD* PlayerHUD;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile class")
+    TSubclassOf<class Aprojectile> RangedAttackClass;
+
 };

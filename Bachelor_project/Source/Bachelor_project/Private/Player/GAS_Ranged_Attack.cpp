@@ -77,8 +77,8 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 					bCanShoot = false;
 					SpawnedProjectile->Velocity = FiringDirection * 2000.f;
 					SpawnedProjectile->lifetime = 0.8f;
-					SpawnedProjectile->Owner = Character;
-					SpawnedProjectile->SetActorScale3D(Character->BulletSize);
+					
+					SpawnedProjectile->SetActorScale3D(Character->GetBulletSize());
 					SpawnedProjectile->SetDamage(Character->GetRangedDamage());
 				}
 			}

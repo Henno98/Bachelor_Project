@@ -17,14 +17,18 @@ void UPlayer_Stat_Widget::NativeConstruct()
 		CurrentHealth = character->GetHealth();
 		CurrentBioMass = character->GetBioMass();
 		MaxBioMass = character->GetMaxBioMass();
+		if (IsValid(character))
+		{
+			character->OnEnergyChanged.RemoveDynamic(this, &UPlayer_Stat_Widget::UpdateBioMass);
+			character->OnEnergyChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateBioMass);
 
-		// Do any additional setup here
-		character->OnHealthChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateHealth);
-		character->OnEnergyChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateBioMass);
+			character->OnHealthChanged.RemoveDynamic(this, &UPlayer_Stat_Widget::UpdateHealth);
+			character->OnHealthChanged.AddDynamic(this, &UPlayer_Stat_Widget::UpdateHealth);
+		}
 	}
 
 	// Initially, create all health points (images) when the widget is constructed
-	CreateHealthPointImages();
+	UpdateHealth(CurrentHealth);
 	UpdateBioMass(CurrentBioMass);
 }
 
@@ -42,11 +46,11 @@ void UPlayer_Stat_Widget::UpdateHealth(int32 currenthealth)
 	CreateHealthPointImages();
 }
 
-void UPlayer_Stat_Widget::UpdateBioMass(int32 currenthealth)
+void UPlayer_Stat_Widget::UpdateBioMass(int32 currentbiomass)
 {
 	if (EnergyBar)
 	{
-		CurrentBioMass = currenthealth;
+		CurrentBioMass = currentbiomass;
 		float Percent = static_cast<float>(CurrentBioMass) / MaxBioMass;
 		EnergyBar->SetPercent(Percent);
 	}
@@ -65,7 +69,6 @@ void UPlayer_Stat_Widget::CreateHealthPointImages()
 {
  if(!HealthBarPanel || !HealthPointImage)
 		return;
-
 	// Loop through and add images for each health point
 	for (int32 i = 0; i < CurrentHealth; i++)
 	{
