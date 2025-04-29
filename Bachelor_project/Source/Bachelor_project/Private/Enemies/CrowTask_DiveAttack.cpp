@@ -1,16 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Enemies/CrowTask_DiveAttack.h"
+
+#include "CrowTask_DiveAttack.h"
+
+#include "CrowBoss.h"
+#include "CrowBoss_AIController.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
-
-
+#include "DrawDebugHelpers.h"                
 #include "TimerManager.h"
-#include "Enemies/CrowBoss_AIController.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
-
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
 
 UCrowTask_DiveAttack::UCrowTask_DiveAttack()
 {
@@ -56,13 +59,14 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     if (bHit)
     {
         LandingSpot = Hit.ImpactPoint;
-       //DrawDebugSphere(AIPawn->GetWorld(), LandingSpot, 50.f, 12, FColor::Red, false, 3.0f);
+        DrawDebugSphere(AIPawn->GetWorld(), LandingSpot, 50.f, 12, FColor::Red, false, 3.0f);
     }
 
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);
     BlackboardComp->SetValueAsVector("OriginalPosition", CurrentLocation);
 
-    ACharacter* CrowBoss = Cast<ACharacter>(AIPawn);
+    ACrowBoss* CrowBoss = Cast<ACrowBoss>(AIPawn);
+
     if (CrowBoss)
     {
         FVector HorizontalDirection = (LandingSpot - CurrentLocation);
@@ -78,17 +82,39 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
             DelayHandle,
             [CrowBoss, BlackboardComp]()
             {
-                // Ensure the boss stops moving completely
                 CrowBoss->GetCharacterMovement()->StopMovementImmediately();
                 CrowBoss->GetCharacterMovement()->Velocity = FVector::ZeroVector;
                 CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 
-                // Set blackboard key to continue behavior
+                //// AOE debug (optional)
+                //FVector ImpactPoint = CrowBoss->GetActorLocation();
+                //float AoeRadius = 250.f;
+                //DrawDebugSphere(CrowBoss->GetWorld(), ImpactPoint, AoeRadius, 16, FColor::Purple, false, 1.5f);
+
+                // Niagara particle spawn
+                if (CrowBoss->DiveImpactEffect)
+                {
+                    UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+                        CrowBoss->GetWorld(),
+                        CrowBoss->DiveImpactEffect,
+                        CrowBoss->GetActorLocation(),
+                        FRotator::ZeroRotator,
+                        FVector(1.0f),
+                        true,
+                        true,
+                        ENCPoolMethod::None,
+                        true
+                    );
+                    
+                }
+
                 BlackboardComp->SetValueAsBool("LandedFromDive", true);
             },
             0.3f,
             false
         );
+
+        
 
 
         return EBTNodeResult::Succeeded;

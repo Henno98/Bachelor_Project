@@ -3,11 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "NiagaraSystem.h"
 #include "GameFramework/Character.h"
 #include "CrowBoss.generated.h"
-/**
- *
- */
+
 UCLASS()
 class BACHELOR_PROJECT_API ACrowBoss : public ACharacter
 {
@@ -20,30 +19,24 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackRange")
-	float AttackRange = 2000.f;
 	UPROPERTY()
-	int Health{50};
+	int Health;
 	UPROPERTY()
 	float MovementSpeed;
 	UPROPERTY()
-	float AttackDamage{2};
+	float AttackDamage;
 	UPROPERTY()
 	float Stamina;
 	UPROPERTY()
 	AActor* Target;
+
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float DiveAttackRange = 600.f;
-
 	UFUNCTION()
 	void MeleeAttack();
 	UFUNCTION()
@@ -54,17 +47,7 @@ public:
 	void Collision();
 	UFUNCTION()
 	void Death();
-	UFUNCTION()
-	void OnHit(int damage);
 
-
-	UFUNCTION()
-	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
-		bool bFromSweep, const FHitResult& SweepResult);
-	UFUNCTION()
-	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
 
 	//Getters and setters
 	//Health
@@ -82,9 +65,9 @@ public:
 	AActor* GetAttackTarget() { return Target; }
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
-	UFUNCTION()
-	float GetAttackRange(){return AttackRange;}
-	UFUNCTION()
-	int GetDamage() { return AttackDamage; }
+
+
+	UPROPERTY(EditDefaultsOnly, Category = "VFX")
+	UNiagaraSystem* DiveImpactEffect;
 
 };
