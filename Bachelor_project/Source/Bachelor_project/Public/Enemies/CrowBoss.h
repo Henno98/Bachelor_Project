@@ -13,9 +13,13 @@ class BACHELOR_PROJECT_API ACrowBoss : public ACharacter
 	GENERATED_BODY()
 
 public:
+	UFUNCTION()
+	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
+	                  int32 OtherBodyIndex);
 	// Sets default values for this character's properties
 	ACrowBoss();
-
+	 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -29,14 +33,16 @@ protected:
 	float Stamina;
 	UPROPERTY()
 	AActor* Target;
-
-	
+	UPROPERTY()
+	float AttackRange;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	                 AActor* DamageCauser);
 	UFUNCTION()
 	void MeleeAttack();
 	UFUNCTION()
@@ -47,6 +53,7 @@ public:
 	void Collision();
 	UFUNCTION()
 	void Death();
+	void OnHit(int damage);
 
 
 	//Getters and setters
@@ -65,8 +72,8 @@ public:
 	AActor* GetAttackTarget() { return Target; }
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
-
-
+	float GetAttackRange() { return AttackRange; }
+	int GetDamage() { return  AttackDamage; }
 	UPROPERTY(EditDefaultsOnly, Category = "VFX")
 	UNiagaraSystem* DiveImpactEffect;
 

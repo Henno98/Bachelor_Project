@@ -17,26 +17,22 @@ struct FHitResult;
 #endif
 #define BACHELOR_PROJECT_CrowBoss_generated_h
 
-#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execGetDamage); \
-	DECLARE_FUNCTION(execGetAttackRange); \
+#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execSetAttackTarget); \
 	DECLARE_FUNCTION(execGetAttackTarget); \
 	DECLARE_FUNCTION(execSetStamina); \
 	DECLARE_FUNCTION(execGetStamina); \
 	DECLARE_FUNCTION(execSetHealth); \
 	DECLARE_FUNCTION(execGetHealth); \
-	DECLARE_FUNCTION(execOnOverlapEnd); \
-	DECLARE_FUNCTION(execOnOverlap); \
-	DECLARE_FUNCTION(execOnHit); \
 	DECLARE_FUNCTION(execDeath); \
 	DECLARE_FUNCTION(execCollision); \
 	DECLARE_FUNCTION(execSpecialAttack); \
 	DECLARE_FUNCTION(execFeatherAttack); \
-	DECLARE_FUNCTION(execMeleeAttack);
+	DECLARE_FUNCTION(execMeleeAttack); \
+	DECLARE_FUNCTION(execOnOverlap);
 
 
-#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesACrowBoss(); \
 	friend struct Z_Construct_UClass_ACrowBoss_Statics; \
@@ -45,7 +41,7 @@ public: \
 	DECLARE_SERIALIZER(ACrowBoss)
 
 
-#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ACrowBoss(ACrowBoss&&); \
@@ -57,13 +53,13 @@ public: \
 	NO_API virtual ~ACrowBoss();
 
 
-#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_11_PROLOG
-#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_GENERATED_BODY \
+#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_10_PROLOG
+#define FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_INCLASS_NO_PURE_DECLS \
-	FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_14_ENHANCED_CONSTRUCTORS \
+	FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_INCLASS_NO_PURE_DECLS \
+	FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

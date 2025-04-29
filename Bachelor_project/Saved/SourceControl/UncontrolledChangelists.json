@@ -5,9 +5,27 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Assets/Player/PC_Idle.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Assets/Player/ABP_Player.uasset",
 				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Levels/Tutorial.umap",
-				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Levels/Bird_Arena.umap",
-				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Player/BP_Test_Character.uasset"
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Assets/Player/PC_Jump_End.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss_AIController.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Enemies/Charger/BP_Charger_AIController.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/AI/CrowBoss_AI/CrowBoss_BB.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/AI/CrowBoss_AI/CrowBoss_BT.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/AI/SmallCharger/Charger_BB.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/AI/SmallCharger/Charger_BT.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/AI/SmallCharger/Charger_BT.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/AI/SmallCharger/Charger_BB.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/AI/CrowBoss_AI/CrowBoss_BT.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/AI/CrowBoss_AI/CrowBoss_BB.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Enemies/Charger/BP_Charger.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Assets/Player/IK_NewIKRig.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Levels/Entrance_Int.umap",
+				"C:/Program Files/Epic Games/UE_5.5/Engine/Content/MapTemplates/Materials/BasicAsset01.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Enemies/BirdBoss/BP_CrowBoss.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/BP/Player/BP_Test_Character.uasset",
+				"C:/Users/Bruker/Documents/GitHub/Bachelor_Project/Bachelor_project/Content/Wings_FX.uasset"
 			]
 		}
 	]

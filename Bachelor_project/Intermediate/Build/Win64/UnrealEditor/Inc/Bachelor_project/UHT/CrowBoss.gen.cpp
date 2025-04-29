@@ -17,6 +17,7 @@ ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
+NIAGARA_API UClass* Z_Construct_UClass_UNiagaraSystem_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Bachelor_project();
 // End Cross Module References
 
@@ -107,47 +108,6 @@ DEFINE_FUNCTION(ACrowBoss::execFeatherAttack)
 }
 // End Class ACrowBoss Function FeatherAttack
 
-// Begin Class ACrowBoss Function GetAttackRange
-struct Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics
-{
-	struct CrowBoss_eventGetAttackRange_Parms
-	{
-		float ReturnValue;
-	};
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_ReturnValue;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventGetAttackRange_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::NewProp_ReturnValue,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ACrowBoss, nullptr, "GetAttackRange", nullptr, nullptr, Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::PropPointers), sizeof(Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::CrowBoss_eventGetAttackRange_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::CrowBoss_eventGetAttackRange_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_ACrowBoss_GetAttackRange()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACrowBoss_GetAttackRange_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(ACrowBoss::execGetAttackRange)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	*(float*)Z_Param__Result=P_THIS->GetAttackRange();
-	P_NATIVE_END;
-}
-// End Class ACrowBoss Function GetAttackRange
-
 // Begin Class ACrowBoss Function GetAttackTarget
 struct Z_Construct_UFunction_ACrowBoss_GetAttackTarget_Statics
 {
@@ -194,47 +154,6 @@ DEFINE_FUNCTION(ACrowBoss::execGetAttackTarget)
 	P_NATIVE_END;
 }
 // End Class ACrowBoss Function GetAttackTarget
-
-// Begin Class ACrowBoss Function GetDamage
-struct Z_Construct_UFunction_ACrowBoss_GetDamage_Statics
-{
-	struct CrowBoss_eventGetDamage_Parms
-	{
-		int32 ReturnValue;
-	};
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FIntPropertyParams NewProp_ReturnValue;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventGetDamage_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::NewProp_ReturnValue,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ACrowBoss, nullptr, "GetDamage", nullptr, nullptr, Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::PropPointers), sizeof(Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::CrowBoss_eventGetDamage_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::CrowBoss_eventGetDamage_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_ACrowBoss_GetDamage()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACrowBoss_GetDamage_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(ACrowBoss::execGetDamage)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	*(int32*)Z_Param__Result=P_THIS->GetDamage();
-	P_NATIVE_END;
-}
-// End Class ACrowBoss Function GetDamage
 
 // Begin Class ACrowBoss Function GetHealth
 struct Z_Construct_UFunction_ACrowBoss_GetHealth_Statics
@@ -359,48 +278,6 @@ DEFINE_FUNCTION(ACrowBoss::execMeleeAttack)
 }
 // End Class ACrowBoss Function MeleeAttack
 
-// Begin Class ACrowBoss Function OnHit
-struct Z_Construct_UFunction_ACrowBoss_OnHit_Statics
-{
-	struct CrowBoss_eventOnHit_Parms
-	{
-		int32 damage;
-	};
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FIntPropertyParams NewProp_damage;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ACrowBoss_OnHit_Statics::NewProp_damage = { "damage", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnHit_Parms, damage), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACrowBoss_OnHit_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnHit_Statics::NewProp_damage,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_OnHit_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACrowBoss_OnHit_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ACrowBoss, nullptr, "OnHit", nullptr, nullptr, Z_Construct_UFunction_ACrowBoss_OnHit_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_OnHit_Statics::PropPointers), sizeof(Z_Construct_UFunction_ACrowBoss_OnHit_Statics::CrowBoss_eventOnHit_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_OnHit_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACrowBoss_OnHit_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_ACrowBoss_OnHit_Statics::CrowBoss_eventOnHit_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_ACrowBoss_OnHit()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACrowBoss_OnHit_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(ACrowBoss::execOnHit)
-{
-	P_GET_PROPERTY(FIntProperty,Z_Param_damage);
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->OnHit(Z_Param_damage);
-	P_NATIVE_END;
-}
-// End Class ACrowBoss Function OnHit
-
 // Begin Class ACrowBoss Function OnOverlap
 struct Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics
 {
@@ -408,7 +285,7 @@ struct Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics
 	{
 		UPrimitiveComponent* OverlappedComponent;
 		AActor* OtherActor;
-		UPrimitiveComponent* OtherComponent;
+		UPrimitiveComponent* OtherComp;
 		int32 OtherBodyIndex;
 		bool bFromSweep;
 		FHitResult SweepResult;
@@ -420,7 +297,7 @@ struct Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[] = {
 		{ "EditInline", "true" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherComponent_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[] = {
 		{ "EditInline", "true" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SweepResult_MetaData[] = {
@@ -429,7 +306,7 @@ struct Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComponent;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
 	static void NewProp_bFromSweep_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bFromSweep;
@@ -439,7 +316,7 @@ struct Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlappedComponent_MetaData), NewProp_OverlappedComponent_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherComponent = { "OtherComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlap_Parms, OtherComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherComponent_MetaData), NewProp_OtherComponent_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherComp_MetaData), NewProp_OtherComp_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
 void Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_bFromSweep_SetBit(void* Obj)
 {
@@ -450,7 +327,7 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ACrowBoss_O
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OverlappedComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherActor,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherComp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_OtherBodyIndex,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_bFromSweep,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlap_Statics::NewProp_SweepResult,
@@ -471,79 +348,16 @@ DEFINE_FUNCTION(ACrowBoss::execOnOverlap)
 {
 	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
 	P_GET_OBJECT(AActor,Z_Param_OtherActor);
-	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComponent);
+	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
 	P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
 	P_GET_UBOOL(Z_Param_bFromSweep);
 	P_GET_STRUCT_REF(FHitResult,Z_Param_Out_SweepResult);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComponent,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
+	P_THIS->OnOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
 	P_NATIVE_END;
 }
 // End Class ACrowBoss Function OnOverlap
-
-// Begin Class ACrowBoss Function OnOverlapEnd
-struct Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics
-{
-	struct CrowBoss_eventOnOverlapEnd_Parms
-	{
-		UPrimitiveComponent* OverlappedComponent;
-		AActor* OtherActor;
-		UPrimitiveComponent* OtherComponent;
-		int32 OtherBodyIndex;
-	};
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[] = {
-		{ "EditInline", "true" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherComponent_MetaData[] = {
-		{ "EditInline", "true" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComponent;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlapEnd_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlappedComponent_MetaData), NewProp_OverlappedComponent_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlapEnd_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OtherComponent = { "OtherComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlapEnd_Parms, OtherComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherComponent_MetaData), NewProp_OtherComponent_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CrowBoss_eventOnOverlapEnd_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OverlappedComponent,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OtherActor,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OtherComponent,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::NewProp_OtherBodyIndex,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ACrowBoss, nullptr, "OnOverlapEnd", nullptr, nullptr, Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::PropPointers), sizeof(Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::CrowBoss_eventOnOverlapEnd_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::CrowBoss_eventOnOverlapEnd_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_ACrowBoss_OnOverlapEnd()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACrowBoss_OnOverlapEnd_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(ACrowBoss::execOnOverlapEnd)
-{
-	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
-	P_GET_OBJECT(AActor,Z_Param_OtherActor);
-	P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComponent);
-	P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->OnOverlapEnd(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComponent,Z_Param_OtherBodyIndex);
-	P_NATIVE_END;
-}
-// End Class ACrowBoss Function OnOverlapEnd
 
 // Begin Class ACrowBoss Function SetAttackTarget
 struct Z_Construct_UFunction_ACrowBoss_SetAttackTarget_Statics
@@ -708,15 +522,11 @@ void ACrowBoss::StaticRegisterNativesACrowBoss()
 		{ "Collision", &ACrowBoss::execCollision },
 		{ "Death", &ACrowBoss::execDeath },
 		{ "FeatherAttack", &ACrowBoss::execFeatherAttack },
-		{ "GetAttackRange", &ACrowBoss::execGetAttackRange },
 		{ "GetAttackTarget", &ACrowBoss::execGetAttackTarget },
-		{ "GetDamage", &ACrowBoss::execGetDamage },
 		{ "GetHealth", &ACrowBoss::execGetHealth },
 		{ "GetStamina", &ACrowBoss::execGetStamina },
 		{ "MeleeAttack", &ACrowBoss::execMeleeAttack },
-		{ "OnHit", &ACrowBoss::execOnHit },
 		{ "OnOverlap", &ACrowBoss::execOnOverlap },
-		{ "OnOverlapEnd", &ACrowBoss::execOnOverlapEnd },
 		{ "SetAttackTarget", &ACrowBoss::execSetAttackTarget },
 		{ "SetHealth", &ACrowBoss::execSetHealth },
 		{ "SetStamina", &ACrowBoss::execSetStamina },
@@ -733,15 +543,8 @@ struct Z_Construct_UClass_ACrowBoss_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n *\n */" },
-#endif
 		{ "HideCategories", "Navigation" },
 		{ "IncludePath", "Enemies/CrowBoss.h" },
-		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttackRange_MetaData[] = {
-		{ "Category", "AttackRange" },
 		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Health_MetaData[] = {
@@ -759,33 +562,32 @@ struct Z_Construct_UClass_ACrowBoss_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Target_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DiveAttackRange_MetaData[] = {
-		{ "Category", "CrowBoss" },
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttackRange_MetaData[] = {
+		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DiveImpactEffect_MetaData[] = {
+		{ "Category", "VFX" },
 		{ "ModuleRelativePath", "Public/Enemies/CrowBoss.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackRange;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_Health;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_MovementSpeed;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackDamage;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_Stamina;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Target;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_DiveAttackRange;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_AttackRange;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DiveImpactEffect;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ACrowBoss_Collision, "Collision" }, // 3153239214
 		{ &Z_Construct_UFunction_ACrowBoss_Death, "Death" }, // 1387092913
 		{ &Z_Construct_UFunction_ACrowBoss_FeatherAttack, "FeatherAttack" }, // 4082717576
-		{ &Z_Construct_UFunction_ACrowBoss_GetAttackRange, "GetAttackRange" }, // 1109471555
 		{ &Z_Construct_UFunction_ACrowBoss_GetAttackTarget, "GetAttackTarget" }, // 3755177515
-		{ &Z_Construct_UFunction_ACrowBoss_GetDamage, "GetDamage" }, // 1291504281
 		{ &Z_Construct_UFunction_ACrowBoss_GetHealth, "GetHealth" }, // 1238593170
 		{ &Z_Construct_UFunction_ACrowBoss_GetStamina, "GetStamina" }, // 1186629712
 		{ &Z_Construct_UFunction_ACrowBoss_MeleeAttack, "MeleeAttack" }, // 1248508269
-		{ &Z_Construct_UFunction_ACrowBoss_OnHit, "OnHit" }, // 3209445395
-		{ &Z_Construct_UFunction_ACrowBoss_OnOverlap, "OnOverlap" }, // 1655148336
-		{ &Z_Construct_UFunction_ACrowBoss_OnOverlapEnd, "OnOverlapEnd" }, // 1652224323
+		{ &Z_Construct_UFunction_ACrowBoss_OnOverlap, "OnOverlap" }, // 375728446
 		{ &Z_Construct_UFunction_ACrowBoss_SetAttackTarget, "SetAttackTarget" }, // 2872548134
 		{ &Z_Construct_UFunction_ACrowBoss_SetHealth, "SetHealth" }, // 1496595806
 		{ &Z_Construct_UFunction_ACrowBoss_SetStamina, "SetStamina" }, // 3560265459
@@ -797,21 +599,21 @@ struct Z_Construct_UClass_ACrowBoss_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackRange = { "AttackRange", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, AttackRange), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackRange_MetaData), NewProp_AttackRange_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_Health = { "Health", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, Health), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Health_MetaData), NewProp_Health_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_MovementSpeed = { "MovementSpeed", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, MovementSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MovementSpeed_MetaData), NewProp_MovementSpeed_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackDamage = { "AttackDamage", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, AttackDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackDamage_MetaData), NewProp_AttackDamage_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_Stamina = { "Stamina", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, Stamina), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Stamina_MetaData), NewProp_Stamina_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_Target = { "Target", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, Target), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Target_MetaData), NewProp_Target_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_DiveAttackRange = { "DiveAttackRange", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, DiveAttackRange), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DiveAttackRange_MetaData), NewProp_DiveAttackRange_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackRange = { "AttackRange", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, AttackRange), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttackRange_MetaData), NewProp_AttackRange_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACrowBoss_Statics::NewProp_DiveImpactEffect = { "DiveImpactEffect", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACrowBoss, DiveImpactEffect), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DiveImpactEffect_MetaData), NewProp_DiveImpactEffect_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACrowBoss_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackRange,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_Health,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_MovementSpeed,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackDamage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_Stamina,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_Target,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_DiveAttackRange,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_AttackRange,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACrowBoss_Statics::NewProp_DiveImpactEffect,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ACrowBoss_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ACrowBoss_Statics::DependentSingletons[])() = {
@@ -854,10 +656,10 @@ ACrowBoss::~ACrowBoss() {}
 struct Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACrowBoss, ACrowBoss::StaticClass, TEXT("ACrowBoss"), &Z_Registration_Info_UClass_ACrowBoss, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACrowBoss), 1517624284U) },
+		{ Z_Construct_UClass_ACrowBoss, ACrowBoss::StaticClass, TEXT("ACrowBoss"), &Z_Registration_Info_UClass_ACrowBoss, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACrowBoss), 3176080048U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_1022916663(TEXT("/Script/Bachelor_project"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_4217938006(TEXT("/Script/Bachelor_project"),
 	Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Bruker_Documents_GitHub_Bachelor_Project_Bachelor_project_Source_Bachelor_project_Public_Enemies_CrowBoss_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

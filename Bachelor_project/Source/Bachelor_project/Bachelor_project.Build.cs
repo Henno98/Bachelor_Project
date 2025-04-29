@@ -11,7 +11,7 @@ public class Bachelor_project : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
 			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "AIModule", "GameplayAbilities",
-			"GameplayTasks", "GameplayTags", "UMG", "Slate", "SlateCore",
+			"GameplayTasks", "GameplayTags", "UMG", "Slate", "SlateCore", "Niagara"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

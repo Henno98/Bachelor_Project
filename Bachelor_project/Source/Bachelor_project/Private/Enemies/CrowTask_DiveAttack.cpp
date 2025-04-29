@@ -1,10 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CrowTask_DiveAttack.h"
-
-#include "CrowBoss.h"
-#include "CrowBoss_AIController.h"
+#include "Enemies/CrowTask_DiveAttack.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -14,6 +11,8 @@
 #include "GameFramework/Actor.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "Enemies/CrowBoss.h"
+#include "Enemies/CrowBoss_AIController.h"
 
 UCrowTask_DiveAttack::UCrowTask_DiveAttack()
 {
