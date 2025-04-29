@@ -154,6 +154,13 @@ void ATest_Character::Tick(float DeltaTime)
 		bHasDoubleJumped = false;
 
 	}
+
+	if (Springarm)
+	{
+		FVector CurrentOffset = Springarm->SocketOffset;
+		FVector NewOffset = FMath::VInterpTo(CurrentOffset, TargetSocketOffset, DeltaTime, 0.8f);
+		Springarm->SocketOffset = NewOffset;
+	}
 	/*if (bStartedJump)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, .1f, FColor::Red, TEXT("Started jump"),false);
@@ -502,11 +509,13 @@ void ATest_Character::Move(const FInputActionValue& Value)
 		if (moveVector.X > 0.0f)
 		{
 			// Moving right: face right (0 degrees yaw)
+			TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at left
 			SetActorRotation(FRotator(0.f, 90.f, 0.f));
 		}
 		else
 		{
 			// Moving left: face left (180 degrees yaw)
+			TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
 			SetActorRotation(FRotator(0.f, -90, 0.f));
 		}
 

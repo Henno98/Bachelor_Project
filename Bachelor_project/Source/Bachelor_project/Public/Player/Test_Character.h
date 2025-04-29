@@ -175,7 +175,7 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FVector BulletSize{ FVector(1.f) };
 
-
+    FVector TargetSocketOffset;
 
 
 
