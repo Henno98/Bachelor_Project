@@ -152,7 +152,16 @@ void ATest_Character::Tick(float DeltaTime)
 		bStartedJump = false;
 		bFinishJump = false;
 		bHasDoubleJumped = false;
+		
 
+	}
+	if (GetCharacterMovement()->IsFalling())
+	{
+		bMidJump = true;
+	}
+	else
+	{
+		bMidJump = false;
 	}
 
 	if (Springarm)
@@ -299,24 +308,15 @@ void ATest_Character::GAS_Dash()
 {
 	if (bIsDashing) return;
 
+	bIsDashing = true;
 	if (AbilitySystemComponent && GA_Dash)
 	{
-
-			bIsDashing = true;
-
 
 			FGameplayTagContainer jumpGameTagContainer;
 			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Dash")));
 			AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
 
-			FTimerHandle TimerHandle;
-			
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-				{
-
-					bIsDashing = false;
-
-				}), 1.f, false);
+		
 		}
 		
 

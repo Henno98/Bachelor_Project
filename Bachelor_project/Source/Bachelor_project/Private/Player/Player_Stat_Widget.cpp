@@ -57,13 +57,6 @@ void UPlayer_Stat_Widget::UpdateBioMass(int32 currentbiomass)
 
 }
 
-void UPlayer_Stat_Widget::UpdateTutorialText(const FString& newtext)
-{
-	if (TutorialTextBlock)
-	{
-		TutorialTextBlock->SetText(FText::FromString(newtext));
-	}
-}
 
 void UPlayer_Stat_Widget::CreateHealthPointImages()
 {

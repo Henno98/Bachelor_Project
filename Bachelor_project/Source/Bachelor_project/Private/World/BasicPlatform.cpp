@@ -18,7 +18,8 @@ ABasicPlatform::ABasicPlatform()
 	TriggerBox->SetGenerateOverlapEvents(true);
 	TriggerBox->SetBoxExtent(FVector(200.0f, 200.0f, 100.0f)); // Adjust size as needed
 	TriggerBox->OnComponentBeginOverlap.AddDynamic(this, &ABasicPlatform::OnPlayerEnterTrigger);
-	
+	TriggerBox->OnComponentEndOverlap.AddDynamic(this, &ABasicPlatform::LeftTriggerBox);
+
 }
 
 // Called when the game starts or when spawned
@@ -31,31 +32,59 @@ void ABasicPlatform::BeginPlay()
 void ABasicPlatform::OnPlayerEnterTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor && OtherActor->IsA(ATest_Character::StaticClass()))
-	{
-		// Assuming you have a reference to your HUD to show the tutorial text
-		APlayer_HUD* HUD = Cast<APlayer_HUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD());
-		if (HUD)
+	//if (bHasoverlapped) return;
+
+
+	if (OtherActor->IsA<ATest_Character>()) {
+		APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+		if (PC)
 		{
-			HUD->ShowTutorialText(TutorialText); // Display the tutorial text
-			// In OnPlayerEnterTrigger:
-			
-			GetWorld()->GetTimerManager().SetTimer(TutorialTextTimerHandle, this, &ABasicPlatform::LeftTriggerBox, 5.0f, false);
+			APlayer_HUD* HUD = Cast<APlayer_HUD>(PC->GetHUD());
+			if (HUD)
+			{
+				bHasoverlapped = true;
+				HUD->ShowText(TutorialText);
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("HUD is null or not of type APlayer_HUD"));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("PlayerController not found"));
 		}
 	}
 
 }
 
-void ABasicPlatform::LeftTriggerBox()
+void ABasicPlatform::LeftTriggerBox(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	
-		// Clear the tutorial text
-		APlayer_HUD* HUD = Cast<APlayer_HUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD());
-		if (HUD)
+//if (!bHasoverlapped) return;
+
+
+	if (OtherActor->IsA<ATest_Character>()) {
+		UE_LOG(LogTemp, Warning, TEXT("LeftTriggerBox triggered by: %s"), *OtherActor->GetName());
+		APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+		if (PC)
 		{
-			HUD->ClearText();  // Call function to clear the text in HUD
+			APlayer_HUD* HUD = Cast<APlayer_HUD>(PC->GetHUD());
+			if (HUD)
+			{
+				HUD->HideText();
+				bHasoverlapped = false;
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("HUD is null or not of type APlayer_HUD"));
+			}
 		}
-	
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("PlayerController not found"));
+		}
+	}
 
 }
 

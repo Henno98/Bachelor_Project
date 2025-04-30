@@ -15,7 +15,15 @@ void APlayer_HUD::BeginPlay()
         Player_Stat_Widget = CreateWidget<UPlayer_Stat_Widget>(GetWorld(), StatWidgetClass);
        
     }
-
+    if (TextWidgetClass)
+    {
+        TextBoxWidget = CreateWidget<UText_Widget>(GetWorld(), TextWidgetClass);
+        if (TextBoxWidget)
+        {
+            TextBoxWidget->AddToViewport();
+            TextBoxWidget->SetVisibility(ESlateVisibility::Hidden); // start hidden
+        }
+    }
     if (MainMenuWidgetClass)
     {
         Main_Menu = CreateWidget<UMain_Menu_Widget>(GetWorld(), MainMenuWidgetClass);
@@ -25,32 +33,7 @@ void APlayer_HUD::BeginPlay()
     }
 }
 
-void APlayer_HUD::ShowTutorialText(const FString& Text)
-{
 
-    if (Player_Stat_Widget)
-    {
-        UTextBlock* TextBlock = Cast<UTextBlock>(Player_Stat_Widget->GetWidgetFromName(TEXT("TutorialTextBlock")));
-        if (TextBlock)
-        {
-            TextBlock->SetText(FText::FromString(Text));
-        }
-    }
-}
-
-void APlayer_HUD::ClearText()
-{
-    if (Player_Stat_Widget)
-    {
-        // Ensure the widget is added to the viewport
-        UTextBlock* TextBlock = Cast<UTextBlock>(Player_Stat_Widget->GetWidgetFromName(TEXT("TutorialTextBlock")));
-        if (TextBlock)
-        {
-            // Clear the text
-            TextBlock->SetText(FText::FromString(""));
-        }
-    }
-}
 
 void APlayer_HUD::LoadPlayerHud()
 {
@@ -85,6 +68,30 @@ void APlayer_HUD::CloseMenu()
         Main_Menu->RemoveFromParent();
     }
 }
+
+void APlayer_HUD::ShowText(const FString& Text)
+{
+    if (TextBoxWidget)
+    {
+        TextBoxWidget->UpdateWidget(Text);
+        TextBoxWidget->SetVisibility(ESlateVisibility::Visible);
+         // Clear any existing timer before setting a new one
+        GetWorld()->GetTimerManager().ClearTimer(TextHideTimerHandle);
+
+        // Set timer to hide text after 5 seconds
+        GetWorld()->GetTimerManager().SetTimer(TextHideTimerHandle, this, &APlayer_HUD::HideText, 5.0f, false);
+  
+    }
+}
+
+void APlayer_HUD::HideText()
+{
+    if (TextBoxWidget)
+    {
+        TextBoxWidget->SetVisibility(ESlateVisibility::Hidden);
+    }
+}
+
 
 void APlayer_HUD::ToggleMenu()
 {

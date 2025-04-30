@@ -25,9 +25,6 @@ class BACHELOR_PROJECT_API UPlayer_Stat_Widget : public UUserWidget
 
     UFUNCTION()
     void UpdateBioMass(int32 currentbiomass);
-
-    UFUNCTION()
-    void UpdateTutorialText(const FString& newtext);
 protected:
     // Reference to the canvas panel where health images will be added
     UPROPERTY(meta = (BindWidget))
@@ -43,8 +40,6 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnergyBar")
     class UTexture2D* BioMassImage;
 
-    UPROPERTY(meta = (BindWidget))
-    UTextBlock* TutorialTextBlock;
 
     // Maximum health (for example, set to 10)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
