@@ -25,6 +25,8 @@ EBTNodeResult::Type UCrowTask_MeleeAttack::ExecuteTask(UBehaviorTreeComponent& O
     CrowBoss = Cast<ACrowBoss>(BossAI->GetPawn());
     if (!CrowBoss) return EBTNodeResult::Failed;
 
+    if (CrowBoss->GetIsDying() == true) return EBTNodeResult::Failed;
+
     PlayerActor = Cast<AActor>(Blackboard->GetValueAsObject("Player"));
     if (!PlayerActor) return EBTNodeResult::Failed;
 

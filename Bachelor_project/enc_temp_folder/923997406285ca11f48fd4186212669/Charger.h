@@ -19,18 +19,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
-	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int Health {5};
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int Damage{ 1 };
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
-	float PatrolSpeed{ 400.f };
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
-	float ChargeSpeed{ 700.f };
-
-
-	//Animation state
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "State")
 	bool bIsDead = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
@@ -39,7 +32,6 @@ protected:
 	bool bIsCharging = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsPatrolling = false;
-	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -57,10 +49,6 @@ public:
 	int GetHealth() { return Health; }
 	void SetHealth(int newhealth){Health = newhealth;}
 	int GetDamage() { return Damage; }
-	float GetWalkSpeed() { return PatrolSpeed; }
-	float GetChargeSpeed() { return ChargeSpeed; }
-
-
 	bool GetIsDying() { return bIsDying; }
 	bool GetIsDead() { return bIsDead; }
 	bool GetIsCharging() { return bIsCharging; }

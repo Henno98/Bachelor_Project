@@ -61,7 +61,7 @@ EBTNodeResult::Type UCharger_ChargeTask::ExecuteTask(UBehaviorTreeComponent& Own
         ACharacter* CharacterPawn = Cast<ACharacter>(ControlledPawn);
         if (CharacterPawn && CharacterPawn->GetCharacterMovement())
         {
-            CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = ChargerController->ChargingSpeed;
+            CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = Charger->GetChargeSpeed();
         }
     }
 
@@ -128,7 +128,7 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
             ACharacter* CharacterPawn = Cast<ACharacter>(ControlledPawn);
             if (CharacterPawn && CharacterPawn->GetCharacterMovement())
             {
-                CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = ChargerController->NormalSpeed;
+                CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = Charger->GetWalkSpeed();
             }
 
             // Set cooldown

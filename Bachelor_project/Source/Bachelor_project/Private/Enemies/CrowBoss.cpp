@@ -52,9 +52,12 @@ void ACrowBoss::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (GetHealth() < 0)
+	if (GetHealth() <= 0)
 	{
-		Death();
+		bIsDying = true;
+		if (bIsDead) {
+			Death();
+		}
 	}
 }
 

@@ -33,7 +33,10 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 
     AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject("Player"));
     if (!TargetActor) return EBTNodeResult::Failed;
+
     ACrowBoss* CrowBoss = Cast<ACrowBoss>(AIPawn);
+
+    if (CrowBoss->GetIsDying() == true) return  EBTNodeResult::Failed;
 
     float DistanceToPlayer = FVector::Dist(AIPawn->GetActorLocation(), TargetActor->GetActorLocation());
     if (DistanceToPlayer > CrowBoss->GetVisionRange() ) return EBTNodeResult::Failed;
