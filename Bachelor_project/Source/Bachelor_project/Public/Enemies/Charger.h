@@ -23,7 +23,15 @@ protected:
 	int Health {5};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int Damage{1};
+	int Damage{ 1 };
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "State")
+	bool bIsDead = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsDying = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsCharging = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsPatrolling = false;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -41,4 +49,13 @@ public:
 	int GetHealth() { return Health; }
 	void SetHealth(int newhealth){Health = newhealth;}
 	int GetDamage() { return Damage; }
+	bool GetIsDying() { return bIsDying; }
+	bool GetIsDead() { return bIsDead; }
+	bool GetIsCharging() { return bIsCharging; }
+	bool GetIsPatrolling() { return bIsPatrolling; }
+
+	void SetIsDying(bool state) { bIsDying = state; };
+	void SetIsDead(bool state) { bIsDead = state; };
+	void SetIsCharging(bool state) { bIsCharging = state; };
+	void SetIsPatrolling(bool state) { bIsPatrolling = state; };
 };

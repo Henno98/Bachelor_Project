@@ -4,6 +4,7 @@
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "NavigationSystem.h"
+#include "Enemies/Charger.h"
 #include "Enemies/Charger_AIController.h"
 #include "Enemies/Wandering_Target_Point.h"
 #include "Kismet/GameplayStatics.h"
@@ -14,6 +15,9 @@ UCharger_WanderingTask::UCharger_WanderingTask()
 
 EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+   
+   
+
     UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
     if (!BlackboardComp) return EBTNodeResult::Failed;
 
@@ -22,7 +26,7 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWandering_Target_Point::StaticClass(), WanderingPoints);
 
     //UE_LOG(LogTemp, Warning, TEXT("Found %d wandering points"), WanderingPoints.Num());
-
+     
     if (WanderingPoints.Num() == 0)
     {
         UE_LOG(LogTemp, Warning, TEXT("No wandering points found!"));
@@ -31,7 +35,11 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
 
     ACharger_AIController* ChargerController = Cast<ACharger_AIController>(OwnerComp.GetAIOwner());
     if (!ChargerController) return EBTNodeResult::Failed;
-
+    APawn* Pawn = ChargerController->GetPawn();
+    ACharger* Charger = Cast<ACharger>(Pawn);
+    if (!Charger || Charger->GetIsDying()) return EBTNodeResult::Failed;
+    if (Charger->GetIsDying()) return EBTNodeResult::Failed;
+    Charger->SetIsPatrolling(true);
     // Get the previous wandering point (if any)
     AWandering_Target_Point* OldTargetPoint = Cast<AWandering_Target_Point>(BlackboardComp->GetValueAsObject("WanderingPoint"));
 
@@ -64,7 +72,7 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
     ChargerController->charger_start_location = StartLocation;
     ChargerController->charger_target_location = TargetLocation;
     ChargerController->InitialDistance = FVector::Distance(StartLocation, TargetLocation);
-
+  
     // Set the target destination for actual movement in a separate task or service
     BlackboardComp->SetValueAsVector("MoveToLocation", TargetLocation);
 

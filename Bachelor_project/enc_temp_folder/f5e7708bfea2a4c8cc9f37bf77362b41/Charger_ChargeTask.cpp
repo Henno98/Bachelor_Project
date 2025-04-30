@@ -12,7 +12,7 @@
 
 UCharger_ChargeTask::UCharger_ChargeTask()
 {
-    bNotifyTick = true; // Enables TickTask() to be called
+
 }
 
 EBTNodeResult::Type UCharger_ChargeTask::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

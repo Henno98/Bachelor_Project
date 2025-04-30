@@ -45,9 +45,12 @@ float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 void ACharger::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetHealth()<0)
+	if (GetHealth()<=0)
 	{
-		Destroy();
+		bIsDying = true;
+		if (bIsDead) {
+			Destroy();
+		}
 
 	}
 }
@@ -87,6 +90,7 @@ void ACharger::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ACharger::Destroy()
 {
+	
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 }

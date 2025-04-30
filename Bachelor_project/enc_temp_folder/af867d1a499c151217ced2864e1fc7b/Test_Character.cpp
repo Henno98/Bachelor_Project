@@ -61,7 +61,7 @@ void ATest_Character::OnMeleeHitNotify()
 	FVector End = Start + (ForwardVector * 200.f);
 
 	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-	//DrawDebugSphere(GetWorld(), Start, 150.f, 12, FColor::Blue, false, 1.0f);
+	DrawDebugSphere(GetWorld(), Start, 150.f, 12, FColor::Blue, false, 1.0f);
 	DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
 
 	FCollisionQueryParams QueryParams;
@@ -582,7 +582,7 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found charger"));
 			ACharger* charger = Cast<ACharger>(OtherActor);
 			int dmg = charger->GetDamage();
-			Hit(1);
+			Hit(dmg);
 
 		}
 		if (OtherActor->IsA<ACrowBoss>())
@@ -591,7 +591,7 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 
 			ACrowBoss* Boss = Cast<ACrowBoss>(OtherActor);
 			int dmg = Boss->GetDamage();
-			Hit(1);
+			Hit(dmg);
 
 		}
 		if (OtherActor->IsA<Aprojectile>())

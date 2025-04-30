@@ -23,30 +23,18 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
-	int Health{20};
+	UPROPERTY()
+	int Health;
 	UPROPERTY()
 	float MovementSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
-	float AttackDamage{2};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
+	UPROPERTY()
+	float AttackDamage;
+	UPROPERTY()
 	float Stamina;
 	UPROPERTY()
 	AActor* Target;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = Variable)
-	float AttackRange {300.f};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
-	float VisionRange{ 2000.f };
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	bool bIsDead = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	bool bIsDying = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	bool bIsDiving = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	bool bIsPatrolling = false;
-
+	UPROPERTY()
+	float AttackRange;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -66,8 +54,7 @@ public:
 	UFUNCTION()
 	void Death();
 	void OnHit(int damage);
-	UFUNCTION(BlueprintCallable)
-	void DiveAttack(const FName& Socket);
+
 
 	//Getters and setters
 	//Health
@@ -85,23 +72,9 @@ public:
 	AActor* GetAttackTarget() { return Target; }
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
-
-
 	float GetAttackRange() { return AttackRange; }
-	float GetVisionRange() { return VisionRange; }
 	int GetDamage() { return  AttackDamage; }
-
-
 	UPROPERTY(EditDefaultsOnly, Category = "VFX")
 	UNiagaraSystem* DiveImpactEffect;
 
-	bool GetIsDying() { return bIsDying; }
-	bool GetIsDead() { return bIsDead; }
-	bool GetIsDiving() { return bIsDiving; }
-	bool GetIsPatrolling() { return bIsPatrolling; }
-
-	void SetIsDying(bool state) { bIsDying = state; };
-	void SetIsDead(bool state) { bIsDead = state; };
-	void SetIsDiving(bool state) { bIsDiving = state; };
-	void SetIsPatrolling(bool state) { bIsPatrolling = state; };
 };

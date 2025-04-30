@@ -16,7 +16,7 @@ class BACHELOR_PROJECT_API UReturnToOrigin_Task : public UBTTaskNode
 
 	UReturnToOrigin_Task();
 	EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory);
-	void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+
 	UPROPERTY(EditAnywhere, Category = "Dive")
 	float DiveSpeed = 2000.f;
 };

@@ -33,10 +33,9 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 
     AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject("Player"));
     if (!TargetActor) return EBTNodeResult::Failed;
-    ACrowBoss* CrowBoss = Cast<ACrowBoss>(AIPawn);
 
     float DistanceToPlayer = FVector::Dist(AIPawn->GetActorLocation(), TargetActor->GetActorLocation());
-    if (DistanceToPlayer > CrowBoss->GetVisionRange() ) return EBTNodeResult::Failed;
+    if (DistanceToPlayer > 600.0f) return EBTNodeResult::Failed;
 
     if (BlackboardComp->GetValueAsBool("IsAttacking")) return EBTNodeResult::Failed;
 
@@ -65,7 +64,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);
     BlackboardComp->SetValueAsVector("OriginalPosition", CurrentLocation);
 
-    
+    ACrowBoss* CrowBoss = Cast<ACrowBoss>(AIPawn);
 
     if (CrowBoss)
     {
@@ -107,8 +106,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
                     );
                     
                 }
-                CrowBoss->DiveAttack("DiveAttackSocket");
-                CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+
                 BlackboardComp->SetValueAsBool("LandedFromDive", true);
             },
             0.3f,

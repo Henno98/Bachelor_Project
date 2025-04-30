@@ -6,7 +6,6 @@
 #include "projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
 
 // Sets default values
@@ -149,58 +148,9 @@ void ACrowBoss::OnHit(int damage)
 	SetHealth(GetHealth() - damage);
 }
 
-void ACrowBoss::DiveAttack(const FName& Socket)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Started collision check"));
-
-	FVector Start = GetMesh()->GetSocketLocation(Socket);
-	FVector ForwardVector = GetActorForwardVector();
-	FVector End = Start + (ForwardVector);
-
-	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-	//DrawDebugSphere(GetWorld(), Start, 150.f, 12, FColor::Blue, false, 1.0f);
-	DrawDebugSphere(GetWorld(), End, 200.f, 12, FColor::Blue, false, 1.0f);
-
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-
-	TArray<FHitResult> HitResults;
-	TSet<AActor*> HitActors; // Track unique actors
-
-	bool bHit = GetWorld()->SweepMultiByChannel(
-		HitResults,
-		Start,
-		End,
-		FQuat::Identity,
-		ECC_Pawn,
-		FCollisionShape::MakeSphere(200.f),
-		QueryParams
-	);
-
-	if (bHit)
-	{
-		for (const FHitResult& Hit : HitResults)
-		{
-			AActor* HitActor = Hit.GetActor();
-			if (HitActor && !HitActors.Contains(HitActor))
-			{
-				HitActors.Add(HitActor); // Mark as hit
-
-				UE_LOG(LogTemp, Warning, TEXT("Hit actor: %s"), *HitActor->GetName());
-				//DrawDebugSphere(GetWorld(), Hit.ImpactPoint, 10.f, 12, FColor::Red, false, 1.0f);
-				if (Hit.GetActor()->IsA<ACharacter>()) {
-					
-				}
-				UGameplayStatics::ApplyDamage(HitActor, GetDamage(), GetController(), this, nullptr);
-			}
-		}
-	}
-
-}
-
 
 void ACrowBoss::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                          UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor != this || OtherActor->GetOwner() != this)
 	{

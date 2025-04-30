@@ -5,7 +5,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 
 #include "TimerManager.h"
-#include "Enemies/CrowBoss.h"
 #include "Engine/World.h"
 
 UCrowTask_MeleeAttack::UCrowTask_MeleeAttack()
@@ -22,13 +21,13 @@ EBTNodeResult::Type UCrowTask_MeleeAttack::ExecuteTask(UBehaviorTreeComponent& O
     Blackboard = OwnerComp.GetBlackboardComponent();
     if (!Blackboard) return EBTNodeResult::Failed;
 
-    CrowBoss = Cast<ACrowBoss>(BossAI->GetPawn());
+    CrowBoss = Cast<ACharacter>(BossAI->GetPawn());
     if (!CrowBoss) return EBTNodeResult::Failed;
 
     PlayerActor = Cast<AActor>(Blackboard->GetValueAsObject("Player"));
     if (!PlayerActor) return EBTNodeResult::Failed;
 
-    AttackRange = CrowBoss->GetAttackRange();
+    AttackRange = 150.f;
     bHasAttacked = false;
 
     CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
@@ -62,7 +61,7 @@ void UCrowTask_MeleeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* N
             // Sphere(CrowBoss->GetWorld(), HitLocation, 60.f, 12, FColor::Red, false, 1.0f);
 
             bHasAttacked = true;
-            CrowBoss->DiveAttack("MeleeSocket");
+
             // Stop immediately after attacking
             CrowBoss->GetCharacterMovement()->StopMovementImmediately();
 

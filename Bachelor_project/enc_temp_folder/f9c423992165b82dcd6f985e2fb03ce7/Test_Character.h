@@ -44,8 +44,6 @@ protected:
     virtual void Tick(float DeltaTime) override;
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-    virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 public:
 
 
@@ -271,11 +269,3 @@ public:
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
 };
-
-inline float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-	class AController* EventInstigator, AActor* DamageCauser)
-{
-    Hit(DamageAmount);
-
-	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-}

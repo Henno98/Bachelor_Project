@@ -24,7 +24,7 @@ protected:
 
 private:
      ACrowBoss_AIController* BossAI;
-    class ACrowBoss* CrowBoss;
+    class ACharacter* CrowBoss;
     class AActor* PlayerActor;
     class UBlackboardComponent* Blackboard;
 
