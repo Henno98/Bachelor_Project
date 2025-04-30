@@ -95,6 +95,13 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "VFX")
 	UNiagaraSystem* DiveImpactEffect;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float RangedAttackDistance = 1500.f;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class ACrowBoss_Projectile> ProjectileClass;
+
+
 	bool GetIsDying() { return bIsDying; }
 	bool GetIsDead() { return bIsDead; }
 	bool GetIsDiving() { return bIsDiving; }

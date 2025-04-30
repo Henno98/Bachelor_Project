@@ -2,26 +2,42 @@
 
 
 #include "Enemies/CrowBoss_Projectile.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
-// Sets default values
+
 ACrowBoss_Projectile::ACrowBoss_Projectile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = false;
 
+    Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+    RootComponent = Mesh;
+    Mesh->SetSimulatePhysics(false);
+    Mesh->SetNotifyRigidBodyCollision(true);
+    Mesh->OnComponentHit.AddDynamic(this, &ACrowBoss_Projectile::OnHit);
+
+    ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
+    ProjectileMovement->InitialSpeed = 1200.0f;
+    ProjectileMovement->MaxSpeed = 1200.0f;
+    ProjectileMovement->bRotationFollowsVelocity = true;
+    ProjectileMovement->ProjectileGravityScale = 0.0f;
 }
 
 // Called when the game starts or when spawned
 void ACrowBoss_Projectile::BeginPlay()
 {
-	Super::BeginPlay();
-	
+    Super::BeginPlay();
+
 }
 
 // Called every frame
 void ACrowBoss_Projectile::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
+}
+
+void ACrowBoss_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+    FVector NormalImpulse, const FHitResult& Hit)
+{
 }
 
