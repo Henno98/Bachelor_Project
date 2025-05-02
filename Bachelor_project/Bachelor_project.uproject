@@ -12,8 +12,8 @@
 				"Engine",
 				"CoreUObject",
 				"AIModule",
-				"BehaviorTreeEditor",
-				"GameplayAbilities"
+				"GameplayAbilities",
+				"UMG"
 			]
 		}
 	],

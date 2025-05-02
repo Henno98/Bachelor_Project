@@ -28,13 +28,13 @@ public:
 	UStaticMeshComponent* staticmesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
 	USphereComponent* collider;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Targeting")
 	float lifetime = 5;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Targeting")
 	FVector TargetLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Targeting")
 	FVector CurrentLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "staticmesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Targeting")
 	FVector Velocity;
 	UFUNCTION()
 	void Travel(float deltatime);
@@ -48,10 +48,16 @@ public:
 
 	float Timer;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collider data")
+	int Damage;
+
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
 		bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	int GetDamage() { return Damage; }
+	void SetDamage(int newdamage) { Damage = newdamage; }
 
 	AActor* Owner;
 	AActor* GetSpawner() { return Owner; }
