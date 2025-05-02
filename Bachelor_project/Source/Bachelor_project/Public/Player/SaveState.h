@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Test_Character.h"
 #include "GameFramework/SaveGame.h"
 #include "SaveState.generated.h"
 
@@ -37,9 +38,12 @@ public:
 	bool bHasWallLatchPowerUp;
 	UPROPERTY()
 	class UWorld* SavedWorld;
-	UPROPERTY()
-	TArray<AActor*> Enemies;
-	TArray<FVector> enemylocation;
-	TArray<FRotator> EnemyRotation;
+UPROPERTY()
+ATest_Character* Player;
+UPROPERTY()
+FString CurrentLevel;
 	USaveState();
+
+	void SaveGame();
+	void LoadGame();
 };

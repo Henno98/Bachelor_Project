@@ -13,7 +13,7 @@ ALevelStreamingActor::ALevelStreamingActor()
 	OverlapVolume = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapVolume"));
 	SetRootComponent(OverlapVolume);
 	OverlapVolume->OnComponentBeginOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapBegins);
-	OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
+	//OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
 }
 
 // Called when the game starts or when spawned
