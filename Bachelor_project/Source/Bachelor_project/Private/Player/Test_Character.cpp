@@ -170,17 +170,7 @@ void ATest_Character::Tick(float DeltaTime)
 		FVector NewOffset = FMath::VInterpTo(CurrentOffset, TargetSocketOffset, DeltaTime, 0.8f);
 		Springarm->SocketOffset = NewOffset;
 	}
-	/*if (bStartedJump)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, .1f, FColor::Red, TEXT("Started jump"),false);
-	}
-	if (bMidJump)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, .1f, FColor::Orange, TEXT("Mid jump"), false);
-	}if (bFinishJump)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, .1f, FColor::Green, TEXT("Finished jump"), false);
-	}*/
+	
 }
 // Called to bind functionality to input
 void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

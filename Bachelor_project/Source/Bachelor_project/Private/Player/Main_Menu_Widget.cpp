@@ -63,8 +63,6 @@ void UMain_Menu_Widget::OnQuitClicked()
 void UMain_Menu_Widget::OnCloseClicked()
 {
 
-
-   
         RemoveFromParent(); // Closes the menu
 
         APlayerController* PC = GetWorld()->GetFirstPlayerController();
