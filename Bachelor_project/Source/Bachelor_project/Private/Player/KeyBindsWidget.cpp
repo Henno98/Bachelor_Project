@@ -12,18 +12,12 @@
 void UKeyBindsWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-    if (CloseButton)
-    {
-        CloseButton->OnClicked.AddDynamic(this, &UKeyBindsWidget::CloseWidget);
-    }
-    if (KeyBindListWidgetClass)
-    {
-       // KeyBindListWidget = CreateWidget<UKeyBindListWidget>(GetWorld(), KeyBindListWidgetClass);
-    }
-    CreateWidget();
+   
+    
+    ConstructWidget();
 }
 
-void UKeyBindsWidget::CreateWidget()
+void UKeyBindsWidget::ConstructWidget()
 {
     VerticalBox->ClearChildren();
      APlayerController* PC = GetOwningPlayer();
@@ -38,23 +32,43 @@ void UKeyBindsWidget::CreateWidget()
     if (!Subsystem)
         return;
    
-
+    TMultiMap<UInputAction*, FKey> KeyboardKeys;
+    TMultiMap<UInputAction*, FKey> GamepadKeys;
     // Get mappings from the input context
     TArray<FEnhancedActionKeyMapping> Mappings = MappingContext->GetMappings();
     if (VerticalBox)
     {
-        for (const auto& Mapping : Mappings)
+        for (const auto& Mapping : MappingContext->GetMappings())
         {
-         
-                 if (KeyBindListWidget)
-				  {
-                    // Initialize the key binding row
-                     KeyBindListWidget->InitializeKeyBinding(Mapping.Action, Mapping.Key);
+            if (!Mapping.Action)
+                continue;
 
-                    // Add the row to the VerticalBox
-                    VerticalBox->AddChildToVerticalBox(KeyBindListWidget);
-                
-				 }
+            if (Mapping.Key.IsGamepadKey())
+                GamepadKeys.Add(Mapping.Action, Mapping.Key);
+            else
+                KeyboardKeys.Add(Mapping.Action, Mapping.Key);
+        }
+
+        TSet<UInputAction*> AllActions;
+        for (auto& Pair : KeyboardKeys)
+            AllActions.Add(Pair.Key);
+        for (auto& Pair : GamepadKeys)
+            AllActions.Add(Pair.Key);
+        for (UInputAction* Action : AllActions)
+        {
+            TArray<FKey> ActionKeyboardKeys;
+            KeyboardKeys.MultiFind(Action, ActionKeyboardKeys);
+
+            TArray<FKey> ActionGamepadKeys;
+            GamepadKeys.MultiFind(Action, ActionGamepadKeys);
+
+            UKeyBindListWidget* Row = CreateWidget<UKeyBindListWidget>(GetWorld(), KeyBindListWidgetClass);
+            if (Row)
+            {
+                Row->InitializeKeyBinding(Action, ActionKeyboardKeys, ActionGamepadKeys);
+                Row->ParentMenu = this;
+                VerticalBox->AddChildToVerticalBox(Row);
+            }
         }
     }
 }
@@ -76,8 +90,8 @@ void UKeyBindsWidget::OnKeySelected(FInputChord SelectedKey)
 
 void UKeyBindsWidget::UpdateKeyBindDisplay()
 {
-    
-    
+   
+    ConstructWidget();
 }
 
 void UKeyBindsWidget::RebindKey(UInputAction* Action, FKey NewKey)
@@ -85,35 +99,32 @@ void UKeyBindsWidget::RebindKey(UInputAction* Action, FKey NewKey)
     if (!MappingContext || !Action)
         return;
 
-    // Remove all existing mappings for this action
+    // Remove only matching key type
     TArray<FEnhancedActionKeyMapping> ExistingMappings = MappingContext->GetMappings();
-    for (const FEnhancedActionKeyMapping& Mapping : ExistingMappings)
+    for (const auto& Mapping : ExistingMappings)
     {
-        if (Mapping.Action == Action)
+        if (Mapping.Action == Action &&
+            Mapping.Key.IsGamepadKey() == NewKey.IsGamepadKey()) // Match by input type
         {
             MappingContext->UnmapKey(Mapping.Action, Mapping.Key);
         }
     }
 
-    // Add the new key binding
     MappingContext->MapKey(Action, NewKey);
 
-    // Optional: Reapply the mapping context to update the input system
-    if (APlayerController* PC = GetOwningPlayer())
+    // Reapply context to take effect
+    if (auto* PC = GetOwningPlayer())
     {
-        if (ULocalPlayer* LocalPlayer = PC->GetLocalPlayer())
+        if (auto* LocalPlayer = PC->GetLocalPlayer())
         {
-            if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
+            if (auto* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
             {
-                // Remove and re-add to ensure updates
                 Subsystem->RemoveMappingContext(MappingContext);
                 Subsystem->AddMappingContext(MappingContext, 0);
             }
         }
     }
 
-    // Optional: Print debug log
-    UE_LOG(LogTemp, Log, TEXT("Rebound action '%s' to key '%s'"),
-        *Action->GetFName().ToString(), *NewKey.ToString());
+    UE_LOG(LogTemp, Log, TEXT("Rebound action %s to %s"), *Action->GetName(), *NewKey.ToString());
 }
 

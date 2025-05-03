@@ -22,7 +22,13 @@ void UMain_Menu_Widget::NativeConstruct()
         Mapping_Menu->OnClicked.Clear();
         Mapping_Menu->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnMappingMenuClicked);
     }
-    CreateSaveSlotList();
+    if (Load_Button)
+    {
+        Load_Button->OnClicked.Clear();
+        Load_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::CreateSaveSlotList);
+
+    }
+   // CreateSaveSlotList();
     FTimerHandle TimerHandle;
     GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 	if (Close_Button)
@@ -46,17 +52,25 @@ void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
     }
 }
 
+void UMain_Menu_Widget::OnMappingMenuClicked()
 {
     APlayerController* PC = GetWorld()->GetFirstPlayerController();
-    if (PC)
+    if (PC && KeybindsWidgetClass)
     {
-        if (KeybindsWidgetClass)
+        if (!Keybindwidget)
         {
-            UKeyBindsWidget* Keybind = CreateWidget<UKeyBindsWidget>(GetWorld(), KeybindsWidgetClass);
-            
-            if (Keybind)
+            Keybindwidget = CreateWidget<UKeyBindsWidget>(GetWorld(), KeybindsWidgetClass);
+        }
+
+        if (Keybindwidget)
+        {
+            if (!KeyBindsContainer->HasChild(Keybindwidget))
             {
-                Keybind->AddToViewport();
+                KeyBindsContainer->AddChild(Keybindwidget);
+            }
+            else
+            {
+                KeyBindsContainer->ClearChildren(); // Hides/removes it
             }
         }
     }
@@ -83,7 +97,7 @@ void UMain_Menu_Widget::OnQuitClicked()
 
 void UMain_Menu_Widget::OnCloseClicked()
 {
-
+		
         RemoveFromParent(); // Closes the menu
 
         APlayerController* PC = GetWorld()->GetFirstPlayerController();
@@ -108,34 +122,44 @@ void UMain_Menu_Widget::OnCloseClicked()
 
 void UMain_Menu_Widget::CreateSaveSlotList()
 {
-    const int32 MaxSlots = 3; // Arbitrary max slot count
-    SlotListContainer->ClearChildren();
-    for (int32 i = 0; i < MaxSlots; ++i)
+    if (SlotListContainer->GetChildrenCount() == 0)
     {
-        FString SlotName = FString::Printf(TEXT("Slot_%d"), i);
+        SlotListContainer->ClearChildren();
+        SaveSlotWidgets.Empty();
 
-        CreateSaveSlotButton(SlotName, i); // Always create it
-        if (!UGameplayStatics::DoesSaveGameExist(SlotName, i)) {
-            OnSaveClicked(SlotName, i);
+        for (int32 i = 0; i < MaxSlots; ++i)
+        {
+            FString SlotName = FString::Printf(TEXT("Slot_%d"), i);
+
+            CreateSaveSlotButton(SlotName, i);
+
+            if (!UGameplayStatics::DoesSaveGameExist(SlotName, i)) {
+                OnSaveClicked(SlotName, i);
+            }
         }
     }
-
-    
+    else
+    {
+        // Remove all slot widgets from container
+        SlotListContainer->ClearChildren();
+        SaveSlotWidgets.Empty();
+    }
 }
 
 void UMain_Menu_Widget::CreateSaveSlotButton(const FString& slotname, int32 slotnumber)
 {
 
-
     if (!SaveSlotWidgetClass || !SlotListContainer) return;
-USaveSlotListWidget* Entry = CreateWidget<USaveSlotListWidget>(GetWorld(), SaveSlotWidgetClass);
-    if (!Entry) return;
 
-    Entry->SlotName = slotname;
-    Entry->SlotIndex = slotnumber;
-    Entry->ParentMenu = this;
+    USaveSlotListWidget* NewSlotWidget = CreateWidget<USaveSlotListWidget>(GetWorld(), SaveSlotWidgetClass);
+    if (!NewSlotWidget) return;
 
-    SlotListContainer->AddChild(Entry);
+    NewSlotWidget->SlotName = slotname;
+    NewSlotWidget->SlotIndex = slotnumber;
+    NewSlotWidget->ParentMenu = this;
+
+    SlotListContainer->AddChild(NewSlotWidget);
+    SaveSlotWidgets.Add(NewSlotWidget);
 }
 
 void UMain_Menu_Widget::OnPressedSave()

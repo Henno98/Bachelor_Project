@@ -23,7 +23,7 @@ class BACHELOR_PROJECT_API UKeyBindsWidget : public UUserWidget
 public:
     virtual void NativeConstruct() override;
     UFUNCTION()
-    void CreateWidget();
+    void ConstructWidget();
     UFUNCTION()
     void CloseWidget();
 
@@ -39,16 +39,8 @@ public:
     class UKeyBindListWidget* KeyBindListWidget;
     UPROPERTY(meta = (BindWidget))
 	UVerticalBox* VerticalBox;
-    UPROPERTY(meta = (BindWidget))
-    UHorizontalBox* HorizontalBox;
-   /* UPROPERTY(meta = (BindWidget))
-	UImage* ButtonImage;*/
-    UPROPERTY(meta = (BindWidget))
-	UButton* Button;
-    UPROPERTY(meta = (BindWidget))
-    UButton* CloseButton;
-    UPROPERTY(meta = (BindWidget))
-	UTextBlock* InputText;
+   
+   
 
     UFUNCTION()
     void OnKeySelected(FInputChord SelectedKey);

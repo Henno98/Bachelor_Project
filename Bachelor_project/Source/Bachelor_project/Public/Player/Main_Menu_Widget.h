@@ -25,20 +25,31 @@ protected:
 	class UButton* Close_Button;
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Mapping_Menu;
-
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Load_Button;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "SaveSlots")
+	int32 MaxSlots = 3;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UPlayer_Stat_Widget> PlayerStatsWidgetClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UKeyBindsWidget> KeybindsWidgetClass;
+	UPROPERTY()
+	class UKeyBindsWidget* Keybindwidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	TSubclassOf<USaveSlotListWidget> SaveSlotWidgetClass;
+	UPROPERTY()
+	USaveSlotListWidget* SaveSlotList;
+	UPROPERTY()
+	TArray<USaveSlotListWidget*> SaveSlotWidgets;
 	// Function to update the health bar
 public:
 
 	UPROPERTY(meta = (BindWidget))
 	UVerticalBox* SlotListContainer;
+	UPROPERTY(meta = (BindWidget))
+	UVerticalBox* KeyBindsContainer;
 	UFUNCTION()
 	void OnLoadClicked(const FString& slotname, int32 slotnumber);
 

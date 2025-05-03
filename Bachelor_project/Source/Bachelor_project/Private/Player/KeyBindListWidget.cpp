@@ -10,43 +10,49 @@ void UKeyBindListWidget::NativeConstruct()
 	Super::NativeConstruct();
 
     // Bind the key selection event to the OnKeySelected function
-    if (KeySelector)
+    if (KeyboardKeySelector)
     {
-        KeySelector->OnKeySelected.Clear();
-        KeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnKeySelected);
+        KeyboardKeySelector->OnKeySelected.Clear();
+        KeyboardKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnKeyboardKeySelected);
+    }
+
+    if (ControllerKeySelector)
+    {
+        ControllerKeySelector->OnKeySelected.Clear();
+        ControllerKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnControllerKeySelected);
     }
 }
 
-void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, FKey DefaultKey)
+
+void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray<FKey>& KeyboardKeys,
+	const TArray<FKey>& GamepadKeys)
 {
     InputAction = Action;
 
-    // Set the action name text
     if (ActionTextBlock)
-    {
         ActionTextBlock->SetText(FText::FromName(Action->GetFName()));
-    }
 
-    // Set the default key in the key selector
-    if (KeySelector)
-    {
-        KeySelector->SetSelectedKey(FInputChord(DefaultKey));
-    }
+    if (KeyboardKeySelector && KeyboardKeys.Num() > 0)
+        KeyboardKeySelector->SetSelectedKey(FInputChord(KeyboardKeys[0]));
+
+    if (ControllerKeySelector && GamepadKeys.Num() > 0)
+        ControllerKeySelector->SetSelectedKey(FInputChord(GamepadKeys[0]));
 }
 
-void UKeyBindListWidget::OnKeySelected(FInputChord SelectedKey)
+void UKeyBindListWidget::OnKeyboardKeySelected(FInputChord SelectedKey)
 {
-    // Call a function in your main widget or player controller to rebind the key
-    if (InputAction)
+    if (InputAction && ParentMenu && !SelectedKey.Key.IsGamepadKey())
     {
-        if (ParentMenu) {
-            // Rebind the key via your rebind function
-            UKeyBindsWidget* PC = Cast<UKeyBindsWidget>(ParentMenu);
-            if (PC)
-            {
-                PC->RebindKey(InputAction, SelectedKey.Key);
-            }
-        }
+        Cast<UKeyBindsWidget>(ParentMenu)->RebindKey(InputAction, SelectedKey.Key);
     }
 }
+
+void UKeyBindListWidget::OnControllerKeySelected(FInputChord SelectedKey)
+{
+    if (InputAction && ParentMenu && SelectedKey.Key.IsGamepadKey())
+    {
+        Cast<UKeyBindsWidget>(ParentMenu)->RebindKey(InputAction, SelectedKey.Key);
+    }
+}
+
 

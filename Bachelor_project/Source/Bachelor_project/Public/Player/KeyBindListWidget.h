@@ -29,15 +29,21 @@ public:
 
     // KeySelector for the key binding
     UPROPERTY(meta = (BindWidget))
-    UInputKeySelector* KeySelector;
+    UInputKeySelector* KeyboardKeySelector;
+    UPROPERTY(meta = (BindWidget))
+    UInputKeySelector* ControllerKeySelector;
     UPROPERTY()
     TObjectPtr<UKeyBindsWidget> ParentMenu;
 
     // Initialize the widget with an action and key
-    void InitializeKeyBinding(UInputAction* Action, FKey DefaultKey);
+    void InitializeKeyBinding(UInputAction* Action, const TArray<FKey>& KeyboardKeys, const TArray<FKey>& GamepadKeys);
+
     // Event when key is selected
     UFUNCTION()
-    void OnKeySelected(FInputChord SelectedKey);
+    void OnKeyboardKeySelected(FInputChord SelectedKey);
+	UFUNCTION()
+	void OnControllerKeySelected(FInputChord SelectedKey);
 
+		
    
 };
