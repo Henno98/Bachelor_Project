@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
-#include "Components/SphereComponent.h"
 #include "projectile.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
@@ -14,9 +13,11 @@
 #include "GAS_Double_Jump.h"
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
-#include "Player_HUD.h"
+#include "InputDataConfig.h"
 #include "Test_Character.generated.h"
 
+
+class UInputDataConfig;
 class UInputAction;
 class UInputMappingContext;
 
@@ -75,34 +76,8 @@ public:
     //Input mapping and input actions
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
-
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* MoveAction;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* JumpAction;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Input")
-    UInputAction* DashAction;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* DoubleJumpAction;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* WallLatchAction;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* SaveAction;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* LoadAction;
-
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Input")
-    UInputAction* RangedAttackInput;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* DropDownInput;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* MeleeInput;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* MenuInput;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* RunInput;
-
+    UInputDataConfig* InputActions;
 
 
 

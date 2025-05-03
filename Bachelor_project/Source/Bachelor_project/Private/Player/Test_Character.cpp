@@ -14,6 +14,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/GAS_PlayerState.h"
+#include "Player/Player_HUD.h"
 #include "Player/SaveState.h"
 
 
@@ -180,27 +181,27 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ATest_Character::GASJump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopJump);
+		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Started, this, &ATest_Character::GASJump);
+		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopJump);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
-		EnhancedInputComponent->BindAction(DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
+		EnhancedInputComponent->BindAction(InputActions->MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
+		EnhancedInputComponent->BindAction(InputActions->MoveAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
+		EnhancedInputComponent->BindAction(InputActions->DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
 
-		EnhancedInputComponent->BindAction(RunInput, ETriggerEvent::Started, this, &ATest_Character::Run);
-		EnhancedInputComponent->BindAction(RunInput, ETriggerEvent::Completed, this, &ATest_Character::StopRun);
+		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Started, this, &ATest_Character::Run);
+		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Completed, this, &ATest_Character::StopRun);
 		//PowerUpInputs
-		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
+		EnhancedInputComponent->BindAction(InputActions->DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
 
-		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
-		EnhancedInputComponent->BindAction(WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
+		EnhancedInputComponent->BindAction(InputActions->WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
+		EnhancedInputComponent->BindAction(InputActions->WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
 
 		//Save
-		EnhancedInputComponent->BindAction(MenuInput, ETriggerEvent::Started, this, &ATest_Character::ToggleMenu);
+		EnhancedInputComponent->BindAction(InputActions->MenuInput, ETriggerEvent::Started, this, &ATest_Character::ToggleMenu);
 
-		EnhancedInputComponent->BindAction(RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
-		EnhancedInputComponent->BindAction(MeleeInput, ETriggerEvent::Started ,this, &ATest_Character::MeleeAttack);
+		EnhancedInputComponent->BindAction(InputActions->RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
+		EnhancedInputComponent->BindAction(InputActions->MeleeInput, ETriggerEvent::Started ,this, &ATest_Character::MeleeAttack);
 
 	}
 }
