@@ -4,9 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "InputAction.h"
-#include "Blueprint/UserWidget.h"
+#include "SaveState.h"
+#include "Components/Button.h"
+#include "Components/HorizontalBox.h"
+#include "Components/TextBlock.h"
+#include "Components/VerticalBox.h"
 #include "KeyBindsWidget.generated.h"
 
+class UKeyBindListWidget;
 /**
  * 
  */
@@ -14,8 +19,44 @@ UCLASS()
 class BACHELOR_PROJECT_API UKeyBindsWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+    virtual void NativeConstruct() override;
+    UFUNCTION()
+    void CreateWidget();
+    UFUNCTION()
+    void CloseWidget();
+
+    // Assign these before using
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputAction> InputAction;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputMappingContext> MappingContext;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TSubclassOf<UKeyBindListWidget> KeyBindListWidgetClass;
+    UPROPERTY()
+    class UKeyBindListWidget* KeyBindListWidget;
+    UPROPERTY(meta = (BindWidget))
+	UVerticalBox* VerticalBox;
+    UPROPERTY(meta = (BindWidget))
+    UHorizontalBox* HorizontalBox;
+   /* UPROPERTY(meta = (BindWidget))
+	UImage* ButtonImage;*/
+    UPROPERTY(meta = (BindWidget))
+	UButton* Button;
+    UPROPERTY(meta = (BindWidget))
+    UButton* CloseButton;
+    UPROPERTY(meta = (BindWidget))
+	UTextBlock* InputText;
+
+    UFUNCTION()
+    void OnKeySelected(FInputChord SelectedKey);
+   
 	bool bWaitingForKey;
+    UFUNCTION()
 	void UpdateKeyBindDisplay();
+    UFUNCTION()
 	void RebindKey(UInputAction* Action, FKey NewKey);
 	
 };

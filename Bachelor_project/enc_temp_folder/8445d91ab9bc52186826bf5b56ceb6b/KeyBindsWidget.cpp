@@ -18,7 +18,7 @@ void UKeyBindsWidget::NativeConstruct()
     }
     if (KeyBindListWidgetClass)
     {
-       // KeyBindListWidget = CreateWidget<UKeyBindListWidget>(GetWorld(), KeyBindListWidgetClass);
+        //KeyBindListWidget = CreateWidget<UKeyBindListWidget>(GetWorld(), KeyBindListWidgetClass);
     }
     CreateWidget();
 }

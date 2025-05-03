@@ -17,6 +17,11 @@ void UMain_Menu_Widget::NativeConstruct()
         Close_Button->OnClicked.Clear();
         Close_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnCloseClicked);
     }
+    if (Mapping_Menu)
+    {
+        Mapping_Menu->OnClicked.Clear();
+        Mapping_Menu->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnMappingMenuClicked);
+    }
     CreateSaveSlotList();
     FTimerHandle TimerHandle;
     GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
@@ -41,15 +46,31 @@ void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
     }
 }
 
-void UMain_Menu_Widget::OnSaveClicked(const FString& SlotName, int32 SlotNumber)
 {
-    ATest_Character* Player = Cast<ATest_Character>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-    if (Player)
+    APlayerController* PC = GetWorld()->GetFirstPlayerController();
+    if (PC)
     {
-        Player->SaveGame(SlotName, SlotNumber);
+        if (KeybindsWidgetClass)
+        {
+            UKeyBindsWidget* Keybind = CreateWidget<UKeyBindsWidget>(GetWorld(), KeybindsWidgetClass);
+            
+            if (Keybind)
+            {
+                Keybind->AddToViewport();
+            }
+        }
     }
 }
 
+
+void UMain_Menu_Widget::OnSaveClicked(const FString& SlotName, int32 SlotNumber)
+{
+
+    ATest_Character* Player = Cast<ATest_Character>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+    if (Player) {
+        Player->SaveGame(SlotName, SlotNumber);
+    }
+}
 
 void UMain_Menu_Widget::OnQuitClicked()
 {

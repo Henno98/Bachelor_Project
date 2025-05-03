@@ -39,6 +39,12 @@ void APlayer_HUD::BeginPlay()
         ToggleMenu();
         
     }
+    if (KeyBindWidgetClass)
+    {
+        KeyBindWidget = CreateWidget<UKeyBindsWidget>(GetWorld(), KeyBindWidgetClass);
+        
+
+    }
 }
 
 
