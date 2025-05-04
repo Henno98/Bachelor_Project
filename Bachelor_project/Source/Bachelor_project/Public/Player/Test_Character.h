@@ -14,6 +14,7 @@
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
 #include "InputDataConfig.h"
+#include "Components/CapsuleComponent.h"
 #include "Test_Character.generated.h"
 
 
@@ -31,7 +32,7 @@ public:
     UFUNCTION(BlueprintCallable)
     void OnMeleeHitNotify();
     ATest_Character();
-
+   
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnHealthChangedSignature OnHealthChanged;
     UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -246,11 +247,3 @@ public:
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
 };
-
-inline float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-	class AController* EventInstigator, AActor* DamageCauser)
-{
-    Hit(DamageAmount);
-
-	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-}

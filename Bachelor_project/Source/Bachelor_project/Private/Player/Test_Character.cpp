@@ -52,6 +52,9 @@ ATest_Character::ATest_Character()
 	MaxBioMass = 400;
 	
 }
+
+
+
 void ATest_Character::OnMeleeHitNotify()
 {
 
@@ -107,7 +110,7 @@ void ATest_Character::OnMeleeHitNotify()
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
-	SaveGame("Slot_0",0);
+	//SaveGame("Slot_0",0);
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -135,6 +138,24 @@ void ATest_Character::Landed(const FHitResult& Hit)
 
 }
 
+float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator, AActor* DamageCauser)
+{
+	SetHealth(GetHealth() - DamageAmount);
+	
+	FTimerHandle invincibilityframe;
+	// Clear any existing timer before setting a new one
+	GetWorld()->GetTimerManager().ClearTimer(invincibilityframe);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
+	GetWorld()->GetTimerManager().SetTimer(invincibilityframe, FTimerDelegate::CreateLambda([this]()
+		{
+			GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+
+		}), 10.f, false);
+
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
+
 // Called every frame
 void ATest_Character::Tick(float DeltaTime)
 {
@@ -148,10 +169,10 @@ void ATest_Character::Tick(float DeltaTime)
 	{
 		SetActorLocation(FVector(0.f,GetActorLocation().Y, GetActorLocation().Z));
 	}
-	if (GetCharacterMovement()->IsWalking())
+	if (GetCharacterMovement()->IsMovingOnGround())
 	{
 		bStartedJump = false;
-		bFinishJump = false;
+		//bFinishJump = false;
 		bHasDoubleJumped = false;
 		
 
@@ -568,38 +589,38 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor != this || OtherActor->GetOwner() != this) {
-		if (OtherActor->IsA<ACharger>())
-		{
-			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found charger"));
-			ACharger* charger = Cast<ACharger>(OtherActor);
-			int dmg = charger->GetDamage();
-			Hit(1);
+		//if (OtherActor->IsA<ACharger>())
+		//{
+		//	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found charger"));
+		//	ACharger* charger = Cast<ACharger>(OtherActor);
+		//	int dmg = charger->GetDamage();
+		//	Hit(1);
 
-		}
-		if (OtherActor->IsA<ACrowBoss>())
-		{
-			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found Crow"));
+		//}
+		//if (OtherActor->IsA<ACrowBoss>())
+		//{
+		//	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found Crow"));
 
-			ACrowBoss* Boss = Cast<ACrowBoss>(OtherActor);
-			int dmg = Boss->GetDamage();
-			Hit(1);
+		//	ACrowBoss* Boss = Cast<ACrowBoss>(OtherActor);
+		//	int dmg = Boss->GetDamage();
+		//	Hit(1);
 
-		}
-		if (OtherActor->IsA<Aprojectile>())
-		{
-			Aprojectile* bullet = Cast<Aprojectile>(OtherActor);
-			if (bullet && (!bullet->GetOwner() || bullet->GetOwner() != this)) // bullet is valid and either no owner or not owned by self
-			{
-				int dmg = bullet->GetDamage();
-				Hit(dmg);
-				bullet->Destroy(); // Optionally destroy the projectile after hitting
-			}
-		}
-		else
-		{
-			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found nothing"));
+		//}
+		//if (OtherActor->IsA<Aprojectile>())
+		//{
+		//	Aprojectile* bullet = Cast<Aprojectile>(OtherActor);
+		//	if (bullet && (!bullet->GetOwner() || bullet->GetOwner() != this)) // bullet is valid and either no owner or not owned by self
+		//	{
+		//		int dmg = bullet->GetDamage();
+		//		Hit(dmg);
+		//		bullet->Destroy(); // Optionally destroy the projectile after hitting
+		//	}
+		//}
+		//else
+		//{
+		//	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found nothing"));
 
-		}
+		//}
 
 	}
 
@@ -607,56 +628,10 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 
 void ATest_Character::SaveGame(FString SlotName, int32 SlotNumber)
 {
-
-	USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass()));
-	if (SaveGameInstance)
-	{
-		// Set data
-		SaveGameInstance->PlayerName = TEXT("PlayerOne");
-		SaveGameInstance->PlayerLocation = GetActorLocation();
-		SaveGameInstance->SavedWorld = GetWorld(); // Optional, only if needed
-		SaveGameInstance->Health = Health;
-		SaveGameInstance->BioMass = BioMass;
-
-		// Save to slot
-		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
-		{
-			UE_LOG(LogTemp, Log, TEXT("Game saved successfully to slot: %s (%d)"), *SlotName, SlotNumber);
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Failed to save game to slot: %s (%d)"), *SlotName, SlotNumber);
-		}
-	}
+	USaveState::SaveGame(GetWorld(),SlotName, SlotNumber);
 }
 
 void ATest_Character::LoadGame(FString SlotName, int32 SlotNumber)
 {
-	if (UGameplayStatics::DoesSaveGameExist(SlotName, SlotNumber))
-	{
-		USaveState* LoadedGame = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, SlotNumber));
-		if (LoadedGame)
-		{
-			SetActorEnableCollision(true);
-			SetActorHiddenInGame(false);
-			SetActorLocation(LoadedGame->PlayerLocation);
-			SetHealth(LoadedGame->Health);
-			BioMass = LoadedGame->BioMass;
-
-			OnHealthChanged.Broadcast(Health);
-			OnEnergyChanged.Broadcast(BioMass);
-			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-			PC->SetPause(false);
-			ToggleMenu();
-			UE_LOG(LogTemp, Log, TEXT("Game loaded successfully from slot: %s (%d)"), *SlotName, SlotNumber);
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Failed to load game from slot: %s (%d)"), *SlotName, SlotNumber);
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No save game found in slot: %s (%d)"), *SlotName, SlotNumber);
-	}
+	USaveState::LoadGame(GetWorld(),SlotName, SlotNumber);
 }

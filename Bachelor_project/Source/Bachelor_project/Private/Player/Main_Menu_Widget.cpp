@@ -28,19 +28,7 @@ void UMain_Menu_Widget::NativeConstruct()
         Load_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::CreateSaveSlotList);
 
     }
-   // CreateSaveSlotList();
-    FTimerHandle TimerHandle;
-    GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
-	if (Close_Button)
-    {
-        GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-            {
-                if (Close_Button)
-                {
-                    Close_Button->SetKeyboardFocus();
-                }
-            }), 0.1f, false);
-    }
+   
 
 }
 void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
