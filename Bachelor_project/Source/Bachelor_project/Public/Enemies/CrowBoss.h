@@ -33,11 +33,7 @@ protected:
 	float Stamina;
 	UPROPERTY()
 	AActor* Target;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = Variable)
-	float AttackRange {300.f};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
-	float VisionRange{ 2000.f };
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsDead = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
@@ -85,6 +81,14 @@ public:
 	AActor* GetAttackTarget() { return Target; }
 	UFUNCTION()
 	void SetAttackTarget(AActor* newtarget) { Target = newtarget; }
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
+	float AttackRange{ 300.f };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
+	float VisionRange{ 2000.f };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Variable)
+	float DiveAttackRange{ 1000.f };
 
 
 	float GetAttackRange() { return AttackRange; }
