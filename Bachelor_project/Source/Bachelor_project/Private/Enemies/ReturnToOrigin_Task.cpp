@@ -23,6 +23,8 @@ EBTNodeResult::Type UReturnToOrigin_Task::ExecuteTask(UBehaviorTreeComponent& Ow
     CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Flying);
     FVector OriginalPosition = BlackboardComp->GetValueAsVector("OriginalPosition");
     FVector CurrentPosition = CrowBoss->GetActorLocation();
+    CrowBoss->SetIsWalking(false);
+    CrowBoss->SetIsPatrolling(true);
     
    return EBTNodeResult::InProgress;
 }
@@ -39,7 +41,7 @@ void UReturnToOrigin_Task::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
     FVector OriginalPosition = BlackboardComp->GetValueAsVector("OriginalPosition");
     FVector CurrentPosition = CrowBoss->GetActorLocation();
     FVector Direction = (OriginalPosition - CurrentPosition).GetSafeNormal();
-
+    
     CrowBoss->AddMovementInput(Direction, 1.0f);
 
     float Distance = FVector::Dist(CurrentPosition, OriginalPosition);
@@ -49,7 +51,7 @@ void UReturnToOrigin_Task::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
         CrowBoss->GetCharacterMovement()->StopMovementImmediately();
         BlackboardComp->SetValueAsBool("IsAttacking", false);
         BlackboardComp->SetValueAsBool("LandedFromDive", false);
-
+        
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
     }
 }
