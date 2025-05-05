@@ -205,6 +205,10 @@ public:
     UFUNCTION()
     void Move(const FInputActionValue& Value);
     UFUNCTION()
+    void MoveLeft(const FInputActionValue& Value);
+    UFUNCTION()
+    void MoveRight(const FInputActionValue& Value);
+    UFUNCTION()
     void StopMoving();
     UFUNCTION()
     void MeleeAttack(const FInputActionValue& Value);

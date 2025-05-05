@@ -204,10 +204,14 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Jumping
 		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Started, this, &ATest_Character::GASJump);
 		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopJump);
-
+		
 		// Moving
-		EnhancedInputComponent->BindAction(InputActions->MoveAction, ETriggerEvent::Triggered, this, &ATest_Character::Move);
-		EnhancedInputComponent->BindAction(InputActions->MoveAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
+		EnhancedInputComponent->BindAction(InputActions->MoveLeftAction, ETriggerEvent::Triggered, this, &ATest_Character::MoveLeft);
+		EnhancedInputComponent->BindAction(InputActions->MoveLeftAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
+
+		EnhancedInputComponent->BindAction(InputActions->MoveRightAction, ETriggerEvent::Triggered, this, &ATest_Character::MoveRight);
+		EnhancedInputComponent->BindAction(InputActions->MoveRightAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
+
 		EnhancedInputComponent->BindAction(InputActions->DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
 
 		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Started, this, &ATest_Character::Run);
@@ -513,7 +517,8 @@ float ATest_Character::GetAnimationDuration(UAnimMontage* Montage)
 void ATest_Character::Move(const FInputActionValue& Value)
 {
 	const FVector2D moveVector = Value.Get<FVector2D>();
-
+	
+	
 	// Only respond if the stick is moved enough (ignore tiny noise)
 	if (FMath::Abs(moveVector.X) > 0.5f)
 	{
@@ -550,6 +555,74 @@ void ATest_Character::Move(const FInputActionValue& Value)
 			DropDown();
 	}
 	
+}
+
+void ATest_Character::MoveLeft(const FInputActionValue& Value)
+{
+	const FVector2D moveVector = Value.Get<FVector2D>();
+
+
+	// Only respond if the stick is moved enough (ignore tiny noise)
+	if (FMath::Abs(moveVector.X) > 0.5f)
+	{
+		
+			// Moving left: face left (180 degrees yaw)
+			TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
+			SetActorRotation(FRotator(0.f, -90, 0.f));
+		
+
+		// Move character along its forward vector (in sidescroller, usually X axis)
+		const FVector directionVector = -GetActorForwardVector();
+		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
+
+		// Set running state
+		bIsMoving = true;
+	}
+	else
+	{
+		// Not moving
+		bIsMoving = false;
+	}
+
+	// Stick flick downward to trigger DropDown
+	if (moveVector.Y < -0.8f) // Stick pushed down
+	{
+		DropDown();
+	}
+}
+
+void ATest_Character::MoveRight(const FInputActionValue& Value)
+{
+	const FVector2D moveVector = Value.Get<FVector2D>();
+
+
+	// Only respond if the stick is moved enough (ignore tiny noise)
+	if (FMath::Abs(moveVector.X) > 0.5f)
+	{
+
+		// Moving left: face left (180 degrees yaw)
+		TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
+		SetActorRotation(FRotator(0.f, 90, 0.f));
+
+
+		// Move character along its forward vector (in sidescroller, usually X axis)
+		const FVector directionVector = GetActorForwardVector();
+		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
+
+		// Set running state
+		bIsMoving = true;
+	}
+	else
+	{
+		// Not moving
+		bIsMoving = false;
+	}
+
+	// Stick flick downward to trigger DropDown
+	if (moveVector.Y < -0.8f) // Stick pushed down
+	{
+		DropDown();
+	}
 }
 
 void ATest_Character::StopMoving()

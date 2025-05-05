@@ -7,6 +7,7 @@
 #include "SaveState.h"
 #include "Components/Button.h"
 #include "Components/HorizontalBox.h"
+#include "Components/ScrollBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "KeyBindsWidget.generated.h"
@@ -37,8 +38,10 @@ public:
     TSubclassOf<UKeyBindListWidget> KeyBindListWidgetClass;
     UPROPERTY()
     class UKeyBindListWidget* KeyBindListWidget;
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY()
 	UVerticalBox* VerticalBox;
+    UPROPERTY(meta = (BindWidget))
+    UScrollBox* KeyBindsScrollBox;
    
    
 
@@ -49,6 +52,6 @@ public:
     UFUNCTION()
 	void UpdateKeyBindDisplay();
     UFUNCTION()
-	void RebindKey(UInputAction* Action, FKey NewKey);
+	void RebindKey(UInputAction* Action, FKey OldKey, FKey NewKey, bool SecondaryKey);
 	
 };

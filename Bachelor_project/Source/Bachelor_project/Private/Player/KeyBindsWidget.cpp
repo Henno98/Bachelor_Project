@@ -7,6 +7,7 @@
 #include "InputMappingContext.h"
 #include "Player/KeyBindListWidget.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/KismetMathLibrary.h"
 
 
 void UKeyBindsWidget::NativeConstruct()
@@ -19,7 +20,8 @@ void UKeyBindsWidget::NativeConstruct()
 
 void UKeyBindsWidget::ConstructWidget()
 {
-    VerticalBox->ClearChildren();
+    //VerticalBox->ClearChildren();
+    KeyBindsScrollBox->ClearChildren();
      APlayerController* PC = GetOwningPlayer();
     if (!PC)
         return;
@@ -36,8 +38,9 @@ void UKeyBindsWidget::ConstructWidget()
     TMultiMap<UInputAction*, FKey> GamepadKeys;
     // Get mappings from the input context
     TArray<FEnhancedActionKeyMapping> Mappings = MappingContext->GetMappings();
-    if (VerticalBox)
+    if (KeyBindsScrollBox)
     {
+        //VerticalBox->AddChildToVerticalBox(KeyBindsScrollBox);
         for (const auto& Mapping : MappingContext->GetMappings())
         {
             if (!Mapping.Action)
@@ -67,7 +70,7 @@ void UKeyBindsWidget::ConstructWidget()
             {
                 Row->InitializeKeyBinding(Action, ActionKeyboardKeys, ActionGamepadKeys);
                 Row->ParentMenu = this;
-                VerticalBox->AddChildToVerticalBox(Row);
+                KeyBindsScrollBox->AddChild(Row);
             }
         }
     }
@@ -94,37 +97,102 @@ void UKeyBindsWidget::UpdateKeyBindDisplay()
     ConstructWidget();
 }
 
-void UKeyBindsWidget::RebindKey(UInputAction* Action, FKey NewKey)
+void UKeyBindsWidget::RebindKey(UInputAction* Action, FKey OldKey, FKey NewKey, bool SecondaryKey)
 {
+    // Check if the parameters are valid
     if (!MappingContext || !Action)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Invalid parameters: MappingContext or Action is null"));
         return;
+    }
 
-    // Remove only matching key type
+    UE_LOG(LogTemp, Log, TEXT("Starting key rebind for Action: %s, NewKey: %s"), *Action->GetName(), *NewKey.ToString());
+    UE_LOG(LogTemp, Log, TEXT( "OldKey is: %s") ,*NewKey.ToString());
+    
+    // Retrieve existing mappings
     TArray<FEnhancedActionKeyMapping> ExistingMappings = MappingContext->GetMappings();
+    UE_LOG(LogTemp, Log, TEXT("Existing mappings size: %d"), ExistingMappings.Num());
+
+    TArray<FKey> KeyboardKeys;
+    // Search for the existing primary and secondary keys
     for (const auto& Mapping : ExistingMappings)
     {
-        if (Mapping.Action == Action &&
-            Mapping.Key.IsGamepadKey() == NewKey.IsGamepadKey()) // Match by input type
+        if (Mapping.Action == Action)
         {
-            MappingContext->UnmapKey(Mapping.Action, Mapping.Key);
+            if (!Mapping.Key.IsGamepadKey()) // Only care about keyboard keys
+            {
+                
+                UE_LOG(LogTemp, Log, TEXT("Found key mapping: %s"), *Mapping.Key.ToString());
+                KeyboardKeys.Add(Mapping.Key);
+            }
         }
     }
 
-    MappingContext->MapKey(Action, NewKey);
+    // If no relevant keys found, log it
+    if (KeyboardKeys.Num() == 0)
+    {
+        UE_LOG(LogTemp, Log, TEXT("No existing keyboard keys found for this action"));
+    }
 
-    // Reapply context to take effect
+    // Iterate through the found keyboard keys and check for matches with the new key
+    bool bKeyRebinded = false;
+    for (const auto& Keys : KeyboardKeys)
+    {
+        if (Keys == OldKey)
+        {
+            UE_LOG(LogTemp, Log, TEXT("New key matches existing key: %s. Rebinding..."), *NewKey.ToString());
+            MappingContext->UnmapKey(Action, OldKey);  // Remove the existing mapping
+            MappingContext->MapKey(Action, NewKey);  // Map the new key
+
+            bKeyRebinded = true;
+          
+        }
+        else
+        {
+            MappingContext->UnmapKey(Action, Keys);  // Remove the existing mapping
+            MappingContext->MapKey(Action, Keys);
+
+        }
+    }
+    
+
+    // Log if no match was found and no rebind occurred
+    if (!bKeyRebinded)
+    {
+        UE_LOG(LogTemp, Log, TEXT("No matching key found for rebind: %s"), *NewKey.ToString());
+    }
+
+    // Log before reapplying the mapping context
+    UE_LOG(LogTemp, Log, TEXT("Reapplying the mapping context to ensure the new binding takes effect"));
+
+    // Reapply the mapping context to take effect
     if (auto* PC = GetOwningPlayer())
     {
         if (auto* LocalPlayer = PC->GetLocalPlayer())
         {
             if (auto* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
             {
+                UE_LOG(LogTemp, Log, TEXT("Removing and adding mapping context to input subsystem"));
+
+                // Remove and reapply the mapping context to update the input system
                 Subsystem->RemoveMappingContext(MappingContext);
                 Subsystem->AddMappingContext(MappingContext, 0);
+
+                UE_LOG(LogTemp, Log, TEXT("Mapping context successfully reapplied"));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Subsystem not found for the local player"));
             }
         }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("LocalPlayer not found for the owning player"));
+        }
     }
-
-    UE_LOG(LogTemp, Log, TEXT("Rebound action %s to %s"), *Action->GetName(), *NewKey.ToString());
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Owning player not found"));
+    }
 }
 

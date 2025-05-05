@@ -15,9 +15,12 @@ class BACHELOR_PROJECT_API UInputDataConfig : public UDataAsset
 {
 	GENERATED_BODY()
 public:
+   
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* MoveAction;
+    UInputAction* MoveLeftAction;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    UInputAction* MoveRightAction;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
     UInputAction* JumpAction;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
