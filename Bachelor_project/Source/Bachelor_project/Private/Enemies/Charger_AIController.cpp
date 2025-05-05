@@ -112,7 +112,6 @@ void ACharger_AIController::OnSeenPawn(APawn* SeenPawn)
 		Player = SeenPawn;
 		Charger_BBC->SetValueAsObject("Player", SeenPawn);
 		Charger_BBC->SetValueAsBool("SeenPlayer", true);
-		UE_LOG(LogTemp, Warning, TEXT("Boss saw the player!"));
 
 
 	}
