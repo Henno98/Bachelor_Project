@@ -14,6 +14,7 @@
 #include "GAS_Double_Jump.h"
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
+#include "IsRangedAttacker.h"
 #include "Player_HUD.h"
 #include "Test_Character.generated.h"
 
@@ -23,7 +24,7 @@ class UInputMappingContext;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, int32, NewHealth);
 
 UCLASS()
-class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface
+class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface,public IIsRangedAttacker
 {
     GENERATED_BODY()
 public:
@@ -201,7 +202,6 @@ public:
 
     float GetJumpVelocity() { return JumpVelocity; }
 
-    FVector GetBulletSize() { return BulletSize; }
 	void Hit(int Damage);
     void Dead();
     virtual void PossessedBy(AController* NewController) override;
@@ -239,6 +239,20 @@ public:
         int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float Velocity = 1000.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FVector Target;;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FRotator Direction = GetActorRotation();;
+    // Interface function implementations (with inline return values)
+    virtual float GetRangedDamage_Implementation() const override { return RangedDamage; }
+    virtual float GetRangedAttackVelocity_Implementation() const override { return Velocity; }
+    virtual void ReEnableInput_Implementation() override {/* implement logic in .cpp if needed */ }
+    virtual FVector GetBulletSize_Implementation() const override { return BulletSize; }
+    virtual FVector GetTargetLocation_Implementation() const override { return Target; }
+    virtual FRotator GetFiringDirection_Implementation() const override { return Direction; }
+    virtual TSubclassOf<AActor> GetProjectileClass_Implementation() const override { return RangedAttackClass; };
 
 
 
