@@ -396,9 +396,9 @@ void ATest_Character::GAS_RangedAttack()
 
 void ATest_Character::DropDown()
 {
-	FVector Direction = -this->GetActorUpVector();
+	FVector TestDirection = -this->GetActorUpVector();
 	FVector Start = this->GetActorLocation() + FVector(0.f, 30.f, 0.f);
-	FVector End = Start + (Direction * 100.f);
+	FVector End = Start + (TestDirection * 100.f);
 
 	TArray<FHitResult> HitResult;
 	FCollisionQueryParams Params;

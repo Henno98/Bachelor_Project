@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
+#include "Components/SphereComponent.h"
 #include "projectile.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
@@ -13,26 +14,24 @@
 #include "GAS_Double_Jump.h"
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
-#include "InputDataConfig.h"
-#include "Components/CapsuleComponent.h"
+#include "IsRangedAttacker.h"
+#include "Player_HUD.h"
 #include "Test_Character.generated.h"
 
-
-class UInputDataConfig;
 class UInputAction;
 class UInputMappingContext;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, int32, NewHealth);
 
 UCLASS()
-class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface
+class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilitySystemInterface,public IIsRangedAttacker
 {
     GENERATED_BODY()
 public:
     UFUNCTION(BlueprintCallable)
     void OnMeleeHitNotify();
     ATest_Character();
-   
+
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnHealthChangedSignature OnHealthChanged;
     UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -77,8 +76,34 @@ public:
     //Input mapping and input actions
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputDataConfig* InputActions;
+	UInputAction* MoveAction;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* JumpAction;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Input")
+    UInputAction* DashAction;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* DoubleJumpAction;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* WallLatchAction;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    UInputAction* SaveAction;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    UInputAction* LoadAction;
+
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Input")
+    UInputAction* RangedAttackInput;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* DropDownInput;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* MeleeInput;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    UInputAction* MenuInput;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* RunInput;
+
 
 
 
@@ -177,7 +202,6 @@ public:
 
     float GetJumpVelocity() { return JumpVelocity; }
 
-    FVector GetBulletSize() { return BulletSize; }
 	void Hit(int Damage);
     void Dead();
     virtual void PossessedBy(AController* NewController) override;
@@ -205,10 +229,6 @@ public:
     UFUNCTION()
     void Move(const FInputActionValue& Value);
     UFUNCTION()
-    void MoveLeft(const FInputActionValue& Value);
-    UFUNCTION()
-    void MoveRight(const FInputActionValue& Value);
-    UFUNCTION()
     void StopMoving();
     UFUNCTION()
     void MeleeAttack(const FInputActionValue& Value);
@@ -219,6 +239,20 @@ public:
         int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float Velocity = 1000.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FVector Target;;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FRotator Direction = GetActorRotation();;
+    // Interface function implementations (with inline return values)
+    virtual float GetRangedDamage_Implementation() const override { return RangedDamage; }
+    virtual float GetRangedAttackVelocity_Implementation() const override { return Velocity; }
+    virtual void ReEnableInput_Implementation() override {/* implement logic in .cpp if needed */ }
+    virtual FVector GetBulletSize_Implementation() const override { return BulletSize; }
+    virtual FVector GetTargetLocation_Implementation() const override { return Target; }
+    virtual FRotator GetFiringDirection_Implementation() const override { return Direction; }
+    virtual TSubclassOf<AActor> GetProjectileClass_Implementation() const override { return RangedAttackClass; };
 
 
 
@@ -251,3 +285,11 @@ public:
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
 };
+
+inline float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator, AActor* DamageCauser)
+{
+    Hit(DamageAmount);
+
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}

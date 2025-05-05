@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTagsManager.h"
 #include "AbilitySystemComponent.h"
+#include "IsRangedAttacker.h"
 #include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "Player/Test_Character.h"
 
@@ -37,7 +38,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 			return;
 		}
 
-		ATest_Character* Character = Cast<ATest_Character>(ActorInfo->AvatarActor.Get());
+		ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
 		if (!Character || !Character->GetCharacterMovement())
 		{
 			EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
@@ -53,33 +54,49 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 				ASC->ApplyGameplayEffectSpecToSelf(*CooldownSpecHandle.Data.Get());
 			}
 		}
-		Character->PauseInput();
 		Character->GetCharacterMovement()->StopMovementImmediately();
 		Character->GetCharacterMovement()->Velocity = FVector::ZeroVector;
 		Character->GetCharacterMovement()->GravityScale = 0.1f;
 
 		FVector SpawnLocation = Character->GetActorLocation() + (Character->GetActorForwardVector().GetSafeNormal() * 50);
 		FVector FiringDirection = Character->GetActorForwardVector().GetSafeNormal();
-		FRotator SpawnRotation = Character->GetActorRotation();
+		FRotator SpawnRotation = IIsRangedAttacker::Execute_GetFiringDirection(Character);
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = Character;
 
-
+		
+		// Get the actor class from the interface
+		TSubclassOf<AActor> ActorClass = IIsRangedAttacker::Execute_GetProjectileClass(Character);
 
 		// Spawn the projectile
 		UWorld* World = GetWorld();
 		if (World)
 		{
 			if (bCanShoot) {
-				Aprojectile* SpawnedProjectile = World->SpawnActor<Aprojectile>(Character->RangedAttackClass, SpawnLocation, SpawnRotation, SpawnParams);
-				if (SpawnedProjectile)
+				AActor* SpawnedActor = World->SpawnActor<AActor>(ActorClass, SpawnLocation, SpawnRotation, SpawnParams);
+				if (SpawnedActor)
 				{
-					bCanShoot = false;
-					SpawnedProjectile->Velocity = FiringDirection * 2000.f;
-					SpawnedProjectile->lifetime = 0.8f;
-					
-					SpawnedProjectile->SetActorScale3D(Character->GetBulletSize());
-					SpawnedProjectile->SetDamage(Character->GetRangedDamage());
+					Aprojectile* SpawnedProjectile = Cast<Aprojectile>(SpawnedActor);
+					if (SpawnedProjectile)
+					{
+						float Velocity = IIsRangedAttacker::Execute_GetRangedAttackVelocity(Character);
+						float Damage = IIsRangedAttacker::Execute_GetRangedDamage(Character);
+
+						FVector BulletSize = IIsRangedAttacker::Execute_GetBulletSize(Character);
+						SpawnedProjectile->lifetime = 1.f;
+						if (IIsRangedAttacker::Execute_GetHasTarget(Character))
+						{
+							FVector Direction = IIsRangedAttacker::Execute_GetTargetLocation(Character);
+							SpawnedProjectile->Velocity = Direction * Velocity;
+
+						}
+						else
+						{
+							SpawnedProjectile->Velocity = FiringDirection * Velocity;
+						}
+						SpawnedProjectile->SetDamage(Damage);
+						SpawnedProjectile->SetActorScale3D(BulletSize);
+					}
 				}
 			}
 		}
@@ -90,7 +107,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 				if (Character && Character->GetCharacterMovement())
 				{
 					
-					Character->ReEnableInput();
+					//Character->ReEnableInput();
 				
 					Character->GetCharacterMovement()->GravityScale = 4.5;
 				
