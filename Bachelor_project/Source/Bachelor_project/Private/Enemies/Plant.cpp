@@ -3,6 +3,8 @@
 
 #include "Enemies/Plant.h"
 
+#include "Player/GAS_PlayerState.h"
+
 // Sets default values
 APlant::APlant()
 {
@@ -15,7 +17,7 @@ APlant::APlant()
 void APlant::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	InitAbilitySystem();
 }
 
 // Called every frame
@@ -30,5 +32,46 @@ void APlant::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void APlant::InitAbilitySystem()
+{
+	AGAS_PlayerState* GASPlayerState = GetPlayerState<AGAS_PlayerState>();
+
+	if (ensure(GASPlayerState))
+	{
+		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
+		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
+		GA_Ranged_Attack = GASPlayerState->RangedAttack;
+		RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
+		AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
+
+	}
+}
+
+void APlant::CallGAS_RangedAttack()
+{
+	if (AbilitySystemComponent && GA_Ranged_Attack)
+	{
+		bIsRangedAttacking = true;
+
+
+		FGameplayTagContainer tags;
+		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+
+
+		FTimerHandle TimerHandle;
+		float AnimDuration;
+
+	
+			AnimDuration = 1.f;
+		
+
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				bIsRangedAttacking = false;
+			}), AnimDuration, false); // Adjust based on anim length
+	}
 }
 
