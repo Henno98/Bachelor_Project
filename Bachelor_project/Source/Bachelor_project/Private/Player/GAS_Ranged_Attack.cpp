@@ -58,7 +58,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 		Character->GetCharacterMovement()->Velocity = FVector::ZeroVector;
 		Character->GetCharacterMovement()->GravityScale = 0.1f;
 
-		FVector SpawnLocation = Character->GetActorLocation() + (Character->GetActorForwardVector().GetSafeNormal() * 50);
+		FVector SpawnLocation = IIsRangedAttacker::Execute_GetSpawnLocation(Character);
 		FVector FiringDirection = Character->GetActorForwardVector().GetSafeNormal();
 		FRotator SpawnRotation = IIsRangedAttacker::Execute_GetFiringDirection(Character);
 		FActorSpawnParameters SpawnParams;

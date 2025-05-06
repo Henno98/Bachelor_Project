@@ -38,10 +38,6 @@ ATest_Character::ATest_Character()
 	Springarm->TargetArmLength = 1000.f;
 	Springarm->bUsePawnControlRotation = false;
 
-	Springarm->bEnableCameraLag = true;
-	Springarm->CameraLagSpeed = 10.f; // Feel free to tweak
-	Springarm->bEnableCameraRotationLag = false;
-	//Springarm->SetRelativeRotation(FRotator(0.f, -90.f, 0.f)); // Looking at the character
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 
 	Camera->SetupAttachment(Springarm);
@@ -176,7 +172,7 @@ void ATest_Character::Tick(float DeltaTime)
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
 		bStartedJump = false;
-		//bFinishJump = false;
+		bFinishJump = false;
 		bHasDoubleJumped = false;
 		
 
@@ -364,32 +360,34 @@ void ATest_Character::GAS_RangedAttack()
 
 	if (AbilitySystemComponent && GA_Ranged_Attack && BioMass >= 100)
 	{
-		bIsRangedAttacking = true;
+		if (!bIsRangedAttacking) {
+			bIsRangedAttacking = true;
+
+			SetBioMass(GetBioMass() - 100);
+
+			FTimerHandle TimerHandle;
+			float AnimDuration;
 
 
-		FGameplayTagContainer tags;
-		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
-		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
-
-
-		SetBioMass(GetBioMass() - 100);
-
-		FTimerHandle TimerHandle;
-		float AnimDuration;
-
-		if (RangedAttackAnim) {
-			 AnimDuration = RangedAttackAnim->GetPlayLength();
-		}
-		else
-		{
 			AnimDuration = 0.5f;
-		}
 
-		GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-			{
-				bIsRangedAttacking = false;
-			}), AnimDuration, false); // Adjust based on anim length
+
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
+				{
+					bIsRangedAttacking = false;
+				}), AnimDuration, false); // Adjust based on anim length
+		}
 	}
+}
+
+void ATest_Character::ExecuteRangedAttack()
+{
+
+	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
+	FGameplayTagContainer tags;
+	tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+	AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+
 }
 
 void ATest_Character::DropDown()
@@ -524,13 +522,13 @@ void ATest_Character::Move(const FInputActionValue& Value)
 		if (moveVector.X > 0.0f)
 		{
 			// Moving right: face right (0 degrees yaw)
-			TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at left
+			//TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at left
 			SetActorRotation(FRotator(0.f, 90.f, 0.f));
 		}
 		else
 		{
 			// Moving left: face left (180 degrees yaw)
-			TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
+			//TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
 			SetActorRotation(FRotator(0.f, -90, 0.f));
 		}
 
@@ -565,10 +563,10 @@ void ATest_Character::MoveLeft(const FInputActionValue& Value)
 	{
 		
 			// Moving left: face left (180 degrees yaw)
-			TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
+			//TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
 			SetActorRotation(FRotator(0.f, -90, 0.f));
 		
-			Springarm->SocketOffset = TargetSocketOffset;
+			//Springarm->SocketOffset = TargetSocketOffset;
 		// Move character along its forward vector (in sidescroller, usually X axis)
 		const FVector directionVector = -GetActorForwardVector();
 		AddMovementInput(directionVector, -FMath::Abs(moveVector.X)); // Always positive
@@ -599,10 +597,10 @@ void ATest_Character::MoveRight(const FInputActionValue& Value)
 	{
 
 		// Moving left: face left (180 degrees yaw)
-		TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at right
+		//TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at right
 		SetActorRotation(FRotator(0.f, 90, 0.f));
 
-		Springarm->SocketOffset = TargetSocketOffset;
+		//Springarm->SocketOffset = TargetSocketOffset;
 		// Move character along its forward vector (in sidescroller, usually X axis)
 		const FVector directionVector = GetActorForwardVector();
 		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
@@ -640,12 +638,10 @@ void ATest_Character::MeleeAttack(const FInputActionValue& Value)
 	UE_LOG(LogTemp, Error, TEXT("Started attack"));
 
 	// If we have a valid melee animation
-	if (MeleeAnim)
-	{
-		bIsMeleeAttacking = true;
-		GetCharacterMovement()->StopActiveMovement();
+	bIsMeleeAttacking = true;
+	GetCharacterMovement()->StopActiveMovement();
 
-	}
+	
 
 	
 }

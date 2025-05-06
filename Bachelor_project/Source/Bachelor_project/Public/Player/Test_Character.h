@@ -54,26 +54,6 @@ public:
 
 
 
-    // Animations
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* IdleAnim;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* MeleeAnim;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* RangedAttackAnim;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* DeathAnim;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* MoveAnim;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* StartJumpAnim;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* MidJumpAnim;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-    UAnimationAsset* EndJumpAnim;
-
-
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
     UInputDataConfig* InputActions;
 
@@ -188,6 +168,8 @@ public:
     void GASStopWallLatch();
     void GAS_Space();
     void GAS_RangedAttack();
+	UFUNCTION(BlueprintCallable)
+    void ExecuteRangedAttack();
     void DropDown();
     void ReEnableInput();
     void PauseInput();
@@ -218,6 +200,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FVector Target;;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    FVector SpawnLocation = GetActorLocation();
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FRotator Direction = GetActorRotation();;
     // Interface function implementations (with inline return values)
     virtual float GetRangedDamage_Implementation() const override { return RangedDamage; }
@@ -227,7 +211,7 @@ public:
     virtual FVector GetTargetLocation_Implementation() const override { return Target; }
     virtual FRotator GetFiringDirection_Implementation() const override { return Direction; }
     virtual TSubclassOf<AActor> GetProjectileClass_Implementation() const override { return RangedAttackClass; };
-
+    virtual FVector GetSpawnLocation_Implementation() const override { return SpawnLocation; };
 
 
     //Subclasses

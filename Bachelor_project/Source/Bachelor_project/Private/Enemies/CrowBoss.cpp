@@ -61,7 +61,8 @@ void ACrowBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ACrowBoss::Landed(const FHitResult& Hit)
 {
     Super::Landed(Hit);
-    
+
+    if (bIsDying || bIsDead) return;
     UE_LOG(LogTemp, Log, TEXT("CrowBoss::Landed called"));
 
         GetCharacterMovement()->StopMovementImmediately();

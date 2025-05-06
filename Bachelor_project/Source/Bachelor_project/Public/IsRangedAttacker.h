@@ -44,7 +44,8 @@ public:
 	/** Returns the target location, if any */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	FVector GetTargetLocation() const;
-
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	FVector GetSpawnLocation() const;
 	/** Returns the direction in which to fire */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	FRotator GetFiringDirection() const;
