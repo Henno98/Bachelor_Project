@@ -37,7 +37,9 @@ EBTNodeResult::Type UCrowTask_RankedAttack::ExecuteTask(UBehaviorTreeComponent& 
 
     if (BlackboardComp->GetValueAsBool("IsAttacking")) return EBTNodeResult::Failed;
 
-
+    BlackboardComp->SetValueAsBool("IsRangedAttacking", true);
+    BlackboardComp->SetValueAsBool("IsAttacking", true);
+    CrowBoss->SetIsRangedAttacking(true);
     // Get projectile spawn location + rotation
     FVector MuzzleLocation = CrowBoss->GetActorLocation() + FVector(0.f, 0.f, 100.f);
     FRotator MuzzleRotation = (PlayerActor->GetActorLocation() - MuzzleLocation).Rotation();

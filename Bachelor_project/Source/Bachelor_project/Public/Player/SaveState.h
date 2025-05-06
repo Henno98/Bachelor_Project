@@ -16,34 +16,34 @@ class BACHELOR_PROJECT_API USaveState : public USaveGame
 	GENERATED_BODY()
 public:
 
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	// Saved data
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	FString PlayerName;
 
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-	FString SaveSlotName;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-	uint32 UserIndex;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	FVector PlayerLocation;
 
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
+	FString SaveSlotName;
+
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
+	int32 UserIndex;
+
+	// The current level name to load
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
+	FString CurrentLevel;
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	int Health;
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	int BioMass;
 	UPROPERTY()
-	bool bHasDoubleJumpPowerUp;
-	UPROPERTY()
-	bool bHasWallLatchPowerUp;
-	UPROPERTY()
-	class UWorld* SavedWorld;
-UPROPERTY()
-ATest_Character* Player;
-UPROPERTY()
-FString CurrentLevel;
+	ATest_Character* Player;
+	// The current level name to load
+
+
 	USaveState();
 
-	void SaveGame();
-	void LoadGame();
+	static bool SaveGame(UWorld* World, FString SlotName, int32 SlotNumber);
+	static bool LoadGame(UWorld* World, FString SlotName, int32 SlotNumber);
+	
 };

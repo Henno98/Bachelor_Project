@@ -19,7 +19,7 @@ public:
 	                  int32 OtherBodyIndex);
 	// Sets default values for this character's properties
 	ACrowBoss();
-	 
+	 virtual void Landed(const FHitResult& Hit) override;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,18 +39,25 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsDying = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsPreppingToDive = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsDiving = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	bool bIsPatrolling = false;
-
+	bool bIsPatrolling = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsMeleeAttacking = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsWalking = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	bool bIsRangedAttacking = false;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
-	                 AActor* DamageCauser);
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	                 AActor* DamageCauser) override;
 	UFUNCTION()
 	void MeleeAttack();
 	UFUNCTION()
@@ -63,7 +70,7 @@ public:
 	void Death();
 	void OnHit(int damage);
 	UFUNCTION(BlueprintCallable)
-	void DiveAttack(const FName& Socket);
+	void Attack(const FName& Socket,float attackrange);
 
 	//Getters and setters
 	//Health
@@ -93,6 +100,7 @@ public:
 
 	float GetAttackRange() { return AttackRange; }
 	float GetVisionRange() { return VisionRange; }
+	float GetDiveAttackRange() { return DiveAttackRange; }
 	int GetDamage() { return  AttackDamage; }
 
 
@@ -110,9 +118,17 @@ public:
 	bool GetIsDead() { return bIsDead; }
 	bool GetIsDiving() { return bIsDiving; }
 	bool GetIsPatrolling() { return bIsPatrolling; }
+	bool GetIsWalking() { return bIsWalking; }
+	bool GetIsRangedAttacking() { return bIsRangedAttacking; }
+	bool GetIsMeleeAttacking() { return bIsMeleeAttacking; }
+
 
 	void SetIsDying(bool state) { bIsDying = state; };
 	void SetIsDead(bool state) { bIsDead = state; };
 	void SetIsDiving(bool state) { bIsDiving = state; };
 	void SetIsPatrolling(bool state) { bIsPatrolling = state; };
+	void SetIsMeleeAttacking(bool state) { bIsMeleeAttacking = state; };
+	void SetIsRangedAttacking(bool state) { bIsRangedAttacking = state; };
+	void SetIsWalking(bool state) { bIsWalking = state; };
+	void SetIsPreparingDive(bool state) { bIsPreppingToDive = state; };
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "KeyBindsWidget.h"
 #include "Main_Menu_Widget.h"
 #include "Text_Widget.h"
 #include "GameFramework/HUD.h"
@@ -28,11 +29,13 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UText_Widget> TextWidgetClass;
-
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    TSubclassOf<UKeyBindsWidget> KeyBindWidgetClass;
     // Widget instances
     UPROPERTY()
     class UMain_Menu_Widget* Main_Menu;
-
+    UPROPERTY()
+    class UKeyBindsWidget* KeyBindWidget;
     UPROPERTY()
     class UPlayer_Stat_Widget* Player_Stat_Widget;
     UPROPERTY()

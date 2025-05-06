@@ -18,7 +18,7 @@ ABasicPlatform::ABasicPlatform()
 	TriggerBox->SetGenerateOverlapEvents(true);
 	TriggerBox->SetBoxExtent(FVector(200.0f, 200.0f, 100.0f)); // Adjust size as needed
 	TriggerBox->OnComponentBeginOverlap.AddDynamic(this, &ABasicPlatform::OnPlayerEnterTrigger);
-	TriggerBox->OnComponentEndOverlap.AddDynamic(this, &ABasicPlatform::LeftTriggerBox);
+	//TriggerBox->OnComponentEndOverlap.AddDynamic(this, &ABasicPlatform::LeftTriggerBox);
 
 }
 

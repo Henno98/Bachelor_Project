@@ -14,6 +14,7 @@
 #include "GAS_Double_Jump.h"
 #include "GAS_Ranged_Attack.h"
 #include "GAS_Wall_Latch.h"
+#include "InputDataConfig.h"
 #include "IsRangedAttacker.h"
 #include "Player_HUD.h"
 #include "Test_Character.generated.h"
@@ -31,7 +32,7 @@ public:
     UFUNCTION(BlueprintCallable)
     void OnMeleeHitNotify();
     ATest_Character();
-
+    
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnHealthChangedSignature OnHealthChanged;
     UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -43,6 +44,8 @@ protected:
     virtual void Landed(const FHitResult& Hit) override;
     // Called every frame
     virtual void Tick(float DeltaTime) override;
+    void MoveLeft(const FInputActionValue& InputActionValue);
+    void MoveRight(const FInputActionValue& InputActionValue);
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -71,42 +74,13 @@ public:
     UAnimationAsset* EndJumpAnim;
 
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    UInputDataConfig* InputActions;
 
 
     //Input mapping and input actions
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* MoveAction;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* JumpAction;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Input")
-    UInputAction* DashAction;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* DoubleJumpAction;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* WallLatchAction;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* SaveAction;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* LoadAction;
-
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Input")
-    UInputAction* RangedAttackInput;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* DropDownInput;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* MeleeInput;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-    UInputAction* MenuInput;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* RunInput;
-
-
-
-
 
     //default components
     UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -285,11 +259,3 @@ public:
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
 };
-
-inline float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-	class AController* EventInstigator, AActor* DamageCauser)
-{
-    Hit(DamageAmount);
-
-	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-}
