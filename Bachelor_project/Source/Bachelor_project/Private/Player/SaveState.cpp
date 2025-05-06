@@ -10,3 +10,11 @@ USaveState::USaveState()
 	UserIndex = 0;
 
 }
+
+void USaveState::SaveGame()
+{
+}
+
+void USaveState::LoadGame()
+{
+}

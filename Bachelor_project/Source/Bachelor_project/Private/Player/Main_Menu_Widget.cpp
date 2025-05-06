@@ -19,13 +19,17 @@ void UMain_Menu_Widget::NativeConstruct()
     }
     CreateSaveSlotList();
     FTimerHandle TimerHandle;
-    GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-        {
-            if (Close_Button)
+    GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
+	if (Close_Button)
+    {
+        GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
             {
-                Close_Button->SetKeyboardFocus();
-            }
-        }), 0.1f, false);
+                if (Close_Button)
+                {
+                    Close_Button->SetKeyboardFocus();
+                }
+            }), 0.1f, false);
+    }
 
 }
 void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
