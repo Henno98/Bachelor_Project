@@ -26,7 +26,7 @@ void ACrowBoss_AIController::OnPossess(APawn* InPawn)
 
         CrowBoss_BBC->InitializeBlackboard(*CrowBoss_BT->BlackboardAsset);
         CrowBoss_BTC->StartTree(*CrowBoss_BT);
-
+        CrowBoss_BBC->SetValueAsVector("OriginalPosition", GetPawn()->GetActorLocation());
         CrowBoss_PerceptionComponent->OnSeePawn.AddDynamic(this, &ACrowBoss_AIController::OnSeenPawn);
     }
 }
@@ -54,7 +54,7 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
         FVector PlayerLocation = Player->GetActorLocation();
         FVector CrowLocation = Crow->GetActorLocation();
         float Distance = FVector::Dist(PlayerLocation, CrowLocation);
-
+        CrowBoss_BBC->SetValueAsFloat("DistanceToPlayer", Distance);
         if (Distance > CrowBoss->GetVisionRange())
         {
             UE_LOG(LogCrowBossAI, Warning, TEXT("Player is out of range. Stopping pursuit."));
@@ -71,8 +71,9 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
         float MovementSpeed = FMath::Clamp(DistanceToTarget / 500.f, 0.1f, 1.0f);
 
         Crow->AddMovementInput(FVector(DirectionToTarget.X, DirectionToTarget.Y, 0), MovementSpeed);
-        CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
-       
+    
+            CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
+        
             FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
             Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), LookAt, DeltaTime, 5.0f));
         
