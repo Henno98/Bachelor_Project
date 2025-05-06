@@ -72,10 +72,11 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
 
         Crow->AddMovementInput(FVector(DirectionToTarget.X, DirectionToTarget.Y, 0), MovementSpeed);
         CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
-
-       /* FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
-        Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), LookAt, DeltaTime, 5.0f));
-  */  }
+        if (CrowBoss_BBC->GetValueAsBool("IsGrounded")==false) {
+            FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
+            Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), LookAt, DeltaTime, 5.0f));
+        }
+    }
     else
     {
         CrowBoss_BBC->SetValueAsBool("SeenPlayer", false);

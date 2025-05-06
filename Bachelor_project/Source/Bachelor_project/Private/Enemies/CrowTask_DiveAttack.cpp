@@ -69,10 +69,11 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     if (BlackboardComp->GetValueAsBool("IsAttacking"))
     {
         UE_LOG(LogCrowDiveAttack, Warning, TEXT("ExecuteTask: Already attacking — skipping dive"));
-        return EBTNodeResult::Failed;
+       // return EBTNodeResult::Failed;
     }
 
     BlackboardComp->SetValueAsBool("IsAttacking", true);
+    BlackboardComp->SetValueAsBool("IsDiving", true);
     CrowBoss->SetIsPreparingDive(true);
     CrowBoss->SetIsPatrolling(false);
     // Calculate landing spot
@@ -149,6 +150,7 @@ void UCrowTask_DiveAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
 
     if (Distance < 100.0f)
     {
+       // BlackboardComp->SetValueAsBool("IsDiving", false);
         //UE_LOG(LogCrowDiveAttack, Log, TEXT("CrowBoss close to landing. Switching to MOVE_Falling"));
 
         //// Switch to falling so Landed() can trigger when they hit the ground
@@ -161,7 +163,7 @@ void UCrowTask_DiveAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
         // Stop the task; Landed() will finish the behavior
 
     }
-
+    BlackboardComp->SetValueAsBool("IsGrounded", true);
 	FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
 }
 

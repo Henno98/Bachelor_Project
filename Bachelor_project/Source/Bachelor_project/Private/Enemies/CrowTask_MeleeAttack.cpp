@@ -30,6 +30,10 @@ EBTNodeResult::Type UCrowTask_MeleeAttack::ExecuteTask(UBehaviorTreeComponent& O
     PlayerActor = Cast<AActor>(Blackboard->GetValueAsObject("Player"));
     if (!PlayerActor) return EBTNodeResult::Failed;
 
+    Blackboard->SetValueAsBool("IsMeleeAttacking", true);
+    Blackboard->SetValueAsBool("IsAttacking", true);
+  
+
     AttackRange = CrowBoss->GetAttackRange();
     bHasAttacked = false;
     CrowBoss->SetIsWalking(true);
@@ -68,10 +72,11 @@ void UCrowTask_MeleeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* N
             //CrowBoss->Attack("MeleeSocket",100.f);
             // Stop immediately after attacking
             CrowBoss->GetCharacterMovement()->StopMovementImmediately();
-
+           
             // Delay to simulate recovery after the attack
             CrowBoss->GetWorldTimerManager().SetTimer(AttackTimer, [this, &OwnerComp]()
                 {   CrowBoss->SetIsMeleeAttacking(false);
+				//Blackboard->SetValueAsBool("IsMeleeAttacking", false);
                     FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
                 }, 1.0f, false);
         }

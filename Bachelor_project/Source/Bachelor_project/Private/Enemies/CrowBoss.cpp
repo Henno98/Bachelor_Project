@@ -45,6 +45,7 @@ void ACrowBoss::Tick(float DeltaTime)
     if (GetHealth() <= 0)
     {
         bIsDying = true;
+        GetCharacterMovement()->SetMovementMode(MOVE_Falling);
         if (bIsDead) {
             UE_LOG(LogTemp, Warning, TEXT("CrowBoss marked for death"));
             Death();

@@ -36,11 +36,15 @@ ATest_Character::ATest_Character()
 	Springarm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Springarm"));
 	Springarm->SetupAttachment(RootComponent);
 	Springarm->TargetArmLength = 1000.f;
+	Springarm->bUsePawnControlRotation = false;
 
+	Springarm->bEnableCameraLag = true;
+	Springarm->CameraLagSpeed = 10.f; // Feel free to tweak
+	Springarm->bEnableCameraRotationLag = false;
+	//Springarm->SetRelativeRotation(FRotator(0.f, -90.f, 0.f)); // Looking at the character
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 
-	Camera->AttachToComponent(Springarm, FAttachmentTransformRules::KeepRelativeTransform);
-
+	Camera->SetupAttachment(Springarm);
 	
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ATest_Character::OnOverlap);
 
@@ -186,12 +190,6 @@ void ATest_Character::Tick(float DeltaTime)
 		bMidJump = false;
 	}
 
-	if (Springarm)
-	{
-		FVector CurrentOffset = Springarm->SocketOffset;
-		FVector NewOffset = FMath::VInterpTo(CurrentOffset, TargetSocketOffset, DeltaTime, 0.8f);
-		Springarm->SocketOffset = NewOffset;
-	}
 	
 }
 // Called to bind functionality to input
@@ -570,10 +568,10 @@ void ATest_Character::MoveLeft(const FInputActionValue& Value)
 			TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
 			SetActorRotation(FRotator(0.f, -90, 0.f));
 		
-
+			Springarm->SocketOffset = TargetSocketOffset;
 		// Move character along its forward vector (in sidescroller, usually X axis)
 		const FVector directionVector = -GetActorForwardVector();
-		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
+		AddMovementInput(directionVector, -FMath::Abs(moveVector.X)); // Always positive
 
 		// Set running state
 		bIsMoving = true;
@@ -601,10 +599,10 @@ void ATest_Character::MoveRight(const FInputActionValue& Value)
 	{
 
 		// Moving left: face left (180 degrees yaw)
-		TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
+		TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at right
 		SetActorRotation(FRotator(0.f, 90, 0.f));
 
-
+		Springarm->SocketOffset = TargetSocketOffset;
 		// Move character along its forward vector (in sidescroller, usually X axis)
 		const FVector directionVector = GetActorForwardVector();
 		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
