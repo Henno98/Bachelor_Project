@@ -27,7 +27,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
 	float PatrolSpeed{ 400.f };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
-	float ChargeSpeed{ 700.f };
+	float ChargeSpeed{ 800.f };
 
 
 	//Animation state

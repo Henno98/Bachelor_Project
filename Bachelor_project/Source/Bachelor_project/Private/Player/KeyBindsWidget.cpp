@@ -45,9 +45,9 @@ void UKeyBindsWidget::ConstructWidget()
                 continue;
 
             if (Mapping.Key.IsGamepadKey())
-                GamepadKeys.Add(Mapping.Action, Mapping.Key);
+                GamepadKeys.Emplace(Mapping.Action, Mapping.Key);
             else
-                KeyboardKeys.Add(Mapping.Action, Mapping.Key);
+                KeyboardKeys.Emplace(Mapping.Action, Mapping.Key);
         }
 
         TSet<UInputAction*> AllActions;

@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Perception/PawnSensingComponent.h"
+#include "Player/Test_Character.h"
 
 
 ABeetle_AIController::ABeetle_AIController()
@@ -17,65 +18,64 @@ ABeetle_AIController::ABeetle_AIController()
 	Beetle_BBC = CreateDefaultSubobject<UBlackboardComponent>("Beetle Blackboard Component");
 	Beetle_PerceptionComponent = CreateDefaultSubobject<UPawnSensingComponent>("Beetle Perception Component");
 
-
+	Beetle_PerceptionComponent->SetPeripheralVisionAngle(90.0f);
+	Beetle_PerceptionComponent->SightRadius = 700.0f;
 }
 
 void ABeetle_AIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	if (Beetle_BT != NULL)
+	if (Beetle_BT)
 	{
 		Beetle_BBC->InitializeBlackboard(*Beetle_BT->BlackboardAsset);
 		Beetle_BTC->StartTree(*Beetle_BT);
 
 		Beetle_PerceptionComponent->OnSeePawn.AddDynamic(this, &ABeetle_AIController::OnEnemySeeItsTarget);
 
+		// Initial blackboard values
+		Beetle_BBC->SetValueAsBool("SeenPlayer", false);
 	}
 }
 
-void ABeetle_AIController::ToCheckSpawnStillAround()
+void ABeetle_AIController::Tick(float DeltaTime)
 {
-	float distanceBetweenEnemyPlayer = FVector::Distance(GetNavAgentLocation(),
-		FVector(detectPlayer->GetActorLocation().X,
-			detectPlayer->GetActorLocation().Y,
-			GetNavAgentLocation().Z
-		)
-	);
+	Super::Tick(DeltaTime);
 
-	if (distanceBetweenEnemyPlayer > Beetle_PerceptionComponent->SightRadius)
+	// If we’ve lost the player, stop chasing
+	if (Player)
 	{
-		Beetle_BBC->SetValueAsBool("SeenPlayer", false);
-		GetWorld()->GetTimerManager().ClearTimer(timerHandle);
-
-
-		ACharacter* BeetleCharacter = Cast<ACharacter>(GetPawn());
-		if (BeetleCharacter)
+		float Distance = FVector::Dist(GetPawn()->GetActorLocation(), Player->GetActorLocation());
+		if (Distance > Beetle_PerceptionComponent->SightRadius)
 		{
-			BeetleCharacter->GetCharacterMovement()->MaxWalkSpeed = 600.0f; // Normal walk speed
+			Beetle_BBC->SetValueAsBool("SeenPlayer", false);
+			Beetle_BBC->SetValueAsObject("Player", nullptr);
+			Player = nullptr;
+
+			ACharacter* BeetleChar = Cast<ACharacter>(GetPawn());
+			if (BeetleChar)
+			{
+				BeetleChar->GetCharacterMovement()->MaxWalkSpeed = 400.f; 
+			}
 		}
 	}
 }
 
 
-
 void ABeetle_AIController::OnEnemySeeItsTarget(APawn* SensedPawn)
 {
-	if (Beetle_BTC != nullptr && SensedPawn != nullptr)
+	if (SensedPawn && SensedPawn->IsA<ATest_Character>())
 	{
-		
+		Player = SensedPawn;
 
-			Beetle_BBC->SetValueAsBool("SeenPlayer", true);
+		Beetle_BBC->SetValueAsObject("Player", SensedPawn);
+		Beetle_BBC->SetValueAsBool("SeenPlayer", true);
+		Beetle_BBC->SetValueAsVector("LastSeenLocation", SensedPawn->GetActorLocation());
 
-			Beetle_BBC->SetValueAsObject("Player", SensedPawn);
-
-			FVector LastSeenLocation = SensedPawn->GetActorLocation();
-			Beetle_BBC->SetValueAsVector("LastSeenLocation", LastSeenLocation);
-
-		
-			detectPlayer = SensedPawn;
-
-			GetWorldTimerManager().SetTimer(timerHandle, this, &ABeetle_AIController::ToCheckSpawnStillAround, 2.0f, true, 3.0f);
-		
+		ACharacter* BeetleChar = Cast<ACharacter>(GetPawn());
+		if (BeetleChar)
+		{
+			BeetleChar->GetCharacterMovement()->MaxWalkSpeed = 500.f; // Slightly increased speed when chasing
+		}
 	}
 }
