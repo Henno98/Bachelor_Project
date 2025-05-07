@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "EnemyInterface.h"
 #include "IsRangedAttacker.h"
 #include "GameFramework/Character.h"
 #include "Player/GAS_Ranged_Attack.h"
@@ -11,7 +12,7 @@
 
 //Add the Interface with info for the GAS class
 UCLASS()
-class BACHELOR_PROJECT_API APlant : public ACharacter, public IIsRangedAttacker
+class BACHELOR_PROJECT_API APlant : public ACharacter, public IIsRangedAttacker,public IEnemyInterface
 {
 	GENERATED_BODY()
 
@@ -76,4 +77,13 @@ public:
 	FGameplayAbilitySpec RangedAttackAbilitySpec;
 	//Function to call on GAS ability
 	virtual void CallGAS_RangedAttack();
+
+	// IEnemyInterface implementations
+	virtual float GetHealth() const override { return Health; };
+	virtual float GetDamage() const override { return Damage; };
+	virtual void SetHealth(float NewHealth) override { Health = NewHealth; };
+	virtual void SetDamage(float NewDamage) override { Damage = NewDamage; };
+	float Health;
+	float Damage;
+	
 };

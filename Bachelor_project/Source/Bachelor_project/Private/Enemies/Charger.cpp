@@ -23,13 +23,14 @@ ACharger::ACharger()
 void ACharger::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SetActorHiddenInGame(false);
+	SetActorEnableCollision(true);
 }
 
 float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	// Default damage handling (e.g., subtract health)
-	Health -= DamageAmount;
+	SetHealth(GetHealth()-DamageAmount);
 	GetCharacterMovement()->StopMovementImmediately();
 	// Ensure health doesn't go below 0
 	//Health = FMath::Max(Health, 0.0f);
@@ -98,5 +99,25 @@ void ACharger::Destroy()
 void ACharger::OnHit(int damage)
 {
 	SetHealth(GetHealth()-damage);
+}
+
+float ACharger::GetHealth() const
+{
+	return Health;
+}
+
+float ACharger::GetDamage() const
+{
+	return Damage;
+}
+
+void ACharger::SetHealth(float NewHealth)
+{
+	Health = NewHealth;
+}
+
+void ACharger::SetDamage(float NewDamage)
+{
+	Damage = NewDamage;
 }
 

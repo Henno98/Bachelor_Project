@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnemyInterface.h"
 #include "NiagaraSystem.h"
 #include "GameFramework/Character.h"
 #include "CrowBoss.generated.h"
 
 UCLASS()
-class BACHELOR_PROJECT_API ACrowBoss : public ACharacter
+class BACHELOR_PROJECT_API ACrowBoss : public ACharacter,public IEnemyInterface
 {
 	GENERATED_BODY()
 
@@ -74,15 +75,11 @@ public:
 
 	//Getters and setters
 	//Health
-	UFUNCTION()
-	int GetHealth(){return Health;}
-	UFUNCTION()
-	void SetHealth(int newHealth){Health = newHealth;}
-	//Stamina
-	UFUNCTION()
-	float GetStamina() { return Stamina; }
-	UFUNCTION()
-	void SetStamina(float newstamina) { Stamina = newstamina;}
+	 // IEnemyInterface implementations
+	virtual float GetHealth() const override;
+	virtual float GetDamage() const override;
+	virtual void SetHealth(float NewHealth) override;
+	virtual void SetDamage(float NewDamage) override;
 	//AttackTarget
 	UFUNCTION()
 	AActor* GetAttackTarget() { return Target; }

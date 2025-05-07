@@ -13,7 +13,7 @@ ALevelStreamingActor::ALevelStreamingActor()
 	OverlapVolume = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapVolume"));
 	SetRootComponent(OverlapVolume);
 	OverlapVolume->OnComponentBeginOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapBegins);
-	//OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
+	OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
 }
 
 // Called when the game starts or when spawned
@@ -33,6 +33,7 @@ void ALevelStreamingActor::OverlapBegins(UPrimitiveComponent* OverlappedComponen
 		if ( LevelToLoad != " ") {
 			
 			FLatentActionInfo LatentInfo;
+			
 			UGameplayStatics::LoadStreamLevel(this, LevelToLoad, true, true, LatentInfo);
 		}
 		else
@@ -47,15 +48,18 @@ void ALevelStreamingActor::OverlapEnds(UPrimitiveComponent* OverlappedComponent,
 {
 
 	ACharacter* MyCharacter = UGameplayStatics::GetPlayerCharacter(this, 0);
-	if (OtherActor == MyCharacter)
+	ULevelStreaming* FoundLevel = UGameplayStatics::GetStreamingLevel(this, LevelToLoad);
+	if (!FoundLevel)
 	{
-		
-		if (LevelToLoad != "") {
-		
-			FLatentActionInfo LatentInfo;
-			UGameplayStatics::UnloadStreamLevel(this, LevelToLoad, LatentInfo,false);
-		}
+		UE_LOG(LogTemp, Error, TEXT("Unload failed: Could not find streaming level: %s"), *LevelToLoad.ToString());
 	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("Found level %s, attempting to unload."), *LevelToLoad.ToString());
+	}
+
+	FLatentActionInfo LatentInfo;
+	UGameplayStatics::UnloadStreamLevel(this, LevelToLoad, LatentInfo, false);
 }
 
 // Called every frame

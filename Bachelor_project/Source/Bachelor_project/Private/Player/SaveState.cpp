@@ -4,6 +4,7 @@
 
 #include "Player/SaveState.h"
 
+#include "Plagued_Knight_GameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
 USaveState::USaveState()
@@ -15,107 +16,96 @@ USaveState::USaveState()
 
 bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
 {
-	// Get the player character from the world
-	ATest_Character* Character = Cast<ATest_Character>(UGameplayStatics::GetPlayerCharacter(World, 0));
-	if (!Character)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to find player character for saving!"));
-		return false;
-	}
+    if (!ensure(World))
+    {
+        UE_LOG(LogTemp, Error, TEXT("SaveGame failed: World is null."));
+        return false;
+    }
 
-	// Create a save game instance
-	USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass()));
-	if (SaveGameInstance)
-	{
-		SaveGameInstance->PlayerName = TEXT("PlayerOne");
-		SaveGameInstance->PlayerLocation = Character->GetActorLocation();
-		SaveGameInstance->Health = Character->GetHealth();
-		SaveGameInstance->BioMass = Character->GetBioMass();
+    ATest_Character* Character = Cast<ATest_Character>(UGameplayStatics::GetPlayerCharacter(World, 0));
+    if (!ensure(Character))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("SaveGame failed: Player character not found."));
+        return false;
+    }
 
-		// Get the current level name and save it
-		SaveGameInstance->CurrentLevel = World->GetMapName();  // Get current level name
+    USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass()));
+    if (!ensure(SaveGameInstance))
+    {
+        UE_LOG(LogTemp, Error, TEXT("SaveGame failed: Could not create save game instance."));
+        return false;
+    }
 
-		// Save the game to the slot
-		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
-		{
-			UE_LOG(LogTemp, Log, TEXT("Game saved successfully to slot: %s (%d)"), *SlotName, SlotNumber);
-			return true;
-		}
-	}
+    // Save player-related data
+    SaveGameInstance->PlayerName = TEXT("PlayerOne");
+    SaveGameInstance->PlayerLocation = Character->GetActorLocation();
+    SaveGameInstance->Health = Character->GetHealth();
+    SaveGameInstance->BioMass = Character->GetBioMass();
 
-	UE_LOG(LogTemp, Warning, TEXT("Failed to save game to slot: %s (%d)"), *SlotName, SlotNumber);
-	return false;
+    // Save level name (from level streaming or manually tracked)
+    ULevel* CurrentLevel = World->GetCurrentLevel();
+    SaveGameInstance->LastPlayedLevel = CurrentLevel ? CurrentLevel->GetFName() : NAME_None;
+
+    // Final save
+    if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
+    {
+        UE_LOG(LogTemp, Log, TEXT("Game saved successfully to slot: %s (%d)"), *SlotName, SlotNumber);
+        return true;
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("SaveGame failed: SaveGameToSlot returned false."));
+    }
+
+
+  
+
+
+    return false;
 }
-
 bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
 {
-	// Get the player character from the world
-	ATest_Character* Character = Cast<ATest_Character>(UGameplayStatics::GetPlayerCharacter(World, 0));
-	if (!Character)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to find player character for loading!"));
-		return false;
-	}
+    if (!World) return false;
 
-	// Check if a save game exists in the slot
-	if (UGameplayStatics::DoesSaveGameExist(SlotName, SlotNumber))
-	{
-		USaveState* LoadedGame = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, SlotNumber));
-		if (LoadedGame)
-		{
-			
-			//// Load the saved level (if needed)
-			//FString LevelName = LoadedGame->CurrentLevel;
-			//if (!LevelName.IsEmpty())
-			//{
-			//	UGameplayStatics::OpenLevel(World, FName(*LevelName));
-			//}
+    // Get the player character
+    ATest_Character* Character = Cast<ATest_Character>(UGameplayStatics::GetPlayerCharacter(World, 0));
+    if (!Character)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Failed to find player character for loading!"));
+        return false;
+    }
+
+    if (!UGameplayStatics::DoesSaveGameExist(SlotName, SlotNumber))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No save game found in slot: %s (%d)"), *SlotName, SlotNumber);
+        return false;
+    }
+
+    USaveState* LoadedGame = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, SlotNumber));
+    if (!LoadedGame)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Failed to cast loaded game!"));
+        return false;
+    }
 
 
-			//if (World->GetCurrentLevel()->GetName() == FName(*LevelName)) {
-			//	
-				if (World->GetBegunPlay())
-				{// Apply the loaded data
-					Character->SetActorEnableCollision(true);
-					Character->SetActorHiddenInGame(false);
-					Character->SetActorLocation(LoadedGame->PlayerLocation);
-					Character->SetHealth(LoadedGame->Health);
-					Character->SetBioMass(LoadedGame->BioMass);
+    UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(World));
+    if (!GameInstance)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No valid GameInstance found."));
+        return false;
+    }
+    GameInstance->StoreSavedData(LoadedGame->PlayerLocation, LoadedGame->Health, LoadedGame->BioMass, LoadedGame->LastPlayedLevel);
+    FName LevelToLoad = GameInstance->GetTargetLevel();
 
-					Character->OnHealthChanged.Broadcast(LoadedGame->Health);
-					Character->OnEnergyChanged.Broadcast(LoadedGame->BioMass);
+    FLatentActionInfo LatentInfo;
+    LatentInfo.CallbackTarget = Character; // Or the character
+    LatentInfo.ExecutionFunction = "OnSublevelLoaded";
+    LatentInfo.Linkage = 0;
+    LatentInfo.UUID = __LINE__; // Unique ID per call
 
-					APlayerController* PC = UGameplayStatics::GetPlayerController(World, 0);
-					PC->SetPause(false);
-					Character->ToggleMenu();
-					UE_LOG(LogTemp, Log, TEXT("Level is loaded!"));
-				}
-				else
-				{
-					FTimerHandle LoadDelay;
-					World->GetTimerManager().ClearTimer(LoadDelay);
-					World->GetTimerManager().SetTimer(LoadDelay, FTimerDelegate::CreateLambda([Character, LoadedGame]()
-						{
-							Character->SetActorEnableCollision(true);
-							Character->SetActorHiddenInGame(false);
-							Character->SetActorLocation(LoadedGame->PlayerLocation);
-							Character->SetHealth(LoadedGame->Health);
-							Character->SetBioMass(LoadedGame->BioMass);
+    UGameplayStatics::LoadStreamLevel(World, LevelToLoad, true, false, LatentInfo);
 
-							Character->OnHealthChanged.Broadcast(LoadedGame->Health);
-							Character->OnEnergyChanged.Broadcast(LoadedGame->BioMass);
-							Character->ToggleMenu();
-
-						}), 3.f, false);
-					UE_LOG(LogTemp, Log, TEXT("Level is not loaded delaying"));
-				}
-
-			//}
-			UE_LOG(LogTemp, Log, TEXT("Game loaded successfully from slot: %s (%d)"), *SlotName, SlotNumber);
-			return true;
-		}
-	}
-
-	UE_LOG(LogTemp, Warning, TEXT("No save game found in slot: %s (%d)"), *SlotName, SlotNumber);
-	return false;
+    UE_LOG(LogTemp, Log, TEXT("Started async level load: %s"), *LoadedGame->LastPlayedLevel.ToString());
+    return true;
 }

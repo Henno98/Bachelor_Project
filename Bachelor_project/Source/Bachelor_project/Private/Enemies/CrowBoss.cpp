@@ -42,15 +42,12 @@ void ACrowBoss::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (GetHealth() <= 0)
-    {
-        bIsDying = true;
-        GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+   
         if (bIsDead) {
             UE_LOG(LogTemp, Warning, TEXT("CrowBoss marked for death"));
             Death();
         }
-    }
+    
 }
 
 void ACrowBoss::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -77,7 +74,12 @@ void ACrowBoss::Landed(const FHitResult& Hit)
 
 float ACrowBoss::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-    Health -= DamageAmount;
+    SetHealth(GetHealth()-DamageAmount);
+    if (GetHealth() <= 0)
+    {
+        bIsDying = true;
+        GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+    }
     UE_LOG(LogTemp, Error, TEXT("CrowBoss took %f damage, current health: %d"), DamageAmount, Health);
     GetCharacterMovement()->StopMovementImmediately();
     return DamageAmount;
@@ -171,8 +173,28 @@ void ACrowBoss::Attack(const FName& Socket, float attackrange)
     }
 }
 
+float ACrowBoss::GetHealth() const
+{
+    return Health;
+}
+
+float ACrowBoss::GetDamage() const
+{
+    return AttackDamage;
+}
+
+void ACrowBoss::SetHealth(float NewHealth)
+{
+    Health = NewHealth;
+}
+
+void ACrowBoss::SetDamage(float NewDamage)
+{
+    AttackDamage = NewDamage;
+}
+
 void ACrowBoss::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-    UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                          UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (OtherActor != this || OtherActor->GetOwner() != this)
     {

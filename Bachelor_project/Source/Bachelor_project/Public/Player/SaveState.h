@@ -10,11 +10,32 @@
 /**
  * 
  */
+
+USTRUCT(BlueprintType)
+struct FEnemySaveData
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	FName EnemyClassPath;
+
+	UPROPERTY()
+	FVector Location;
+
+	UPROPERTY()
+	FRotator Rotation;
+
+	UPROPERTY()
+	float Health;
+};
+
 UCLASS()
 class BACHELOR_PROJECT_API USaveState : public USaveGame
 {
 	GENERATED_BODY()
 public:
+
+
 
 	// Saved data
 	UPROPERTY(VisibleAnywhere, Category = "SaveData")
@@ -28,7 +49,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	int32 UserIndex;
+	UPROPERTY()
+	FString CurrentSubLevel;
 
+	UPROPERTY()
+	int32 GlobalProgress;
 	// The current level name to load
 	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	FString CurrentLevel;
@@ -37,10 +62,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "SaveData")
 	int BioMass;
 	UPROPERTY()
-	ATest_Character* Player;
-	// The current level name to load
-
-
+	FName LastPlayedLevel;
+	UPROPERTY()
+	TArray<FEnemySaveData> EnemiesInLevel;
 	USaveState();
 
 	static bool SaveGame(UWorld* World, FString SlotName, int32 SlotNumber);

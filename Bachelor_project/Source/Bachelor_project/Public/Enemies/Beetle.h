@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnemyInterface.h"
 #include "GameFramework/Character.h"
 #include "Beetle.generated.h"
 
 UCLASS()
-class BACHELOR_PROJECT_API ABeetle : public ACharacter
+class BACHELOR_PROJECT_API ABeetle : public ACharacter,public IEnemyInterface
 {
 	GENERATED_BODY()
 

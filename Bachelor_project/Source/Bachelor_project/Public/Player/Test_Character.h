@@ -29,10 +29,15 @@ class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilityS
 {
     GENERATED_BODY()
 public:
+    ATest_Character();
+
+
     UFUNCTION(BlueprintCallable)
     void OnMeleeHitNotify();
-    ATest_Character();
-    
+  
+    UFUNCTION()
+    void OnSublevelLoaded();
+    FTimerHandle invincibilityframe;
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnHealthChangedSignature OnHealthChanged;
     UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -52,11 +57,11 @@ protected:
     virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 public:
 
-
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh", meta = (AllowPrivateAccess = "true"))
+    USkeletalMeshComponent* SecondaryMesh;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
     UInputDataConfig* InputActions;
-
 
     //Input mapping and input actions
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
@@ -67,7 +72,6 @@ public:
     USpringArmComponent* Springarm;
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     class UCameraComponent* Camera;
-
 
 
 
@@ -95,11 +99,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
     bool bFinishJump{ false };
 
-
-    bool Attack1{false};
-    bool Attack2{false};
-    bool Attack3{false};
-  
 
 
 protected:
@@ -176,14 +175,11 @@ public:
     void ToggleMenu();
     void Run(const FInputActionValue& Value);
     void StopRun();
-    void UpdateJumpState();
     float GetAnimationDuration(UAnimMontage* Montage);
     UFUNCTION()
     void SaveGame(FString slotname, int32 slotnumber);
     UFUNCTION()
     void LoadGame(FString slotname, int32 slotnumber);
-    UFUNCTION()
-    void Move(const FInputActionValue& Value);
     UFUNCTION()
     void StopMoving();
     UFUNCTION()

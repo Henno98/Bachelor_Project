@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnemyInterface.h"
 #include "GameFramework/Character.h"
 #include "Charger.generated.h"
 
 UCLASS()
-class BACHELOR_PROJECT_API ACharger : public ACharacter
+class BACHELOR_PROJECT_API ACharger : public ACharacter,public IEnemyInterface
 {
 	GENERATED_BODY()
 
@@ -54,9 +55,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void Destroy();
 	void OnHit(int Damage);
-	int GetHealth() { return Health; }
-	void SetHealth(int newhealth){Health = newhealth;}
-	int GetDamage() { return Damage; }
+	// IEnemyInterface implementations
+	virtual float GetHealth() const override;
+	virtual float GetDamage() const override;
+	virtual void SetHealth(float NewHealth) override;
+	virtual void SetDamage(float NewDamage) override;
 	float GetWalkSpeed() { return PatrolSpeed; }
 	float GetChargeSpeed() { return ChargeSpeed; }
 

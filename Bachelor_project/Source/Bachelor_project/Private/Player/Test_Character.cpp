@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "InputActionValue.h"
 #include "AbilitySystemComponent.h"
+#include "Plagued_Knight_GameInstance.h"
 #include "Enemies/Charger.h"
 #include "Enemies/CrowBoss.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -16,11 +17,6 @@
 #include "Player/GAS_PlayerState.h"
 #include "Player/Player_HUD.h"
 #include "Player/SaveState.h"
-
-
-
-
-
 
 // Sets default values
 ATest_Character::ATest_Character()
@@ -43,6 +39,8 @@ ATest_Character::ATest_Character()
 	Camera->SetupAttachment(Springarm);
 	
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ATest_Character::OnOverlap);
+	SecondaryMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SecondaryMesh"));
+	SecondaryMesh->SetupAttachment(GetMesh(), TEXT("WingSocket"));// Attach to socket
 
 	MaxHealth = 10;
 	Health = MaxHealth;
@@ -53,6 +51,150 @@ ATest_Character::ATest_Character()
 	
 }
 
+// Called when the game starts or when spawned
+void ATest_Character::BeginPlay()
+{
+	Super::BeginPlay();
+	UPlagued_Knight_GameInstance* GI = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GI && GI->GetTargetLevel() == GetWorld()->GetMapName())
+	{
+		SetActorLocation(GI->GetSavedLocation());
+		SetHealth(GI->GetSavedHealth());
+		SetBioMass(GI->GetSavedBioMass());
+
+		GI->ClearSavedData();
+	}
+	// Ensure InputActions is valid before proceeding
+	ensure(InputActions != nullptr);
+
+	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("EnhancedInputLocalPlayerSubsystem is null"));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("PlayerController cast failed in BeginPlay"));
+	}
+	DashCooldown = 2.f;
+
+
+}
+
+// Called every frame
+void ATest_Character::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	
+	
+	if (!FMath::IsNearlyZero(GetActorLocation().X))
+	{
+		GetCharacterMovement()->bConstrainToPlane = true;
+		GetCharacterMovement()->SetPlaneConstraintAxisSetting(EPlaneConstraintAxisSetting::X);
+	}
+	if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		bStartedJump = false;
+		bFinishJump = false;
+		bHasDoubleJumped = false;
+		
+
+	}
+	if (GetCharacterMovement()->IsFalling())
+	{
+		bMidJump = true;
+	}
+	else
+	{
+		bMidJump = false;
+	}
+	
+	
+}
+// Called to bind functionality to input
+void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	ensure(EnhancedInputComponent != nullptr);
+	ensure(InputActions != nullptr);  // Check again here just in case
+
+		// Jumping
+		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Started, this, &ATest_Character::GASJump);
+		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopJump);
+		
+		// Moving
+		EnhancedInputComponent->BindAction(InputActions->MoveLeftAction, ETriggerEvent::Triggered, this, &ATest_Character::MoveLeft);
+		EnhancedInputComponent->BindAction(InputActions->MoveLeftAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
+
+		EnhancedInputComponent->BindAction(InputActions->MoveRightAction, ETriggerEvent::Triggered, this, &ATest_Character::MoveRight);
+		EnhancedInputComponent->BindAction(InputActions->MoveRightAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
+
+		EnhancedInputComponent->BindAction(InputActions->DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
+
+		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Started, this, &ATest_Character::Run);
+		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Completed, this, &ATest_Character::StopRun);
+		//PowerUpInputs
+		EnhancedInputComponent->BindAction(InputActions->DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
+
+		EnhancedInputComponent->BindAction(InputActions->WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
+		EnhancedInputComponent->BindAction(InputActions->WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
+
+		//Save
+		EnhancedInputComponent->BindAction(InputActions->MenuInput, ETriggerEvent::Started, this, &ATest_Character::ToggleMenu);
+
+		EnhancedInputComponent->BindAction(InputActions->RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
+		EnhancedInputComponent->BindAction(InputActions->MeleeInput, ETriggerEvent::Started ,this, &ATest_Character::MeleeAttack);
+
+	
+}
+
+
+void ATest_Character::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	
+	bFinishJump = true;
+	bMidJump = false;
+	/*if (bIsRunning)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = 1400.f;
+	}
+	else
+	{
+		GetCharacterMovement()->MaxWalkSpeed = 800.f;
+	}*/
+
+}
+
+float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator, AActor* DamageCauser)
+{
+	SetHealth(GetHealth() - DamageAmount);
+
+	if (GetHealth() <= 0)
+	{
+		Dead();
+		return 0;
+	}
+	// Clear any existing timer before setting a new one
+	GetWorld()->GetTimerManager().ClearTimer(invincibilityframe);
+	//GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	GetWorld()->GetTimerManager().SetTimer(invincibilityframe, FTimerDelegate::CreateLambda([this]()
+		{
+
+
+		}), 10.f, false);
+
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
 
 
 void ATest_Character::OnMeleeHitNotify()
@@ -106,127 +248,26 @@ void ATest_Character::OnMeleeHitNotify()
 	}
 
 }
-// Called when the game starts or when spawned
-void ATest_Character::BeginPlay()
+
+void ATest_Character::OnSublevelLoaded()
 {
-	Super::BeginPlay();
-	//SaveGame("Slot_0",0);
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
-	DashCooldown = 2.f;
+	UPlagued_Knight_GameInstance* GI = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (!GI) return;
 
+	SetActorLocation(GI->GetSavedLocation());
+	SetHealth(GI->GetSavedHealth());
+	SetBioMass(GI->GetSavedBioMass());
 
+	SetActorHiddenInGame(false);
+	SetActorEnableCollision(true);
+
+	OnHealthChanged.Broadcast(GI->GetSavedHealth());
+	OnEnergyChanged.Broadcast(GI->GetSavedBioMass());
+
+	GI->ClearSavedData();
+
+	UE_LOG(LogTemp, Log, TEXT("Restored character state after sublevel stream load."));
 }
-void ATest_Character::Landed(const FHitResult& Hit)
-{
-	Super::Landed(Hit);
-	//GetCharacterMovement()->StopMovementImmediately();
-	bFinishJump = true;
-	if (bIsRunning)
-	{
-		GetCharacterMovement()->MaxWalkSpeed = 1400.f;
-	}
-	else
-	{
-		GetCharacterMovement()->MaxWalkSpeed = 800.f;
-	}
-
-}
-
-float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-	class AController* EventInstigator, AActor* DamageCauser)
-{
-	SetHealth(GetHealth() - DamageAmount);
-	
-	FTimerHandle invincibilityframe;
-	// Clear any existing timer before setting a new one
-	GetWorld()->GetTimerManager().ClearTimer(invincibilityframe);
-	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
-	GetWorld()->GetTimerManager().SetTimer(invincibilityframe, FTimerDelegate::CreateLambda([this]()
-		{
-			GetCapsuleComponent()->SetGenerateOverlapEvents(true);
-
-		}), 10.f, false);
-
-	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-}
-
-// Called every frame
-void ATest_Character::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	
-	if (Health <= 0)
-	{
-		Dead();
-	}
-	if (GetActorLocation().X < 0 || GetActorLocation().X > 0)
-	{
-		SetActorLocation(FVector(0.f,GetActorLocation().Y, GetActorLocation().Z));
-	}
-	if (GetCharacterMovement()->IsMovingOnGround())
-	{
-		bStartedJump = false;
-		bFinishJump = false;
-		bHasDoubleJumped = false;
-		
-
-	}
-	if (GetCharacterMovement()->IsFalling())
-	{
-		bMidJump = true;
-	}
-	else
-	{
-		bMidJump = false;
-	}
-
-	
-}
-// Called to bind functionality to input
-void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
-	{
-		// Jumping
-		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Started, this, &ATest_Character::GASJump);
-		EnhancedInputComponent->BindAction(InputActions->JumpAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopJump);
-		
-		// Moving
-		EnhancedInputComponent->BindAction(InputActions->MoveLeftAction, ETriggerEvent::Triggered, this, &ATest_Character::MoveLeft);
-		EnhancedInputComponent->BindAction(InputActions->MoveLeftAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
-
-		EnhancedInputComponent->BindAction(InputActions->MoveRightAction, ETriggerEvent::Triggered, this, &ATest_Character::MoveRight);
-		EnhancedInputComponent->BindAction(InputActions->MoveRightAction, ETriggerEvent::Completed, this, &ATest_Character::StopMoving);
-
-		EnhancedInputComponent->BindAction(InputActions->DropDownInput,ETriggerEvent::Started,this, &ATest_Character::DropDown);
-
-		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Started, this, &ATest_Character::Run);
-		EnhancedInputComponent->BindAction(InputActions->RunInput, ETriggerEvent::Completed, this, &ATest_Character::StopRun);
-		//PowerUpInputs
-		EnhancedInputComponent->BindAction(InputActions->DashAction, ETriggerEvent::Triggered, this, &ATest_Character::GAS_Dash);
-
-		EnhancedInputComponent->BindAction(InputActions->WallLatchAction, ETriggerEvent::Ongoing, this, &ATest_Character::GASWallLatch);
-		EnhancedInputComponent->BindAction(InputActions->WallLatchAction, ETriggerEvent::Completed, this, &ATest_Character::GASStopWallLatch);
-
-		//Save
-		EnhancedInputComponent->BindAction(InputActions->MenuInput, ETriggerEvent::Started, this, &ATest_Character::ToggleMenu);
-
-		EnhancedInputComponent->BindAction(InputActions->RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
-		EnhancedInputComponent->BindAction(InputActions->MeleeInput, ETriggerEvent::Started ,this, &ATest_Character::MeleeAttack);
-
-	}
-}
-
-
-
 
 void ATest_Character::Hit(int Damage)
 {
@@ -289,16 +330,16 @@ void ATest_Character::GASJump()
 	if (bStartedJump)
 	{
 		bHasDoubleJumped = true;
+
 	}
 
 	if (AbilitySystemComponent && GA_Double_Jump)
 	{
 		bStartedJump = true;
-		UWorld* World = GetWorld();
-		if (!World) return;
-			FGameplayTagContainer tags;
-			tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump")));
-			AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+
+		check(AbilitySystemComponent);  // Must be valid
+		FGameplayTag JumpTag = FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump"));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(JumpTag));
 		
 	}
 }
@@ -321,13 +362,13 @@ void ATest_Character::GAS_Dash()
 	bIsDashing = true;
 	if (AbilitySystemComponent && GA_Dash)
 	{
-
-			FGameplayTagContainer jumpGameTagContainer;
-			jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Dash")));
-			AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
-
-		
-		}
+		FGameplayTag DashTag = FGameplayTag::RequestGameplayTag(FName("Abilities.Dash"));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(DashTag));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is null in GAS_Dash"));
+	}
 		
 
 	
@@ -338,9 +379,10 @@ void ATest_Character::GASWallLatch()
 	if (AbilitySystemComponent && GA_Wall_Latch)
 	{
 		
-		FGameplayTagContainer jumpGameTagContainer;
-		jumpGameTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Wall_Latch")));
-		AbilitySystemComponent->TryActivateAbilitiesByTag(jumpGameTagContainer);
+		check(AbilitySystemComponent);
+		FGameplayTag WallLatchTag = FGameplayTag::RequestGameplayTag(FName("Abilities.WallLatch"));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(WallLatchTag));
+	
 
 
 	}
@@ -348,6 +390,7 @@ void ATest_Character::GASWallLatch()
 
 void ATest_Character::GASStopWallLatch()
 {
+	if (GA_Wall_Latch && AbilitySystemComponent)
 	AbilitySystemComponent->AbilityLocalInputReleased(JumpAbilitySpec.InputID);
 }
 
@@ -364,18 +407,6 @@ void ATest_Character::GAS_RangedAttack()
 			bIsRangedAttacking = true;
 
 			SetBioMass(GetBioMass() - 100);
-
-			FTimerHandle TimerHandle;
-			float AnimDuration;
-
-
-			AnimDuration = 0.5f;
-
-
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-				{
-					bIsRangedAttacking = false;
-				}), AnimDuration, false); // Adjust based on anim length
 		}
 	}
 }
@@ -448,14 +479,15 @@ void ATest_Character::DropDown()
 
 void ATest_Character::ReEnableInput()
 {
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+
+	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
 	this->EnableInput(PlayerController);
 }
 
 void ATest_Character::PauseInput()
 {
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-	this->DisableInput(PlayerController);
+	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+		this->DisableInput(PlayerController);
 }
 
 void ATest_Character::ToggleMenu()
@@ -477,8 +509,6 @@ void ATest_Character::ToggleMenu()
 void ATest_Character::Run(const FInputActionValue& Value)
 {
 
-	
-
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
 		bIsRunning = true;
@@ -488,19 +518,11 @@ void ATest_Character::Run(const FInputActionValue& Value)
 
 void ATest_Character::StopRun()
 {
-
 	bIsRunning = false;
 	GetCharacterMovement()->MaxWalkSpeed = 800.f;
 }
 
 
-
-
-void ATest_Character::UpdateJumpState()
-{
-	bStartedJump = true;
-	
-}
 
 float ATest_Character::GetAnimationDuration(UAnimMontage* Montage)
 {
@@ -509,49 +531,6 @@ float ATest_Character::GetAnimationDuration(UAnimMontage* Montage)
 
 
 
-
-void ATest_Character::Move(const FInputActionValue& Value)
-{
-	const FVector2D moveVector = Value.Get<FVector2D>();
-	
-	
-	// Only respond if the stick is moved enough (ignore tiny noise)
-	if (FMath::Abs(moveVector.X) > 0.5f)
-	{
-		// Snap rotation based on left/right input
-		if (moveVector.X > 0.0f)
-		{
-			// Moving right: face right (0 degrees yaw)
-			//TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at left
-			SetActorRotation(FRotator(0.f, 90.f, 0.f));
-		}
-		else
-		{
-			// Moving left: face left (180 degrees yaw)
-			//TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
-			SetActorRotation(FRotator(0.f, -90, 0.f));
-		}
-
-		// Move character along its forward vector (in sidescroller, usually X axis)
-		const FVector directionVector = GetActorForwardVector();
-		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
-
-		// Set running state
-		bIsMoving = true;
-	}
-	else
-	{
-		// Not moving
-		bIsMoving = false;
-	}
-	
-	// Stick flick downward to trigger DropDown
-	if (moveVector.Y < -0.8f) // Stick pushed down
-	{
-			DropDown();
-	}
-	
-}
 
 void ATest_Character::MoveLeft(const FInputActionValue& Value)
 {
@@ -656,38 +635,7 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor != this || OtherActor->GetOwner() != this) {
-		//if (OtherActor->IsA<ACharger>())
-		//{
-		//	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found charger"));
-		//	ACharger* charger = Cast<ACharger>(OtherActor);
-		//	int dmg = charger->GetDamage();
-		//	Hit(1);
-
-		//}
-		//if (OtherActor->IsA<ACrowBoss>())
-		//{
-		//	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found Crow"));
-
-		//	ACrowBoss* Boss = Cast<ACrowBoss>(OtherActor);
-		//	int dmg = Boss->GetDamage();
-		//	Hit(1);
-
-		//}
-		//if (OtherActor->IsA<Aprojectile>())
-		//{
-		//	Aprojectile* bullet = Cast<Aprojectile>(OtherActor);
-		//	if (bullet && (!bullet->GetOwner() || bullet->GetOwner() != this)) // bullet is valid and either no owner or not owned by self
-		//	{
-		//		int dmg = bullet->GetDamage();
-		//		Hit(dmg);
-		//		bullet->Destroy(); // Optionally destroy the projectile after hitting
-		//	}
-		//}
-		//else
-		//{
-		//	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("found nothing"));
-
-		//}
+		
 
 	}
 

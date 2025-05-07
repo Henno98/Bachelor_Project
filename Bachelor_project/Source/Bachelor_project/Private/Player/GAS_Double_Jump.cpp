@@ -7,6 +7,7 @@
 #include "GameplayTagsManager.h"
 #include "Player/Test_Character.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UGAS_Double_Jump::UGAS_Double_Jump()
 {
@@ -69,6 +70,7 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 						FTimerHandle TimerHandle;
 						GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([HitActor]()
 							{
+							if (IsValid(HitActor))
 								HitActor->SetActorEnableCollision(true);
 
 							}), 0.5f, false);
@@ -81,8 +83,9 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		}
 		if (Character)
 		{
-
+			
 			Character->Jump();
+			//Character->GetCharacterMovement()->SetMovementMode(MOVE_Falling);
 		
 		}
 		else

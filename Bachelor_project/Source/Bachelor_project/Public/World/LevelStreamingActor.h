@@ -38,7 +38,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level")
 	FName LevelToLoad;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level")
-	FName LevelToUnLoad;
-
+	
 };
