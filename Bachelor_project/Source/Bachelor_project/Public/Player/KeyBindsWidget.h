@@ -35,8 +35,6 @@ public:
     TSubclassOf<UKeyBindListWidget> KeyBindListWidgetClass;
     UPROPERTY()
     class UKeyBindListWidget* KeyBindListWidget;
-    UPROPERTY()
-	UVerticalBox* VerticalBox;
     UPROPERTY(meta = (BindWidget))
     UScrollBox* KeyBindsScrollBox;
    

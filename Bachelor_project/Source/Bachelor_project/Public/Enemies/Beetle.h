@@ -26,5 +26,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	// IEnemyInterface implementations
+	virtual float GetHealth() const override { return Health; };
+	virtual float GetDamage() const override { return Damage; };
+	virtual void SetHealth(float NewHealth) override { Health = NewHealth; };
+	virtual void SetDamage(float NewDamage) override { Damage = NewDamage; };
+	float Health;
+	float Damage;
 };

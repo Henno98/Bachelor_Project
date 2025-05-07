@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystemInterface.h"
 #include "EnemyInterface.h"
 #include "IsRangedAttacker.h"
 #include "GameFramework/Character.h"
@@ -12,7 +13,7 @@
 
 //Add the Interface with info for the GAS class
 UCLASS()
-class BACHELOR_PROJECT_API APlant : public ACharacter, public IIsRangedAttacker,public IEnemyInterface
+class BACHELOR_PROJECT_API APlant : public ACharacter, public IIsRangedAttacker,public IEnemyInterface, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -27,12 +28,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	TSubclassOf<Aprojectile> ProjectileClass;
 	//Give plant GAS
 	
@@ -70,6 +70,7 @@ public:
 	//GAS ability we want it to have
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UPROPERTY()
 	TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")

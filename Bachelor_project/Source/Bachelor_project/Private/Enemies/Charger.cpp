@@ -25,6 +25,8 @@ void ACharger::BeginPlay()
 	Super::BeginPlay();
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
+	SetHealth(Health);
+
 }
 
 float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)

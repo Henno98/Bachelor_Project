@@ -6,6 +6,8 @@
 #include "KeyBindsWidget.h"
 #include "Player_Stat_Widget.h"
 #include "SaveSlotListWidget.h"
+#include "Components/Overlay.h"
+#include "Components/SizeBox.h"
 #include "Components/VerticalBox.h"
 #include "Main_Menu_Widget.generated.h"
 
@@ -49,7 +51,7 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UVerticalBox* SlotListContainer;
 	UPROPERTY(meta = (BindWidget))
-	UVerticalBox* KeyBindsContainer;
+	USizeBox* KeyBindsContainer;
 	UFUNCTION()
 	void OnLoadClicked(const FString& slotname, int32 slotnumber);
 

@@ -55,6 +55,7 @@ ATest_Character::ATest_Character()
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
+	SaveGame("Slot_1", 1);
 	UPlagued_Knight_GameInstance* GI = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GI && GI->GetTargetLevel() == GetWorld()->GetMapName())
 	{
@@ -237,7 +238,8 @@ void ATest_Character::OnMeleeHitNotify()
 
 				UE_LOG(LogTemp, Warning, TEXT("Hit actor: %s"), *HitActor->GetName());
 				//DrawDebugSphere(GetWorld(), Hit.ImpactPoint, 10.f, 12, FColor::Red, false, 1.0f);
-				if (Hit.GetActor()->IsA<ACharacter>()) {
+				if (Hit.GetActor() && Hit.GetActor()->Implements<UEnemyInterface>())
+				{
 					if (GetBioMass() <= MaxBioMass) {
 						SetBioMass(GetBioMass() + 50);
 					}

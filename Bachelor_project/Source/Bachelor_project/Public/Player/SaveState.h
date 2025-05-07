@@ -17,7 +17,7 @@ struct FEnemySaveData
 	GENERATED_BODY()
 
 	UPROPERTY()
-	FName EnemyClassPath;
+	FString EnemyClassPath;
 
 	UPROPERTY()
 	FVector Location;
@@ -27,6 +27,9 @@ struct FEnemySaveData
 
 	UPROPERTY()
 	float Health;
+
+	UPROPERTY()
+	float Damage;
 };
 
 UCLASS()
@@ -69,5 +72,6 @@ public:
 
 	static bool SaveGame(UWorld* World, FString SlotName, int32 SlotNumber);
 	static bool LoadGame(UWorld* World, FString SlotName, int32 SlotNumber);
+	static TArray<FEnemySaveData>  SaveEnemies(UWorld* World);
 	
 };

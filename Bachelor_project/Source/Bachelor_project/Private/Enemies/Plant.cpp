@@ -17,6 +17,7 @@ APlant::APlant()
 void APlant::BeginPlay()
 {
 	Super::BeginPlay();
+	SpawnLocation = GetActorLocation(); // FIXED HERE
 	InitAbilitySystem();
 }
 
@@ -36,17 +37,23 @@ void APlant::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APlant::InitAbilitySystem()
 {
-	AGAS_PlayerState* GASPlayerState = GetPlayerState<AGAS_PlayerState>();
-
-	if (ensure(GASPlayerState))
+	if (!AbilitySystemComponent)
 	{
-		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
-		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
-		GA_Ranged_Attack = GASPlayerState->RangedAttack;
+		AbilitySystemComponent = NewObject<UAbilitySystemComponent>(this, TEXT("PlantAbilitySystem"));
+		AbilitySystemComponent->RegisterComponent();
+	}
+
+	if (AbilitySystemComponent && GA_Ranged_Attack)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
 		AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
-
 	}
+}
+
+UAbilitySystemComponent* APlant::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 void APlant::CallGAS_RangedAttack()

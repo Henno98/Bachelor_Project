@@ -5,6 +5,7 @@
 #include "Player/SaveState.h"
 
 #include "Plagued_Knight_GameInstance.h"
+#include "Enemies/EnemyInterface.h"
 #include "Kismet/GameplayStatics.h"
 
 USaveState::USaveState()
@@ -45,7 +46,7 @@ bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
     // Save level name (from level streaming or manually tracked)
     ULevel* CurrentLevel = World->GetCurrentLevel();
     SaveGameInstance->LastPlayedLevel = CurrentLevel ? CurrentLevel->GetFName() : NAME_None;
-
+    SaveGameInstance->EnemiesInLevel = SaveEnemies(World);
     // Final save
     if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
     {
@@ -105,7 +106,50 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
     LatentInfo.UUID = __LINE__; // Unique ID per call
 
     UGameplayStatics::LoadStreamLevel(World, LevelToLoad, true, false, LatentInfo);
+    for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
+    {
+        UClass* EnemyClass = LoadObject<UClass>(nullptr, *EnemyData.EnemyClassPath);
+        if (!EnemyClass) continue;
 
+        FActorSpawnParameters SpawnParams;
+        AActor* SpawnedEnemy = World->SpawnActor<AActor>(EnemyClass, EnemyData.Location, EnemyData.Rotation, SpawnParams);
+
+        if (SpawnedEnemy && SpawnedEnemy->GetClass()->ImplementsInterface(UEnemyInterface::StaticClass()))
+        {
+            IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(SpawnedEnemy);
+            if (EnemyInterface)
+            {
+                EnemyInterface->SetHealth(EnemyData.Health);
+                EnemyInterface->SetDamage(EnemyData.Damage);
+            }
+        }
+    }
     UE_LOG(LogTemp, Log, TEXT("Started async level load: %s"), *LoadedGame->LastPlayedLevel.ToString());
     return true;
+}
+
+TArray<FEnemySaveData> USaveState::SaveEnemies(UWorld* World)
+{
+    TArray<AActor*> EnemyActors;
+    UGameplayStatics::GetAllActorsWithInterface(World, UEnemyInterface::StaticClass(), EnemyActors);
+    TArray<FEnemySaveData> Enemies;
+    for (AActor* Enemy : EnemyActors)
+    {
+        if (!IsValid(Enemy)) continue;
+
+        IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(Enemy);
+        if (!EnemyInterface) continue;
+
+        FEnemySaveData EnemyData;
+        EnemyData.Location = Enemy->GetActorLocation();
+        EnemyData.Rotation = Enemy->GetActorRotation();
+        EnemyData.Health = EnemyInterface->GetHealth();
+        EnemyData.Damage = EnemyInterface->GetDamage();
+
+        FString ClassPath = Enemy->GetClass()->GetPathName();
+        EnemyData.EnemyClassPath = ClassPath;
+
+        Enemies.Emplace(EnemyData);
+    }
+    return Enemies;
 }
