@@ -21,36 +21,56 @@ class BACHELOR_PROJECT_API IIsRangedAttacker
 {
 protected:
 	GENERATED_BODY()
-private:
+
 public:
+	// Existing Getters
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	bool GetHasTarget() const;
-	/** Returns the base ranged damage for this entity */
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	float GetRangedDamage() const;
 
-	/** Returns the velocity of the projectile */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	float GetRangedAttackVelocity() const;
 
-	/** Called after attack ends to re-enable input or reset state */
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
-	void ReEnableInput();
-
-	/** Returns the bullet/projectile scale */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	FVector GetBulletSize() const;
 
-	/** Returns the target location, if any */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	FVector GetTargetLocation() const;
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	FVector GetSpawnLocation() const;
-	/** Returns the direction in which to fire */
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	FRotator GetFiringDirection() const;
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
-	TSubclassOf<AActor> GetProjectileClass()const;
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+	TSubclassOf<AActor> GetProjectileClass() const;
+
+	// New Setters
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetHasTarget(bool bHasTarget);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetRangedDamage(float Damage);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetRangedAttackVelocity(float Velocity);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetBulletSize(FVector BulletSize);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetTargetLocation(FVector TargetLocation);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetSpawnLocation(FVector SpawnLocation);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetFiringDirection(FRotator FiringDirection);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	void SetProjectileClass(TSubclassOf<AActor> ProjectileClass);
 
 };

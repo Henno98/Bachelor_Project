@@ -94,6 +94,7 @@ void APlant_AIController::OnSeenPawn(APawn* SeenPawn)
 		Plant_BBC->SetValueAsBool("SeenPlayer", true);
 		UE_LOG(LogTemp, Warning, TEXT("Plant saw the player!"));
 
+		
 
 	}
 }

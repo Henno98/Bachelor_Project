@@ -10,7 +10,9 @@ APlant::APlant()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+    // Create and register the AbilitySystemComponent
+    AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+    UE_LOG(LogTemp, Log, TEXT("AbilitySystemComponent created for Plant."));
 }
 
 // Called when the game starts or when spawned
@@ -37,18 +39,16 @@ void APlant::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APlant::InitAbilitySystem()
 {
-	if (!AbilitySystemComponent)
-	{
-		AbilitySystemComponent = NewObject<UAbilitySystemComponent>(this, TEXT("PlantAbilitySystem"));
-		AbilitySystemComponent->RegisterComponent();
-	}
-
-	if (AbilitySystemComponent && GA_Ranged_Attack)
-	{
-		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
-		AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
-	}
+    // Give abilities to the plant
+    if (AbilitySystemComponent)
+    {
+        if (GA_Ranged_Attack)
+        {
+            FGameplayAbilitySpec RangedAttackSpec(GA_Ranged_Attack);
+            AbilitySystemComponent->GiveAbility(RangedAttackSpec);
+            UE_LOG(LogTemp, Log, TEXT("RangedAttackAbility given to plant."));
+        }
+    }
 }
 
 UAbilitySystemComponent* APlant::GetAbilitySystemComponent() const
@@ -58,27 +58,20 @@ UAbilitySystemComponent* APlant::GetAbilitySystemComponent() const
 
 void APlant::CallGAS_RangedAttack()
 {
-	if (AbilitySystemComponent && GA_Ranged_Attack)
-	{
-		bIsRangedAttacking = true;
+    if (AbilitySystemComponent)
+    {
+      
+        RangedAttackAbilityTag.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
 
-
-		FGameplayTagContainer tags;
-		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
-		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
-
-
-		FTimerHandle TimerHandle;
-		float AnimDuration;
-
+        if (AbilitySystemComponent->TryActivateAbilitiesByTag(RangedAttackAbilityTag))
+        {
+            UE_LOG(LogTemp, Log, TEXT("Plant activated ranged attack."));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Ranged attack could not be activated."));
+        }
+    }
 	
-			AnimDuration = 1.f;
-		
-
-		GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-			{
-				bIsRangedAttacking = false;
-			}), AnimDuration, false); // Adjust based on anim length
-	}
 }
 

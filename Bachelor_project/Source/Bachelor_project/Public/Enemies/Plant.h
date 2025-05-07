@@ -58,19 +58,32 @@ public:
 	// Interface function implementations (with inline return values)
 	virtual float GetRangedDamage_Implementation() const override { return RangedAttackDamage; }
 	virtual float GetRangedAttackVelocity_Implementation() const override { return Velocity; }
-	virtual void ReEnableInput_Implementation() override {/* implement logic in .cpp if needed */ }
 	virtual FVector GetBulletSize_Implementation() const override { return BulletSize; }
 	virtual FVector GetTargetLocation_Implementation() const override { return Target; }
 	virtual FRotator GetFiringDirection_Implementation() const override { return Direction; }
 	virtual bool GetHasTarget_Implementation() const override { return bHasTarget; };
 	virtual TSubclassOf<AActor> GetProjectileClass_Implementation() const override { return ProjectileClass; };
 	virtual FVector GetSpawnLocation_Implementation() const override { return SpawnLocation; };
+
+	// Setters for the interface
+	virtual void SetHasTarget_Implementation(bool bNewHasTarget) override { bHasTarget = bNewHasTarget; }
+	virtual void SetRangedDamage_Implementation(float NewDamage) override { RangedAttackDamage = NewDamage; }
+	virtual void SetRangedAttackVelocity_Implementation(float NewVelocity) override { Velocity = NewVelocity; }
+	virtual void SetBulletSize_Implementation(FVector NewBulletSize) override { BulletSize = NewBulletSize; }
+	virtual void SetTargetLocation_Implementation(FVector NewTarget) override { Target = NewTarget; }
+	virtual void SetSpawnLocation_Implementation(FVector NewSpawnLocation) override { SpawnLocation = NewSpawnLocation; }
+	virtual void SetFiringDirection_Implementation(FRotator NewDirection) override { Direction = NewDirection; }
+	virtual void SetProjectileClass_Implementation(TSubclassOf<AActor> NewProjectileClass) override { ProjectileClass = NewProjectileClass; }
+
 	//Create the //Initiate GAS
 	void InitAbilitySystem();
 	//GAS ability we want it to have
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+
 	UPROPERTY()
 	TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")

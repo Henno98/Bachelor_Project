@@ -202,7 +202,6 @@ public:
     // Interface function implementations (with inline return values)
     virtual float GetRangedDamage_Implementation() const override { return RangedDamage; }
     virtual float GetRangedAttackVelocity_Implementation() const override { return Velocity; }
-    virtual void ReEnableInput_Implementation() override {/* implement logic in .cpp if needed */ }
     virtual FVector GetBulletSize_Implementation() const override { return BulletSize; }
     virtual FVector GetTargetLocation_Implementation() const override { return Target; }
     virtual FRotator GetFiringDirection_Implementation() const override { return Direction; }
