@@ -24,8 +24,14 @@ class BACHELOR_PROJECT_API IInteractable
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
 	bool GetIsInteractible() const;
-	/*UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
+	FString GetInteractibleText()const;
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
+	void LoadText(const FString& FilePath);
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
+	void PlayText();
+	/*
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")

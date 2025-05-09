@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "InputActionValue.h"
 #include "AbilitySystemComponent.h"
+#include "Interactable.h"
 #include "Plagued_Knight_GameInstance.h"
 #include "Enemies/Charger.h"
 #include "Enemies/CrowBoss.h"
@@ -638,10 +639,14 @@ void ATest_Character::EndMeleeAttack()
 void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor != this || OtherActor->GetOwner() != this) {
-		
-
-	}
+		if (OtherActor && OtherActor != this && OtherActor && OtherActor->Implements<UInteractable>())
+		{
+			FString InteractionText = IInteractable::Execute_GetInteractibleText(OtherActor);
+			UE_LOG(LogTemp, Log, TEXT("Interaction Text: %s"), *InteractionText);
+			
+			IInteractable::Execute_LoadText(OtherActor, InteractionText);
+			IInteractable::Execute_PlayText(OtherActor);
+		}
 
 }
 
