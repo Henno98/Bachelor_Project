@@ -18,10 +18,13 @@ public:
 	AVoice_Recorder();
 	TArray<FString> TextLines;
 	int32 CurrentLineIndex = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Text Playback")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
 	FString TextFilePath;
 	FTimerHandle LinePlaybackTimer;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
+	TArray<USoundBase*> AudioClips;
 
+	int32 RecorderID;
 	void DisplayNextLine();
 
 	UBoxComponent* Collider;
@@ -36,7 +39,7 @@ public:
 	virtual FString GetInteractibleText_Implementation() const override;
 	virtual void LoadText_Implementation(const FString& FilePath)  override;
 	virtual void PlayText_Implementation()  override;
-
+	int32 GetID() { return RecorderID; };
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

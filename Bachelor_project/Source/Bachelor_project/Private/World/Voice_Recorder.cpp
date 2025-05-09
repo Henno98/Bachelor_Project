@@ -4,6 +4,7 @@
 
 #include "World/Voice_Recorder.h"
 
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Player/Player_HUD.h"
 
@@ -55,7 +56,12 @@ void AVoice_Recorder::DisplayNextLine()
                 // Display the current line on the HUD
                 PlayerHUD->ShowText(Currentline);
             }
+        }  // Play matching audio
+        if (AudioClips.IsValidIndex(CurrentLineIndex) && AudioClips[CurrentLineIndex])
+        {
+            UGameplayStatics::PlaySound2D(this, AudioClips[CurrentLineIndex]);
         }
+        GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 4.f, false);
     }
     else
     {
@@ -81,7 +87,9 @@ void AVoice_Recorder::LoadText_Implementation(const FString& FilePath)
     if (FPaths::FileExists(FullPath))
     {
         FFileHelper::LoadFileToStringArray(TextLines, *FullPath);
-        UE_LOG(LogTemp, Log, TEXT("Loaded %d lines from: %s"), TextLines.Num(), *FullPath);
+        CurrentLineIndex = 0;
+
+        UE_LOG(LogTemp, Log, TEXT("Loaded %d lines from file: %s"), TextLines.Num(), *FullPath);
     }
     else
     {
@@ -99,8 +107,7 @@ void AVoice_Recorder::PlayText_Implementation()
         return;
     }
 
-    CurrentLineIndex = 0;
-    GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 1.5f, true);
+    GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 1.5f, false);
 
    
 }

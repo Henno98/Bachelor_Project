@@ -92,7 +92,7 @@ void APlayer_HUD::ShowText(const FString& Text)
         TextBoxWidget->SetVisibility(ESlateVisibility::Visible);
          // Clear any existing timer before setting a new one
         GetWorld()->GetTimerManager().ClearTimer(TextHideTimerHandle);
-
+        UE_LOG(LogTemp, Log, TEXT("Updating widget with text: %s"), *Text);
         // Set timer to hide text after 5 seconds
         GetWorld()->GetTimerManager().SetTimer(TextHideTimerHandle, this, &APlayer_HUD::HideText, 5.0f, false);
   
