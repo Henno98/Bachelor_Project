@@ -639,14 +639,17 @@ void ATest_Character::EndMeleeAttack()
 void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-		if (OtherActor && OtherActor != this && OtherActor && OtherActor->Implements<UInteractable>())
+	if(OtherActor && OtherActor != this && OtherActor->Implements<UInteractable>())
+	{
+		FString InteractionText = IInteractable::Execute_GetInteractibleText(OtherActor);
+		UE_LOG(LogTemp, Log, TEXT("Interaction Text: %s"), *InteractionText);
+
+		if (!InteractionText.IsEmpty())
 		{
-			FString InteractionText = IInteractable::Execute_GetInteractibleText(OtherActor);
-			UE_LOG(LogTemp, Log, TEXT("Interaction Text: %s"), *InteractionText);
-			
 			IInteractable::Execute_LoadText(OtherActor, InteractionText);
 			IInteractable::Execute_PlayText(OtherActor);
 		}
+	}
 
 }
 
