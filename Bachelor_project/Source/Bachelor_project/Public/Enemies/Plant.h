@@ -87,7 +87,7 @@ public:
 	UPROPERTY()
 	TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
-	FGameplayTagContainer RangedAttackAbilityTag;
+	FGameplayTag RangedAttackAbilityTag;
 	FGameplayAbilitySpec RangedAttackAbilitySpec;
 	//Function to call on GAS ability
 	virtual void CallGAS_RangedAttack();
