@@ -42,10 +42,11 @@ void APlant::InitAbilitySystem()
     // Give abilities to the plant
     if (AbilitySystemComponent)
     {
+        GA_Ranged_Attack = UGAS_Ranged_Attack::StaticClass();
         if (GA_Ranged_Attack)
         {
-            FGameplayAbilitySpec RangedAttackSpec(GA_Ranged_Attack);
-            AbilitySystemComponent->GiveAbility(RangedAttackSpec);
+            RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
+            AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
             UE_LOG(LogTemp, Log, TEXT("RangedAttackAbility given to plant."));
         }
     }
@@ -61,9 +62,11 @@ void APlant::CallGAS_RangedAttack()
     if (AbilitySystemComponent)
     {
       
-        RangedAttackAbilityTag.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+        FGameplayTagContainer tags;
+        tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+    
 
-        if (AbilitySystemComponent->TryActivateAbilitiesByTag(RangedAttackAbilityTag))
+        if (AbilitySystemComponent->TryActivateAbilitiesByTag(tags))
         {
             UE_LOG(LogTemp, Log, TEXT("Plant activated ranged attack."));
         }

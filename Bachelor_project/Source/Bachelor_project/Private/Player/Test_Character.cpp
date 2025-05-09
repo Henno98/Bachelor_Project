@@ -207,7 +207,7 @@ void ATest_Character::OnMeleeHitNotify()
 	FVector ForwardVector = GetActorForwardVector();
 	FVector End = Start + (ForwardVector * 200.f);
 
-	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
 	//DrawDebugSphere(GetWorld(), Start, 150.f, 12, FColor::Blue, false, 1.0f);
 	DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
 
