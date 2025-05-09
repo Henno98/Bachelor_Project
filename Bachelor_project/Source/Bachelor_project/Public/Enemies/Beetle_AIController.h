@@ -22,19 +22,18 @@ class BACHELOR_PROJECT_API ABeetle_AIController : public AAIController
 	ABeetle_AIController();
 
 	virtual void OnPossess(APawn* InPawn) override;
+	virtual void Tick(float DeltaTime)override;
 
-	APawn* detectPlayer;
+	APawn* Player;
 
 	FTimerHandle timerHandle;
-
-	void ToCheckSpawnStillAround();
 
 public:
 	FVector beetle_target_location;
 	FVector beetle_start_location;
 	FVector beetle_existing_location;
 
-	float initialDistance;
+	float InitialDistance;
 
 	UFUNCTION()
 	void OnEnemySeeItsTarget(class APawn* SensedPawn);
