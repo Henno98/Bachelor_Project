@@ -55,9 +55,13 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void Destroy();
 	void OnHit(int Damage);
-	int GetHealth() { return Health; }
-	void SetHealth(int newhealth) { Health = newhealth; }
-	int GetDamage() { return Damage; }
+	// IEnemyInterface implementations
+	virtual float GetHealth() const override { return Health; };
+	virtual float GetDamage() const override { return Damage; };
+	virtual void SetHealth(float NewHealth) override { Health = NewHealth; };
+	virtual void SetDamage(float NewDamage) override { Damage = NewDamage; };
+	
+
 	float GetWalkSpeed() { return PatrolSpeed; }
 	float GetChargeSpeed() { return ChaseSpeed; }
 

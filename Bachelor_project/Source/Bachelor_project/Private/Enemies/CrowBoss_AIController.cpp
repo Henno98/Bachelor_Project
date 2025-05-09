@@ -74,9 +74,9 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
     
             CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
         
-            FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
+          /*  FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
             Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), LookAt, DeltaTime, 5.0f));
-        
+        */
     }
     else
     {

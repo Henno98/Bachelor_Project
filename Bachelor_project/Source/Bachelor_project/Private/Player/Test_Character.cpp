@@ -55,7 +55,8 @@ ATest_Character::ATest_Character()
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
-	SaveGame("Slot_1", 1);
+	SetHealth(GetMaxHealth());
+	SetBioMass(0.f);
 	UPlagued_Knight_GameInstance* GI = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GI && GI->GetTargetLevel() == GetWorld()->GetMapName())
 	{
@@ -85,7 +86,7 @@ void ATest_Character::BeginPlay()
 	}
 	DashCooldown = 2.f;
 
-
+	SaveGame("Slot_1", 1);
 }
 
 // Called every frame
@@ -417,6 +418,7 @@ void ATest_Character::ExecuteRangedAttack()
 {
 
 	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
+	
 	FGameplayTagContainer tags;
 	tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
 	AbilitySystemComponent->TryActivateAbilitiesByTag(tags);

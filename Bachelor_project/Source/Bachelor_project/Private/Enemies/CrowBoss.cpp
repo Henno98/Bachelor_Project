@@ -78,7 +78,7 @@ float ACrowBoss::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
     if (GetHealth() <= 0)
     {
         bIsDying = true;
-        GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+        GetCharacterMovement()->SetMovementMode(MOVE_NavWalking);
     }
     UE_LOG(LogTemp, Error, TEXT("CrowBoss took %f damage, current health: %d"), DamageAmount, Health);
     GetCharacterMovement()->StopMovementImmediately();

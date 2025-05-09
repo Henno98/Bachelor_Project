@@ -129,7 +129,7 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     float JumpVelocity;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-    FVector BulletSize{ FVector(1.f) };
+    FVector BulletSize{ FVector(3.f) };
 
     FVector TargetSocketOffset;
 
