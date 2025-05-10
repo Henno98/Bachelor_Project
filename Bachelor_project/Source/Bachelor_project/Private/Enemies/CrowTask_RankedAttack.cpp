@@ -57,18 +57,7 @@ EBTNodeResult::Type UCrowTask_RankedAttack::ExecuteTask(UBehaviorTreeComponent& 
             SpawnParams
         );
     }
-
-    // delay før "ready to attack again"
-    //FTimerHandle AttackResetHandle;
-    //CrowBoss->GetWorldTimerManager().SetTimer(
-    //    AttackResetHandle,
-    //    [BlackboardComp]()
-    //    {
-    //        BlackboardComp->SetValueAsBool("IsAttacking", false);
-    //    },
-    //    2.0f, // Cooldown time
-    //    false
-    //);
+    
     return EBTNodeResult::Succeeded;
 }
 

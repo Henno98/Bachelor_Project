@@ -53,6 +53,9 @@ void UCrowTask_MeleeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* N
     FRotator LookAt = ToPlayer.Rotation();
     CrowBoss->SetActorRotation(FMath::RInterpTo(CrowBoss->GetActorRotation(), LookAt, DeltaSeconds, 5.0f));
 
+
+    
+
     if (!bHasAttacked)
     {
         if (Distance > ChaseRange)
@@ -77,6 +80,7 @@ void UCrowTask_MeleeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* N
             CrowBoss->GetWorldTimerManager().SetTimer(AttackTimer, [this, &OwnerComp]()
                 {   CrowBoss->SetIsMeleeAttacking(false);
 				//Blackboard->SetValueAsBool("IsMeleeAttacking", false);
+            Blackboard->SetValueAsBool("NeedReturnToOrigin", true);
                     FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
                 }, 1.0f, false);
         }

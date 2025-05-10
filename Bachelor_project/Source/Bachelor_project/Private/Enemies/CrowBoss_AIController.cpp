@@ -74,9 +74,23 @@ void ACrowBoss_AIController::Tick(float DeltaTime)
     
             CrowBoss_BBC->SetValueAsBool("SeenPlayer", true);
         
-            FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
+            /*FRotator LookAt = (PlayerLocation - CrowLocation).Rotation();
             Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), LookAt, DeltaTime, 5.0f));
-        
+        */
+            FRotator FullLookAt = (PlayerLocation - CrowLocation).Rotation();
+
+            // Horizontal-only look direction (no pitch)
+            FVector FlatDirection = FVector(PlayerLocation.X, PlayerLocation.Y, CrowLocation.Z) - CrowLocation;
+            FRotator HorizontalLookAt = FlatDirection.Rotation();
+
+            //0.3 = 30% tilt
+            float BlendFactor = 0.3f;
+            FRotator BlendedLookAt;
+            BlendedLookAt.Pitch = FMath::Lerp(HorizontalLookAt.Pitch, FullLookAt.Pitch, BlendFactor);
+            BlendedLookAt.Yaw = FMath::Lerp(HorizontalLookAt.Yaw, FullLookAt.Yaw, BlendFactor);
+            BlendedLookAt.Roll = 0.f;
+
+            Crow->SetActorRotation(FMath::RInterpTo(Crow->GetActorRotation(), BlendedLookAt, DeltaTime, 5.0f));
     }
     else
     {

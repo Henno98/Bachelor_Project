@@ -57,7 +57,7 @@ public:
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
-	float ChargingDistance = 300.f;
+	float ChargingDistance = 500.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	float ChargingSpeed = 1000.f;
@@ -69,7 +69,7 @@ public:
 	float ChargeCooldown = 3.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
-	float ChargeOvershootDistance = 300.f;
+	float ChargeOvershootDistance = 500.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	float WanderRadius = 1000.0f;
