@@ -26,8 +26,7 @@ public:
     // TextBlock to display the action name
     UPROPERTY(meta = (BindWidget))
     UTextBlock* ActionTextBlock;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Image")
-    UTexture2D* ButtonImage;
+
 
     UPROPERTY(meta = (BindWidget))
     UHorizontalBox* Container;

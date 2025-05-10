@@ -638,46 +638,29 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	{
 		UE_LOG(LogTemp, Log, TEXT("Overlapping with Interactable Actor: %s"), *OtherActor->GetName());
 
-		FString InteractionText = IInteractable::Execute_GetInteractibleText(OtherActor);
-		UE_LOG(LogTemp, Log, TEXT("Interaction Text: %s"), *InteractionText);
-
-		if (!InteractionText.IsEmpty())
-		{
-
-
 			UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 			if (!GameInstance)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("No valid GameInstance found."));
 				return;
 			}
-
-
-			// Cast OtherActor to AVoice_Recorder
+			  // Cast OtherActor to AVoice_Recorder
 			AVoice_Recorder* Recorder = Cast<AVoice_Recorder>(OtherActor);
 			if (Recorder)
-			{ 
+			{
 				int32 ID = IInteractable::Execute_GetID(Recorder);
-				if (GameInstance->HasRecorder(ID)) return;
-
-				GameInstance->AddRecorder(ID, Recorder);
-				
-
-				
-				AVoice_Recorder* StoredRecorder = GameInstance->RecorderInventory[ID];
-				if (StoredRecorder)
+				if (GameInstance->HasRecorder(ID))
 				{
-					IInteractable::Execute_LoadText(StoredRecorder, IInteractable::Execute_GetInteractibleText(StoredRecorder));
-					IInteractable::Execute_PlayText(StoredRecorder);
-					UE_LOG(LogTemp, Warning, TEXT("Playing recorder ID %d."), ID);
-
+					// Play the recorder using the GameInstance
+					GameInstance->PlayRecorder(ID);
 				}
 				else
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Stored recorder was null for ID %d."), ID);
+					GameInstance->AddRecorder(ID, Recorder);
+					GameInstance->PlayRecorder(ID); // Play immediately after adding
 				}
 			}
-		}
+		
 	}
 }
 

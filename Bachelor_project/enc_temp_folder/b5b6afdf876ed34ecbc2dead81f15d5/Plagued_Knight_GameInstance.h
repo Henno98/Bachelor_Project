@@ -24,12 +24,6 @@ protected:
     FString CurrentSubLevel;
     UPROPERTY()
     int32 GlobalProgress;
-    // In GameInstance:
-    UPROPERTY(BlueprintReadOnly)
-    bool bIsRecorderPlaying = false;
-
-    UPROPERTY(BlueprintReadOnly)
-    int32 CurrentPlayingRecorderID = -1;
 public:
 
   
@@ -87,36 +81,5 @@ public:
             }
         }
         return nullptr;
-    }
-    AVoice_Recorder* GetRecorder(int32 ID)
-    {
-        if (AVoice_Recorder** FoundRecorder = RecorderInventory.Find(ID))
-        {
-            return *FoundRecorder;
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("Recorder with ID %d not found in inventory."), ID);
-            return nullptr;
-        }
-    }
-    void PlayRecorder(int32 ID)
-    {
-        if (AVoice_Recorder* Recorder = GetRecorder(ID))
-        {
-            if (Recorder->Implements<UInteractable>())
-            {
-                IInteractable::Execute_LoadText(Recorder, IInteractable::Execute_GetInteractibleText(Recorder));
-                IInteractable::Execute_PlayText(Recorder);
-                UE_LOG(LogTemp, Log, TEXT("Playing recorder with ID %d."), ID);
-
-                bIsRecorderPlaying = true;
-                CurrentPlayingRecorderID = ID;
-            }
-            else
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Recorder with ID %d does not implement IInteractable."), ID);
-            }
-        }
     }
 };

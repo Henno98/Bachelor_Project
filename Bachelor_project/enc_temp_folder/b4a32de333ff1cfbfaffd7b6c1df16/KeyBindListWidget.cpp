@@ -52,15 +52,7 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
     	KeyboardKeySelector->SetSelectedKey(FInputChord(KeyboardKeys[0]));
         UHorizontalBoxSlot* KeySlot = Container->AddChildToHorizontalBox(KeyboardKeySelector);
         if (KeySlot)
-        { // Ensure the FSlateBrush is initialized
-            FSlateBrush ExtraKeyBrush;
-            ExtraKeyBrush.SetResourceObject(ButtonImage);
-
-            FButtonStyle ExtraKeyStyle;
-            ExtraKeyStyle.SetNormal(ExtraKeyBrush);
-            ExtraKeyStyle.SetHovered(ExtraKeyBrush);
-            ExtraKeyStyle.SetPressed(ExtraKeyBrush);
-            KeyboardKeySelector->SetButtonStyle(ExtraKeyStyle);
+        {
             KeySlot->SetPadding(FMargin(20.f));  // Padding of 20
             KeySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space
         }
@@ -69,35 +61,18 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
     // Add secondary keyboard input (only if available)
     if (KeyboardKeys.Num() > 1)
     {
-        // Start from index 1 to skip the first element (index 0)
-        for (int32 i = 1; i < KeyboardKeys.Num(); ++i)
+        SecondKey = KeyboardKeys[1];
+        ExtraKeyboardKeySelector = NewObject<UInputKeySelector>(this, UInputKeySelector::StaticClass());
+        if (ExtraKeyboardKeySelector)
         {
-            // Get the key at the current index
-            SecondKey = KeyboardKeys[i];
-            ExtraKeyboardKeySelector = NewObject<UInputKeySelector>(this, UInputKeySelector::StaticClass());
-            if (ExtraKeyboardKeySelector)
+            ExtraKeyboardKeySelector->SetSelectedKey(FInputChord(KeyboardKeys[1]));
+            ExtraKeyboardKeySelector->OnKeySelected.Clear();
+            ExtraKeyboardKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnSecondaryKeyboardKeySelected);
+            UHorizontalBoxSlot* ExtraKeySlot = Container->AddChildToHorizontalBox(ExtraKeyboardKeySelector);
+            if (ExtraKeySlot)
             {
-                ExtraKeyboardKeySelector->SetSelectedKey(KeyboardKeys[i]);
-                ExtraKeyboardKeySelector->OnKeySelected.Clear();
-                ExtraKeyboardKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnSecondaryKeyboardKeySelected);
-
-                UHorizontalBoxSlot* ExtraKeySlot = Container->AddChildToHorizontalBox(ExtraKeyboardKeySelector);
-                if (ExtraKeySlot)
-                {
-                    // Ensure the FSlateBrush is initialized
-                    FSlateBrush ExtraKeyBrush;
-                    ExtraKeyBrush.SetResourceObject(ButtonImage);  // Assuming ButtonImage is valid
-
-                    // Set the button style with the brush
-                    FButtonStyle ExtraKeyStyle;
-                    ExtraKeyStyle.SetNormal(ExtraKeyBrush);
-                    ExtraKeyStyle.SetHovered(ExtraKeyBrush);
-                    ExtraKeyStyle.SetPressed(ExtraKeyBrush);
-                    ExtraKeyboardKeySelector->SetButtonStyle(ExtraKeyStyle);
-
-                    ExtraKeySlot->SetPadding(FMargin(20.f));  // Padding of 20
-                    ExtraKeySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space
-                }
+                ExtraKeySlot->SetPadding(FMargin(20.f));  // Padding of 20
+                ExtraKeySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space
             }
         }
     }
