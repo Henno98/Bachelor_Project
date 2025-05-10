@@ -10,6 +10,8 @@ void UVRI_Button_Widget::NativeConstruct()
 
     if (PlayButton)
     {
+        PlayButton->OnClicked.Clear();
+
         PlayButton->OnClicked.AddDynamic(this, &UVRI_Button_Widget::HandleButtonClicked);
     }
 }

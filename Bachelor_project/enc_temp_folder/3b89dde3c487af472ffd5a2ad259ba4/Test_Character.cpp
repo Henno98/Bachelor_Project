@@ -113,10 +113,6 @@ void ATest_Character::Tick(float DeltaTime)
 	{
 		bMidJump = true;
 	}
-	else
-	{
-		bMidJump = false;
-	}
 	
 	
 }
@@ -341,7 +337,8 @@ void ATest_Character::GASJump()
 	{
 		bStartedJump = true;
 
-		check(AbilitySystemComponent);  // Must be valid
+
+		// Must be valid
 		FGameplayTag JumpTag = FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump"));
 		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(JumpTag));
 		
@@ -382,9 +379,8 @@ void ATest_Character::GASWallLatch()
 {
 	if (AbilitySystemComponent && GA_Wall_Latch)
 	{
-		
-		check(AbilitySystemComponent);
-		FGameplayTag WallLatchTag = FGameplayTag::RequestGameplayTag(FName("Abilities.WallLatch"));
+
+		FGameplayTag WallLatchTag = FGameplayTag::RequestGameplayTag(FName("Abilities.Wall_Latch"));
 		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(WallLatchTag));
 	
 
