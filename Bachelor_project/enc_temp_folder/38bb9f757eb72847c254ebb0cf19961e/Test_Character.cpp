@@ -113,6 +113,10 @@ void ATest_Character::Tick(float DeltaTime)
 	{
 		bMidJump = true;
 	}
+	else
+	{
+		bMidJump = false;
+	}
 	
 	
 }

@@ -9,9 +9,17 @@
 /**
  * 
  */
+
+
 UCLASS()
 class BACHELOR_PROJECT_API APlagued_Knight_GameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+
+private:
+	static float AutoSaveTimer;
+	static float GameTime;
+
 };

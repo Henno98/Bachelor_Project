@@ -30,7 +30,7 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 
 		FVector Direction = Character->GetActorUpVector();
-		FVector Start = Character->GetActorLocation() + FVector(0.f, 100.f, 0.f);
+		FVector Start = Character->GetActorLocation() + FVector(0.f, 30.f, 0.f);
 		FVector End = Start + (Direction * 100.f);
 
 		TArray<FHitResult> HitResult;
