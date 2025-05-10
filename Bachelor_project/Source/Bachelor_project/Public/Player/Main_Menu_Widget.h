@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "KeyBindsWidget.h"
 #include "Player_Stat_Widget.h"
+#include "Recorder_Inventory_Widget.h"
 #include "SaveSlotListWidget.h"
 #include "Components/Overlay.h"
 #include "Components/SizeBox.h"
@@ -29,6 +30,8 @@ protected:
 	class UButton* Mapping_Menu;
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Load_Button;
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Open_Inventory;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "SaveSlots")
 	int32 MaxSlots = 3;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
@@ -45,13 +48,18 @@ protected:
 	USaveSlotListWidget* SaveSlotList;
 	UPROPERTY()
 	TArray<USaveSlotListWidget*> SaveSlotWidgets;
+
+	UPROPERTY()
+	URecorder_Inventory_Widget* RecorderWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	TSubclassOf<URecorder_Inventory_Widget> RecorderWidgetClass;
+	
 	// Function to update the health bar
 public:
-
+	
 	UPROPERTY(meta = (BindWidget))
-	UVerticalBox* SlotListContainer;
-	UPROPERTY(meta = (BindWidget))
-	USizeBox* KeyBindsContainer;
+	USizeBox* Container;
+	
 	UFUNCTION()
 	void OnLoadClicked(const FString& slotname, int32 slotnumber);
 
@@ -65,7 +73,8 @@ public:
 
 	UFUNCTION()
 	void OnCloseClicked();
-
+	UFUNCTION()
+	void OnOpenInventoryClicked();
 
 	UFUNCTION()
 	void CreateSaveSlotList();

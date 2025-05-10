@@ -16,7 +16,7 @@ class BACHELOR_PROJECT_API URecorder_Inventory : public UObject
 	GENERATED_BODY()
     UPROPERTY()
     TMap<int32, AVoice_Recorder*> RecorderMap;
-
+public:
     UFUNCTION(BlueprintCallable)
     void AddRecorder(int32 ID, AVoice_Recorder* Recorder)
     {
@@ -31,4 +31,5 @@ class BACHELOR_PROJECT_API URecorder_Inventory : public UObject
     {
         return RecorderMap.Contains(ID) ? RecorderMap[ID] : nullptr;
     }
+    TMap<int32, AVoice_Recorder*> GetRecorderMap() { return RecorderMap; }
 };

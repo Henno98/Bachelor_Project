@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Player/Main_Menu_Widget.h"
+
+#include "Plagued_Knight_GameInstance.h"
 #include "Player/Test_Character.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
@@ -28,7 +30,12 @@ void UMain_Menu_Widget::NativeConstruct()
         Load_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::CreateSaveSlotList);
 
     }
-   
+    if (Open_Inventory)
+    {
+        Open_Inventory->OnClicked.Clear();
+        Open_Inventory->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnOpenInventoryClicked);
+
+    }
 
 }
 void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
@@ -42,6 +49,7 @@ void UMain_Menu_Widget::OnLoadClicked(const FString& SlotName, int32 SlotNumber)
 
 void UMain_Menu_Widget::OnMappingMenuClicked()
 {
+    Container->ClearChildren();
     APlayerController* PC = GetWorld()->GetFirstPlayerController();
     if (PC && KeybindsWidgetClass)
     {
@@ -52,13 +60,13 @@ void UMain_Menu_Widget::OnMappingMenuClicked()
 
         if (Keybindwidget)
         {
-            if (!KeyBindsContainer->HasChild(Keybindwidget))
+            if (!Container->HasChild(Keybindwidget))
             {
-                KeyBindsContainer->AddChild(Keybindwidget);
+                Container->AddChild(Keybindwidget);
             }
             else
             {
-                KeyBindsContainer->ClearChildren(); // Hides/removes it
+                Container->ClearChildren(); // Hides/removes it
             }
         }
     }
@@ -108,46 +116,93 @@ void UMain_Menu_Widget::OnCloseClicked()
 
 }
 
-void UMain_Menu_Widget::CreateSaveSlotList()
+void UMain_Menu_Widget::OnOpenInventoryClicked()
 {
-    if (SlotListContainer->GetChildrenCount() == 0)
+    Container->ClearChildren();
+    APlayerController* PC = GetWorld()->GetFirstPlayerController();
+    if (PC && RecorderWidgetClass)
     {
-        SlotListContainer->ClearChildren();
-        SaveSlotWidgets.Empty();
+        UE_LOG(LogTemp, Log, TEXT("Attempting to create or toggle the Recorder Widget."));
 
-        for (int32 i = 0; i < MaxSlots; ++i)
+        if (!RecorderWidget)
         {
-            FString SlotName = FString::Printf(TEXT("Slot_%d"), i);
+            UE_LOG(LogTemp, Log, TEXT("RecorderWidget does not exist, creating it."));
+            RecorderWidget = CreateWidget<URecorder_Inventory_Widget>(GetWorld(), RecorderWidgetClass);
+        }
 
-            CreateSaveSlotButton(SlotName, i);
+        if (RecorderWidget)
+        {
+            if (!Container->HasChild(RecorderWidget)) {
+                UE_LOG(LogTemp, Log, TEXT("RecorderWidget is not a child of InventoryContainer. Adding it."));
 
-            if (!UGameplayStatics::DoesSaveGameExist(SlotName, i)) {
-                OnSaveClicked(SlotName, i);
+                UPlagued_Knight_GameInstance* GI = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+                if (GI)
+                {
+                    UE_LOG(LogTemp, Log, TEXT("GameInstance found, populating the inventory."));
+
+                    // Use the inventory from the GameInstance to populate the widget
+                    RecorderWidget->PopulateInventory(GI->GetRecorderInventory());
+                    Container->AddChild(RecorderWidget);
+
+                    UE_LOG(LogTemp, Log, TEXT("RecorderWidget added to InventoryContainer."));
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Warning, TEXT("Failed to cast to GameInstance, cannot populate inventory."));
+                }
+            }
+            else
+            {
+                UE_LOG(LogTemp, Log, TEXT("RecorderWidget already a child of InventoryContainer. Removing it."));
+                Container->ClearChildren();
             }
         }
     }
     else
     {
-        // Remove all slot widgets from container
-        SlotListContainer->ClearChildren();
-        SaveSlotWidgets.Empty();
+        UE_LOG(LogTemp, Warning, TEXT("Either PC is null or RecorderWidgetClass is not set."));
     }
+
+}
+
+void UMain_Menu_Widget::CreateSaveSlotList()
+{
+    Container->ClearChildren();
+    if (!SaveSlotWidgetClass || !Container) return;  // Ensure the necessary references exist
+
+    // Create the Vertical Box to hold the slots
+    UVerticalBox* SlotListPanel = NewObject<UVerticalBox>(this);
+    if (!SlotListPanel) return;
+
+    for (int32 i = 0; i < MaxSlots; ++i)
+    {
+        FString SlotName = FString::Printf(TEXT("Slot_%d"), i);
+
+        // Create the SaveSlotWidget
+        USaveSlotListWidget* NewSlotWidget = CreateWidget<USaveSlotListWidget>(GetWorld(), SaveSlotWidgetClass);
+        if (!NewSlotWidget) continue;
+
+        // Initialize the widget with necessary data
+        NewSlotWidget->SlotName = SlotName;
+        NewSlotWidget->SlotIndex = i;
+        NewSlotWidget->ParentMenu = this;
+
+        // Add the widget to the Vertical Box
+        SlotListPanel->AddChildToVerticalBox(NewSlotWidget);
+
+        // Optional: Log widget creation
+        UE_LOG(LogTemp, Log, TEXT("Created SaveSlotListWidget for Slot: %s (Index: %d)"), *SlotName, i);
+    }
+
+    // Add the Vertical Box to the Container (e.g., a SizeBox or another panel)
+    Container->AddChild(SlotListPanel);
+
 }
 
 void UMain_Menu_Widget::CreateSaveSlotButton(const FString& slotname, int32 slotnumber)
 {
 
-    if (!SaveSlotWidgetClass || !SlotListContainer) return;
-
-    USaveSlotListWidget* NewSlotWidget = CreateWidget<USaveSlotListWidget>(GetWorld(), SaveSlotWidgetClass);
-    if (!NewSlotWidget) return;
-
-    NewSlotWidget->SlotName = slotname;
-    NewSlotWidget->SlotIndex = slotnumber;
-    NewSlotWidget->ParentMenu = this;
-
-    SlotListContainer->AddChild(NewSlotWidget);
-    SaveSlotWidgets.Add(NewSlotWidget);
+   
 }
 
 void UMain_Menu_Widget::OnPressedSave()

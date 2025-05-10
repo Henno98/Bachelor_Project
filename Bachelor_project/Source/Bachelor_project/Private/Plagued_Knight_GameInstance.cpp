@@ -11,6 +11,11 @@ void UPlagued_Knight_GameInstance::StoreSavedData(const FVector& Loc, float Heal
     TargetLevel = Level;
 }
 
+void UPlagued_Knight_GameInstance::StoreInventory(URecorder_Inventory* Inventory)
+{
+    RecorderInventory = Inventory->GetRecorderMap();
+}
+
 FVector UPlagued_Knight_GameInstance::GetSavedLocation() const
 {
     return SavedLocation;

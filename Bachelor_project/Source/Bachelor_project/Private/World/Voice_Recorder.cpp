@@ -112,6 +112,11 @@ void AVoice_Recorder::PlayText_Implementation()
    
 }
 
+int32 AVoice_Recorder::GetID_Implementation()
+{
+    return RecorderID;
+}
+
 void AVoice_Recorder::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 

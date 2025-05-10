@@ -23,7 +23,7 @@ public:
 	FTimerHandle LinePlaybackTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
 	TArray<USoundBase*> AudioClips;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
 	int32 RecorderID;
 	void DisplayNextLine();
 
@@ -32,14 +32,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual bool GetIsInteractible_Implementation() const override;
 	virtual FString GetInteractibleText_Implementation() const override;
 	virtual void LoadText_Implementation(const FString& FilePath)  override;
 	virtual void PlayText_Implementation()  override;
-	int32 GetID() { return RecorderID; };
+	virtual int32 GetID_Implementation() override;
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
