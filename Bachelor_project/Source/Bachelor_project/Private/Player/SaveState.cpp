@@ -51,7 +51,14 @@ bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
             return false;
         }
     }
-
+    UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(World));
+    if (GameInstance)
+    {
+        for (const TPair<int32, AVoice_Recorder*>& Pair : GameInstance->GetRecorderInventory())
+        {
+            SaveGameInstance->SavedRecorderIDs.Add(Pair.Key);
+        }
+    }
     // Save player-related data
     SaveGameInstance->PlayerName = TEXT("PlayerOne");
     SaveGameInstance->PlayerLocation = Character->GetActorLocation();
@@ -117,6 +124,19 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
     LatentInfo.UUID = __LINE__; // Unique ID per call
 
     UGameplayStatics::LoadStreamLevel(World, LevelToLoad, true, false, LatentInfo);
+
+    if (GameInstance && LoadedGame)
+    {
+
+        for (int32 ID : LoadedGame->SavedRecorderIDs)
+        {
+            AVoice_Recorder* Recorder = GameInstance->FindRecorderByID(ID); // Custom method using TActorIterator or similar
+            if (Recorder)
+            {if (!GameInstance->HasRecorder(ID))
+                GameInstance->AddRecorder(ID, Recorder);
+            }
+        }
+    }
     for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
     {
         UClass* EnemyClass = LoadObject<UClass>(nullptr, *EnemyData.EnemyClassPath);
@@ -132,6 +152,7 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
             {
                 EnemyInterface->SetHealth(EnemyData.Health);
                 EnemyInterface->SetDamage(EnemyData.Damage);
+
             }
         }
     }

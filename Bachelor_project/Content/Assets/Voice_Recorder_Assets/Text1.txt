@@ -1,4 +1,4 @@
-«Log Report 134, the date is static. The most recent test was a failure. 
+«Log Report 134, the date is *static*. The most recent test was a failure. 
 Recent testing suggests that while the “Permutation formula” does indeed restructure the body, 
 achieving the desired outcome of a strengthened body and increased longevity of the cells, 
 it is not without problems. 

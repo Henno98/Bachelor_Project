@@ -643,9 +643,7 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 
 		if (!InteractionText.IsEmpty())
 		{
-			UE_LOG(LogTemp, Log, TEXT("Loading and playing text from actor..."));
-			IInteractable::Execute_LoadText(OtherActor, InteractionText);
-			IInteractable::Execute_PlayText(OtherActor);
+
 
 			UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 			if (!GameInstance)
@@ -654,29 +652,33 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 				return;
 			}
 
+
 			// Cast OtherActor to AVoice_Recorder
 			AVoice_Recorder* Recorder = Cast<AVoice_Recorder>(OtherActor);
 			if (Recorder)
-			{
+			{ 
 				int32 ID = IInteractable::Execute_GetID(Recorder);
-				UE_LOG(LogTemp, Log, TEXT("Adding Recorder to inventory: ID = %d"), ID);
-				GameInstance->AddRecorder(ID, Recorder);
-			}
-			else
-			{
-				UE_LOG(LogTemp, Warning, TEXT("OtherActor is not a valid AVoice_Recorder."));
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Interaction text is empty. Skipping loading and inventory logic."));
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("OtherActor is invalid or not interactable."));
-	}
+				if (GameInstance->HasRecorder(ID)) return;
 
+				GameInstance->AddRecorder(ID, Recorder);
+				
+
+				
+				AVoice_Recorder* StoredRecorder = GameInstance->RecorderInventory[ID];
+				if (StoredRecorder)
+				{
+					IInteractable::Execute_LoadText(StoredRecorder, IInteractable::Execute_GetInteractibleText(StoredRecorder));
+					IInteractable::Execute_PlayText(StoredRecorder);
+					UE_LOG(LogTemp, Warning, TEXT("Playing recorder ID %d."), ID);
+
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Stored recorder was null for ID %d."), ID);
+				}
+			}
+		}
+	}
 }
 
 void ATest_Character::SaveGame(FString SlotName, int32 SlotNumber)

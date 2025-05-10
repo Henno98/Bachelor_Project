@@ -8,6 +8,7 @@
 #include "Player/Test_Character.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "World/LevelStreamingActor.h"
 
 UGAS_Double_Jump::UGAS_Double_Jump()
 {
@@ -30,19 +31,25 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
 
 		FVector Direction = Character->GetActorUpVector();
-		FVector Start = Character->GetActorLocation() + FVector(0.f, 100.f, 0.f);
-		FVector End = Start + (Direction * 100.f);
+		FVector Start = Character->GetActorLocation() + FVector(0.f, 0, 50.f);
+		FVector End = Start + (Direction * 200.f);
 
 		TArray<FHitResult> HitResult;
 		FCollisionQueryParams Params;
 		Params.AddIgnoredActor(Character);
+		TArray<AActor*> StreamingActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ALevelStreamingActor::StaticClass(), StreamingActors);
 
+		for (AActor* Actor : StreamingActors)
+		{
+			Params.AddIgnoredActor(Actor);
+		}
 		// Define the sweep shape (e.g., a sphere with radius x units)
-		FCollisionShape SweepShape = FCollisionShape::MakeSphere(150.f);
+		FCollisionShape SweepShape = FCollisionShape::MakeSphere(200.f);
 
 		DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
 		//DrawDebugSphere(GetWorld(), Start, 100.f, 12, FColor::Blue, false, 1.0f);
-		DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
+		DrawDebugSphere(GetWorld(), End, 200.f, 12, FColor::Blue, false, 1.0f);
 
 		bool bSweepHit = GetWorld()->SweepMultiByChannel(
 			HitResult,

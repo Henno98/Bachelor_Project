@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EngineUtils.h"
 #include "Engine/GameInstance.h"
 #include "Player/Recorder_Inventory.h"
 #include "Plagued_Knight_GameInstance.generated.h"
@@ -24,6 +25,9 @@ protected:
     UPROPERTY()
     int32 GlobalProgress;
 public:
+
+  
+    
     void StoreSavedData(const FVector& Loc, float Health, float BioMass, FName Level);
     void StoreInventory(URecorder_Inventory* Inventory);
     // Getters
@@ -40,13 +44,42 @@ public:
 
     void AddRecorder(int32 ID, AVoice_Recorder* Recorder)
     {
-        if (!RecorderInventory.Contains(ID)) {
-            RecorderInventory.Add(ID, Recorder);
+        if (!Recorder)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("AddRecorder failed: Recorder is null."));
+            return;
         }
+
+        if (!RecorderInventory.Contains(ID))
+        {
+            RecorderInventory.Add(ID, Recorder);
+            UE_LOG(LogTemp, Log, TEXT("Recorder with ID %d added to inventory."), ID);
+        }
+        else
+        {
+            UE_LOG(LogTemp, Log, TEXT("Recorder with ID %d already exists in inventory."), ID);
+        }
+    }
+
+    bool HasRecorder(int32 ID) const
+    {
+        return RecorderInventory.Contains(ID);
     }
 
     const TMap<int32, AVoice_Recorder*>& GetRecorderInventory() const
     {
         return RecorderInventory;
+    }
+    AVoice_Recorder* FindRecorderByID(int32 ID) const
+    {
+        for (TActorIterator<AVoice_Recorder> It(GetWorld()); It; ++It)
+        {
+            AVoice_Recorder* Recorder = *It;
+            if (Recorder && IInteractable::Execute_GetID(Recorder) == ID)
+            {
+                return Recorder;
+            }
+        }
+        return nullptr;
     }
 };

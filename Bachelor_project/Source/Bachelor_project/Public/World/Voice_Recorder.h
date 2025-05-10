@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
 	int32 RecorderID;
 	void DisplayNextLine();
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Basic")
+	USkeletalMeshComponent* Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic")
 
 	UBoxComponent* Collider;
 protected:
