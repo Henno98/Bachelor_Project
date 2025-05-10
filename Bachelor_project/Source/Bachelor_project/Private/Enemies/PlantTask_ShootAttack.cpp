@@ -57,7 +57,7 @@ EBTNodeResult::Type UPlantTask_ShootAttack::ExecuteTask(UBehaviorTreeComponent& 
 	}
 
 	UE_LOG(LogTemp, Log, TEXT("ShootTask: Calling Plant->CallGAS_RangedAttack()"));
-	Plant->CallGAS_RangedAttack();  // You mentioned "How to get GAS???" — see below
+	Plant->CallGAS_RangedAttack();  
 
 	return EBTNodeResult::Succeeded;
 }

@@ -15,9 +15,9 @@ class BACHELOR_PROJECT_API UCrowBoss_RandomService : public UBTService
 	GENERATED_BODY()
 
 public:
-	UCrowBoss_RandomService();
+	//UCrowBoss_RandomService();
 
 protected:
-	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+	//virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
 };
