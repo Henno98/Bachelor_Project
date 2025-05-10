@@ -6,6 +6,7 @@
 #include "Player/Test_Character.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "Player/SaveState.h"
 
 void UMain_Menu_Widget::NativeConstruct()
 {// Setup main buttons
@@ -170,13 +171,26 @@ void UMain_Menu_Widget::CreateSaveSlotList()
     Container->ClearChildren();
     if (!SaveSlotWidgetClass || !Container) return;  // Ensure the necessary references exist
 
+    TArray<FString> SaveFiles;
+    FString SaveGameDir = FPaths::ProjectSavedDir() / TEXT("SaveGames/");
+    IFileManager::Get().FindFiles(SaveFiles, *SaveGameDir, TEXT("sav"));
+
     // Create the Vertical Box to hold the slots
     UVerticalBox* SlotListPanel = NewObject<UVerticalBox>(this);
     if (!SlotListPanel) return;
 
-    for (int32 i = 0; i < MaxSlots; ++i)
+    for (int32 i = 0; i < SaveFiles.Num(); ++i)
     {
-        FString SlotName = FString::Printf(TEXT("Slot_%d"), i);
+        // Remove the ".sav" extension to get the slot name
+        FString SlotName = FPaths::GetBaseFilename(SaveFiles[i]);
+
+        // Load the save game to get the timestamp
+        USaveState* LoadedSaveGame = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, i));
+        if (!LoadedSaveGame)
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to load save game from slot: %s"), *SlotName);
+            continue;
+        }
 
         // Create the SaveSlotWidget
         USaveSlotListWidget* NewSlotWidget = CreateWidget<USaveSlotListWidget>(GetWorld(), SaveSlotWidgetClass);
@@ -185,13 +199,15 @@ void UMain_Menu_Widget::CreateSaveSlotList()
         // Initialize the widget with necessary data
         NewSlotWidget->SlotName = SlotName;
         NewSlotWidget->SlotIndex = i;
+        NewSlotWidget->GameTime = LoadedSaveGame->GameTime;  // Pass the timestamp
         NewSlotWidget->ParentMenu = this;
-
+        UTextBlock* Timestamp = NewObject<UTextBlock>(this);
         // Add the widget to the Vertical Box
+        Timestamp->SetText(FText::FromString(NewSlotWidget->GetFormattedSaveTime()));
+        SlotListPanel->AddChildToVerticalBox(Timestamp);
         SlotListPanel->AddChildToVerticalBox(NewSlotWidget);
 
-        // Optional: Log widget creation
-        UE_LOG(LogTemp, Log, TEXT("Created SaveSlotListWidget for Slot: %s (Index: %d)"), *SlotName, i);
+        UE_LOG(LogTemp, Log, TEXT("Created SaveSlotListWidget for Slot: %s (Index: %d), Last Saved: %f"), *SlotName, i, NewSlotWidget->GameTime);
     }
 
     // Add the Vertical Box to the Container (e.g., a SizeBox or another panel)

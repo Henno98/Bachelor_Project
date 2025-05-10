@@ -54,7 +54,8 @@ public:
 	int32 UserIndex;
 	UPROPERTY()
 	FString CurrentSubLevel;
-
+	UPROPERTY()
+	float GameTime;
 	UPROPERTY()
 	int32 GlobalProgress;
 	// The current level name to load
@@ -69,7 +70,12 @@ public:
 	UPROPERTY()
 	TArray<FEnemySaveData> EnemiesInLevel;
 	USaveState();
-	
+	FString GetFormattedSaveTime() const
+	{
+		// Convert the timestamp to a readable format
+		FDateTime SaveTime = FDateTime::FromUnixTimestamp(GameTime);
+		return SaveTime.ToString(TEXT("%Y-%m-%d %H:%M:%S"));  // Format like: "2025-05-10 14:30:25"
+	}
 	static bool SaveGame(UWorld* World, FString SlotName, int32 SlotNumber);
 	static bool LoadGame(UWorld* World, FString SlotName, int32 SlotNumber);
 	static TArray<FEnemySaveData>  SaveEnemies(UWorld* World);

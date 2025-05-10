@@ -10,6 +10,12 @@ float APlagued_Knight_GameMode::AutoSaveTimer = 0.0f;
 float APlagued_Knight_GameMode::GameTime = 0.0f;
 
 
+APlagued_Knight_GameMode::APlagued_Knight_GameMode()
+{
+	PrimaryActorTick.bCanEverTick = true;
+	
+}
+
 void APlagued_Knight_GameMode::BeginPlay()
 {
 	Super::BeginPlay();
@@ -22,6 +28,7 @@ void APlagued_Knight_GameMode::Tick(float DeltaSeconds)
 	// Autosave timer using static float
 	GameTime += DeltaSeconds;
 	AutoSaveTimer += DeltaSeconds;
+
 	float AutosaveInterval = 60.f;
 	if (AutoSaveTimer >= AutosaveInterval)
 	{

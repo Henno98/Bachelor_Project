@@ -87,7 +87,6 @@ void ATest_Character::BeginPlay()
 	}
 	DashCooldown = 2.f;
 
-	SaveGame("Main_Save", 0);
 }
 
 // Called every frame

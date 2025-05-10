@@ -25,6 +25,7 @@ public:
 
     FString SlotName;
     int32 SlotIndex;
+    float GameTime;
     UPROPERTY()
     TObjectPtr<UMain_Menu_Widget> ParentMenu;
 
@@ -39,4 +40,13 @@ public:
     void SetSave();
     UFUNCTION()
     void SetLoad();
+
+    // Function to update the displayed time
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    FString GetFormattedSaveTime() const
+    {
+        // Convert the timestamp to a readable format
+        FDateTime SaveTime = FDateTime::FromUnixTimestamp(GameTime);
+        return SaveTime.ToString(TEXT("%H:%M:%S"));  // Format like: "2025-05-10 14:30:25"
+    }
 };

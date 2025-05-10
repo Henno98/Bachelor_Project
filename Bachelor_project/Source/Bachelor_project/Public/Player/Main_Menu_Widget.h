@@ -84,4 +84,15 @@ public:
 	void OnPressedSave();
 	UFUNCTION()
 	void OnPresseedLoad();
+
+	int32 GetSaveSlotCount()
+	{
+		FString SaveGameDir = FPaths::ProjectSavedDir() / TEXT("SaveGames/");
+		TArray<FString> SaveFiles;
+
+		// List all .sav files in the SaveGames folder
+		IFileManager::Get().FindFiles(SaveFiles, *SaveGameDir, TEXT("sav"));
+
+		return SaveFiles.Num();
+	}
 };

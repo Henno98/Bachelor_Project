@@ -7,6 +7,7 @@
 #include "Plagued_Knight_GameInstance.h"
 #include "Enemies/EnemyInterface.h"
 #include "Kismet/GameplayStatics.h"
+#include "World/Plagued_Knight_GameMode.h"
 
 USaveState::USaveState()
 {
@@ -30,12 +31,25 @@ bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
         UE_LOG(LogTemp, Warning, TEXT("SaveGame failed: Player character not found."));
         return false;
     }
+    USaveState* SaveGameInstance = nullptr;
 
-    USaveState* SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass()));
-    if (!ensure(SaveGameInstance))
+    if (UGameplayStatics::DoesSaveGameExist(SlotName, SlotNumber))
     {
-        UE_LOG(LogTemp, Error, TEXT("SaveGame failed: Could not create save game instance."));
-        return false;
+        SaveGameInstance = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, SlotNumber));
+        if (!ensure(SaveGameInstance))
+        {
+            UE_LOG(LogTemp, Error, TEXT("SaveGame failed: Could not load existing save game."));
+            return false;
+        }
+    }
+    else
+    {
+        SaveGameInstance = Cast<USaveState>(UGameplayStatics::CreateSaveGameObject(USaveState::StaticClass()));
+        if (!ensure(SaveGameInstance))
+        {
+            UE_LOG(LogTemp, Error, TEXT("SaveGame failed: Could not create new save game instance."));
+            return false;
+        }
     }
 
     // Save player-related data
@@ -43,11 +57,12 @@ bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
     SaveGameInstance->PlayerLocation = Character->GetActorLocation();
     SaveGameInstance->Health = Character->GetHealth();
     SaveGameInstance->BioMass = Character->GetBioMass();
-
-    // Save level name (from level streaming or manually tracked)
+    SaveGameInstance->GameTime = APlagued_Knight_GameMode::GetGameTime();
+    // Save level info
     ULevel* CurrentLevel = World->GetCurrentLevel();
     SaveGameInstance->LastPlayedLevel = CurrentLevel ? CurrentLevel->GetFName() : NAME_None;
     SaveGameInstance->EnemiesInLevel = SaveEnemies(World);
+
     // Final save
     if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
     {
@@ -57,13 +72,8 @@ bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
     else
     {
         UE_LOG(LogTemp, Error, TEXT("SaveGame failed: SaveGameToSlot returned false."));
+        return false;
     }
-
-
-  
-
-
-    return false;
 }
 bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
 {
