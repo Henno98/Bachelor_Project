@@ -7,6 +7,7 @@
 #include "Enemies/Charger.h"
 #include "Enemies/Charger_AIController.h"
 #include "Enemies/Wandering_Target_Point.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 UCharger_WanderingTask::UCharger_WanderingTask()
@@ -20,6 +21,8 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
 
     UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
     if (!BlackboardComp) return EBTNodeResult::Failed;
+
+
 
     // Get all wandering points in the level
     TArray<AActor*> WanderingPoints;
@@ -39,6 +42,13 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
     ACharger* Charger = Cast<ACharger>(Pawn);
     if (!Charger || Charger->GetIsDying()) return EBTNodeResult::Failed;
     if (Charger->GetIsDying()) return EBTNodeResult::Failed;
+
+    ACharacter* CharacterPawn = Cast<ACharacter>(Charger);
+    if (CharacterPawn && CharacterPawn->GetCharacterMovement())
+    {
+        CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = Charger->GetWalkSpeed();
+    }
+
     Charger->SetIsPatrolling(true);
     // Get the previous wandering point (if any)
     AWandering_Target_Point* OldTargetPoint = Cast<AWandering_Target_Point>(BlackboardComp->GetValueAsObject("WanderingPoint"));
@@ -73,7 +83,7 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
     ChargerController->charger_target_location = TargetLocation;
     ChargerController->InitialDistance = FVector::Distance(StartLocation, TargetLocation);
   
-    // Set the target destination for actual movement in a separate task or service
+    
     BlackboardComp->SetValueAsVector("MoveToLocation", TargetLocation);
 
     return EBTNodeResult::Succeeded;

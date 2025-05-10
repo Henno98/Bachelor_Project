@@ -100,7 +100,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 						FVector BulletSize = IIsRangedAttacker::Execute_GetBulletSize(Character);
 
 						// Set properties on the projectile
-						SpawnedProjectile->lifetime = 1.f;
+						
 						if (IIsRangedAttacker::Execute_GetHasTarget(Character))
 						{
 							FVector Direction = IIsRangedAttacker::Execute_GetTargetLocation(Character);

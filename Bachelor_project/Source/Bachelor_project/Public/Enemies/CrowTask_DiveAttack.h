@@ -42,5 +42,6 @@ protected:
     float GroundZ = 0.f;
 
     
+    bool bHasLaunched = false;
 
 };

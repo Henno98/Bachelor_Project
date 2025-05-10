@@ -17,62 +17,77 @@ public:
 	ABeetle();
 
 protected:
-	// Called when the game starts or when spawned
+	// Lifecycle
 	virtual void BeginPlay() override;
-	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
-	//Variables
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+		class AController* EventInstigator, AActor* DamageCauser) override;
+
+	// Stats
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int Health{ 5 };
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int Damage{ 1 };
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float PatrolSpeed{ 400.f };
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float ChaseSpeed{ 500.f };
 
-
-	//Animation state
+	// State flags
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsDead = false;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsDying = false;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsChasing = false;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	bool bIsPatrolling = false;
 
 public:
-	// Called every frame
+	// Tick
 	virtual void Tick(float DeltaTime) override;
+
+	// Input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Overlaps
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
 		bool bFromSweep, const FHitResult& SweepResult);
+
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Damage handling
+	void OnHit(int IncomingDamage);
 	void Destroy();
-	void OnHit(int Damage);
-	// IEnemyInterface implementations
-	virtual float GetHealth() const override { return Health; };
-	virtual float GetDamage() const override { return Damage; };
-	virtual void SetHealth(float NewHealth) override { Health = NewHealth; };
-	virtual void SetDamage(float NewDamage) override { Damage = NewDamage; };
-	
 
-	float GetWalkSpeed() { return PatrolSpeed; }
-	float GetChargeSpeed() { return ChaseSpeed; }
+	// Interface implementations
+	virtual float GetHealth() const override { return Health; }
+	virtual float GetDamage() const override { return Damage; }
+	virtual void SetHealth(float NewHealth) override { Health = FMath::RoundToInt(NewHealth); }
+	virtual void SetDamage(float NewDamage) override { Damage = FMath::RoundToInt(NewDamage); }
 
+	// Movement speeds
+	float GetWalkSpeed() const { return PatrolSpeed; }
+	float GetChaseSpeed() const { return ChaseSpeed; }
 
-	bool GetIsDying() { return bIsDying; }
-	bool GetIsDead() { return bIsDead; }
-	bool GetIsChasing() { return bIsChasing; }
-	bool GetIsPatrolling() { return bIsPatrolling; }
+	// Getters
+	bool GetIsDying() const { return bIsDying; }
+	bool GetIsDead() const { return bIsDead; }
+	bool GetIsChasing() const { return bIsChasing; }
+	bool GetIsPatrolling() const { return bIsPatrolling; }
 
-	void SetIsDying(bool state) { bIsDying = state; };
-	void SetIsDead(bool state) { bIsDead = state; };
-	void SetIsCharging(bool state) { bIsChasing = state; };
-	void SetIsPatrolling(bool state) { bIsPatrolling = state; };
+	// Setters
+	void SetIsDying(bool bState) { bIsDying = bState; }
+	void SetIsDead(bool bState) { bIsDead = bState; }
+	void SetIsChasing(bool bState) { bIsChasing = bState; }
+	void SetIsPatrolling(bool bState) { bIsPatrolling = bState; }
 };

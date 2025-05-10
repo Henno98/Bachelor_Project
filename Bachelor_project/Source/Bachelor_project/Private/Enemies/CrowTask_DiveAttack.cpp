@@ -148,22 +148,8 @@ void UCrowTask_DiveAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
         *CrowBoss->GetVelocity().ToString()
     );
 
-    if (Distance < 100.0f)
-    {
-       // BlackboardComp->SetValueAsBool("IsDiving", false);
-        //UE_LOG(LogCrowDiveAttack, Log, TEXT("CrowBoss close to landing. Switching to MOVE_Falling"));
-
-        //// Switch to falling so Landed() can trigger when they hit the ground
-        //CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
-
-        //// Optionally adjust velocity to simulate dropping down
-        //FVector FallVelocity = FVector(0.f, 0.f, -2000.f); // Fast fall
-        //CrowBoss->GetCharacterMovement()->Velocity = FallVelocity;
-
-        // Stop the task; Landed() will finish the behavior
-
-    }
     BlackboardComp->SetValueAsBool("IsGrounded", true);
+    BlackboardComp->SetValueAsBool("NeedReturnToOrigin", true);
 	FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
 }
 
