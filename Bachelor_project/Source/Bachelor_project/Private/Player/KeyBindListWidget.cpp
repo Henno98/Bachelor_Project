@@ -28,11 +28,11 @@ void UKeyBindListWidget::NativeConstruct()
 void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray<FKey>& KeyboardKeys,
 	const TArray<FKey>& GamepadKeys)
 {
-    InputAction = Action;
 
     if (!Container) return;
     Container->ClearChildren();
-    // Always create the Action Text first, if it's not already part of the UI
+
+    // --- 1. Action Text Block (1/3) ---
     if (ActionTextBlock)
     {
         ActionTextBlock->SetText(FText::FromName(Action->GetFName()));
@@ -40,40 +40,22 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
         if (LabelSlot)
         {
             LabelSlot->SetPadding(FMargin(20.f));  // Add padding of 20 between widgets
-            LabelSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Fill space equally
-            LabelSlot->SetHorizontalAlignment(HAlign_Left); // Align the text centered
+            LabelSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Take 1/3 of the space
+            LabelSlot->SetHorizontalAlignment(HAlign_Center);  // Align text in the center
         }
     }
 
-    // Add keyboard key input first
-    if (KeyboardKeySelector && KeyboardKeys.Num() > 0)
+    // --- 2. Keyboard Keys Section (1/3) ---
+    // Create a new Horizontal Box for the Keyboard Section to occupy 1/3 width
+    UHorizontalBox* KeyboardContainer = NewObject<UHorizontalBox>(this, UHorizontalBox::StaticClass());
+    UHorizontalBoxSlot* KeyboardSlot = Container->AddChildToHorizontalBox(KeyboardContainer);
+    if (KeyboardSlot)
     {
-        PrimaryKey = KeyboardKeys[0];
-    	KeyboardKeySelector->SetSelectedKey(FInputChord(KeyboardKeys[0]));
-        UHorizontalBoxSlot* KeySlot = Container->AddChildToHorizontalBox(KeyboardKeySelector);
-        if (KeySlot)
-        { // Ensure the FSlateBrush is initialized
-            FSlateBrush ExtraKeyBrush;
-            ExtraKeyBrush.SetResourceObject(ButtonImage);
+        KeyboardSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Occupy 1/3 of the space
 
-            FButtonStyle ExtraKeyStyle;
-            ExtraKeyStyle.SetNormal(ExtraKeyBrush);
-            ExtraKeyStyle.SetHovered(ExtraKeyBrush);
-            ExtraKeyStyle.SetPressed(ExtraKeyBrush);
-            KeyboardKeySelector->SetButtonStyle(ExtraKeyStyle);
-            KeySlot->SetPadding(FMargin(20.f));  // Padding of 20
-            KeySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space
-        }
-    }
-
-    // Add secondary keyboard input (only if available)
-    if (KeyboardKeys.Num() > 1)
-    {
-        // Start from index 1 to skip the first element (index 0)
-        for (int32 i = 1; i < KeyboardKeys.Num(); ++i)
+        // Loop through all the keyboard keys and add them to the KeyboardContainer
+        for (int32 i = 0; i < KeyboardKeys.Num(); ++i)
         {
-            // Get the key at the current index
-            SecondKey = KeyboardKeys[i];
             ExtraKeyboardKeySelector = NewObject<UInputKeySelector>(this, UInputKeySelector::StaticClass());
             if (ExtraKeyboardKeySelector)
             {
@@ -81,10 +63,11 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
                 ExtraKeyboardKeySelector->OnKeySelected.Clear();
                 ExtraKeyboardKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnSecondaryKeyboardKeySelected);
 
-                UHorizontalBoxSlot* ExtraKeySlot = Container->AddChildToHorizontalBox(ExtraKeyboardKeySelector);
-                if (ExtraKeySlot)
+                // Add each keyboard key selector to the KeyboardContainer
+                UHorizontalBoxSlot* KeySlot = KeyboardContainer->AddChildToHorizontalBox(ExtraKeyboardKeySelector);
+                if (KeySlot)
                 {
-                    // Ensure the FSlateBrush is initialized
+                    // Ensure the FSlateBrush is initialized for each key
                     FSlateBrush ExtraKeyBrush;
                     ExtraKeyBrush.SetResourceObject(ButtonImage);  // Assuming ButtonImage is valid
 
@@ -95,14 +78,15 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
                     ExtraKeyStyle.SetPressed(ExtraKeyBrush);
                     ExtraKeyboardKeySelector->SetButtonStyle(ExtraKeyStyle);
 
-                    ExtraKeySlot->SetPadding(FMargin(20.f));  // Padding of 20
-                    ExtraKeySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space
+                    // Ensure equal size for all keys
+                    KeySlot->SetPadding(FMargin(5.f));  // Padding between keys
+                    KeySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Each key will take equal space within the 1/3 width
                 }
             }
         }
     }
 
-    // Add gamepad key last
+    // --- 3. Gamepad Keys Section (1/3) ---
     if (ControllerKeySelector && GamepadKeys.Num() > 0)
     {
         ControllerOldKey = GamepadKeys[0];
@@ -110,8 +94,19 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
         UHorizontalBoxSlot* GamepadSlot = Container->AddChildToHorizontalBox(ControllerKeySelector);
         if (GamepadSlot)
         {
+            // Ensure the FSlateBrush is initialized
+            FSlateBrush GamepadKeyBrush;
+            GamepadKeyBrush.SetResourceObject(ButtonImage);  // Assuming ButtonImage is valid
+
+            FButtonStyle GamepadKeyStyle;
+            GamepadKeyStyle.SetNormal(GamepadKeyBrush);
+            GamepadKeyStyle.SetHovered(GamepadKeyBrush);
+            GamepadKeyStyle.SetPressed(GamepadKeyBrush);
+            ControllerKeySelector->SetButtonStyle(GamepadKeyStyle);
+
+            // Padding and size settings (take 1/3 of the space)
             GamepadSlot->SetPadding(FMargin(20.f));  // Padding of 20
-            GamepadSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space
+            GamepadSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Equal fill space (1/3 of the width)
         }
     }
 }
