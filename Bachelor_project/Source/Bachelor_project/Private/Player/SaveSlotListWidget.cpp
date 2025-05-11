@@ -15,6 +15,7 @@ void USaveSlotListWidget::NativeConstruct()
      
         SlotNameText->SetText(FText::FromString(SlotName));
     }
+    SetIsFocusable(true);
 }
 
 void USaveSlotListWidget::HandleLoadClicked()

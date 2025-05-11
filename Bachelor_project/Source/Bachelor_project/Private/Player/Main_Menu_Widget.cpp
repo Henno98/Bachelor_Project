@@ -11,7 +11,7 @@
 void UMain_Menu_Widget::NativeConstruct()
 {// Setup main buttons
     Super::NativeConstruct();
-
+  SetIsFocusable(true);
     if (Quit_Button) {
         Quit_Button->OnClicked.Clear();
         Quit_Button->OnClicked.AddDynamic(this, &UMain_Menu_Widget::OnQuitClicked);

@@ -14,6 +14,7 @@ void UVRI_Button_Widget::NativeConstruct()
 
         PlayButton->OnClicked.AddDynamic(this, &UVRI_Button_Widget::HandleButtonClicked);
     }
+    SetIsFocusable(true);
 }
 void UVRI_Button_Widget::HandleButtonClicked()
 {

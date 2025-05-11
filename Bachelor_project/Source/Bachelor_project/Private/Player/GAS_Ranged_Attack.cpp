@@ -77,6 +77,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 		FRotator SpawnRotation = IIsRangedAttacker::Execute_GetFiringDirection(Character);
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = Character;
+		
 
 		// Get the actor class from the interface
 		TSubclassOf<AActor> ActorClass = IIsRangedAttacker::Execute_GetProjectileClass(Character);
@@ -112,7 +113,7 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 							SpawnedProjectile->Velocity = FiringDirection * Velocity;
 							UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: No target. Default firing direction applied."));
 						}
-
+						SpawnedProjectile->lifetime = IIsRangedAttacker::Execute_GetLifeTime(Character);
 						SpawnedProjectile->SetDamage(Damage);
 						SpawnedProjectile->SetActorScale3D(BulletSize);
 					}

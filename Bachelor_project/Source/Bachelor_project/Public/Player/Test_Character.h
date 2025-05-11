@@ -199,6 +199,9 @@ public:
     FVector SpawnLocation = GetActorLocation();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FRotator Direction = GetActorRotation();;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float LifeTime;
     // Interface function implementations (with inline return values)
     virtual float GetRangedDamage_Implementation() const override { return RangedDamage; }
     virtual float GetRangedAttackVelocity_Implementation() const override { return Velocity; }
@@ -207,31 +210,35 @@ public:
     virtual FRotator GetFiringDirection_Implementation() const override { return Direction; }
     virtual TSubclassOf<AActor> GetProjectileClass_Implementation() const override { return RangedAttackClass; };
     virtual FVector GetSpawnLocation_Implementation() const override { return SpawnLocation; };
-
+    virtual float GetLifeTime_Implementation() const override { return LifeTime; };
 
     //Subclasses
 	UPROPERTY()
     TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer JumpAbilityTag;
+    UPROPERTY()
     FGameplayAbilitySpec JumpAbilitySpec;
 
     UPROPERTY()
     TSubclassOf<UGAS_Wall_Latch> GA_Wall_Latch;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer WallLatchAbilityTag;
+    UPROPERTY()
     FGameplayAbilitySpec WallLatchAbilitySpec;
 
     UPROPERTY()
     TSubclassOf<UGAS_Dash> GA_Dash;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer DashAbilityTag;
+    UPROPERTY()
     FGameplayAbilitySpec DashAbilitySpec;
 
     UPROPERTY()
     TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer RangedAttackAbilityTag;
+    UPROPERTY()
     FGameplayAbilitySpec RangedAttackAbilitySpec;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile class")

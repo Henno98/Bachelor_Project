@@ -34,6 +34,12 @@ float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 	// Default damage handling (e.g., subtract health)
 	SetHealth(GetHealth()-DamageAmount);
 	GetCharacterMovement()->StopMovementImmediately();
+	if (GetHealth() <= 0)
+	{
+		bIsDying = true;
+		
+
+	}
 	// Ensure health doesn't go below 0
 	//Health = FMath::Max(Health, 0.0f);
 
@@ -48,13 +54,8 @@ float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 void ACharger::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetHealth()<=0)
-	{
-		bIsDying = true;
-		if (bIsDead) {
-			Destroy();
-		}
-
+	if (bIsDead) {
+		DestroyActor();
 	}
 }
 
@@ -91,11 +92,12 @@ void ACharger::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void ACharger::Destroy()
+void ACharger::DestroyActor()
 {
 	
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
+	Destroy();
 }
 
 void ACharger::OnHit(int damage)

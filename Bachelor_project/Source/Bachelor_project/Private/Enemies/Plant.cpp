@@ -19,7 +19,7 @@ APlant::APlant()
 void APlant::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnLocation = GetActorLocation(); // FIXED HERE
+	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("PlantMouth")); // FIXED HERE
 	InitAbilitySystem();
 }
 
@@ -27,7 +27,7 @@ void APlant::BeginPlay()
 void APlant::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+   
 }
 
 // Called to bind functionality to input
@@ -42,12 +42,10 @@ void APlant::InitAbilitySystem()
     // Give abilities to the plant
     if (AbilitySystemComponent)
     {
-        GA_Ranged_Attack = UGAS_Ranged_Attack::StaticClass();
-        if (GA_Ranged_Attack)
+        if (RangedAttackAbilityClass)
         {
-            RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
+            RangedAttackAbilitySpec = FGameplayAbilitySpec(RangedAttackAbilityClass);
             AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
-            UE_LOG(LogTemp, Log, TEXT("RangedAttackAbility given to plant."));
         }
     }
 }
@@ -76,5 +74,19 @@ void APlant::CallGAS_RangedAttack()
         }
     }
 	
+}
+
+float APlant::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator,
+	AActor* DamageCauser)
+{
+    SetHealth(GetHealth() - DamageAmount);
+    if (GetHealth() <= 0)
+    {
+        SetActorHiddenInGame(true);
+        SetActorEnableCollision(false);
+        Destroy();
+
+    }
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }
 

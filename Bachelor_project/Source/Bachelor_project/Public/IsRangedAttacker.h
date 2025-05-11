@@ -72,5 +72,6 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
 	void SetProjectileClass(TSubclassOf<AActor> ProjectileClass);
-
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ranged Attack")
+	float GetLifeTime() const;
 };

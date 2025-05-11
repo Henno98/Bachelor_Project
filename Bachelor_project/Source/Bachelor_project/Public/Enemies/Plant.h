@@ -45,6 +45,8 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
 	float RangedAttackDamage;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+	float LifeTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	float Velocity;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
 	FVector BulletSize;
@@ -74,20 +76,21 @@ public:
 	virtual void SetSpawnLocation_Implementation(FVector NewSpawnLocation) override { SpawnLocation = NewSpawnLocation; }
 	virtual void SetFiringDirection_Implementation(FRotator NewDirection) override { Direction = NewDirection; }
 	virtual void SetProjectileClass_Implementation(TSubclassOf<AActor> NewProjectileClass) override { ProjectileClass = NewProjectileClass; }
-
+	virtual float GetLifeTime_Implementation() const override { return LifeTime; };
 	//Create the //Initiate GAS
 	void InitAbilitySystem();
 	//GAS ability we want it to have
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
+	UFUNCTION()
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 
-	UPROPERTY()
-	TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
+	UPROPERTY(EditDefaultsOnly, Category = "Abilities")
+	TSubclassOf<UGameplayAbility> RangedAttackAbilityClass;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
 	FGameplayTag RangedAttackAbilityTag;
+	UPROPERTY()
 	FGameplayAbilitySpec RangedAttackAbilitySpec;
 	//Function to call on GAS ability
 	virtual void CallGAS_RangedAttack();
@@ -97,7 +100,9 @@ public:
 	virtual float GetDamage() const override { return Damage; };
 	virtual void SetHealth(float NewHealth) override { Health = NewHealth; };
 	virtual void SetDamage(float NewDamage) override { Damage = NewDamage; };
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Stats")
 	float Health;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float Damage;
-	
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 };

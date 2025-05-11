@@ -21,14 +21,14 @@ void UKeyBindListWidget::NativeConstruct()
         ControllerKeySelector->OnKeySelected.Clear();
         ControllerKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnControllerKeySelected);
     }
-
+    SetIsFocusable(true);
 }
 
 
 void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray<FKey>& KeyboardKeys,
 	const TArray<FKey>& GamepadKeys)
 {
-
+    InputAction = Action;
     if (!Container) return;
     Container->ClearChildren();
 
@@ -56,13 +56,14 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
         // Loop through all the keyboard keys and add them to the KeyboardContainer
         for (int32 i = 0; i < KeyboardKeys.Num(); ++i)
         {
+            PrimaryKey = KeyboardKeys[i];
             ExtraKeyboardKeySelector = NewObject<UInputKeySelector>(this, UInputKeySelector::StaticClass());
             if (ExtraKeyboardKeySelector)
             {
-                ExtraKeyboardKeySelector->SetSelectedKey(KeyboardKeys[i]);
+            	ExtraKeyboardKeySelector->SetSelectedKey(PrimaryKey);
                 ExtraKeyboardKeySelector->OnKeySelected.Clear();
                 ExtraKeyboardKeySelector->OnKeySelected.AddDynamic(this, &UKeyBindListWidget::OnSecondaryKeyboardKeySelected);
-
+               
                 // Add each keyboard key selector to the KeyboardContainer
                 UHorizontalBoxSlot* KeySlot = KeyboardContainer->AddChildToHorizontalBox(ExtraKeyboardKeySelector);
                 if (KeySlot)
@@ -123,7 +124,7 @@ void UKeyBindListWidget::OnSecondaryKeyboardKeySelected(FInputChord SelectedKey)
 {
     if (InputAction && ParentMenu && !SelectedKey.Key.IsGamepadKey())
     {
-        Cast<UKeyBindsWidget>(ParentMenu)->RebindKey(InputAction,SecondKey, SelectedKey.Key, true);
+        Cast<UKeyBindsWidget>(ParentMenu)->RebindKey(InputAction, PrimaryKey, SelectedKey.Key, true);
     }
 }
 

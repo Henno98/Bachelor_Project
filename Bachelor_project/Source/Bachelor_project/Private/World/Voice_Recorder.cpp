@@ -37,12 +37,7 @@ void AVoice_Recorder::DisplayNextLine()
 {
     if (CurrentLineIndex < TextLines.Num())
     {
-        // Get the current line
-        FString Currentline = TextLines[CurrentLineIndex];
-
-        // Debug print to the screen (optional for testing purposes)
-        UKismetSystemLibrary::PrintString(this, Currentline, true, true, FLinearColor::Green, 2.f);
-
+       
         // Increase the line index for the next time
         CurrentLineIndex++;
 
@@ -50,12 +45,15 @@ void AVoice_Recorder::DisplayNextLine()
         APlayerController* PC = GetWorld()->GetFirstPlayerController();
         if (PC)
         {
+            FText CurrentLine = TextLines[CurrentLineIndex];
+            UKismetSystemLibrary::PrintString(this, CurrentLine.ToString(), true, true, FLinearColor::Green, 2.f);
+           
             // Get the player's HUD
             APlayer_HUD* PlayerHUD = Cast<APlayer_HUD>(PC->GetHUD());
             if (PlayerHUD)
             {
                 // Display the current line on the HUD
-                PlayerHUD->ShowText(Currentline);
+                PlayerHUD->ShowText(CurrentLine.ToString());
             }
         }  // Play matching audio
         if (AudioClips.IsValidIndex(CurrentLineIndex) && AudioClips[CurrentLineIndex])
@@ -76,27 +74,31 @@ bool AVoice_Recorder::GetIsInteractible_Implementation() const
 	 return true;;
 }
 
-FString AVoice_Recorder::GetInteractibleText_Implementation() const
-{
-    return TextFilePath;
-}
 
 void AVoice_Recorder::LoadText_Implementation(const FString& FilePath)
 {
-    FString FullPath = FPaths::ProjectContentDir() + FilePath;
+    TextLines.Empty();
 
-    if (FPaths::FileExists(FullPath))
+    // Simulate loading sequential lines from a String Table
+    int32 Index = 0;
+    while (true)
     {
-        FFileHelper::LoadFileToStringArray(TextLines, *FullPath);
-        CurrentLineIndex = 0;
+        FString Key = FString::Printf(TEXT("Line_%d"), Index);
+        FText RetrievedText = FText::FromStringTable(StringTableName, Key);
 
-        UE_LOG(LogTemp, Log, TEXT("Loaded %d lines from file: %s"), TextLines.Num(), *FullPath);
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("File not found: %s"), *FullPath);
+        // If the key doesn't exist, the retrieved text equals the key
+        if (RetrievedText.ToString() == Key)
+        {
+            break;
+        }
+
+        TextLines.Add(RetrievedText);
+        Index++;
     }
 
+    CurrentLineIndex = 0;
+
+    UE_LOG(LogTemp, Log, TEXT("Loaded %d lines from String Table '%s'"), TextLines.Num(), *StringTableName.ToString());
     
 }
 

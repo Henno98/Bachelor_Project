@@ -46,7 +46,7 @@ void ABeetle::Tick(float DeltaTime)
 	{
 		bIsDying = true;
 		if (bIsDead) {
-			Destroy();
+			DestroyActor();
 		}
 
 	}
@@ -86,10 +86,11 @@ void ABeetle::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void ABeetle::Destroy()
+void ABeetle::DestroyActor()
 {
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
+	Destroy();
 }
 
 void ABeetle::OnHit(int damage)

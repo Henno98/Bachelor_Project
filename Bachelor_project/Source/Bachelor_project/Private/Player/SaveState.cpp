@@ -137,7 +137,7 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
             }
         }
     }
-    for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
+   /* for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
     {
         UClass* EnemyClass = LoadObject<UClass>(nullptr, *EnemyData.EnemyClassPath);
         if (!EnemyClass) continue;
@@ -155,7 +155,7 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
 
             }
         }
-    }
+    }*/
     UE_LOG(LogTemp, Log, TEXT("Started async level load: %s"), *LoadedGame->LastPlayedLevel.ToString());
     return true;
 }

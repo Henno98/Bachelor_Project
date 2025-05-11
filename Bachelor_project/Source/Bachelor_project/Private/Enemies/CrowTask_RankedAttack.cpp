@@ -44,18 +44,21 @@ EBTNodeResult::Type UCrowTask_RankedAttack::ExecuteTask(UBehaviorTreeComponent& 
     FVector MuzzleLocation = CrowBoss->GetActorLocation() + FVector(0.f, 0.f, 100.f);
     FRotator MuzzleRotation = (PlayerActor->GetActorLocation() - MuzzleLocation).Rotation();
 
-    if (CrowBoss->ProjectileClass)
+
+     if (CrowBoss->ProjectileClass)
     {
         FActorSpawnParameters SpawnParams;
         SpawnParams.Owner = CrowBoss;
         SpawnParams.Instigator = CrowBoss;
 
-        CrowBoss->GetWorld()->SpawnActor<ACrowBoss_Projectile>(
+        ACrowBoss_Projectile* SpawnedActor = CrowBoss->GetWorld()->SpawnActor<ACrowBoss_Projectile>(
             CrowBoss->ProjectileClass,
             MuzzleLocation,
             MuzzleRotation,
-            SpawnParams
-        );
+            SpawnParams);
+
+        SpawnedActor->LookAt(PlayerActor->GetActorLocation());
+         
     }
     
     return EBTNodeResult::Succeeded;

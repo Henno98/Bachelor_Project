@@ -67,7 +67,7 @@ public:
 
 	// Damage handling
 	void OnHit(int IncomingDamage);
-	void Destroy();
+	void DestroyActor();
 
 	// Interface implementations
 	virtual float GetHealth() const override { return Health; }

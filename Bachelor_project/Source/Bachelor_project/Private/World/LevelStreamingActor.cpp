@@ -13,7 +13,7 @@ ALevelStreamingActor::ALevelStreamingActor()
 	OverlapVolume = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapVolume"));
 	SetRootComponent(OverlapVolume);
 	OverlapVolume->OnComponentBeginOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapBegins);
-	OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
+	//OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
 }
 
 // Called when the game starts or when spawned
@@ -38,6 +38,7 @@ void ALevelStreamingActor::OverlapBegins(UPrimitiveComponent* OverlappedComponen
 		}
 		else
 		{
+			return;
 			
 		}
 	}
@@ -58,8 +59,8 @@ void ALevelStreamingActor::OverlapEnds(UPrimitiveComponent* OverlappedComponent,
 		UE_LOG(LogTemp, Log, TEXT("Found level %s, attempting to unload."), *LevelToLoad.ToString());
 	}
 
-	FLatentActionInfo LatentInfo;
-	UGameplayStatics::UnloadStreamLevel(this, LevelToLoad, LatentInfo, false);
+	//FLatentActionInfo LatentInfo;
+	//UGameplayStatics::UnloadStreamLevel(this, LevelToLoad, LatentInfo, false);
 }
 
 // Called every frame

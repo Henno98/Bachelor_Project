@@ -66,7 +66,7 @@ void ACrowBoss::Landed(const FHitResult& Hit)
         GetCharacterMovement()->Velocity = FVector::ZeroVector;
         SetIsPreparingDive(false);
         SetIsDiving(false);
-        Attack("DiveAttackSocket",200.f);
+        Attack("MeleeSocket",200.f);
         GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 		SetIsWalking(true);
 
@@ -78,7 +78,7 @@ float ACrowBoss::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
     if (GetHealth() <= 0)
     {
         bIsDying = true;
-        GetCharacterMovement()->SetMovementMode(MOVE_NavWalking);
+        //GetCharacterMovement()->SetMovementMode(MOVE_NavWalking);
     }
     UE_LOG(LogTemp, Error, TEXT("CrowBoss took %f damage, current health: %d"), DamageAmount, Health);
     GetCharacterMovement()->StopMovementImmediately();
@@ -110,6 +110,7 @@ void ACrowBoss::Death()
     UE_LOG(LogTemp, Error, TEXT("CrowBoss has died"));
     SetActorHiddenInGame(true);
     SetActorEnableCollision(false);
+    Destroy();
     // Implement further Death logic (e.g. spawn powerup)
 }
 
@@ -198,13 +199,7 @@ void ACrowBoss::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 {
     if (OtherActor != this || OtherActor->GetOwner() != this)
     {
-        if (OtherActor->IsA<Aprojectile>())
-        {
-            Aprojectile* projectile = Cast<Aprojectile>(OtherActor);
-            int dmg = projectile->GetDamage();
-            UE_LOG(LogTemp, Warning, TEXT("CrowBoss overlapped with projectile. Applying %d damage."), dmg);
-            OnHit(dmg);
-        }
+        
     }
 }
 

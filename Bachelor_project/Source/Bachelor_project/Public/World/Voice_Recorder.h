@@ -16,10 +16,14 @@ class BACHELOR_PROJECT_API AVoice_Recorder : public AActor, public IInteractable
 public:	
 	// Sets default values for this actor's properties
 	AVoice_Recorder();
-	TArray<FString> TextLines;
+	TArray<FText> TextLines;
+
 	int32 CurrentLineIndex = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
-	FString TextFilePath;
+	UStringTable* DialogueStringTable;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
+	FName StringTableName = "MyStringTable"; // Match the name of your asset
+	;
 	FTimerHandle LinePlaybackTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
 	TArray<USoundBase*> AudioClips;
@@ -39,7 +43,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual bool GetIsInteractible_Implementation() const override;
-	virtual FString GetInteractibleText_Implementation() const override;
 	virtual void LoadText_Implementation(const FString& FilePath)  override;
 	virtual void PlayText_Implementation()  override;
 	virtual int32 GetID_Implementation() override;

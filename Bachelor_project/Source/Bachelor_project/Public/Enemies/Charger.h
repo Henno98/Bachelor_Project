@@ -53,7 +53,7 @@ public:
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void Destroy();
+	void DestroyActor();
 	void OnHit(int Damage);
 	// IEnemyInterface implementations
 	virtual float GetHealth() const override;
