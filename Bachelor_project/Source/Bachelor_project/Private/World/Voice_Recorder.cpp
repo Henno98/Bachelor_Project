@@ -3,7 +3,9 @@
 
 
 #include "World/Voice_Recorder.h"
-
+#include "Internationalization/StringTableRegistry.h"
+#include "Internationalization/StringTableCore.h"     // For FStringTable
+#include "Internationalization/StringTableRegistry.h" // For FStringTableRegistry
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Player/Player_HUD.h"
@@ -17,7 +19,7 @@ AVoice_Recorder::AVoice_Recorder()
     Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
     SetRootComponent(Mesh);
-    Collider->OnComponentBeginOverlap.AddDynamic(this, &AVoice_Recorder::OnOverlap);
+    
 }
 
 // Called when the game starts or when spawned
@@ -33,95 +35,128 @@ void AVoice_Recorder::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
 void AVoice_Recorder::DisplayNextLine()
 {
-    if (CurrentLineIndex < TextLines.Num())
+    if (!TextLines.IsValidIndex(CurrentLineIndex))
     {
-       
-        // Increase the line index for the next time
-        CurrentLineIndex++;
+        UE_LOG(LogTemp, Warning, TEXT("Invalid CurrentLineIndex: %d"), CurrentLineIndex);
+        GetWorldTimerManager().ClearTimer(LinePlaybackTimer);
+        return;
+    }
 
-        // Get the player controller
-        APlayerController* PC = GetWorld()->GetFirstPlayerController();
-        if (PC)
+    FText CurrentLine = TextLines[CurrentLineIndex];
+    UE_LOG(LogTemp, Log, TEXT("Displaying line index: %d | Text: %s"), CurrentLineIndex, *CurrentLine.ToString());
+
+    APlayerController* PC = GetWorld()->GetFirstPlayerController();
+    if (PC)
+    {
+        UKismetSystemLibrary::PrintString(this, CurrentLine.ToString(), true, true, FLinearColor::Green, 2.f);
+
+        APlayer_HUD* PlayerHUD = Cast<APlayer_HUD>(PC->GetHUD());
+        if (PlayerHUD)
         {
-            FText CurrentLine = TextLines[CurrentLineIndex];
-            UKismetSystemLibrary::PrintString(this, CurrentLine.ToString(), true, true, FLinearColor::Green, 2.f);
-           
-            // Get the player's HUD
-            APlayer_HUD* PlayerHUD = Cast<APlayer_HUD>(PC->GetHUD());
-            if (PlayerHUD)
-            {
-                // Display the current line on the HUD
-                PlayerHUD->ShowText(CurrentLine.ToString());
-            }
-        }  // Play matching audio
-        if (AudioClips.IsValidIndex(CurrentLineIndex) && AudioClips[CurrentLineIndex])
-        {
-            UGameplayStatics::PlaySound2D(this, AudioClips[CurrentLineIndex]);
+            PlayerHUD->ShowText(CurrentLine.ToString());
         }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("PlayerHUD is null."));
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("PlayerController not found."));
+    }
+
+    if (AudioClips.IsValidIndex(CurrentLineIndex) && AudioClips[CurrentLineIndex])
+    {
+        UGameplayStatics::PlaySound2D(this, AudioClips[CurrentLineIndex]);
+        UE_LOG(LogTemp, Log, TEXT("Playing audio clip at index %d"), CurrentLineIndex);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No valid audio clip at index %d"), CurrentLineIndex);
+    }
+
+    CurrentLineIndex++;
+
+    if (TextLines.IsValidIndex(CurrentLineIndex))
+    {
         GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 4.f, false);
     }
     else
     {
+        UE_LOG(LogTemp, Log, TEXT("Finished playing all lines."));
         GetWorldTimerManager().ClearTimer(LinePlaybackTimer);
-        UE_LOG(LogTemp, Log, TEXT("Finished playing text file."));
     }
 }
-
-bool AVoice_Recorder::GetIsInteractible_Implementation() const
-{
-	 return true;;
-}
-
-
 void AVoice_Recorder::LoadText_Implementation(const FString& FilePath)
 {
     TextLines.Empty();
 
-    // Simulate loading sequential lines from a String Table
+    const int32 MaxLines = 100; // Prevent infinite loop
     int32 Index = 0;
-    while (true)
+
+    while (Index < MaxLines)
     {
         FString Key = FString::Printf(TEXT("Line_%d"), Index);
         FText RetrievedText = FText::FromStringTable(StringTableName, Key);
 
-        // If the key doesn't exist, the retrieved text equals the key
         if (RetrievedText.ToString() == Key)
         {
+            UE_LOG(LogTemp, Log, TEXT("End of string table reached or missing key at index %d (key: %s)"), Index, *Key);
             break;
         }
 
         TextLines.Add(RetrievedText);
+        UE_LOG(LogTemp, Log, TEXT("Loaded line %d: %s"), Index, *RetrievedText.ToString());
         Index++;
+    }
+
+    if (Index == MaxLines)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Reached max line count (%d). Possible malformed or infinite string table."), MaxLines);
     }
 
     CurrentLineIndex = 0;
 
     UE_LOG(LogTemp, Log, TEXT("Loaded %d lines from String Table '%s'"), TextLines.Num(), *StringTableName.ToString());
-    
 }
 
-void AVoice_Recorder::PlayText_Implementation() 
+void AVoice_Recorder::PlayText_Implementation()
 {
     if (TextLines.Num() == 0)
     {
-        UE_LOG(LogTemp, Warning, TEXT("No text loaded."));
+        UE_LOG(LogTemp, Warning, TEXT("No text loaded. Cannot start playback."));
         return;
     }
 
+    CurrentLineIndex = 0;
+    UE_LOG(LogTemp, Log, TEXT("Starting playback of %d lines."), TextLines.Num());
+
     GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 1.5f, false);
-
-   
 }
-
-int32 AVoice_Recorder::GetID_Implementation()
+TArray<FString> AVoice_Recorder::GetAllStringTableKeys(FName InTableName)
 {
-    return RecorderID;
+    TArray<FString> Keys;
+
+    TSharedPtr<const FStringTable> Table = FStringTableRegistry::Get().FindStringTable(InTableName);
+    if (Table.IsValid())
+    {
+        UE_LOG(LogTemp, Log, TEXT("Found string table: %s"), *InTableName.ToString());
+
+        Table->EnumerateKeysAndSourceStrings(([&](const FTextKey& Key, const FString& SourceString) -> bool
+            {
+                FString KeyStr = Key.ToString();
+                Keys.Add(KeyStr);
+                UE_LOG(LogTemp, Log, TEXT("Found key: %s | Source: %s"), *KeyStr, *SourceString);
+                return true;
+            }));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("String table '%s' not found."), *InTableName.ToString());
+    }
+
+    return Keys;
 }
-
-void AVoice_Recorder::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-
-}
-
