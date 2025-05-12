@@ -109,7 +109,7 @@ void ACharger::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Other
 						}
 
 						UGameplayStatics::ApplyDamage(HitActor, GetDamage(), GetController(), this, nullptr);
-						GetCharacterMovement()->StopActiveMovement();
+						//GetCharacterMovement()->StopActiveMovement();
 					}
 				}
 			}

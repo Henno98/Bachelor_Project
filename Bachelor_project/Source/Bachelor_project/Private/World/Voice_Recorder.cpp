@@ -94,7 +94,7 @@ void AVoice_Recorder::LoadText_Implementation(const FString& FilePath)
 {
     TextLines.Empty();
 
-    const int32 MaxLines = 100; // Prevent infinite loop
+    const int32 MaxLines = 1; // Prevent infinite loop
     int32 Index = 0;
 
     while (Index < MaxLines)
