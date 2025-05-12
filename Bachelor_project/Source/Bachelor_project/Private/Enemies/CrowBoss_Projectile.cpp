@@ -4,9 +4,27 @@
 #include "Enemies/CrowBoss_Projectile.h"
 #include "GameFramework/Character.h"
 #include "IsRangedAttacker.h"
-#include "Enemies/EnemyInterface.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+
+
+/**
+ * ACrowBoss_Projectile
+ *
+ * Represents a projectile fired by the Crow Boss in the game.
+ *
+ * Key Features:
+ * - Uses UProjectileMovementComponent for forward movement with no gravity.
+ * - Mesh component handles physics collision (OnHit).
+ * - Capsule collider handles overlap events (OnOverlap).
+ * - Applies damage to ACharacter targets using the ranged damage value from the projectile's owner if it implements the UIsRangedAttacker interface.
+ * - Automatically deactivates (hides and disables collision) after hitting a valid target.
+ *
+ * Important Notes:
+ * - Avoids applying damage to the projectile's owner.
+ * - Uses both hit and overlap events to cover different collision types (e.g., static vs. dynamic actors).
+ * - Logging included for debugging collision and damage application.
+ */
 
 
 ACrowBoss_Projectile::ACrowBoss_Projectile()
@@ -15,7 +33,6 @@ ACrowBoss_Projectile::ACrowBoss_Projectile()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = Mesh;
-	//Mesh->SetRelativeRotation(FRotator(0.f, 90.f, 0.f)); // Example if forward is along Y
 	Mesh->SetSimulatePhysics(false);
 	Mesh->SetNotifyRigidBodyCollision(true);
 	Mesh->OnComponentHit.AddDynamic(this, &ACrowBoss_Projectile::OnHit);
@@ -60,23 +77,19 @@ void ACrowBoss_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 		UE_LOG(LogTemp, Warning, TEXT("Aprojectile::OnOverlap - Ignoring overlap with owner: %s"), *OtherActor->GetName());
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Projectile overlapped with: %s"), *OtherActor->GetClass()->GetName());
+
 
 	if (!OtherActor->IsA<ACharacter>())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Not a character. Ignoring."));
 		return;
 	}
-	// Log the actor we hit
-	UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Overlapped with actor: %s"), *OtherActor->GetName());
+
 	if (GetOwner() && GetOwner()->Implements<UIsRangedAttacker>()) {
 		// Apply damage
 		float DamageAmount = IIsRangedAttacker::Execute_GetRangedDamage(GetOwner());
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, nullptr, this, nullptr);
 		DestroyActor();
-
-		// Confirm damage was applied
-		UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Applied %f damage to %s"), DamageAmount, *OtherActor->GetName());
 	}
 }
 
@@ -103,23 +116,18 @@ void ACrowBoss_Projectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, A
 		UE_LOG(LogTemp, Warning, TEXT("Aprojectile::OnOverlap - Ignoring overlap with owner: %s"), *OtherActor->GetName());
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Projectile overlapped with: %s"), *OtherActor->GetClass()->GetName());
 
 	if (!OtherActor->IsA<ACharacter>())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Not a character. Ignoring."));
 		return;
 	}
-	// Log the actor we hit
-	UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Overlapped with actor: %s"), *OtherActor->GetName());
+
 	if (GetOwner() && GetOwner()->Implements<UIsRangedAttacker>()) {
 		// Apply damage
 		float DamageAmount = IIsRangedAttacker::Execute_GetRangedDamage(GetOwner());
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, nullptr, this, nullptr);
 		DestroyActor();
-
-		// Confirm damage was applied
-		UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Applied %f damage to %s"), DamageAmount, *OtherActor->GetName());
 	}
 }
 

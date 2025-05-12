@@ -2,21 +2,28 @@
 
 
 #include "Enemies/Charger.h"
-
 #include "projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/Test_Character.h"
 
-// Sets default values
+/**
+ * ACharger
+ *
+ * Enemy character that charges at the player when detected.
+ * - Detects overlaps with projectiles and player characters.
+ * - Takes damage, dies when health reaches zero.
+ * - Handles its own collision, health, and damage logic.
+ * - Integrated with behavior tree for AI logic via controller.
+ */
+
 ACharger::ACharger()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ACharger::OnOverlap);
 	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap); // or ECR_Overlap based on your needs
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap); 
 }
 
 // Called when the game starts or when spawned
@@ -31,22 +38,12 @@ void ACharger::BeginPlay()
 
 float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	// Default damage handling (e.g., subtract health)
 	SetHealth(GetHealth()-DamageAmount);
 	GetCharacterMovement()->StopMovementImmediately();
 	if (GetHealth() <= 0)
 	{
 		bIsDying = true;
-		
-
 	}
-	// Ensure health doesn't go below 0
-	//Health = FMath::Max(Health, 0.0f);
-
-	// Optionally, apply other effects like playing an animation or sound
-	// For example: PlayHitReaction();
-	UE_LOG(LogTemp, Error, TEXT("Charger took damage"));
-	// Return the remaining health or amount of damage absorbed
 	return DamageAmount;
 }
 

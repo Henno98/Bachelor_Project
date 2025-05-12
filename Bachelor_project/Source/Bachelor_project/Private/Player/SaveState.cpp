@@ -9,6 +9,18 @@
 #include "Kismet/GameplayStatics.h"
 #include "World/Plagued_Knight_GameMode.h"
 
+/**
+ * USaveState
+ *
+ * This class handles the saving and loading of the game state, including player information, inventory, and enemies.
+ * - Saves and loads player stats such as location, health, and biomass.
+ * - Handles saving and loading of save slots and levels.
+ * - Manages the saving of enemies in the current level and loading their data.
+ * - Provides methods to save and load game data to/from slots, using the game instance to store player-specific information and level data.
+ * - Interacts with the game world, including the player character and enemies, to store relevant data in save files.
+ */
+
+
 USaveState::USaveState()
 {
 	SaveSlotName = TEXT("TestSaveSlot");
@@ -73,7 +85,6 @@ bool USaveState::SaveGame(UWorld* World, FString SlotName, int32 SlotNumber)
     // Final save
     if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SlotName, SlotNumber))
     {
-        UE_LOG(LogTemp, Log, TEXT("Game saved successfully to slot: %s (%d)"), *SlotName, SlotNumber);
         return true;
     }
     else
@@ -137,26 +148,7 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
             }
         }
     }
-   /* for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
-    {
-        UClass* EnemyClass = LoadObject<UClass>(nullptr, *EnemyData.EnemyClassPath);
-        if (!EnemyClass) continue;
-
-        FActorSpawnParameters SpawnParams;
-        AActor* SpawnedEnemy = World->SpawnActor<AActor>(EnemyClass, EnemyData.Location, EnemyData.Rotation, SpawnParams);
-
-        if (SpawnedEnemy && SpawnedEnemy->GetClass()->ImplementsInterface(UEnemyInterface::StaticClass()))
-        {
-            IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(SpawnedEnemy);
-            if (EnemyInterface)
-            {
-                EnemyInterface->SetHealth(EnemyData.Health);
-                EnemyInterface->SetDamage(EnemyData.Damage);
-
-            }
-        }
-    }*/
-    UE_LOG(LogTemp, Log, TEXT("Started async level load: %s"), *LoadedGame->LastPlayedLevel.ToString());
+   
     return true;
 }
 

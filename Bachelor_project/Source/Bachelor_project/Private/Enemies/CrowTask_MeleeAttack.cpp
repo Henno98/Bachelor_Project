@@ -3,10 +3,21 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
-
 #include "TimerManager.h"
 #include "Enemies/CrowBoss.h"
 #include "Engine/World.h"
+
+/**
+ * UCrowTask_MeleeAttack
+ *
+ * Behavior Tree Task for the Crow Boss AI to perform a melee attack.
+ * - Begins moving toward the player if out of range.
+ * - Faces the player during movement.
+ * - Triggers a melee attack when within striking distance.
+ * - Sets blackboard flags to control animation and behavior state.
+ * - Handles attack delay/recovery using a timer, then signals task completion.
+ */
+
 
 UCrowTask_MeleeAttack::UCrowTask_MeleeAttack()
 {
@@ -67,16 +78,11 @@ void UCrowTask_MeleeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* N
         {
             // In range to ATTEMPT an attack (whether it lands or not)
             FVector HitLocation = CrowBoss->GetActorLocation() + CrowBoss->GetActorForwardVector() * HitRange;
-            //Draw
-            // Sphere(CrowBoss->GetWorld(), HitLocation, 60.f, 12, FColor::Red, false, 1.0f);
 
             bHasAttacked = true;
             CrowBoss->SetIsMeleeAttacking(true);
-           // CrowBoss->Attack("MeleeSocket",100.f);
-            // Stop immediately after attacking
             CrowBoss->GetCharacterMovement()->StopMovementImmediately();
-           
-            // Delay to simulate recovery after the attack
+
             CrowBoss->GetWorldTimerManager().SetTimer(AttackTimer, [this, &OwnerComp]()
                 {   CrowBoss->SetIsMeleeAttacking(false);
 				//Blackboard->SetValueAsBool("IsMeleeAttacking", false);

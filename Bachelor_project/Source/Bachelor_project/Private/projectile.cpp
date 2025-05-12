@@ -9,37 +9,46 @@
 #include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
 
+/**
+ * Aprojectile
+ *
+ * This actor class represents a generic projectile used by characters or enemies.
+ * - Moves forward each tick using a customizable velocity and destroys itself after a randomized lifetime.
+ * - Uses a sphere collision component to detect overlaps with valid targets, ignoring the owner and non-character actors.
+ * - Ignores collisions with non-pawn objects and selectively applies damage to valid hit targets.
+ * - Prevents friendly fire by checking interfaces and actor relationships.
+ * - Disables rendering and collision upon "destruction" instead of immediately removing the actor from the world.
+ */
+
+
 // Sets default values
 Aprojectile::Aprojectile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	
 	PrimaryActorTick.bCanEverTick = true;
 	collider = CreateDefaultSubobject<USphereComponent>(TEXT("Collider"));
 	SetRootComponent(collider);
 	collider->SetRelativeScale3D(FVector(Size));
 	collider->OnComponentBeginOverlap.AddDynamic(this, &Aprojectile::OnOverlap);
-	//collider->SetWorldScale3D(FVector(0.5f));
 	staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("staticmesh"));
 	staticmesh->SetupAttachment(RootComponent);
 	staticmesh->SetRelativeScale3D(FVector(0.5f));
 
-	
 	collider->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	collider->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic); // Should be something like Pawn or WorldDynamic
-	collider->SetCollisionResponseToAllChannels(ECR_Ignore); // Ignore other actors by default
-	collider->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap); // Set overlap with player characters (ECC_Pawn)
-	//collider->IgnoreActorWhenMoving(GetOwner(),true);
+	collider->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic); 
+	collider->SetCollisionResponseToAllChannels(ECR_Ignore); 
+	collider->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap); 
+
 
 }
 // Called when the game starts or when spawned
 void Aprojectile::BeginPlay()
 {
 	Super::BeginPlay();
-	//SetActorLocation(CurrentLocation);
 	lifetime = FMath::RandRange(5, 10);
 	
 }
-// Called every frame
+
 void Aprojectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -70,7 +79,6 @@ void Aprojectile::DestroyActor()
 {
 	    SetActorHiddenInGame(true);
 		SetActorEnableCollision(false);
-		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Destroyed projectile", true);
 
 }
 
@@ -96,9 +104,7 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 		UE_LOG(LogTemp, Warning, TEXT("Not a character. Ignoring."));
 		return;
 	}
-	
-	// Log the actor we hit
-	UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Overlapped with actor: %s"), *OtherActor->GetName());
+
 	if (GetOwner()->Implements<UEnemyInterface>())
 	{
 		if (OtherActor->Implements<UEnemyInterface>())
@@ -110,8 +116,7 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	float DamageAmount = GetDamage();
 	UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, nullptr, this, nullptr);
 	DestroyActor();
-	// Confirm damage was applied
-	UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Applied %f damage to %s"), DamageAmount, *OtherActor->GetName());
+	
 
 }
 

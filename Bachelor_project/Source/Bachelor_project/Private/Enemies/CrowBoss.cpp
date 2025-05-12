@@ -1,13 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Enemies/CrowBoss.h"
-
-#include "projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Iris/Serialization/NetSerializer.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
+
+/**
+ * ACrowBoss
+ *
+ * Boss enemy character that can fly and perform multiple attacks.
+ * - Handles flight movement, air control, and speed adjustments.
+ * - Detects overlaps with characters and handles its own death logic (hides, disables collisions, and destroys itself).
+ * - Takes damage and transitions into a dying state when health reaches zero.
+ * - Performs melee, ranged, and special dive attacks with collision detection.
+ * - Applies damage to hit actors during attacks.
+ * - Integrated with AI logic for movement and behavior.
+ */
 
 // Sets default values
 ACrowBoss::ACrowBoss()
@@ -28,14 +37,11 @@ ACrowBoss::ACrowBoss()
     Movement->BrakingFrictionFactor = 2.0f;
     Movement->AirControl = 0.80f;
     Movement->AirControlBoostMultiplier = 2.0f;
-
-    UE_LOG(LogTemp, Warning, TEXT("CrowBoss constructed"));
 }
 
 void ACrowBoss::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("CrowBoss BeginPlay called"));
 }
 
 void ACrowBoss::Tick(float DeltaTime)
@@ -44,7 +50,7 @@ void ACrowBoss::Tick(float DeltaTime)
 
    
         if (bIsDead) {
-            UE_LOG(LogTemp, Warning, TEXT("CrowBoss marked for death"));
+            
             Death();
         }
     
@@ -60,7 +66,6 @@ void ACrowBoss::Landed(const FHitResult& Hit)
     Super::Landed(Hit);
 
     if (bIsDying || bIsDead) return;
-    UE_LOG(LogTemp, Log, TEXT("CrowBoss::Landed called"));
 
         GetCharacterMovement()->StopMovementImmediately();
         GetCharacterMovement()->Velocity = FVector::ZeroVector;
@@ -78,36 +83,34 @@ float ACrowBoss::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
     if (GetHealth() <= 0)
     {
         bIsDying = true;
-        //GetCharacterMovement()->SetMovementMode(MOVE_NavWalking);
     }
-    UE_LOG(LogTemp, Error, TEXT("CrowBoss took %f damage, current health: %d"), DamageAmount, Health);
+
     GetCharacterMovement()->StopMovementImmediately();
     return DamageAmount;
 }
 
 void ACrowBoss::MeleeAttack()
 {
-    // Implement MeleeAttack logic here
+    // Got its own class
 }
 
 void ACrowBoss::FeatherAttack()
 {
-    // Implement FeatherAttack logic here
+    // Now RangedAttack(RankedAttack)
 }
 
 void ACrowBoss::SpecialAttack()
 {
-    // Implement SpecialAttack logic here
+    // Now DiveAttack
 }
 
 void ACrowBoss::Collision()
 {
-    // Implement Collision logic here
+    // Implemented elsewhere
 }
 
 void ACrowBoss::Death()
 {
-    UE_LOG(LogTemp, Error, TEXT("CrowBoss has died"));
     SetActorHiddenInGame(true);
     SetActorEnableCollision(false);
     Destroy();
@@ -116,13 +119,11 @@ void ACrowBoss::Death()
 
 void ACrowBoss::OnHit(int damage)
 {
-    UE_LOG(LogTemp, Warning, TEXT("CrowBoss received %d damage through OnHit"), damage);
     SetHealth(GetHealth() - damage);
 }
 
 void ACrowBoss::Attack(const FName& Socket, float attackrange)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Started DiveAttack at socket: %s"), *Socket.ToString());
 
     FVector Start = GetMesh()->GetSocketLocation(Socket);
     FVector ForwardVector = GetActorForwardVector();
@@ -149,7 +150,6 @@ void ACrowBoss::Attack(const FName& Socket, float attackrange)
 
     if (bHit)
     {
-        UE_LOG(LogTemp, Warning, TEXT("DiveAttack hit %d actors"), HitResults.Num());
 
         for (const FHitResult& Hit : HitResults)
         {
@@ -157,7 +157,6 @@ void ACrowBoss::Attack(const FName& Socket, float attackrange)
             if (HitActor && !HitActors.Contains(HitActor))
             {
                 HitActors.Add(HitActor);
-                UE_LOG(LogTemp, Warning, TEXT("DiveAttack hitting actor: %s"), *HitActor->GetName());
 
                 if (HitActor->IsA<ACharacter>())
                 {
@@ -205,5 +204,5 @@ void ACrowBoss::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 
 void ACrowBoss::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
-    // Optional: Add debug log if needed
+    
 }

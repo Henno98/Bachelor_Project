@@ -1,14 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-
 #include "Player/GAS_Double_Jump.h"
-
 #include "GameplayTagsManager.h"
 #include "Player/Test_Character.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "World/LevelStreamingActor.h"
+
+/**
+ * UGAS_Double_Jump
+ *
+ * Gameplay Ability class that handles the double jump ability for a character.
+ * - Performs a sweep check to ensure the character can double jump by detecting if the character is close to a platform.
+ * - Temporarily disables collision on platforms the character is close to, allowing for smooth double jumping.
+ * - The character can jump a second time after the first jump, given the conditions are met.
+ * - Ends the ability if certain conditions are not met or if the character is invalid.
+ * - Provides functionality to cancel the ability and stop jumping if needed.
+ */
+
 
 UGAS_Double_Jump::UGAS_Double_Jump()
 {
@@ -44,12 +52,8 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		{
 			Params.AddIgnoredActor(Actor);
 		}
-		// Define the sweep shape (e.g., a sphere with radius x units)
+	
 		FCollisionShape SweepShape = FCollisionShape::MakeSphere(200.f);
-
-		DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-		//DrawDebugSphere(GetWorld(), Start, 100.f, 12, FColor::Blue, false, 1.0f);
-		DrawDebugSphere(GetWorld(), End, 200.f, 12, FColor::Blue, false, 1.0f);
 
 		bool bSweepHit = GetWorld()->SweepMultiByChannel(
 			HitResult,
@@ -71,7 +75,6 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 				{
 					if (HitActor->GetFName().ToString().Contains(FString("Platform")) == true)
 					{
-						UE_LOG(LogTemp, Warning, TEXT("Hit actor: %s"), *Hit.GetActor()->GetName());
 						HitActor->SetActorEnableCollision(false);
 
 						FTimerHandle TimerHandle;
@@ -92,7 +95,6 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		{
 			
 			Character->Jump();
-			//Character->GetCharacterMovement()->SetMovementMode(MOVE_Falling);
 		
 		}
 		else
@@ -118,7 +120,7 @@ void UGAS_Double_Jump::CancelAbility(const FGameplayAbilitySpecHandle Handle,
 	}
 	else return;
 
-	// Call EndAbility to finish the ability
+
 	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 
 }

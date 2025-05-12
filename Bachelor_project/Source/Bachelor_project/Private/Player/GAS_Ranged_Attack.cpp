@@ -7,8 +7,18 @@
 #include "GameplayTagsManager.h"
 #include "AbilitySystemComponent.h"
 #include "IsRangedAttacker.h"
-#include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "Player/Test_Character.h"
+
+/**
+ * UGAS_Ranged_Attack
+ *
+ * Gameplay Ability class that handles the ranged attack for a character.
+ * - Stops movement and modifies gravity before shooting.
+ * - Uses the IIsRangedAttacker interface to get projectile properties like spawn location, firing direction, and velocity.
+ * - Spawns a projectile and applies velocity, damage, and lifetime properties.
+ * - Handles cooldown with a timer, allowing the character to shoot again after a short delay.
+ * - Ends the ability if certain conditions are not met, such as missing components or interface implementation.
+ */
 
 
 UGAS_Ranged_Attack::UGAS_Ranged_Attack()
@@ -53,19 +63,6 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 			return;
 		}
 
-		// ** Apply Cooldown Effect **
-		// (Uncomment the following block if you want to apply a cooldown effect)
-		/*
-		if (CooldownGameplayEffect)
-		{
-			FGameplayEffectSpecHandle CooldownSpecHandle = ASC->MakeOutgoingSpec(CooldownGameplayEffect, 1.f, ASC->MakeEffectContext());
-			if (CooldownSpecHandle.IsValid())
-			{
-				ASC->ApplyGameplayEffectSpecToSelf(*CooldownSpecHandle.Data.Get());
-				UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: Cooldown applied."));
-			}
-		}
-		*/
 
 		// Stop movement immediately and apply a gravity modifier
 		Character->GetCharacterMovement()->StopMovementImmediately();
@@ -81,7 +78,6 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 
 		// Get the actor class from the interface
 		TSubclassOf<AActor> ActorClass = IIsRangedAttacker::Execute_GetProjectileClass(Character);
-		UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: Spawning projectile. Class: %s"), *ActorClass->GetName());
 
 		// Spawn the projectile
 		UWorld* World = GetWorld();
@@ -95,23 +91,19 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 					Aprojectile* SpawnedProjectile = Cast<Aprojectile>(SpawnedActor);
 					if (SpawnedProjectile)
 					{
-						UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: Fired projectile."));
 						float Velocity = IIsRangedAttacker::Execute_GetRangedAttackVelocity(Character);
 						float Damage = IIsRangedAttacker::Execute_GetRangedDamage(Character);
 						FVector BulletSize = IIsRangedAttacker::Execute_GetBulletSize(Character);
 
 						// Set properties on the projectile
-						
 						if (IIsRangedAttacker::Execute_GetHasTarget(Character))
 						{
 							FVector Direction = IIsRangedAttacker::Execute_GetTargetLocation(Character);
 							SpawnedProjectile->Velocity = Direction * Velocity;
-							UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: Targeted attack. Velocity set."));
 						}
 						else
 						{
 							SpawnedProjectile->Velocity = FiringDirection * Velocity;
-							UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: No target. Default firing direction applied."));
 						}
 						SpawnedProjectile->lifetime = IIsRangedAttacker::Execute_GetLifeTime(Character);
 						SpawnedProjectile->SetDamage(Damage);
@@ -143,7 +135,6 @@ void UGAS_Ranged_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 				if (Character && Character->GetCharacterMovement())
 				{
 					Character->GetCharacterMovement()->GravityScale = 4.5;
-					UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: Gravity restored."));
 					bCanShoot = true;
 				}
 			}), 0.2f, false);
@@ -157,6 +148,5 @@ void UGAS_Ranged_Attack::CancelAbility(const FGameplayAbilitySpecHandle Handle,
 {
 	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
 	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
-	UE_LOG(LogTemp, Log, TEXT("GAS_Ranged_Attack: Ability canceled."));
 
 }

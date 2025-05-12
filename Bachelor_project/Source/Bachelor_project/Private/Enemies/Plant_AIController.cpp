@@ -9,6 +9,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
 
+/**
+ * APlant_AIController
+ *
+ * AI controller for the Plant enemy character.
+ * - Sets up perception components such as sight and hearing, including radius and angle settings.
+ * - On possession, initializes the blackboard and behavior tree components, starts the behavior tree, and sets up the perception component to detect the player.
+ * - Handles the "OnPossess" method by setting the "SeenPlayer" blackboard value to false and starting the behavior tree if it's valid.
+ * - If the Plant AI perceives the player, it updates the blackboard with the player's reference and sets the "SeenPlayer" value to true.
+ */
+
 APlant_AIController::APlant_AIController()
 {
 	Plant_PerceptionComponent = CreateDefaultSubobject<UPawnSensingComponent>("Plant Perception Component");
@@ -44,44 +54,6 @@ void APlant_AIController::OnPossess(APawn* InPawn)
 	}
 }
 
-//void APlant_AIController::Tick(float deltaTime)
-//{
-//	Super::Tick(deltaTime);
-//	APawn* Plant = GetPawn();
-//	if (!Plant) return;
-//
-//	// Debug check for player detection
-//	TArray<AActor*> AllPlayers;
-//	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATest_Character::StaticClass(), AllPlayers);
-//	if (AllPlayers.Num() > 0)
-//	{
-//		APawn* TestPlayer = Cast<APawn>(AllPlayers[0]);
-//		if (TestPlayer)
-//		{
-//			FVector PlayerLocation = TestPlayer->GetActorLocation();
-//			FVector PlantLocation = Plant->GetActorLocation();
-//			float Distance = FVector::Dist(PlayerLocation, PlantLocation);
-//		}
-//	}
-//
-//	if (Player)
-//	{
-//		FVector PlayerLocation = Player->GetActorLocation();
-//		FVector PlantLocation = Plant->GetActorLocation();
-//		float Distance = FVector::Dist(PlayerLocation, PlantLocation);
-//		Plant_BBC->SetValueAsFloat("DistanceToPlayer", Distance);
-//		if (Distance > 600.f)
-//		{
-//			Player = nullptr;
-//			Plant_BBC->SetValueAsObject("Player", nullptr);
-//			Plant_BBC->SetValueAsBool("SeenPlayer", false);
-//			return;
-//		}
-//	}
-//}
-
-
-
 void APlant_AIController::OnSeenPawn(APawn* SeenPawn)
 {
 	if (!SeenPawn) return;
@@ -92,7 +64,6 @@ void APlant_AIController::OnSeenPawn(APawn* SeenPawn)
 		Player = SeenPawn;
 		Plant_BBC->SetValueAsObject("Player", SeenPawn);
 		Plant_BBC->SetValueAsBool("SeenPlayer", true);
-		UE_LOG(LogTemp, Warning, TEXT("Plant saw the player!"));
 
 		
 

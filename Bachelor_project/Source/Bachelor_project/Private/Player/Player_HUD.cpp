@@ -6,6 +6,17 @@
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
 
+
+/**
+ * APlayer_HUD
+ *
+ * This class manages the player interface (HUD) for the game.
+ * - Handles the creation, display, and removal of various UI elements like the player stats, main menu, and text boxes.
+ * - Provides functionality for toggling the main menu, showing/hiding text messages, and managing input modes.
+ * - Controls the visibility and updates of the player HUD and menu elements during gameplay.
+ */
+
+
 void APlayer_HUD::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,7 +35,7 @@ void APlayer_HUD::BeginPlay()
         if (TextBoxWidget)
         {
             TextBoxWidget->AddToViewport();
-            TextBoxWidget->SetVisibility(ESlateVisibility::Hidden); // start hidden
+            TextBoxWidget->SetVisibility(ESlateVisibility::Hidden); 
         }
     }
     if (MainMenuWidgetClass)
@@ -32,7 +43,7 @@ void APlayer_HUD::BeginPlay()
         if (IsValid(Main_Menu))
         {
             Main_Menu->RemoveFromParent();
-            Main_Menu = nullptr; // ? important
+            Main_Menu = nullptr; 
         }
 
         Main_Menu = CreateWidget<UMain_Menu_Widget>(GetWorld(), MainMenuWidgetClass);
@@ -72,7 +83,7 @@ void APlayer_HUD::OpenMenu()
     if (Main_Menu)
     {
         Main_Menu->AddToViewport();
-      //  Main_Menu->SlotListContainer->ClearChildren();
+      
     }
 }
 void APlayer_HUD::CloseMenu()
@@ -91,10 +102,7 @@ void APlayer_HUD::ShowText(const FString& Text)
     {
         TextBoxWidget->UpdateWidget(Text);
         TextBoxWidget->SetVisibility(ESlateVisibility::Visible);
-         // Clear any existing timer before setting a new one
         GetWorld()->GetTimerManager().ClearTimer(TextHideTimerHandle);
-        UE_LOG(LogTemp, Log, TEXT("Updating widget with text: %s"), *Text);
-        // Set timer to hide text after 5 seconds
         GetWorld()->GetTimerManager().SetTimer(TextHideTimerHandle, this, &APlayer_HUD::HideText, 5.0f, false);
   
     }

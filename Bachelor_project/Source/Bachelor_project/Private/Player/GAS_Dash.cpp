@@ -2,13 +2,22 @@
 
 
 #include "Player/GAS_Dash.h"
-
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTagsManager.h"
-
 #include "Components/CapsuleComponent.h"
 #include "Player/Test_Character.h"
+
+/**
+ * UGAS_Dash
+ *
+ * This Gameplay Ability class handles the dash ability for the character.
+ * - The dash is executed by launching the character forward with a high velocity.
+ * - Temporarily adjusts movement properties (like gravity and friction) to simulate the dash effect.
+ * - Disables collision detection during the dash for smooth movement, then restores collision and movement properties after a brief delay.
+ * - Provides functionality to cancel the ability and reset movement properties as necessary.
+ */
+
 
 UGAS_Dash::UGAS_Dash()
 {
@@ -35,13 +44,8 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 		// Get movement direction
 		FVector Direction = Character->GetCharacterMovement()->GetForwardVector().GetSafeNormal();
 		Character->PauseInput();
-		
-		// Temporarily disable collision
 		Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-
-		// Reduce friction to allow smooth dashing
 		Character->GetCharacterMovement()->GroundFriction = 0.1f;
-		// Reduce friction to allow smooth dashing
 		Character->GetCharacterMovement()->GravityScale = 0.f;
 
 		// Apply dash force
@@ -54,7 +58,7 @@ void UGAS_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const F
 
 				if (Character && Character->GetCharacterMovement())
 				{
-					Character->GetCharacterMovement()->GroundFriction = 8.0f; // Restore default friction
+					Character->GetCharacterMovement()->GroundFriction = 8.0f;
 					Character->GetCharacterMovement()->GravityScale = 4.5f;
 					Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					Character->ReEnableInput();
@@ -69,7 +73,6 @@ void UGAS_Dash::CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGa
 	const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility)
 {
 	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
-	
-	// Call EndAbility to finish the ability
+
 	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 }

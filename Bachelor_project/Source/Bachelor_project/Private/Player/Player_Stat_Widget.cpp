@@ -7,10 +7,19 @@
 #include "Components/ProgressBar.h"
 #include "Player/Test_Character.h"
 
+/**
+ * UPlayer_Stat_Widget
+ *
+ * This class manages the player's health and biomass UI stats.
+ * It listens for changes in the player's health and biomass and updates the UI accordingly.
+ * - The health bar is represented as a series of images, each image corresponding to a health point.
+ * - The biomass bar is represented as a progress bar showing the player's current biomass percentage.
+ */
+
+
 void UPlayer_Stat_Widget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	// Initialize the health (for example, set it to max health)
 	ATest_Character* character = Cast<ATest_Character>(GetWorld()->GetFirstPlayerController()->GetCharacter());
 	if (character)
 	{
@@ -27,7 +36,6 @@ void UPlayer_Stat_Widget::NativeConstruct()
 		}
 	}
 
-	// Initially, create all health points (images) when the widget is constructed
 	UpdateHealth(CurrentHealth);
 	UpdateBioMass(CurrentBioMass);
 }
@@ -36,13 +44,11 @@ void UPlayer_Stat_Widget::UpdateHealth(int32 currenthealth)
 {
 	CurrentHealth = currenthealth;
 
-	// Clear the previous health point images
 	if (HealthBarPanel)
 	{
 		HealthBarPanel->ClearChildren();
 	}
 
-	// Create the health point images based on the current health
 	CreateHealthPointImages();
 }
 
@@ -76,8 +82,7 @@ void UPlayer_Stat_Widget::CreateHealthPointImages()
 			HealthBarPanel->AddChild(HealthImage);
 		}
 
-		// Position the health images to display them in a row (or other layout)
-		FVector2D NewPosition = FVector2D(i * 30.f, 0.f); // Space them 30 units apart
+		FVector2D NewPosition = FVector2D(i * 30.f, 0.f); 
 		HealthImage->SetRenderTranslation(NewPosition);
 	}
 }

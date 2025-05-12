@@ -2,24 +2,32 @@
 
 
 #include "Enemies/Plant.h"
-
 #include "Player/GAS_PlayerState.h"
+
+/**
+ * APlant
+ *
+ * Plant enemy character class with Ability System integration.
+ * - Initializes and manages an Ability System Component for the Plant.
+ * - Initializes and activates abilities (specifically ranged attack) upon spawn.
+ * - Handles the ranged attack using the gameplay ability system.
+ * - Takes damage and destroys the actor when health reaches zero.
+ */
+
 
 // Sets default values
 APlant::APlant()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
     // Create and register the AbilitySystemComponent
     AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-    UE_LOG(LogTemp, Log, TEXT("AbilitySystemComponent created for Plant."));
 }
 
 // Called when the game starts or when spawned
 void APlant::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("PlantMouth")); // FIXED HERE
+	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("PlantMouth")); 
 	InitAbilitySystem();
 }
 

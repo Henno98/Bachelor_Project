@@ -7,10 +7,22 @@
 #include "GameFramework/PawnMovementComponent.h"
 #include "Player/Test_Character.h"
 
+/**
+ * ATest_Enemy
+ *
+ * Simple enemy character with projectile and movement behavior. Not interactable in game. used for practice and testing
+ * - Moves back and forth along the Y-axis, with a timer to control direction.
+ * - Detects overlaps with the player character using a vision sphere and box collider.
+ * - Spawns a projectile towards the player's location when detected.
+ * - Applies damage to the player character if collided with the box collider.
+ * - Destroys itself when health reaches zero and hides from the game.
+ * - Integrated with a projectile class for ranged attacks.
+ */
+
+
 // Sets default values
 ATest_Enemy::ATest_Enemy()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	SetRootComponent(Collider);
@@ -20,7 +32,6 @@ ATest_Enemy::ATest_Enemy()
 	Vision->SetupAttachment(RootComponent);
 	Vision->SetSphereRadius(500.f);
 	Vision->OnComponentBeginOverlap.AddDynamic(this, &ATest_Enemy::OnOverlap);
-	//Vision->OnComponentEndOverlap.AddDynamic(this, &ATest_Enemy::OnOverlapEnd);
 }
 
 // Called when the game starts or when spawned
@@ -60,13 +71,13 @@ void ATest_Enemy::Walk(float deltatime)
 
 void ATest_Enemy::Look()
 {
-
+	//not needed
 
 }
 
 void ATest_Enemy::AttackLoop()
 {
-
+	//not needed
 
 }
 
@@ -79,7 +90,7 @@ void ATest_Enemy::Attack(FVector TargetLocation)
 
 	// Calculate spawn location and rotation
 	 SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 100.f);
-	if (SpawnLocation.IsZero()) // Very unlikely, but for safety
+	if (SpawnLocation.IsZero()) 
 	{
 		return;
 	}
@@ -107,7 +118,7 @@ void ATest_Enemy::Attack(FVector TargetLocation)
 			SpawnedProjectile->SetActorScale3D(BulletSize);
 		}
 
-		// Optional: call Attack again after a delay (e.g., attack cooldown)
+		
 		GetWorldTimerManager().SetTimer(AttackDelayHandle, this, &ATest_Enemy::AttackLoop, 1.f, false);
 		bHasSpawnedProjectile = true;
 	}
