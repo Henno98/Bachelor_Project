@@ -99,8 +99,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     {
         LandingSpot = Hit.ImpactPoint;
         UE_LOG(LogCrowDiveAttack, Log, TEXT("ExecuteTask: Found landing spot at %s"), *LandingSpot.ToString());
-        DrawDebugSphere(CrowBoss->GetWorld(), LandingSpot, 50.f, 12, FColor::Red, false, 3.0f);
-    }
+         }
     else
     {
         UE_LOG(LogCrowDiveAttack, Warning, TEXT("ExecuteTask: Could not find landing spot, using player location"));
@@ -109,7 +108,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     // Face the landing spot
     FVector Direction = (LandingSpot - CrowBoss->GetActorLocation()).GetSafeNormal();
     FRotator LookAtRotation = Direction.Rotation();
-    CrowBoss->SetActorRotation(CrowBoss->GetActorRotation());
+    CrowBoss->SetActorRotation(LookAtRotation);
 
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);
     BlackboardComp->SetValueAsVector("OriginalPosition", CrowBoss->GetActorLocation());

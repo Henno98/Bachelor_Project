@@ -7,7 +7,7 @@
 #include "Player/Test_Character.h"
 #include "Engine/Engine.h"
 
-DEFINE_LOG_CATEGORY_STATIC(LogCrowBossAI, Log, All);
+
 
 /**
  * ACrowBoss_AIController
