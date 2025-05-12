@@ -3,7 +3,6 @@
 #include "Enemies/Charger_WanderingTask.h"
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "NavigationSystem.h"
 #include "Enemies/Charger.h"
 #include "Enemies/Charger_AIController.h"
 #include "Enemies/Wandering_Target_Point.h"
@@ -16,20 +15,14 @@ UCharger_WanderingTask::UCharger_WanderingTask()
 
 EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-   
-   
-
     UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
     if (!BlackboardComp) return EBTNodeResult::Failed;
-
 
 
     // Get all wandering points in the level
     TArray<AActor*> WanderingPoints;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWandering_Target_Point::StaticClass(), WanderingPoints);
 
-    //UE_LOG(LogTemp, Warning, TEXT("Found %d wandering points"), WanderingPoints.Num());
-     
     if (WanderingPoints.Num() == 0)
     {
         UE_LOG(LogTemp, Warning, TEXT("No wandering points found!"));
@@ -48,6 +41,7 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
     {
         CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = Charger->GetWalkSpeed();
     }
+
 
     Charger->SetIsPatrolling(true);
     // Get the previous wandering point (if any)
@@ -72,12 +66,10 @@ EBTNodeResult::Type UCharger_WanderingTask::ExecuteTask(UBehaviorTreeComponent& 
 
     if (FVector::Dist(OwnerComp.GetOwner()->GetActorLocation(), NewWanderingPoint->GetActorLocation()) > 2000)   return EBTNodeResult::Failed;
 
-    UE_LOG(LogTemp, Warning, TEXT("Selected new wandering point: %s"), *NewWanderingPoint->GetName());
-
     // Set the new wandering point in the blackboard
     BlackboardComp->SetValueAsObject("WanderingPoint", NewWanderingPoint);
 
-    // Store target location and other useful information in controller
+    // Store target location and other useful information in AIcontroller
     FVector TargetLocation = NewWanderingPoint->GetActorLocation();
     ChargerController->charger_start_location = StartLocation;
     ChargerController->charger_target_location = TargetLocation;

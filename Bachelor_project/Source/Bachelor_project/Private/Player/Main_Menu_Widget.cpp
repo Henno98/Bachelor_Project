@@ -1,15 +1,25 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Player/Main_Menu_Widget.h"
-
 #include "Plagued_Knight_GameInstance.h"
 #include "Player/Test_Character.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/SaveState.h"
 
+/**
+ * UMain_Menu_Widget
+ *
+ * This class manages the main menu UI and interacts with various game systems.
+ * - Handles button clicks for actions such as loading, saving, quitting, opening inventory, and opening the key mapping menu.
+ * - Provides functionality to populate save slots, manage the inventory display, and handle menu navigation.
+ * - Facilitates the interaction between the player character and the game instance for save/load functionality.
+ * - Supports dynamic UI creation and updating based on the game state and user interactions.
+ */
+
+
 void UMain_Menu_Widget::NativeConstruct()
-{// Setup main buttons
+{
     Super::NativeConstruct();
   SetIsFocusable(true);
     if (Quit_Button) {
@@ -67,7 +77,7 @@ void UMain_Menu_Widget::OnMappingMenuClicked()
             }
             else
             {
-                Container->ClearChildren(); // Hides/removes it
+                Container->ClearChildren(); 
             }
         }
     }
@@ -123,29 +133,24 @@ void UMain_Menu_Widget::OnOpenInventoryClicked()
     APlayerController* PC = GetWorld()->GetFirstPlayerController();
     if (PC && RecorderWidgetClass)
     {
-        UE_LOG(LogTemp, Log, TEXT("Attempting to create or toggle the Recorder Widget."));
 
         if (!RecorderWidget)
         {
-            UE_LOG(LogTemp, Log, TEXT("RecorderWidget does not exist, creating it."));
             RecorderWidget = CreateWidget<URecorder_Inventory_Widget>(GetWorld(), RecorderWidgetClass);
         }
 
         if (RecorderWidget)
         {
             if (!Container->HasChild(RecorderWidget)) {
-                UE_LOG(LogTemp, Log, TEXT("RecorderWidget is not a child of InventoryContainer. Adding it."));
 
                 UPlagued_Knight_GameInstance* GI = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
                 if (GI)
                 {
-                    UE_LOG(LogTemp, Log, TEXT("GameInstance found, populating the inventory."));
 
                     // Use the inventory from the GameInstance to populate the widget
                     RecorderWidget->PopulateInventory(GI->GetRecorderInventory());
                     Container->AddChild(RecorderWidget);
 
-                    UE_LOG(LogTemp, Log, TEXT("RecorderWidget added to InventoryContainer."));
                 }
                 else
                 {
@@ -169,22 +174,20 @@ void UMain_Menu_Widget::OnOpenInventoryClicked()
 void UMain_Menu_Widget::CreateSaveSlotList()
 {
     Container->ClearChildren();
-    if (!SaveSlotWidgetClass || !Container) return;  // Ensure the necessary references exist
+    if (!SaveSlotWidgetClass || !Container) return; 
 
     TArray<FString> SaveFiles;
     FString SaveGameDir = FPaths::ProjectSavedDir() / TEXT("SaveGames/");
     IFileManager::Get().FindFiles(SaveFiles, *SaveGameDir, TEXT("sav"));
 
-    // Create the Vertical Box to hold the slots
+   
     UVerticalBox* SlotListPanel = NewObject<UVerticalBox>(this);
     if (!SlotListPanel) return;
 
     for (int32 i = 0; i < SaveFiles.Num(); ++i)
     {
-        // Remove the ".sav" extension to get the slot name
+     
         FString SlotName = FPaths::GetBaseFilename(SaveFiles[i]);
-
-        // Load the save game to get the timestamp
         USaveState* LoadedSaveGame = Cast<USaveState>(UGameplayStatics::LoadGameFromSlot(SlotName, i));
         if (!LoadedSaveGame)
         {
@@ -207,10 +210,8 @@ void UMain_Menu_Widget::CreateSaveSlotList()
         SlotListPanel->AddChildToVerticalBox(Timestamp);
         SlotListPanel->AddChildToVerticalBox(NewSlotWidget);
 
-        UE_LOG(LogTemp, Log, TEXT("Created SaveSlotListWidget for Slot: %s (Index: %d), Last Saved: %f"), *SlotName, i, NewSlotWidget->GameTime);
     }
 
-    // Add the Vertical Box to the Container (e.g., a SizeBox or another panel)
     Container->AddChild(SlotListPanel);
 
 }

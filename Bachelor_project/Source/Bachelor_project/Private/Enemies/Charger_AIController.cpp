@@ -9,6 +9,18 @@
 #include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
 
+/**
+ * ACharger_AIController
+ *
+ * Custom AI controller for the Charger enemy.
+ * - Uses PawnSensing to detect the player and trigger behavior.
+ * - Initializes and runs a Behavior Tree on possess.
+ * - Manages Blackboard values for AI state (seen player, charging, cooldown).
+ * - Tracks distance to player and resets target if too far away.
+ * - Handles charging cooldown logic each tick.
+ */
+
+
 ACharger_AIController::ACharger_AIController()
 {
 	Charger_PerceptionComponent = CreateDefaultSubobject<UPawnSensingComponent>("Charger Perception Component");

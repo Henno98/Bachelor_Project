@@ -9,8 +9,15 @@
 #include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
 
+/**
+ * ABeetle
+ *
+ * Enemy character being a simple creature only able to patrol and chase enemy.
+ * - Patrols between predefined points and chases the player when spotted.
+ * - Handles overlap events with projectiles and the player.
+ * - Takes damage, dies upon reaching 0 health, and destroys itself.
+ */
 
-// Sets default values
 ABeetle::ABeetle()
 {
  	

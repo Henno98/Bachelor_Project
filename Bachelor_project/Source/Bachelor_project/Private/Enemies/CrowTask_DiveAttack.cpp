@@ -6,22 +6,37 @@
 #include "TimerManager.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
-#include "NiagaraFunctionLibrary.h"
-#include "NiagaraSystem.h"
 #include "Enemies/CrowBoss.h"
 #include "Enemies/CrowBoss_AIController.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogCrowDiveAttack, Log, All);
 
+/**
+ * UCrowTask_DiveAttack
+ *
+ * Behavior Tree Task node responsible for executing the Crow Boss's dive attack.
+ *
+ * Task Flow:
+ * - Checks if the player has been seen and is within dive range.
+ * - Calculates a suitable landing spot beneath the player using a line trace.
+ * - Transitions the Crow Boss into flying movement mode and initiates the dive.
+ * - Applies launch velocity toward the landing point.
+ * - Upon reaching the ground, sets blackboard flags to transition back to standard behavior.
+ *
+ * Notes:
+ * - Uses Blackboard keys: "IsAttacking", "IsDiving", "SeenPlayer", "Player", "DiveLandingSpot", "OriginalPosition", "IsGrounded", "NeedReturnToOrigin"
+ * - This task finishes instantly after applying launch.
+ */
+
+
 UCrowTask_DiveAttack::UCrowTask_DiveAttack()
 {
-    bNotifyTick = true; // Enables TickTask() to be called
+    bNotifyTick = true; 
 
 }
 
 EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-    UE_LOG(LogCrowDiveAttack, Log, TEXT("ExecuteTask: Starting dive attack task"));
 
     ACrowBoss_AIController* BossAI = Cast<ACrowBoss_AIController>(OwnerComp.GetAIOwner());
     if (!BossAI)
@@ -59,7 +74,6 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
     }
 
     float DistanceToPlayer = FVector::Dist(CrowBoss->GetActorLocation(), TargetActor->GetActorLocation());
-    UE_LOG(LogCrowDiveAttack, Log, TEXT("ExecuteTask: Distance to player = %.2f"), DistanceToPlayer);
 
     if (DistanceToPlayer > CrowBoss->GetDiveAttackRange())
     {
@@ -67,11 +81,6 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
         return EBTNodeResult::Failed;
     }
 
-    if (BlackboardComp->GetValueAsBool("IsAttacking"))
-    {
-        UE_LOG(LogCrowDiveAttack, Warning, TEXT("ExecuteTask: Already attacking — skipping dive"));
-       // return EBTNodeResult::Failed;
-    }
 
     BlackboardComp->SetValueAsBool("IsAttacking", true);
     BlackboardComp->SetValueAsBool("IsDiving", true);
@@ -144,18 +153,10 @@ void UCrowTask_DiveAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
     FVector CurrentPosition = CrowBoss->GetActorLocation();
 
     FVector Direction = (LandingSpot - CurrentPosition).GetSafeNormal();
-    CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Falling); // Enable gravity!
-    CrowBoss->LaunchCharacter(Direction * DiveSpeed, true, true);    // Optional: if you want an initial boost
+    CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Falling); 
+    CrowBoss->LaunchCharacter(Direction * DiveSpeed, true, true);    
 
     float Distance = FVector::Dist(CurrentPosition, LandingSpot);
-
-    UE_LOG(LogCrowDiveAttack, Log, TEXT("TickTask: Moving towards LandingSpot"));
-    UE_LOG(LogCrowDiveAttack, Verbose, TEXT("CurrentPos: %s, TargetPos: %s, Distance: %.2f, Velocity: %s"),
-        *CurrentPosition.ToString(),
-        *LandingSpot.ToString(),
-        Distance,
-        *CrowBoss->GetVelocity().ToString()
-    );
 
     BlackboardComp->SetValueAsBool("IsGrounded", true);
     BlackboardComp->SetValueAsBool("NeedReturnToOrigin", true);

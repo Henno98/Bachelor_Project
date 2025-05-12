@@ -3,7 +3,7 @@
 
 #include "Enemies/BirdBoss.h"
 
-// Sets default values
+//class not in use
 ABirdBoss::ABirdBoss()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.

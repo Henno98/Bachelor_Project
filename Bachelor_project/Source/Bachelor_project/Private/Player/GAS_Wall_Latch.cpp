@@ -9,6 +9,18 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 
+/**
+ * UGAS_Wall_Latch
+ *
+ * Gameplay Ability class that enables the character to latch onto walls.
+ * - Reduces gravity and modifies character velocity when latching to a wall.
+ * - Uses line traces to detect walls in multiple directions before latching.
+ * - Temporarily moves the character to a valid position on the wall.
+ * - Restores normal gravity after a short delay.
+ * - Handles activating, canceling, and input release for the wall latch ability.
+ */
+
+
 UGAS_Wall_Latch::UGAS_Wall_Latch()
 {
 
@@ -37,16 +49,15 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
     }
 
     // Temporarily reduce gravity while wall latching
-    Movement->GravityScale = 0.1f;  // Slow descent
+    Movement->GravityScale = 0.1f;  
 
 
     FVector CurrentVelocity = Movement->Velocity;
-    CurrentVelocity.Z *= 0.f;  // Stop vertical movement
+    CurrentVelocity.Z *= 0.f;  
     Movement->Velocity = CurrentVelocity;
 
     FVector NewPosition = Character->GetActorLocation() - WallNormal * 20.0f;
 
-    // Ensure the new position is valid
  
     // Check if the position is valid before setting it
     if (!NewPosition.IsZero())
@@ -61,7 +72,7 @@ void UGAS_Wall_Latch::LatchToWall(ACharacter* Character, const FVector& WallNorm
         {
             if (Movement)
             {
-                Movement->GravityScale = 4.0f;  // Set gravity back to normal
+                Movement->GravityScale = 4.0f;  
             }
         }, 0.1f, false);
 }

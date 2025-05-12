@@ -2,14 +2,19 @@
 
 
 #include "Player/Recorder_Inventory_Widget.h"
-
 #include "Player/VRI_Button_Widget.h"
 
+/**
+ * URecorder_Inventory_Widget
+ *
+ * This class handles the UI functionality for displaying and interacting with a list of voice recorders.
+ * - It populates a list of recorder buttons based on a map of recorder IDs and their corresponding recorder instances.
+ * - Each recorder button, when clicked, triggers a function to interact with the respective recorder (e.g., loading and playing text).
+ */
 
 void URecorder_Inventory_Widget::NativeConstruct()
 {
     Super::NativeConstruct();
-    UE_LOG(LogTemp, Log, TEXT("Recorder Inventory Widget Constructed."));
 }
 
 void URecorder_Inventory_Widget::PopulateInventory(const TMap<int32, AVoice_Recorder*>& InRecorderMap)
@@ -19,8 +24,6 @@ void URecorder_Inventory_Widget::PopulateInventory(const TMap<int32, AVoice_Reco
         UE_LOG(LogTemp, Warning, TEXT("RecorderListPanel is null. Cannot populate inventory."));
         return;
     }
-
-    UE_LOG(LogTemp, Log, TEXT("Populating inventory with %d items."), InRecorderMap.Num());
 
     RecorderListPanel->ClearChildren();
     RecorderMap = InRecorderMap;
@@ -44,7 +47,6 @@ void URecorder_Inventory_Widget::PopulateInventory(const TMap<int32, AVoice_Reco
             NewButton->OnRecorderClicked.AddDynamic(this, &URecorder_Inventory_Widget::HandleRecorderClicked);
 
             RecorderListPanel->AddChild(NewButton);
-            UE_LOG(LogTemp, Log, TEXT("Added button for Recorder ID: %d"), RecorderID);
         }
         else
         {
@@ -55,14 +57,12 @@ void URecorder_Inventory_Widget::PopulateInventory(const TMap<int32, AVoice_Reco
 
 void URecorder_Inventory_Widget::HandleRecorderClicked(int32 RecorderID)
 {
-    UE_LOG(LogTemp, Log, TEXT("Recorder button clicked: ID %d"), RecorderID);
 
     if (AVoice_Recorder* const* RecorderPtr = RecorderMap.Find(RecorderID))
     {
         if (*RecorderPtr)
         {
             IInteractable::Execute_LoadText(*RecorderPtr, IInteractable::Execute_GetInteractibleText(*RecorderPtr));
-            UE_LOG(LogTemp, Log, TEXT("Playing text for Recorder ID: %d"), RecorderID);
             IInteractable::Execute_PlayText(*RecorderPtr);
         }
         else

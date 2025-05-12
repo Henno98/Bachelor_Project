@@ -11,6 +11,14 @@
 #include "Perception/PawnSensingComponent.h"
 #include "Player/Test_Character.h"
 
+/**
+ * ABeetle_AIController
+ *
+ * Controls the Beetle enemy AI behavior:
+ * - Initializes Behavior Tree and Blackboard on possession.
+ * - Uses Pawn Sensing for player detection.
+ * - Resets behavior if the player is out of sight range.
+ */
 
 ABeetle_AIController::ABeetle_AIController()
 {
@@ -33,7 +41,6 @@ void ABeetle_AIController::OnPossess(APawn* InPawn)
 
 		Beetle_PerceptionComponent->OnSeePawn.AddDynamic(this, &ABeetle_AIController::OnEnemySeeItsTarget);
 
-		// Initial blackboard values
 		Beetle_BBC->SetValueAsBool("SeenPlayer", false);
 	}
 }
@@ -75,7 +82,7 @@ void ABeetle_AIController::OnEnemySeeItsTarget(APawn* SensedPawn)
 		ACharacter* BeetleChar = Cast<ACharacter>(GetPawn());
 		if (BeetleChar)
 		{
-			BeetleChar->GetCharacterMovement()->MaxWalkSpeed = 500.f; // Slightly increased speed when chasing
+			BeetleChar->GetCharacterMovement()->MaxWalkSpeed = 400.f; 
 		}
 	}
 }

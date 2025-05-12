@@ -1,11 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Enemies/CrowTask_RankedAttack.h"
-
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Enemies/CrowBoss.h"
 #include "Enemies/CrowBoss_AIController.h"
 #include "Enemies/CrowBoss_Projectile.h"
+
+/**
+ * UCrowTask_RankedAttack
+ *
+ * Behavior Tree Task for the Crow Boss AI to perform a ranged attack.
+ * - Checks if the player is within ranged attack distance.
+ * - Spawns a projectile aimed at the player if the boss is not already attacking.
+ * - Sets blackboard flags for attack state management.
+ */
 
 
 UCrowTask_RankedAttack::UCrowTask_RankedAttack()

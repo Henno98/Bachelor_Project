@@ -20,7 +20,7 @@ void USaveSlotListWidget::NativeConstruct()
 
 void USaveSlotListWidget::HandleLoadClicked()
 {
-    if (ParentMenu) // Check if the weak pointer is valid
+    if (ParentMenu) 
     {
         ParentMenu->OnLoadClicked(SlotName, SlotIndex);
     }
@@ -28,7 +28,7 @@ void USaveSlotListWidget::HandleLoadClicked()
 
 void USaveSlotListWidget::HandleSaveClicked()
 {
-    if (ParentMenu) // Same check for the weak pointer
+    if (ParentMenu) 
     {
         ParentMenu->OnSaveClicked(SlotName, SlotIndex);
     }

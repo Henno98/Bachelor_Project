@@ -5,6 +5,17 @@
 #include "Player/KeyBindsWidget.h"
 
 
+/**
+ * UKeyBindListWidget
+ *
+ * Widget class for displaying and managing individual key bindings.
+ * - Displays the key bindings for both keyboard and gamepad inputs.
+ * - Allows for re-binding keys by interacting with the UI.
+ * - Handles selection events for keyboard and gamepad keys.
+ * - Updates the parent menu widget when a key is selected for rebinding.
+ * - Organizes the layout into sections for keyboard and gamepad keys.
+ */
+
 void UKeyBindListWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -39,9 +50,9 @@ void UKeyBindListWidget::InitializeKeyBinding(UInputAction* Action, const TArray
         UHorizontalBoxSlot* LabelSlot = Container->AddChildToHorizontalBox(ActionTextBlock);
         if (LabelSlot)
         {
-            LabelSlot->SetPadding(FMargin(20.f));  // Add padding of 20 between widgets
-            LabelSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  // Take 1/3 of the space
-            LabelSlot->SetHorizontalAlignment(HAlign_Center);  // Align text in the center
+            LabelSlot->SetPadding(FMargin(20.f));  
+            LabelSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));  
+            LabelSlot->SetHorizontalAlignment(HAlign_Center);  
         }
     }
 
