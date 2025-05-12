@@ -137,10 +137,15 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
             }
         }
     }
-   /* for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
+    /*for (const FEnemySaveData& EnemyData : LoadedGame->EnemiesInLevel)
     {
-        UClass* EnemyClass = LoadObject<UClass>(nullptr, *EnemyData.EnemyClassPath);
-        if (!EnemyClass) continue;
+        TSoftClassPtr<AActor> SoftClass(EnemyData.EnemyClassPath);
+        UClass* EnemyClass = SoftClass.LoadSynchronous();
+        if (!EnemyClass)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Failed to load class at path: %s"), *EnemyData.EnemyClassPath);
+            continue;
+        }
 
         FActorSpawnParameters SpawnParams;
         AActor* SpawnedEnemy = World->SpawnActor<AActor>(EnemyClass, EnemyData.Location, EnemyData.Rotation, SpawnParams);
@@ -154,6 +159,9 @@ bool USaveState::LoadGame(UWorld* World, FString SlotName, int32 SlotNumber)
                 EnemyInterface->SetDamage(EnemyData.Damage);
 
             }
+        }if (!SpawnedEnemy)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Failed to spawn enemy of class: %s"), *EnemyClass->GetName());
         }
     }*/
     UE_LOG(LogTemp, Log, TEXT("Started async level load: %s"), *LoadedGame->LastPlayedLevel.ToString());
@@ -164,24 +172,25 @@ TArray<FEnemySaveData> USaveState::SaveEnemies(UWorld* World)
 {
     TArray<AActor*> EnemyActors;
     UGameplayStatics::GetAllActorsWithInterface(World, UEnemyInterface::StaticClass(), EnemyActors);
+
     TArray<FEnemySaveData> Enemies;
+
     for (AActor* Enemy : EnemyActors)
     {
         if (!IsValid(Enemy)) continue;
 
         IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(Enemy);
-        if (!EnemyInterface) continue;
+        if (!EnemyInterface || !Enemy->Implements<UEnemyInterface>()) continue;
 
         FEnemySaveData EnemyData;
         EnemyData.Location = Enemy->GetActorLocation();
         EnemyData.Rotation = Enemy->GetActorRotation();
         EnemyData.Health = EnemyInterface->GetHealth();
         EnemyData.Damage = EnemyInterface->GetDamage();
-
-        FString ClassPath = Enemy->GetClass()->GetPathName();
-        EnemyData.EnemyClassPath = ClassPath;
+        EnemyData.EnemyClassPath = Enemy->GetClass()->GetPathName();
 
         Enemies.Emplace(EnemyData);
     }
+
     return Enemies;
 }

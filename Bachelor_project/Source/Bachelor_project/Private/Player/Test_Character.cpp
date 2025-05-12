@@ -48,7 +48,8 @@ ATest_Character::ATest_Character()
 	RangedDamage = 5;
 	MeleeDamage = 3;
 	BioMass = 0;
-	MaxBioMass = 400;
+	MaxBioMass = 300;
+	DashCooldown = 2.f;
 	
 }
 
@@ -85,7 +86,7 @@ void ATest_Character::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("PlayerController cast failed in BeginPlay"));
 	}
-	DashCooldown = 2.f;
+	
 
 }
 
@@ -112,6 +113,8 @@ void ATest_Character::Tick(float DeltaTime)
 	{
 		bMidJump = true;
 	}
+	
+	time += DeltaTime;
 	
 	
 }
@@ -278,6 +281,17 @@ void ATest_Character::Dead()
 {
 	SetActorEnableCollision(false);
 	SetActorHiddenInGame(true);
+	LoadGame("Main_Save",0);
+	APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+	if (PC)
+	{
+		APlayer_HUD* HUD = Cast<APlayer_HUD>(PC->GetHUD());
+		if (HUD)
+		{
+
+			HUD->ShowText("You Died. Try again");
+		}
+	}
 }
 
 void ATest_Character::PossessedBy(AController* NewController)
@@ -295,23 +309,35 @@ void ATest_Character::InitAbilitySystem()
 	{
 		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
 		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
+
+		
 		//Init jump
 		GA_Double_Jump = GASPlayerState->JumpAbility;
-		JumpAbilitySpec = FGameplayAbilitySpec(GA_Double_Jump);
-		AbilitySystemComponent->GiveAbility(JumpAbilitySpec);
+		if (GA_Double_Jump) 
+		{
+			JumpAbilitySpec = FGameplayAbilitySpec(GA_Double_Jump);
+			AbilitySystemComponent->GiveAbility(JumpAbilitySpec);
+		}
 		//init wall latch
 		GA_Wall_Latch = GASPlayerState->WallLatchAbility;
-		WallLatchAbilitySpec = FGameplayAbilitySpec(GA_Wall_Latch);
-		AbilitySystemComponent->GiveAbility(WallLatchAbilitySpec);
+		if (GA_Wall_Latch) 
+		{
+			WallLatchAbilitySpec = FGameplayAbilitySpec(GA_Wall_Latch);
+			AbilitySystemComponent->GiveAbility(WallLatchAbilitySpec);
+		}
 		//init Dash
 		GA_Dash = GASPlayerState->DashAbility;
-		DashAbilitySpec = FGameplayAbilitySpec(GA_Dash);
-		AbilitySystemComponent->GiveAbility(DashAbilitySpec);
-		
+		if (GA_Dash) 
+		{
+			DashAbilitySpec = FGameplayAbilitySpec(GA_Dash);
+			AbilitySystemComponent->GiveAbility(DashAbilitySpec);
+		}
 		GA_Ranged_Attack = GASPlayerState->RangedAttack;
-		RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
-		AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
-
+		if (GA_Ranged_Attack) 
+		{
+			RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
+			AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
+		}
 		}
 
 }
@@ -346,7 +372,7 @@ void ATest_Character::GASJump()
 
 void ATest_Character::GASStopJump()
 {
-	if (AbilitySystemComponent) {
+	if (AbilitySystemComponent && GA_Double_Jump) {
 		AbilitySystemComponent->AbilityLocalInputReleased(JumpAbilitySpec.InputID);
 		//AbilitySystemComponent->CancelAllAbilities();
 		//AbilitySystemComponent->CancelAbility(GA_JumpAbility.GetDefaultObject());
@@ -357,6 +383,9 @@ void ATest_Character::GASStopJump()
 
 void ATest_Character::GAS_Dash()
 {
+
+	if (time < DashCooldown) return;
+
 	if (bIsDashing) return;
 
 	bIsDashing = true;
@@ -370,7 +399,7 @@ void ATest_Character::GAS_Dash()
 		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is null in GAS_Dash"));
 	}
 		
-
+	time = 0;
 	
 }
 
@@ -414,10 +443,11 @@ void ATest_Character::ExecuteRangedAttack()
 {
 
 	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
-	
-	FGameplayTagContainer tags;
-	tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
-	AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+	if (GA_Ranged_Attack) {
+		FGameplayTagContainer tags;
+		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+	}
 
 }
 
@@ -433,10 +463,6 @@ void ATest_Character::DropDown()
 
 	// Define the sweep shape (e.g., a sphere with radius x units)
 	FCollisionShape SweepShape = FCollisionShape::MakeSphere(150.f);
-
-	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-	//DrawDebugSphere(GetWorld(), Start, 100.f, 12, FColor::Blue, false, 1.0f);
-	DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
 
 	bool bSweepHit = GetWorld()->SweepMultiByChannel(
 		HitResult,

@@ -21,7 +21,7 @@ Aprojectile::Aprojectile()
 	//collider->SetWorldScale3D(FVector(0.5f));
 	staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("staticmesh"));
 	staticmesh->SetupAttachment(RootComponent);
-	staticmesh->SetRelativeScale3D(FVector(0.5f));
+	//staticmesh->SetRelativeScale3D(FVector(0.5f));
 
 	
 	collider->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -36,7 +36,7 @@ void Aprojectile::BeginPlay()
 {
 	Super::BeginPlay();
 	//SetActorLocation(CurrentLocation);
-	lifetime = FMath::RandRange(5, 10);
+	//lifetime = FMath::RandRange(5, 10);
 	
 }
 // Called every frame

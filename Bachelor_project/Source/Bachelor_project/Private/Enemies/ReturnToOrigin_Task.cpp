@@ -44,7 +44,9 @@ void UReturnToOrigin_Task::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
     FVector Direction = (OriginalPosition - CurrentPosition).GetSafeNormal();
     
     CrowBoss->AddMovementInput(Direction, 1.0f);
-
+    // Face the landing spot
+     FRotator LookAtRotation = Direction.Rotation();
+    CrowBoss->SetActorRotation(CrowBoss->GetActorRotation() + LookAtRotation*DeltaSeconds);
     float Distance = FVector::Dist(CurrentPosition, OriginalPosition);
     if (Distance < 100.0f)
     {

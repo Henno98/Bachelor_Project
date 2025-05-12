@@ -37,6 +37,7 @@ public:
   
     UFUNCTION()
     void OnSublevelLoaded();
+   
     FTimerHandle invincibilityframe;
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnHealthChangedSignature OnHealthChanged;
@@ -189,8 +190,8 @@ public:
     UFUNCTION()
     void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
         int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
-
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
+    float DashStrength = 3000.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     float Velocity = 1000.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
@@ -198,7 +199,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FVector SpawnLocation = GetActorLocation();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-    FRotator Direction = GetActorRotation();;
+    FRotator Direction =FRotator(0.f);
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     float LifeTime;
@@ -244,4 +245,5 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile class")
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
+    float time = DashCooldown;
 };

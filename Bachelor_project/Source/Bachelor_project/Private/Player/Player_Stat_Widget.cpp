@@ -2,6 +2,9 @@
 
 
 #include "Player/Player_Stat_Widget.h"
+
+#include "Components/HorizontalBox.h"
+#include "Components/HorizontalBoxSlot.h"
 #include "Components/PanelWidget.h"
 #include "Components/Image.h"
 #include "Components/ProgressBar.h"
@@ -48,37 +51,55 @@ void UPlayer_Stat_Widget::UpdateHealth(int32 currenthealth)
 
 void UPlayer_Stat_Widget::UpdateBioMass(int32 currentbiomass)
 {
-	if (EnergyBar)
-	{
-		CurrentBioMass = currentbiomass;
-		float Percent = static_cast<float>(CurrentBioMass) / MaxBioMass;
-		EnergyBar->SetPercent(Percent);
-	}
+	if (!EnergyBarImage || BioMassStageTextures.Num() < 4)
+		return;
 
+	CurrentBioMass = FMath::Clamp(currentbiomass, 0, MaxBioMass);
+	float BiomassPercent = static_cast<float>(CurrentBioMass) / MaxBioMass;
+
+	// Select texture index based on biomass level
+	int32 TextureIndex = FMath::Clamp(FMath::FloorToInt(BiomassPercent * 4.0f), 0, 3);
+
+	// Set brush from selected texture
+	if (UTexture2D* SelectedTexture = BioMassStageTextures[TextureIndex])
+	{
+		FSlateBrush Brush;
+		Brush.SetResourceObject(SelectedTexture);
+		Brush.ImageSize = FVector2D(SelectedTexture->GetSizeX(), SelectedTexture->GetSizeY());
+
+		EnergyBarImage->SetBrush(Brush);
+	}
 }
 
 
 void UPlayer_Stat_Widget::CreateHealthPointImages()
 {
- if(!HealthBarPanel || !HealthPointImage)
-		return;
-	// Loop through and add images for each health point
-	for (int32 i = 0; i < CurrentHealth; i++)
+	for (int32 i = 0; i < MaxHealth; i++)
 	{
 		UImage* HealthImage = NewObject<UImage>(this);
 
-		// Set the health point image (the visual representation of each health point)
-		HealthImage->SetBrushFromTexture(HealthPointImage);
-
-		// Add the image to the health bar panel (canvas)
-		if (HealthBarPanel)
+		FSlateBrush Brush;
+		if (i < CurrentHealth)
 		{
-			HealthBarPanel->AddChild(HealthImage);
+			// Full health point
+			Brush.SetResourceObject(HealthPointImage);
+		}
+		else
+		{
+			// Empty health point
+			Brush.SetResourceObject(EmptyHealthPointImage); // A dimmed or grey version
 		}
 
-		// Position the health images to display them in a row (or other layout)
-		FVector2D NewPosition = FVector2D(i * 30.f, 0.f); // Space them 30 units apart
-		HealthImage->SetRenderTranslation(NewPosition);
+		Brush.ImageSize = FVector2D(32, 32); // Consistent size
+		HealthImage->SetBrush(Brush);
+
+		if (UHorizontalBoxSlot* BoxSlot = Cast<UHorizontalBoxSlot>(HealthBarPanel->AddChild(HealthImage)))
+		{
+			BoxSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+			BoxSlot->SetHorizontalAlignment(HAlign_Fill);
+			BoxSlot->SetVerticalAlignment(VAlign_Fill);
+			BoxSlot->SetPadding(FMargin(2.0f));
+		}
 	}
 }
 

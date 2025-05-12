@@ -36,6 +36,7 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
         UE_LOG(LogCrowDiveAttack, Warning, TEXT("ExecuteTask: CrowBoss is invalid or dying"));
         return EBTNodeResult::Failed;
     }
+   
 
     UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
     if (!BlackboardComp)
@@ -96,10 +97,14 @@ EBTNodeResult::Type UCrowTask_DiveAttack::ExecuteTask(UBehaviorTreeComponent& Ow
         UE_LOG(LogCrowDiveAttack, Warning, TEXT("ExecuteTask: Could not find landing spot, using player location"));
     }
 
+    // Face the landing spot
+    FVector Direction = (LandingSpot - CrowBoss->GetActorLocation()).GetSafeNormal();
+    FRotator LookAtRotation = Direction.Rotation();
+    CrowBoss->SetActorRotation(CrowBoss->GetActorRotation());
+
     BlackboardComp->SetValueAsVector("DiveLandingSpot", LandingSpot);
     BlackboardComp->SetValueAsVector("OriginalPosition", CrowBoss->GetActorLocation());
 
-  
     CrowBoss->GetCharacterMovement()->SetMovementMode(MOVE_Flying);
 
     UE_LOG(LogCrowDiveAttack, Log, TEXT("ExecuteTask: Dive attack setup complete — entering InProgress"));
@@ -130,7 +135,11 @@ void UCrowTask_DiveAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
         UE_LOG(LogCrowDiveAttack, Error, TEXT("TickTask: Blackboard component is null"));
         return;
     }
-   
+    if (!CrowBoss->GetIsDiving())
+    {
+
+        return ;
+    }
     FVector LandingSpot = BlackboardComp->GetValueAsVector("DiveLandingSpot");
     FVector CurrentPosition = CrowBoss->GetActorLocation();
 
