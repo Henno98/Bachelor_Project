@@ -80,9 +80,6 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
             FVector ForwardVector = GetActorForwardVector();
             FVector End = Start + ForwardVector;
 
-
-          
-
             FCollisionQueryParams QueryParams;
             QueryParams.AddIgnoredActor(this);
 
@@ -95,7 +92,7 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
                 End,
                 FQuat::Identity,
                 ECC_Pawn,
-                FCollisionShape::MakeSphere(50),
+                FCollisionShape::MakeSphere(100),
                 QueryParams
             );
 
