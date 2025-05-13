@@ -68,7 +68,10 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
 {
 	if (OtherActor != this || OtherActor->GetOwner() != this)
 	{
-		
+        if (!HitActors.IsEmpty())
+        {
+            HitActors.Empty();
+        }
 		if (OtherActor->IsA<ATest_Character>())
 		{
 
@@ -134,10 +137,7 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
 void ABeetle::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
-	if (!HitActors.IsEmpty())
-    {
-        HitActors.Empty();
-    }
+	
 }
 
 // Called to bind functionality to input

@@ -209,8 +209,7 @@ void ATest_Character::OnMeleeHitNotify()
 
 	FVector Start = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
 	FVector ForwardVector = GetActorForwardVector();
-	FVector End = Start + (ForwardVector * 100.f);
-
+	FVector End = Start + (ForwardVector * 50.f);
 
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);

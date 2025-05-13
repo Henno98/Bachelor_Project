@@ -67,7 +67,10 @@ void ACharger::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Other
 {
 	if (OtherActor != this || OtherActor->GetOwner() != this)
 	{
-		
+		if (!HitActors.IsEmpty())
+		{
+			HitActors.Empty();
+		}
 		if (OtherActor->IsA<ATest_Character>())
 		{
 
