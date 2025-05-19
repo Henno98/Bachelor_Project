@@ -33,9 +33,10 @@ public:
 	void PlayText();
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
 	int32 GetID();
-	/*
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
-
+	void InteractableAction();
+	/*
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactible")

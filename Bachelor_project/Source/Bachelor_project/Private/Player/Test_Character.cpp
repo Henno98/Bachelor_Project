@@ -166,6 +166,8 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(InputActions->RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
 		EnhancedInputComponent->BindAction(InputActions->MeleeInput, ETriggerEvent::Started ,this, &ATest_Character::MeleeAttack);
 
+
+		EnhancedInputComponent->BindAction(InputActions->InteractInput, ETriggerEvent::Completed, this, &ATest_Character::Interact);
 	
 }
 
@@ -429,6 +431,52 @@ void ATest_Character::GAS_RangedAttack()
 	}
 }
 
+void ATest_Character::Interact()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Started interaction check"));
+
+	FVector Start = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
+	FVector ForwardVector = GetActorForwardVector();
+	FVector End = Start + (ForwardVector * 50.f);
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	DrawDebugSphere(GetWorld(), End, 150, 12, FColor::Blue);
+
+	TArray<FHitResult> HitResults;
+	TSet<AActor*> HitActors;
+
+	bool bHit = GetWorld()->SweepMultiByChannel(
+		HitResults,
+		Start,
+		End,
+		FQuat::Identity,
+		ECC_Pawn,
+		FCollisionShape::MakeSphere(150.f),
+		QueryParams
+	);
+
+	if (bHit)
+	{
+		for (const FHitResult& Hit : HitResults)
+		{
+			AActor* HitActor = Hit.GetActor();
+			if (HitActor && !HitActors.Contains(HitActor))
+			{
+				HitActors.Add(HitActor);
+
+				if (Hit.GetActor() && Hit.GetActor()->Implements<UInteractable>())
+				{
+
+					IInteractable::Execute_InteractableAction(HitActor);
+				}
+			}
+		}
+	}
+
+}
+
 void ATest_Character::ExecuteRangedAttack()
 {
 
@@ -628,28 +676,28 @@ void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	{
 	
 
-			UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-			if (!GameInstance)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("No valid GameInstance found."));
-				return;
-			}
-			  // Cast OtherActor to AVoice_Recorder
-			AVoice_Recorder* Recorder = Cast<AVoice_Recorder>(OtherActor);
-			if (Recorder)
-			{
-				int32 ID = IInteractable::Execute_GetID(Recorder);
-				if (GameInstance->HasRecorder(ID))
-				{
-					// Play the recorder using the GameInstance
-					GameInstance->PlayRecorder(ID);
-				}
-				else
-				{
-					GameInstance->AddRecorder(ID, Recorder);
-					GameInstance->PlayRecorder(ID); 
-				}
-			}
+			//UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+			//if (!GameInstance)
+			//{
+			//	UE_LOG(LogTemp, Warning, TEXT("No valid GameInstance found."));
+			//	return;
+			//}
+			//  // Cast OtherActor to AVoice_Recorder
+			//AVoice_Recorder* Recorder = Cast<AVoice_Recorder>(OtherActor);
+			//if (Recorder)
+			//{
+			//	int32 ID = IInteractable::Execute_GetID(Recorder);
+			//	if (GameInstance->HasRecorder(ID))
+			//	{
+			//		// Play the recorder using the GameInstance
+			//		GameInstance->PlayRecorder(ID);
+			//	}
+			//	else
+			//	{
+			//		GameInstance->AddRecorder(ID, Recorder);
+			//		GameInstance->PlayRecorder(ID); 
+			//	}
+			//}
 		
 	}
 }

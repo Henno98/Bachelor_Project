@@ -168,6 +168,7 @@ public:
     void GASStopWallLatch();
     void GAS_Space();
     void GAS_RangedAttack();
+    void Interact();
 	UFUNCTION(BlueprintCallable)
     void ExecuteRangedAttack();
     void DropDown();

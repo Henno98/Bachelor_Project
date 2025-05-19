@@ -30,9 +30,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* WallLatchAction;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* SaveAction;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* LoadAction;
+    UInputAction* InteractInput;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
     UInputAction* RangedAttackInput;
