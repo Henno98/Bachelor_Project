@@ -196,11 +196,11 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     float Velocity = 1000.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-    FVector Target;;
+    FVector Target = GetActorForwardVector();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FVector SpawnLocation = GetActorLocation();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-    FRotator Direction =FRotator(0.f);
+    FRotator Direction =GetActorRotation();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     float LifeTime;

@@ -32,7 +32,8 @@ public:
     float LineDelay;
 
     FTimerHandle LinePlaybackTimer;
-
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ID")
+    int32 ID;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     USkeletalMeshComponent* Mesh;
 
@@ -43,7 +44,7 @@ public:
 
         // Interface implementation
     virtual void InteractableAction_Implementation() override;
-
+    virtual int32 GetID_Implementation() override { return ID; };
 
     UFUNCTION(BlueprintCallable, Category = "Dialogue")
     void PlayNextLine();
@@ -52,6 +53,6 @@ private:
 
     void ShowDialogueLine(const FString& Key);
 	void LoadAllDialogueKeysFromTable();
-	void BeginPlay();
-	void Tick(float DeltaTime);
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 };

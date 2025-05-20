@@ -27,6 +27,8 @@ APlant::APlant()
 void APlant::BeginPlay()
 {
 	Super::BeginPlay();
+
+        Direction = GetActorRotation();
 	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("PlantMouth")); 
 	InitAbilitySystem();
 }

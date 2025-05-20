@@ -102,12 +102,17 @@ public:
     }
     void PlayRecorder(int32 ID)
     {
+        if (bIsRecorderPlaying)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("A recorder is already playing (ID %d)."), CurrentPlayingRecorderID);
+            return;
+        }
+
         if (AVoice_Recorder* Recorder = GetRecorder(ID))
         {
             if (Recorder->Implements<UInteractable>())
             {
-                IInteractable::Execute_LoadText(Recorder, IInteractable::Execute_GetInteractibleText(Recorder));
-                IInteractable::Execute_PlayText(Recorder);
+                IInteractable::Execute_InteractableAction(Recorder);
                 UE_LOG(LogTemp, Log, TEXT("Playing recorder with ID %d."), ID);
 
                 bIsRecorderPlaying = true;

@@ -5,6 +5,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Enemies/Charger.h"
 #include "Perception/PawnSensingComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
@@ -63,7 +64,7 @@ void ACharger_AIController::OnPossess(APawn* InPawn)
 void ACharger_AIController::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
-	APawn* Charger = GetPawn();
+	ACharger* Charger = Cast<ACharger>(GetPawn());
 	if (!Charger) return;
 
 	UpdateChargeCooldown(deltaTime);
@@ -81,7 +82,7 @@ void ACharger_AIController::Tick(float deltaTime)
 			float Distance = FVector::Dist(PlayerLocation, ChargerLocation);
 		}
 	}
-
+	
 	if (Player)
 	{
 		FVector PlayerLocation = Player->GetActorLocation();
@@ -90,6 +91,7 @@ void ACharger_AIController::Tick(float deltaTime)
 		Charger_BBC->SetValueAsFloat("DistanceToPlayer", Distance);
 		if (Distance > 600.f)
 		{
+			Charger->SetIsCharging(false);
 			Player = nullptr;
 			Charger_BBC->SetValueAsObject("Player", nullptr);
 			Charger_BBC->SetValueAsBool("SeenPlayer", false);
@@ -120,7 +122,7 @@ void ACharger_AIController::OnSeenPawn(APawn* SeenPawn)
 
 	if (SeenPawn->IsA<ATest_Character>())
 	{
-
+		
 		Player = SeenPawn;
 		Charger_BBC->SetValueAsObject("Player", SeenPawn);
 		Charger_BBC->SetValueAsBool("SeenPlayer", true);

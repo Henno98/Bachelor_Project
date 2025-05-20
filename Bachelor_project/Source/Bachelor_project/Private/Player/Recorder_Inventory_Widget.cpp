@@ -62,8 +62,7 @@ void URecorder_Inventory_Widget::HandleRecorderClicked(int32 RecorderID)
     {
         if (*RecorderPtr)
         {
-            IInteractable::Execute_LoadText(*RecorderPtr, IInteractable::Execute_GetInteractibleText(*RecorderPtr));
-            IInteractable::Execute_PlayText(*RecorderPtr);
+            IInteractable::Execute_InteractableAction(*RecorderPtr);
         }
         else
         {

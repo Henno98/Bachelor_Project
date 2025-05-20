@@ -62,7 +62,7 @@ EBTNodeResult::Type UCharger_ChargeTask::ExecuteTask(UBehaviorTreeComponent& Own
     if (!Charger || Charger->GetIsDying()) return EBTNodeResult::Failed;
     if (Charger->GetIsDying()) return EBTNodeResult::Failed;
     Charger->SetIsPatrolling(false);
-    Charger->SetIsCharging(true);
+   Charger->SetIsCharging(true);
     if (ChargerController)
     {
         // Calculate overshoot position
@@ -93,9 +93,10 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
 
     ACharger* Charger = Cast<ACharger>(OwnerComp.GetOwner());
-    if (Charger->GetIsDying())  {FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+    if (Charger->GetIsDying()) 
+    {FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
     return;
-}
+	}
 
     FChargeTaskMemory* Memory = (FChargeTaskMemory*)NodeMemory;
     if (!Memory->bChargeStarted) return;
@@ -121,6 +122,7 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
         return;
     }
 
+  
     Memory->ElapsedTime += DeltaSeconds;
 
     // Check if we've reached the target or exceeded max charge time
@@ -151,7 +153,7 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
         BlackboardComp->SetValueAsBool("IsCharging", false);
         Charger->SetIsCharging(false);
         AIController->StopMovement();
-        
+        Charger->SetIsCharging(false);
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
     }
 }

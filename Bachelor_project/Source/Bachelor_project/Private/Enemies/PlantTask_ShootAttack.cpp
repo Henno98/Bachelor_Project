@@ -53,13 +53,31 @@ EBTNodeResult::Type UPlantTask_ShootAttack::ExecuteTask(UBehaviorTreeComponent& 
 
 	if (Plant->GetClass()->ImplementsInterface(UIsRangedAttacker::StaticClass()))
 	{
-
-		Plant->SetTargetLocation_Implementation(Plant->GetActorForwardVector());
 		Plant->SetDamage(1.f);
 		Plant->SetRangedAttackVelocity_Implementation(400.f);
 		Plant->SetBulletSize_Implementation(FVector(2.f));
-		Plant->SetFiringDirection_Implementation(Plant->GetActorRotation());
 
+		// Update spawn location a bit in front of the plant
+		FVector SpawnLoc = Plant->GetActorLocation() + Plant->GetActorForwardVector() * 100.f;
+		Plant->SetSpawnLocation_Implementation(SpawnLoc);
+
+		// Update firing direction based on forward vector rotation
+		FRotator FireDir = Plant->GetActorForwardVector().Rotation();
+		Plant->SetFiringDirection_Implementation(FireDir);
+
+		// Optionally set target location (if your AI tracks a player)
+		AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject("Player"));
+		if (TargetActor)
+		{
+			Plant->SetHasTarget_Implementation(true);
+			Plant->SetTargetLocation_Implementation(TargetActor->GetActorLocation());
+		}
+		else
+		{
+			Plant->SetHasTarget_Implementation(false);
+			Plant->SetTargetLocation_Implementation(FVector::ZeroVector);
+		}
+		
 	}
 	else
 	{

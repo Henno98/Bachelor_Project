@@ -425,7 +425,6 @@ void ATest_Character::GAS_RangedAttack()
 	{
 		if (!bIsRangedAttacking) {
 			bIsRangedAttacking = true;
-
 			SetBioMass(GetBioMass() - 100);
 		}
 	}
@@ -481,6 +480,7 @@ void ATest_Character::ExecuteRangedAttack()
 {
 
 	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
+	Direction = GetActorRotation();
 	if (GA_Ranged_Attack) {
 		FGameplayTagContainer tags;
 		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));

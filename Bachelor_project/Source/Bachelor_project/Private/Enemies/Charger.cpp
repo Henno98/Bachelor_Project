@@ -39,7 +39,7 @@ float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 	//GetCharacterMovement()->StopMovementImmediately();
 	if (GetHealth() <= 0)
 	{
-		bIsDying = true;
+		SetIsDying(true);
 		SetActorEnableCollision(false);
 		GetCharacterMovement()->DisableMovement();
 
@@ -58,7 +58,7 @@ float ACharger::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 void ACharger::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (bIsDead) {
+	if (GetIsDead()) {
 		DestroyActor();
 	}
 }

@@ -3,6 +3,8 @@
 
 
 #include "World/Voice_Recorder.h"
+
+#include "Plagued_Knight_GameInstance.h"
 #include "Internationalization/StringTableRegistry.h"
 #include "Internationalization/StringTableCore.h"     // For FStringTable
 #include "Kismet/GameplayStatics.h"
@@ -41,9 +43,38 @@ void AVoice_Recorder::Tick(float DeltaTime)
 
 void AVoice_Recorder::InteractableAction_Implementation()
 {
-    PlayNextLine();
-   
+    UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] InteractableAction triggered on Recorder ID: %d"), ID);
 
+    UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+    if (!GameInstance)
+    {
+        UE_LOG(LogTemp, Error, TEXT("[VoiceRecorder] No valid GameInstance found."));
+        return;
+    }
+
+    if (!GameInstance->HasRecorder(ID))
+    {
+        UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Recorder ID %d not found in inventory. Adding it."), ID);
+        GameInstance->AddRecorder(ID, this);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Recorder ID %d found in inventory."), ID);
+    }
+
+    // Avoid re-triggering if it's already playing
+    if (!GetWorldTimerManager().IsTimerActive(LinePlaybackTimer))
+    {
+        UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Starting playback for Recorder ID %d"), ID);
+        LoadAllDialogueKeysFromTable();
+        CurrentIndex = 0;
+        PlayNextLine();
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[VoiceRecorder] Playback is already active for Recorder ID %d"), ID);
+    }
+            
 }
 
 void AVoice_Recorder::PlayNextLine()
@@ -81,10 +112,7 @@ void AVoice_Recorder::PlayNextLine()
         // Set a timer to call PlayNextLine() again after the specified delay
         GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::PlayNextLine, LineDelay, false);
     }
-    else
-    {
-        UE_LOG(LogTemp, Log, TEXT("Finished playing all lines."));
-    }
+   
 }
 
 void AVoice_Recorder::ShowDialogueLine(const FString& Key)
