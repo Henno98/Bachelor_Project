@@ -51,11 +51,11 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Variables")
 	FVector BulletSize;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-	FVector Target;;
+	FVector Target = GetActorForwardVector().GetSafeNormal();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-	FVector SpawnLocation = GetActorLocation();
+	FVector SpawnLocation = GetActorLocation().GetSafeNormal();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-	FRotator Direction;
+	FRotator Direction = GetActorRotation().GetNormalized();
 	//Functions from the interface we can call in GAS_RangedAttack
 	// Interface function implementations (with inline return values)
 	virtual float GetRangedDamage_Implementation() const override { return RangedAttackDamage; }

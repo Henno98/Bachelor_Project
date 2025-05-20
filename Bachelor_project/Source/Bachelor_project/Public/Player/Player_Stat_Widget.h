@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "Player_Stat_Widget.generated.h"
 
@@ -28,14 +29,20 @@ class BACHELOR_PROJECT_API UPlayer_Stat_Widget : public UUserWidget
 protected:
     // Reference to the canvas panel where health images will be added
     UPROPERTY(meta = (BindWidget))
-    class UPanelWidget* HealthBarPanel;
-
+    class UHorizontalBox* HealthBarPanel;
     UPROPERTY(meta = (BindWidget))
-    class UProgressBar* EnergyBar;
+    UImage* EnergyBarImage;
+    // An array of image slots (set in UMG or dynamically)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "EnergyBar")
+    TArray<UTexture2D*> BioMassStageTextures; // Should contain 4 textures in order: [empty, low, mid, full]
+
+    // Max biomass value (should be divisible by 4 for this design)
 
     // Reference to the image used for a single health point
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
     class UTexture2D* HealthPointImage;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
+    class UTexture2D* EmptyHealthPointImage;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnergyBar")
     class UTexture2D* BioMassImage;

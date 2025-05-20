@@ -15,7 +15,7 @@ class BACHELOR_PROJECT_API ACharger : public ACharacter,public IEnemyInterface
 public:
 	// Sets default values for this character's properties
 	ACharger();
-
+	TSet<AActor*> HitActors;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

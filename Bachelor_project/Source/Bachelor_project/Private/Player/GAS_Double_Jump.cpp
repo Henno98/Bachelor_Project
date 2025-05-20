@@ -47,9 +47,6 @@ void UGAS_Double_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		// Define the sweep shape (e.g., a sphere with radius x units)
 		FCollisionShape SweepShape = FCollisionShape::MakeSphere(200.f);
 
-		DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-		//DrawDebugSphere(GetWorld(), Start, 100.f, 12, FColor::Blue, false, 1.0f);
-		DrawDebugSphere(GetWorld(), End, 200.f, 12, FColor::Blue, false, 1.0f);
 
 		bool bSweepHit = GetWorld()->SweepMultiByChannel(
 			HitResult,

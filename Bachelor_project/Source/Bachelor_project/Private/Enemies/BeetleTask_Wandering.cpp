@@ -4,13 +4,20 @@
 #include "Enemies/BeetleTask_Wandering.h"
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "NavigationSystem.h"
 #include "Enemies/Beetle.h"
 #include "Enemies/Beetle_AIController.h"
 #include "Enemies/Wandering_Target_Point.h"
 #include "Kismet/GameplayStatics.h"
 
-
+/**
+ * UBeetleTask_Wandering
+ *
+ * Behavior Tree Task for the Beetle AI to choose a new random wandering target.
+ * - Selects a random AWandering_Target_Point from the world.
+ * - Updates blackboard with new target location and point.
+ * - Initializes movement data for the Beetle AI.
+ * - Fails if no points are found or if the chosen point is too far.
+ */
 
 UBeetleTask_Wandering::UBeetleTask_Wandering()
 {
@@ -52,7 +59,6 @@ EBTNodeResult::Type UBeetleTask_Wandering::ExecuteTask(UBehaviorTreeComponent& O
 	if (FVector::Dist(OwnerComp.GetOwner()->GetActorLocation(), NewWanderingPoint->GetActorLocation()) > 2000)
 		return EBTNodeResult::Failed;
 
-	UE_LOG(LogTemp, Warning, TEXT("Selected new wandering point: %s"), *NewWanderingPoint->GetName());
 
 	BlackboardComp->SetValueAsObject("WanderingPoint", NewWanderingPoint);
 

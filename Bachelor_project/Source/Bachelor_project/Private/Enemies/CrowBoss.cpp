@@ -18,7 +18,7 @@ ACrowBoss::ACrowBoss()
     GetCapsuleComponent()->SetGenerateOverlapEvents(true);
     GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-
+    
     auto Movement = GetCharacterMovement();
     Movement->SetMovementMode(MOVE_Flying);
     Movement->MaxFlySpeed = 800.f;
@@ -78,6 +78,7 @@ float ACrowBoss::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
     if (GetHealth() <= 0)
     {
         bIsDying = true;
+        GetCharacterMovement()->DisableMovement();
         //GetCharacterMovement()->SetMovementMode(MOVE_NavWalking);
     }
     UE_LOG(LogTemp, Error, TEXT("CrowBoss took %f damage, current health: %d"), DamageAmount, Health);
@@ -105,13 +106,48 @@ void ACrowBoss::Collision()
     // Implement Collision logic here
 }
 
+void ACrowBoss::RemoveWidgetSafely()
+{
+    if (Widgettodisplay)
+    {
+
+        Widgettodisplay->RemoveFromParent();
+        Widgettodisplay = nullptr;
+
+        Destroy();
+    }
+}
+
 void ACrowBoss::Death()
 {
     UE_LOG(LogTemp, Error, TEXT("CrowBoss has died"));
     SetActorHiddenInGame(true);
     SetActorEnableCollision(false);
-    Destroy();
+  
     // Implement further Death logic (e.g. spawn powerup)
+
+    APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+    if (PC)
+    {
+        APlayer_HUD* HUD = Cast<APlayer_HUD>(PC->GetHUD());
+        if (HUD && Widgettodisplay)
+        {
+           
+            if (Widgettodisplay && !Widgettodisplay->IsInViewport())
+            {
+                Widgettodisplay->AddToViewport();
+
+                // Set a timer to remove it after 5 seconds
+                GetWorld()->GetTimerManager().SetTimer(
+                    TimerHandle,
+                    this,
+                    &ACrowBoss::RemoveWidgetSafely,
+                    8.0f,
+                    false
+                );
+            }
+        }
+    }
 }
 
 void ACrowBoss::OnHit(int damage)
@@ -128,9 +164,7 @@ void ACrowBoss::Attack(const FName& Socket, float attackrange)
     FVector ForwardVector = GetActorForwardVector();
     FVector End = Start + ForwardVector;
 
-    DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-    DrawDebugSphere(GetWorld(), End, attackrange, 12, FColor::Blue, false, 1.0f);
-
+ 
     FCollisionQueryParams QueryParams;
     QueryParams.AddIgnoredActor(this);
 

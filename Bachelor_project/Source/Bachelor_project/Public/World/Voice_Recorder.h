@@ -16,37 +16,43 @@ class BACHELOR_PROJECT_API AVoice_Recorder : public AActor, public IInteractable
 public:	
 	// Sets default values for this actor's properties
 	AVoice_Recorder();
-	TArray<FText> TextLines;
 
-	int32 CurrentLineIndex = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
-	UStringTable* DialogueStringTable;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
-	FName StringTableName = "MyStringTable"; // Match the name of your asset
-	;
-	FTimerHandle LinePlaybackTimer;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
-	TArray<USoundBase*> AudioClips;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Playback")
-	int32 RecorderID;
-	void DisplayNextLine();
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Basic")
-	USkeletalMeshComponent* Mesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic")
 
-	UBoxComponent* Collider;
-protected:
-	// Called when the game starts or when spawned
+    // ==== Properties ====
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
+    FName StringTableName;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
+    TArray<USoundBase*> AudioClips;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
+    TArray<FString> DialogueKeys;  // Matches audio index
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
+    float LineDelay;
+
+    FTimerHandle LinePlaybackTimer;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ID")
+    int32 ID;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    USkeletalMeshComponent* Mesh;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    UBoxComponent* Collider;
+
+    // ==== Playback ====
+
+        // Interface implementation
+    virtual void InteractableAction_Implementation() override;
+    virtual int32 GetID_Implementation() override { return ID; };
+
+    UFUNCTION(BlueprintCallable, Category = "Dialogue")
+    void PlayNextLine();
+private:
+    int32 CurrentIndex = 0;
+
+    void ShowDialogueLine(const FString& Key);
+	void LoadAllDialogueKeysFromTable();
 	virtual void BeginPlay() override;
-
-public:
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual bool GetIsInteractible_Implementation() const override { return  true; };
-	virtual void LoadText_Implementation(const FString& FilePath)  override;
-	virtual void PlayText_Implementation()  override;
-	virtual int32 GetID_Implementation() override { return  RecorderID; };
-
-	UFUNCTION(BlueprintCallable, Category = "Dialogue")
-	TArray<FString> GetAllStringTableKeys(FName InTableName);
 };

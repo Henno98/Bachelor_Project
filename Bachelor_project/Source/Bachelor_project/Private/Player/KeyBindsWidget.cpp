@@ -8,6 +8,17 @@
 #include "GameFramework/PlayerController.h"
 
 
+/**
+ * UKeyBindsWidget
+ *
+ * Widget class for managing and displaying the player's key bindings.
+ * - Displays current key mappings for both keyboard and gamepad.
+ * - Allows the player to modify input bindings dynamically.
+ * - Updates the input mappings within the Enhanced Input System.
+ * - Rebinds keys and updates the UI when changes are made.
+ */
+
+
 void UKeyBindsWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -38,7 +49,6 @@ void UKeyBindsWidget::ConstructWidget()
     TArray<FEnhancedActionKeyMapping> Mappings = MappingContext->GetMappings();
     if (KeyBindsScrollBox)
     {
-        //VerticalBox->AddChildToVerticalBox(KeyBindsScrollBox);
         for (const auto& Mapping : MappingContext->GetMappings())
         {
             if (!Mapping.Action)
@@ -85,8 +95,6 @@ void UKeyBindsWidget::OnKeySelected(FInputChord SelectedKey)
 {
     FKey NewKey = SelectedKey.Key;
 
-    // Now call your rebind function
-   // RebindKey(TargetInputAction, NewKey);
 }
 
 void UKeyBindsWidget::UpdateKeyBindDisplay()
@@ -140,7 +148,6 @@ void UKeyBindsWidget::RebindKey(UInputAction* Action, FKey OldKey, FKey NewKey, 
     for (const auto& Mapping : UpdatedMappings)
     {
         MappingContext->MapKey(Mapping.Action, Mapping.Key);
-        UE_LOG(LogTemp, Log, TEXT("Mapped Action: %s to Key: %s"), *Mapping.Action->GetName(), *Mapping.Key.ToString());
     }
 
     // Reapply the mapping context
@@ -152,7 +159,6 @@ void UKeyBindsWidget::RebindKey(UInputAction* Action, FKey OldKey, FKey NewKey, 
             {
                 Subsystem->RemoveMappingContext(MappingContext);
                 Subsystem->AddMappingContext(MappingContext, 0);
-                UE_LOG(LogTemp, Log, TEXT("Mapping context reapplied successfully."));
             }
         }
     }

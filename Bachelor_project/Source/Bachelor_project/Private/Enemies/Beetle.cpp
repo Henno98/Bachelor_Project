@@ -6,15 +6,24 @@
 
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Player/Test_Character.h"
 
+/**
+ * ABeetle
+ *
+ * Enemy character being a simple creature only able to patrol and chase enemy.
+ * - Patrols between predefined points and chases the player when spotted.
+ * - Handles overlap events with projectiles and the player.
+ * - Takes damage, dies upon reaching 0 health, and destroys itself.
+ */
 
-// Sets default values
 ABeetle::ABeetle()
 {
  	
 	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ABeetle::OnOverlap);
+    GetCapsuleComponent()->OnComponentEndOverlap.AddDynamic(this, &ABeetle::OnOverlapEnd);
 	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
@@ -34,7 +43,14 @@ float ABeetle::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageE
 
 	Health -= DamageAmount;
 	GetCharacterMovement()->StopMovementImmediately();
+    if (GetHealth() <= 0)
+    {
+        bIsDying = true;
+        GetCharacterMovement()->DisableMovement();
+        SetActorEnableCollision(false);
+       
 
+    }
 	return DamageAmount;
 }
 
@@ -42,14 +58,9 @@ float ABeetle::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageE
 void ABeetle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetHealth() <= 0)
-	{
-		bIsDying = true;
-		if (bIsDead) {
-			DestroyActor();
-		}
-
-	}
+    if (bIsDead) {
+        DestroyActor();
+    }
 }
 
 void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -57,26 +68,73 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
 {
 	if (OtherActor != this || OtherActor->GetOwner() != this)
 	{
-		if (OtherActor->IsA<Aprojectile>())
-		{
-			Aprojectile* projectile = Cast<Aprojectile>(OtherActor);
-			int dmg = projectile->GetDamage();
-			OnHit(dmg);
-			projectile->DestroyActor();
-		}
+        if (!HitActors.IsEmpty())
+        {
+            HitActors.Empty();
+        }
 		if (OtherActor->IsA<ATest_Character>())
 		{
 
-			ATest_Character* player = Cast<ATest_Character>(OtherActor);
-			player->Hit(GetDamage());
+         
+            FVector Start = GetMesh()->GetSocketLocation("BiteSocket");
+            FVector ForwardVector = GetActorForwardVector();
+            FVector End = Start + ForwardVector;
+
+            FCollisionQueryParams QueryParams;
+            QueryParams.AddIgnoredActor(this);
+
+            TArray<FHitResult> HitResults;
+          
+
+            bool bHit = GetWorld()->SweepMultiByChannel(
+                HitResults,
+                Start,
+                End,
+                FQuat::Identity,
+                ECC_Pawn,
+                FCollisionShape::MakeSphere(100),
+                QueryParams
+            );
+
+            if (bHit)
+            {
+                UE_LOG(LogTemp, Warning, TEXT("DiveAttack hit %d actors"), HitResults.Num());
+
+                for (const FHitResult& Hit : HitResults)
+                {
+                    AActor* HitActor = Hit.GetActor();
+                    if (HitActor && !HitActors.Contains(HitActor))
+                    {
+                        HitActors.Add(HitActor);
+                        UE_LOG(LogTemp, Warning, TEXT("DiveAttack hitting actor: %s"), *HitActor->GetName());
+
+                        if (HitActor->IsA<ACharacter>() && HitActor->Implements<UEnemyInterface>())
+                        {
+								return;
+                            // Add character-specific logic here
+                        }
+
+                        UGameplayStatics::ApplyDamage(HitActor, GetDamage(), GetController(), this, nullptr);
+                       
+                    }
+                }
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("DiveAttack did not hit any actors"));
+            }
+			
 		}
 
 	}
+
+  
 }
 
 void ABeetle::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
+	
 }
 
 // Called to bind functionality to input

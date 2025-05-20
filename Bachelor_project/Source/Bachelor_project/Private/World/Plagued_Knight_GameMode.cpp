@@ -4,6 +4,7 @@
 #include "World/Plagued_Knight_GameMode.h"
 
 #include "GameFramework/SaveGame.h"
+#include "Kismet/GameplayStatics.h"
 #include "Player/SaveState.h"
 // Define static variables
 float APlagued_Knight_GameMode::AutoSaveTimer = 0.0f;
@@ -19,6 +20,14 @@ APlagued_Knight_GameMode::APlagued_Knight_GameMode()
 void APlagued_Knight_GameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FString SlotName = "Main_Save";
+	int32 UserIndex = 0;
+
+	if (!UGameplayStatics::DoesSaveGameExist(SlotName, UserIndex))
+	{
+		USaveState::SaveGame(GetWorld(), SlotName, UserIndex);
+	}
 }
 
 void APlagued_Knight_GameMode::Tick(float DeltaSeconds)

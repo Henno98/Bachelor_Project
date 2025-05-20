@@ -15,7 +15,8 @@ class BACHELOR_PROJECT_API ABeetle : public ACharacter,public IEnemyInterface
 public:
 	// Sets default values for this character's properties
 	ABeetle();
-
+	TSet<AActor*> HitActors;
+	FTimerHandle AttackCooldown;
 protected:
 	// Lifecycle
 	virtual void BeginPlay() override;

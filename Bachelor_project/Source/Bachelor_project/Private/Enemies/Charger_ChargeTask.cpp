@@ -10,9 +10,23 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+/**
+ * UCharger_ChargeTask
+ *
+ * This task handles the Charger enemy’s charge attack.
+ * When triggered, it:
+ * - Calculates direction and overshoots past the player.
+ * - Increases movement speed to simulate a charge.
+ * - Monitors distance and time to end the charge.
+ * - Resets speed and sets a cooldown after the charge.
+ *
+ * Uses Blackboard to control states like "IsCharging" and "CanCharge".
+ * Only runs if the player is detected and the AI is not dying.
+ */
+
 UCharger_ChargeTask::UCharger_ChargeTask()
 {
-    bNotifyTick = true; // Enables TickTask() to be called
+    bNotifyTick = true; 
 }
 
 EBTNodeResult::Type UCharger_ChargeTask::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -48,13 +62,12 @@ EBTNodeResult::Type UCharger_ChargeTask::ExecuteTask(UBehaviorTreeComponent& Own
     if (!Charger || Charger->GetIsDying()) return EBTNodeResult::Failed;
     if (Charger->GetIsDying()) return EBTNodeResult::Failed;
     Charger->SetIsPatrolling(false);
-    Charger->SetIsCharging(true);
+   Charger->SetIsCharging(true);
     if (ChargerController)
     {
         // Calculate overshoot position
         Memory->TargetLocation = Memory->TargetLocation + (Memory->ChargeDirection * ChargerController->ChargeOvershootDistance);
 
-        // Set charging flag in blackboard
         BlackboardComp->SetValueAsBool("IsCharging", true);
 
         // Increase speed for charging
@@ -80,9 +93,10 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
 
     ACharger* Charger = Cast<ACharger>(OwnerComp.GetOwner());
-    if (Charger->GetIsDying())  {FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+    if (Charger->GetIsDying()) 
+    {FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
     return;
-}
+	}
 
     FChargeTaskMemory* Memory = (FChargeTaskMemory*)NodeMemory;
     if (!Memory->bChargeStarted) return;
@@ -108,7 +122,7 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
         return;
     }
 
-    // Update elapsed time
+  
     Memory->ElapsedTime += DeltaSeconds;
 
     // Check if we've reached the target or exceeded max charge time
@@ -131,18 +145,15 @@ void UCharger_ChargeTask::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
                 CharacterPawn->GetCharacterMovement()->MaxWalkSpeed = Charger->GetWalkSpeed();
             }
 
-            // Set cooldown
             ChargerController->CurrentCooldownTime = ChargerController->ChargeCooldown;
             BlackboardComp->SetValueAsBool("CanCharge", false);
             BlackboardComp->SetValueAsFloat("ChargeCooldown", ChargerController->ChargeCooldown);
         }
 
-        // Set charging flag in blackboard
         BlackboardComp->SetValueAsBool("IsCharging", false);
         Charger->SetIsCharging(false);
-        // Stop movement
         AIController->StopMovement();
-        
+        Charger->SetIsCharging(false);
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
     }
 }

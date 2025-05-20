@@ -3,9 +3,10 @@
 
 
 #include "World/Voice_Recorder.h"
+
+#include "Plagued_Knight_GameInstance.h"
 #include "Internationalization/StringTableRegistry.h"
 #include "Internationalization/StringTableCore.h"     // For FStringTable
-#include "Internationalization/StringTableRegistry.h" // For FStringTableRegistry
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Player/Player_HUD.h"
@@ -19,14 +20,18 @@ AVoice_Recorder::AVoice_Recorder()
     Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
     SetRootComponent(Mesh);
-    
+    LineDelay = 4.f;
 }
+
 
 // Called when the game starts or when spawned
 void AVoice_Recorder::BeginPlay()
 {
 	Super::BeginPlay();
+    CurrentIndex = 0;
+  
 	
+    LoadAllDialogueKeysFromTable();
 }
 
 // Called every frame
@@ -36,127 +41,122 @@ void AVoice_Recorder::Tick(float DeltaTime)
 
 }
 
-void AVoice_Recorder::DisplayNextLine()
+void AVoice_Recorder::InteractableAction_Implementation()
 {
-    if (!TextLines.IsValidIndex(CurrentLineIndex))
+    UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] InteractableAction triggered on Recorder ID: %d"), ID);
+
+    UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+    if (!GameInstance)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Invalid CurrentLineIndex: %d"), CurrentLineIndex);
-        GetWorldTimerManager().ClearTimer(LinePlaybackTimer);
+        UE_LOG(LogTemp, Error, TEXT("[VoiceRecorder] No valid GameInstance found."));
         return;
     }
 
-    FText CurrentLine = TextLines[CurrentLineIndex];
-    UE_LOG(LogTemp, Log, TEXT("Displaying line index: %d | Text: %s"), CurrentLineIndex, *CurrentLine.ToString());
-
-    APlayerController* PC = GetWorld()->GetFirstPlayerController();
-    if (PC)
+    if (!GameInstance->HasRecorder(ID))
     {
-        UKismetSystemLibrary::PrintString(this, CurrentLine.ToString(), true, true, FLinearColor::Green, 2.f);
-
-        APlayer_HUD* PlayerHUD = Cast<APlayer_HUD>(PC->GetHUD());
-        if (PlayerHUD)
-        {
-            PlayerHUD->ShowText(CurrentLine.ToString());
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("PlayerHUD is null."));
-        }
+        UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Recorder ID %d not found in inventory. Adding it."), ID);
+        GameInstance->AddRecorder(ID, this);
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("PlayerController not found."));
+        UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Recorder ID %d found in inventory."), ID);
     }
 
-    if (AudioClips.IsValidIndex(CurrentLineIndex) && AudioClips[CurrentLineIndex])
+    // Avoid re-triggering if it's already playing
+    if (!GetWorldTimerManager().IsTimerActive(LinePlaybackTimer))
     {
-        UGameplayStatics::PlaySound2D(this, AudioClips[CurrentLineIndex]);
-        UE_LOG(LogTemp, Log, TEXT("Playing audio clip at index %d"), CurrentLineIndex);
+        UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Starting playback for Recorder ID %d"), ID);
+        LoadAllDialogueKeysFromTable();
+        CurrentIndex = 0;
+        PlayNextLine();
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("No valid audio clip at index %d"), CurrentLineIndex);
+        UE_LOG(LogTemp, Warning, TEXT("[VoiceRecorder] Playback is already active for Recorder ID %d"), ID);
     }
-
-    CurrentLineIndex++;
-
-    if (TextLines.IsValidIndex(CurrentLineIndex))
-    {
-        GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 4.f, false);
-    }
-    else
-    {
-        UE_LOG(LogTemp, Log, TEXT("Finished playing all lines."));
-        GetWorldTimerManager().ClearTimer(LinePlaybackTimer);
-    }
-}
-void AVoice_Recorder::LoadText_Implementation(const FString& FilePath)
-{
-    TextLines.Empty();
-
-    const int32 MaxLines = 100; // Prevent infinite loop
-    int32 Index = 0;
-
-    while (Index < MaxLines)
-    {
-        FString Key = FString::Printf(TEXT("Line_%d"), Index);
-        FText RetrievedText = FText::FromStringTable(StringTableName, Key);
-
-        if (RetrievedText.ToString() == Key)
-        {
-            UE_LOG(LogTemp, Log, TEXT("End of string table reached or missing key at index %d (key: %s)"), Index, *Key);
-            break;
-        }
-
-        TextLines.Add(RetrievedText);
-        UE_LOG(LogTemp, Log, TEXT("Loaded line %d: %s"), Index, *RetrievedText.ToString());
-        Index++;
-    }
-
-    if (Index == MaxLines)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Reached max line count (%d). Possible malformed or infinite string table."), MaxLines);
-    }
-
-    CurrentLineIndex = 0;
-
-    UE_LOG(LogTemp, Log, TEXT("Loaded %d lines from String Table '%s'"), TextLines.Num(), *StringTableName.ToString());
+            
 }
 
-void AVoice_Recorder::PlayText_Implementation()
+void AVoice_Recorder::PlayNextLine()
 {
-    if (TextLines.Num() == 0)
+    if (!DialogueKeys.IsValidIndex(CurrentIndex))
     {
-        UE_LOG(LogTemp, Warning, TEXT("No text loaded. Cannot start playback."));
+        UE_LOG(LogTemp, Warning, TEXT("No more dialogue lines."));
         return;
     }
 
-    CurrentLineIndex = 0;
-    UE_LOG(LogTemp, Log, TEXT("Starting playback of %d lines."), TextLines.Num());
+    FString Key = DialogueKeys[CurrentIndex];
+    ShowDialogueLine(Key);
+    // Get text from string table
+    FText TextLine = FText::FromStringTable(StringTableName, FTextKey(Key));
 
-    GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::DisplayNextLine, 1.5f, false);
+    if (TextLine.IsEmpty())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Missing key in String Table: %s"), *Key);
+        return;
+    }
+
+    // Show text
+    //UKismetSystemLibrary::PrintString(this, TextLine.ToString(), true, true, FLinearColor::Green, 3.f);
+
+    // Play sound
+    if (AudioClips.IsValidIndex(CurrentIndex) && AudioClips[CurrentIndex])
+    {
+        UGameplayStatics::PlaySound2D(this, AudioClips[CurrentIndex]);
+    }
+
+    ++CurrentIndex;
+    // Check if there are more lines, if so, set a timer to play the next one
+    if (DialogueKeys.IsValidIndex(CurrentIndex))
+    {
+        // Set a timer to call PlayNextLine() again after the specified delay
+        GetWorldTimerManager().SetTimer(LinePlaybackTimer, this, &AVoice_Recorder::PlayNextLine, LineDelay, false);
+    }
+   
 }
-TArray<FString> AVoice_Recorder::GetAllStringTableKeys(FName InTableName)
-{
-    TArray<FString> Keys;
 
-    TSharedPtr<const FStringTable> Table = FStringTableRegistry::Get().FindStringTable(InTableName);
+void AVoice_Recorder::ShowDialogueLine(const FString& Key)
+{
+    FText Text = FText::FromStringTable(StringTableName, FTextKey(Key));
+    if (!Text.IsEmpty())
+    {
+
+        APlayerController* PC = GetWorld()->GetFirstPlayerController();
+        if (PC)
+        {
+
+            APlayer_HUD* HUD = Cast<APlayer_HUD>(PC->GetHUD());
+            if (HUD) {
+                HUD->ShowText(Text.ToString());
+            }
+        }
+    }
+}
+void AVoice_Recorder::LoadAllDialogueKeysFromTable()
+{
+    DialogueKeys.Empty();
+
+    UE_LOG(LogTemp, Log, TEXT("Attempting to find String Table: %s"), *StringTableName.ToString());
+
+    // Try to find the string table from the registry
+    TSharedPtr<const FStringTable> Table = FStringTableRegistry::Get().FindStringTable(StringTableName);
+
+    // Check if the table is valid and log accordingly
     if (Table.IsValid())
     {
-        UE_LOG(LogTemp, Log, TEXT("Found string table: %s"), *InTableName.ToString());
-
-        Table->EnumerateKeysAndSourceStrings(([&](const FTextKey& Key, const FString& SourceString) -> bool
+        UE_LOG(LogTemp, Log, TEXT("Found String Table: %s"), *StringTableName.ToString());
+        Table->EnumerateKeysAndSourceStrings([&](const FTextKey& Key, const FString& Source) -> bool
             {
-                FString KeyStr = Key.ToString();
-                Keys.Add(KeyStr);
-                UE_LOG(LogTemp, Log, TEXT("Found key: %s | Source: %s"), *KeyStr, *SourceString);
+                DialogueKeys.Add(Key.ToString());
+                UE_LOG(LogTemp, Log, TEXT("Loaded Key: %s"), *Key.ToString()); // Log the key to check
                 return true;
-            }));
+            });
+
+        DialogueKeys.Sort(); // Optional, to maintain order
+        UE_LOG(LogTemp, Log, TEXT("Loaded %d keys from String Table '%s'"), DialogueKeys.Num(), *StringTableName.ToString());
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("String table '%s' not found."), *InTableName.ToString());
+        UE_LOG(LogTemp, Warning, TEXT("String Table '%s' not found."), *StringTableName.ToString());
     }
-
-    return Keys;
 }

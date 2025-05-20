@@ -58,7 +58,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,AActor* DamageCauser) override;
 
-
+	FTimerHandle TimerHandle;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	bool bHasTarget = true;
 	//Variables we want for the attack
@@ -103,6 +103,9 @@ public:
 	void SpecialAttack();
 	UFUNCTION()
 	void Collision();
+	
+	UFUNCTION()
+	void RemoveWidgetSafely();
 	UFUNCTION()
 	void Death();
 	void OnHit(int damage);
@@ -160,4 +163,8 @@ public:
 	void SetIsRangedAttacking(bool state) { bIsRangedAttacking = state; };
 	void SetIsWalking(bool state) { bIsWalking = state; };
 	void SetIsPreparingDive(bool state) { bIsPreppingToDive = state; };
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Widget")
+	UUserWidget* Widgettodisplay;
+
+
 };

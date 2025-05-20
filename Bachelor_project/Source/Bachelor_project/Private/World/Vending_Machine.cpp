@@ -3,6 +3,7 @@
 
 #include "World/Vending_Machine.h"
 #include "Components/BoxComponent.h"
+#include "Player/SaveState.h"
 #include "Player/Test_Character.h"
 
 // Sets default values
@@ -14,8 +15,7 @@ AVending_Machine::AVending_Machine()
 	SetRootComponent(SkeletalMesh);
 	HitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	HitBox->SetupAttachment(RootComponent);
-	HitBox->OnComponentBeginOverlap.AddDynamic(this, &AVending_Machine::OnOverlap);
-	HitBox->OnComponentEndOverlap.AddDynamic(this, &AVending_Machine::EndOverlap);
+	
 }
 
 // Called when the game starts or when spawned
@@ -38,42 +38,64 @@ void AVending_Machine::Save(AActor* Player)
 
 }
 
-void AVending_Machine::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                 UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AVending_Machine::InteractableAction_Implementation()
 {
-	if (OtherActor->IsA<ATest_Character>())
+
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	if (PC)
 	{
-		ATest_Character* Player = Cast<ATest_Character>(OtherActor);
-		//Play saving anim
+		ATest_Character* player = Cast<ATest_Character>(PC->GetPawn());
 
+		if (player) {
 
-		Player->SetHealth(Player->GetMaxHealth());
-		Player->SetBioMass(Player->GetMaxBioMass());
-		
-		//play refresh effect
-
-		//AutoSave when encountering the first time
-		if (FirstTime) {
+			//Play saving anim
+			player->SetHealth(player->GetMaxHealth());
+			player->SetBioMass(player->GetMaxBioMass());
+			//play refresh effect
+			USaveState::SaveGame(GetWorld(), "Main_Save", 0);
 			
-			Player->SaveGame("Main_Save",0);
-			FirstTime = false;
 		}
-		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Auto save complete"));
-		//Player inputs save action to save
-
-
 	}
 
+	
 }
 
-void AVending_Machine::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
-{
-	if (OtherActor->IsA<ATest_Character>())
-	{
-		ATest_Character* Player = Cast<ATest_Character>(OtherActor);
-		//Play saving anim
-	}
-
-}
-
+//void AVending_Machine::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+//                                 UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+//{
+//	if (OtherActor->IsA<ATest_Character>())
+//	{
+//		ATest_Character* Player = Cast<ATest_Character>(OtherActor);
+//		//Play saving anim
+//
+//
+//		Player->SetHealth(Player->GetMaxHealth());
+//		Player->SetBioMass(Player->GetMaxBioMass());
+//		
+//		//play refresh effect
+//
+//		//AutoSave when encountering the first time
+//		if (FirstTime) {
+//			
+//			Player->SaveGame("Main_Save",0);
+//			FirstTime = false;
+//		}
+//		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Auto save complete"));
+//		//Player inputs save action to save
+//
+//
+//	}
+//
+//}
+//
+//void AVending_Machine::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+//	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
+//{
+//	if (OtherActor->IsA<ATest_Character>())
+//	{
+//		ATest_Character* Player = Cast<ATest_Character>(OtherActor);
+//		//Play saving anim
+//	}
+//
+//}
+//

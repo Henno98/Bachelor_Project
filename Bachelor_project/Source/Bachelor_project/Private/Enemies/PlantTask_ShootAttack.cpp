@@ -2,12 +2,24 @@
 
 
 #include "Enemies/PlantTask_ShootAttack.h"
-#include "AbilitySystemComponent.h"
 #include "GameFramework/Actor.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
 #include "Enemies/Plant.h"
 #include "Player/Test_Character.h"
+
+/**
+ * UPlantTask_ShootAttack
+ *
+ * Behavior tree task for the Plant to perform a ranged attack.
+ * - Checks if the AIController and the Plant pawn are valid before proceeding.
+ * - Verifies that the Plant pawn implements the IIsRangedAttacker interface.
+ * - Sets up the ranged attack parameters, including target location, damage, velocity, bullet size, and firing direction.
+ * - Calls the Plant's ranged attack function through the gameplay ability system (GAS).
+ * - Logs warnings if any required components are missing or if the Plant does not implement the required interface.
+ * - Successfully completes the task if the ranged attack setup is executed correctly.
+ */
+
 
 UPlantTask_ShootAttack::UPlantTask_ShootAttack()
 {
@@ -41,22 +53,37 @@ EBTNodeResult::Type UPlantTask_ShootAttack::ExecuteTask(UBehaviorTreeComponent& 
 
 	if (Plant->GetClass()->ImplementsInterface(UIsRangedAttacker::StaticClass()))
 	{
-		UE_LOG(LogTemp, Log, TEXT("ShootTask: Plant implements IIsRangedAttacker interface. Setting ranged parameters."));
-
-		Plant->SetTargetLocation_Implementation(Plant->GetActorForwardVector());
 		Plant->SetDamage(1.f);
 		Plant->SetRangedAttackVelocity_Implementation(400.f);
 		Plant->SetBulletSize_Implementation(FVector(2.f));
-		Plant->SetFiringDirection_Implementation(Plant->GetActorRotation());
 
-		UE_LOG(LogTemp, Log, TEXT("ShootTask: Parameters set: Damage=1.0, Velocity=400.0, BulletSize=(2.0, 2.0, 2.0)"));
+		// Update spawn location a bit in front of the plant
+		FVector SpawnLoc = Plant->GetActorLocation() + Plant->GetActorForwardVector() * 100.f;
+		Plant->SetSpawnLocation_Implementation(SpawnLoc);
+
+		// Update firing direction based on forward vector rotation
+		FRotator FireDir = Plant->GetActorForwardVector().Rotation();
+		Plant->SetFiringDirection_Implementation(FireDir);
+
+		// Optionally set target location (if your AI tracks a player)
+		AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject("Player"));
+		if (TargetActor)
+		{
+			Plant->SetHasTarget_Implementation(true);
+			Plant->SetTargetLocation_Implementation(TargetActor->GetActorLocation());
+		}
+		else
+		{
+			Plant->SetHasTarget_Implementation(false);
+			Plant->SetTargetLocation_Implementation(FVector::ZeroVector);
+		}
+		
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("ShootTask: Plant does NOT implement IIsRangedAttacker."));
 	}
 
-	UE_LOG(LogTemp, Log, TEXT("ShootTask: Calling Plant->CallGAS_RangedAttack()"));
 	Plant->CallGAS_RangedAttack();  
 
 	return EBTNodeResult::Succeeded;

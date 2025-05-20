@@ -19,10 +19,22 @@
 #include "Player/Player_HUD.h"
 #include "Player/SaveState.h"
 
+/**
+ * ATest_Character
+ *
+ * This character class represents the main controllable pawn in the game used for testing gameplay abilities and movement mechanics.
+ * - Integrates with the Gameplay Ability System to support activating abilities like dash, jump, or fire projectile.
+ * - Handles input bindings for movement, looking, and ability activations.
+ * - Initializes core components such as camera, mesh, movement component, and AbilitySystemComponent.
+ * - Manages replication and state synchronization for multiplayer scenarios.
+ * - Provides functions to apply attributes, manage effects, and interact with the environment through collisions and triggers.
+ */
+
+
 // Sets default values
 ATest_Character::ATest_Character()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	
 	PrimaryActorTick.bCanEverTick = true;
 
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -41,18 +53,19 @@ ATest_Character::ATest_Character()
 	
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ATest_Character::OnOverlap);
 	SecondaryMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SecondaryMesh"));
-	SecondaryMesh->SetupAttachment(GetMesh(), TEXT("WingSocket"));// Attach to socket
+	SecondaryMesh->SetupAttachment(GetMesh(), TEXT("WingSocket"));
 
 	MaxHealth = 10;
 	Health = MaxHealth;
 	RangedDamage = 5;
 	MeleeDamage = 3;
 	BioMass = 0;
-	MaxBioMass = 400;
+	MaxBioMass = 300;
+	DashCooldown = 2.f;
 	
 }
 
-// Called when the game starts or when spawned
+
 void ATest_Character::BeginPlay()
 {
 	Super::BeginPlay();
@@ -67,7 +80,7 @@ void ATest_Character::BeginPlay()
 
 		GI->ClearSavedData();
 	}
-	// Ensure InputActions is valid before proceeding
+	
 	ensure(InputActions != nullptr);
 
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
@@ -85,7 +98,7 @@ void ATest_Character::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("PlayerController cast failed in BeginPlay"));
 	}
-	DashCooldown = 2.f;
+	
 
 }
 
@@ -112,6 +125,8 @@ void ATest_Character::Tick(float DeltaTime)
 	{
 		bMidJump = true;
 	}
+	
+	time += DeltaTime;
 	
 	
 }
@@ -151,6 +166,8 @@ void ATest_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(InputActions->RangedAttackInput, ETriggerEvent::Started, this, &ATest_Character::GAS_RangedAttack);
 		EnhancedInputComponent->BindAction(InputActions->MeleeInput, ETriggerEvent::Started ,this, &ATest_Character::MeleeAttack);
 
+
+		EnhancedInputComponent->BindAction(InputActions->InteractInput, ETriggerEvent::Completed, this, &ATest_Character::Interact);
 	
 }
 
@@ -161,14 +178,6 @@ void ATest_Character::Landed(const FHitResult& Hit)
 	
 	bFinishJump = true;
 	bMidJump = false;
-	/*if (bIsRunning)
-	{
-		GetCharacterMovement()->MaxWalkSpeed = 1400.f;
-	}
-	else
-	{
-		GetCharacterMovement()->MaxWalkSpeed = 800.f;
-	}*/
 
 }
 
@@ -182,9 +191,9 @@ float ATest_Character::TakeDamage(float DamageAmount, struct FDamageEvent const&
 		Dead();
 		return 0;
 	}
-	// Clear any existing timer before setting a new one
+
 	GetWorld()->GetTimerManager().ClearTimer(invincibilityframe);
-	//GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+
 	GetWorld()->GetTimerManager().SetTimer(invincibilityframe, FTimerDelegate::CreateLambda([this]()
 		{
 
@@ -202,17 +211,13 @@ void ATest_Character::OnMeleeHitNotify()
 
 	FVector Start = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
 	FVector ForwardVector = GetActorForwardVector();
-	FVector End = Start + (ForwardVector * 200.f);
-
-	//DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-	//DrawDebugSphere(GetWorld(), Start, 150.f, 12, FColor::Blue, false, 1.0f);
-	DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
+	FVector End = Start + (ForwardVector * 50.f);
 
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
 
 	TArray<FHitResult> HitResults;
-	TSet<AActor*> HitActors; // Track unique actors
+	TSet<AActor*> HitActors; 
 
 	bool bHit = GetWorld()->SweepMultiByChannel(
 		HitResults,
@@ -231,10 +236,8 @@ void ATest_Character::OnMeleeHitNotify()
 			AActor* HitActor = Hit.GetActor();
 			if (HitActor && !HitActors.Contains(HitActor))
 			{
-				HitActors.Add(HitActor); // Mark as hit
+				HitActors.Add(HitActor); 
 
-				UE_LOG(LogTemp, Warning, TEXT("Hit actor: %s"), *HitActor->GetName());
-				//DrawDebugSphere(GetWorld(), Hit.ImpactPoint, 10.f, 12, FColor::Red, false, 1.0f);
 				if (Hit.GetActor() && Hit.GetActor()->Implements<UEnemyInterface>())
 				{
 					if (GetBioMass() <= MaxBioMass) {
@@ -264,8 +267,6 @@ void ATest_Character::OnSublevelLoaded()
 	OnEnergyChanged.Broadcast(GI->GetSavedBioMass());
 
 	GI->ClearSavedData();
-
-	UE_LOG(LogTemp, Log, TEXT("Restored character state after sublevel stream load."));
 }
 
 void ATest_Character::Hit(int Damage)
@@ -278,6 +279,17 @@ void ATest_Character::Dead()
 {
 	SetActorEnableCollision(false);
 	SetActorHiddenInGame(true);
+	LoadGame("Main_Save",0);
+	APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+	if (PC)
+	{
+		APlayer_HUD* HUD = Cast<APlayer_HUD>(PC->GetHUD());
+		if (HUD)
+		{
+
+			HUD->ShowText("You Died. Try again");
+		}
+	}
 }
 
 void ATest_Character::PossessedBy(AController* NewController)
@@ -295,23 +307,35 @@ void ATest_Character::InitAbilitySystem()
 	{
 		GASPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GASPlayerState, this);
 		AbilitySystemComponent = GASPlayerState->GetAbilitySystemComponent();
+
+		
 		//Init jump
 		GA_Double_Jump = GASPlayerState->JumpAbility;
-		JumpAbilitySpec = FGameplayAbilitySpec(GA_Double_Jump);
-		AbilitySystemComponent->GiveAbility(JumpAbilitySpec);
+		if (GA_Double_Jump) 
+		{
+			JumpAbilitySpec = FGameplayAbilitySpec(GA_Double_Jump);
+			AbilitySystemComponent->GiveAbility(JumpAbilitySpec);
+		}
 		//init wall latch
 		GA_Wall_Latch = GASPlayerState->WallLatchAbility;
-		WallLatchAbilitySpec = FGameplayAbilitySpec(GA_Wall_Latch);
-		AbilitySystemComponent->GiveAbility(WallLatchAbilitySpec);
+		if (GA_Wall_Latch) 
+		{
+			WallLatchAbilitySpec = FGameplayAbilitySpec(GA_Wall_Latch);
+			AbilitySystemComponent->GiveAbility(WallLatchAbilitySpec);
+		}
 		//init Dash
 		GA_Dash = GASPlayerState->DashAbility;
-		DashAbilitySpec = FGameplayAbilitySpec(GA_Dash);
-		AbilitySystemComponent->GiveAbility(DashAbilitySpec);
-		
+		if (GA_Dash) 
+		{
+			DashAbilitySpec = FGameplayAbilitySpec(GA_Dash);
+			AbilitySystemComponent->GiveAbility(DashAbilitySpec);
+		}
 		GA_Ranged_Attack = GASPlayerState->RangedAttack;
-		RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
-		AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
-
+		if (GA_Ranged_Attack) 
+		{
+			RangedAttackAbilitySpec = FGameplayAbilitySpec(GA_Ranged_Attack);
+			AbilitySystemComponent->GiveAbility(RangedAttackAbilitySpec);
+		}
 		}
 
 }
@@ -337,7 +361,6 @@ void ATest_Character::GASJump()
 		bStartedJump = true;
 
 
-		// Must be valid
 		FGameplayTag JumpTag = FGameplayTag::RequestGameplayTag(FName("Abilities.Double_Jump"));
 		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(JumpTag));
 		
@@ -346,17 +369,18 @@ void ATest_Character::GASJump()
 
 void ATest_Character::GASStopJump()
 {
-	if (AbilitySystemComponent) {
+	if (AbilitySystemComponent && GA_Double_Jump) {
 		AbilitySystemComponent->AbilityLocalInputReleased(JumpAbilitySpec.InputID);
-		//AbilitySystemComponent->CancelAllAbilities();
-		//AbilitySystemComponent->CancelAbility(GA_JumpAbility.GetDefaultObject());
-		//AbilitySystemComponent->CancelAbilityHandle(JumpAbilitySpec.Handle);
+		
 
 	}
 }
 
 void ATest_Character::GAS_Dash()
 {
+
+	if (time < DashCooldown) return;
+
 	if (bIsDashing) return;
 
 	bIsDashing = true;
@@ -370,7 +394,7 @@ void ATest_Character::GAS_Dash()
 		UE_LOG(LogTemp, Error, TEXT("AbilitySystemComponent is null in GAS_Dash"));
 	}
 		
-
+	time = 0;
 	
 }
 
@@ -381,9 +405,6 @@ void ATest_Character::GASWallLatch()
 
 		FGameplayTag WallLatchTag = FGameplayTag::RequestGameplayTag(FName("Abilities.Wall_Latch"));
 		AbilitySystemComponent->TryActivateAbilitiesByTag(FGameplayTagContainer(WallLatchTag));
-	
-
-
 	}
 }
 
@@ -404,20 +425,67 @@ void ATest_Character::GAS_RangedAttack()
 	{
 		if (!bIsRangedAttacking) {
 			bIsRangedAttacking = true;
-
 			SetBioMass(GetBioMass() - 100);
 		}
 	}
+}
+
+void ATest_Character::Interact()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Started interaction check"));
+
+	FVector Start = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
+	FVector ForwardVector = GetActorForwardVector();
+	FVector End = Start + (ForwardVector * 50.f);
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	DrawDebugSphere(GetWorld(), End, 150, 12, FColor::Blue);
+
+	TArray<FHitResult> HitResults;
+	TSet<AActor*> HitActors;
+
+	bool bHit = GetWorld()->SweepMultiByChannel(
+		HitResults,
+		Start,
+		End,
+		FQuat::Identity,
+		ECC_Pawn,
+		FCollisionShape::MakeSphere(150.f),
+		QueryParams
+	);
+
+	if (bHit)
+	{
+		for (const FHitResult& Hit : HitResults)
+		{
+			AActor* HitActor = Hit.GetActor();
+			if (HitActor && !HitActors.Contains(HitActor))
+			{
+				HitActors.Add(HitActor);
+
+				if (Hit.GetActor() && Hit.GetActor()->Implements<UInteractable>())
+				{
+
+					IInteractable::Execute_InteractableAction(HitActor);
+				}
+			}
+		}
+	}
+
 }
 
 void ATest_Character::ExecuteRangedAttack()
 {
 
 	SpawnLocation = GetMesh()->GetSocketLocation(TEXT("Hitbox_Right_Hand"));
-	
-	FGameplayTagContainer tags;
-	tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
-	AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+	Direction = GetActorRotation();
+	if (GA_Ranged_Attack) {
+		FGameplayTagContainer tags;
+		tags.AddTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Shoot")));
+		AbilitySystemComponent->TryActivateAbilitiesByTag(tags);
+	}
 
 }
 
@@ -431,12 +499,7 @@ void ATest_Character::DropDown()
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
 
-	// Define the sweep shape (e.g., a sphere with radius x units)
 	FCollisionShape SweepShape = FCollisionShape::MakeSphere(150.f);
-
-	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 2.0f);
-	//DrawDebugSphere(GetWorld(), Start, 100.f, 12, FColor::Blue, false, 1.0f);
-	DrawDebugSphere(GetWorld(), End, 150.f, 12, FColor::Blue, false, 1.0f);
 
 	bool bSweepHit = GetWorld()->SweepMultiByChannel(
 		HitResult,
@@ -458,7 +521,6 @@ void ATest_Character::DropDown()
 			{
 				if (HitActor->GetFName().ToString().Contains(FString("Platform")) == true)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Hit actor: %s"), *Hit.GetActor()->GetName());
 					HitActor->SetActorEnableCollision(false);
 
 					FTimerHandle TimerHandle;
@@ -498,7 +560,7 @@ void ATest_Character::ToggleMenu()
 		APlayer_HUD* PlayerHUD = Cast<APlayer_HUD>(PC->GetHUD());
 		if (PlayerHUD)
 		{
-			//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Toggling Menu"));
+
 			PlayerHUD->ToggleMenu();
 		}
 		
@@ -536,31 +598,25 @@ void ATest_Character::MoveLeft(const FInputActionValue& Value)
 {
 	const FVector2D moveVector = Value.Get<FVector2D>();
 
-
-	// Only respond if the stick is moved enough (ignore tiny noise)
 	if (FMath::Abs(moveVector.X) > 0.5f)
 	{
 		
-			// Moving left: face left (180 degrees yaw)
-			//TargetSocketOffset = FVector(0.f, -300.f, 0.f); // Player at right
+			
 			SetActorRotation(FRotator(0.f, -90, 0.f));
-		
-			//Springarm->SocketOffset = TargetSocketOffset;
-		// Move character along its forward vector (in sidescroller, usually X axis)
-		const FVector directionVector = -GetActorForwardVector();
-		AddMovementInput(directionVector, -FMath::Abs(moveVector.X)); // Always positive
 
-		// Set running state
+		const FVector directionVector = -GetActorForwardVector();
+		AddMovementInput(directionVector, -FMath::Abs(moveVector.X)); 
+
+		
 		bIsMoving = true;
 	}
 	else
 	{
-		// Not moving
 		bIsMoving = false;
 	}
 
 	// Stick flick downward to trigger DropDown
-	if (moveVector.Y < -0.8f) // Stick pushed down
+	if (moveVector.Y < -0.8f) 
 	{
 		DropDown();
 	}
@@ -570,19 +626,12 @@ void ATest_Character::MoveRight(const FInputActionValue& Value)
 {
 	const FVector2D moveVector = Value.Get<FVector2D>();
 
-
-	// Only respond if the stick is moved enough (ignore tiny noise)
 	if (FMath::Abs(moveVector.X) > 0.5f)
 	{
 
-		// Moving left: face left (180 degrees yaw)
-		//TargetSocketOffset = FVector(0.f, 300.f, 0.f); // Player at right
 		SetActorRotation(FRotator(0.f, 90, 0.f));
-
-		//Springarm->SocketOffset = TargetSocketOffset;
-		// Move character along its forward vector (in sidescroller, usually X axis)
 		const FVector directionVector = GetActorForwardVector();
-		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); // Always positive
+		AddMovementInput(directionVector, FMath::Abs(moveVector.X)); 
 
 		// Set running state
 		bIsMoving = true;
@@ -594,7 +643,7 @@ void ATest_Character::MoveRight(const FInputActionValue& Value)
 	}
 
 	// Stick flick downward to trigger DropDown
-	if (moveVector.Y < -0.8f) // Stick pushed down
+	if (moveVector.Y < -0.8f)
 	{
 		DropDown();
 	}
@@ -609,57 +658,46 @@ void ATest_Character::MeleeAttack(const FInputActionValue& Value)
 {
 	if (bIsMeleeAttacking)
 	{
-		// If we are already attacking, do not start another attack
 		return;
 	}
 
-	// Log to confirm we entered the attack function
-	UE_LOG(LogTemp, Error, TEXT("Started attack"));
-
-	// If we have a valid melee animation
 	bIsMeleeAttacking = true;
 	GetCharacterMovement()->StopActiveMovement();
-
-	
-
-	
 }
 
-// This function will be called once the attack animation finishes
 void ATest_Character::EndMeleeAttack()
 {
-	//bIsMeleeAttacking = false; // Allow the next attack to start
-	UE_LOG(LogTemp, Error, TEXT("Melee attack completed."));
+	
 }
 void ATest_Character::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && OtherActor != this && OtherActor->Implements<UInteractable>())
 	{
-		UE_LOG(LogTemp, Log, TEXT("Overlapping with Interactable Actor: %s"), *OtherActor->GetName());
+	
 
-			UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-			if (!GameInstance)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("No valid GameInstance found."));
-				return;
-			}
-			  // Cast OtherActor to AVoice_Recorder
-			AVoice_Recorder* Recorder = Cast<AVoice_Recorder>(OtherActor);
-			if (Recorder)
-			{
-				int32 ID = IInteractable::Execute_GetID(Recorder);
-				if (GameInstance->HasRecorder(ID))
-				{
-					// Play the recorder using the GameInstance
-					GameInstance->PlayRecorder(ID);
-				}
-				else
-				{
-					GameInstance->AddRecorder(ID, Recorder);
-					GameInstance->PlayRecorder(ID); // Play immediately after adding
-				}
-			}
+			//UPlagued_Knight_GameInstance* GameInstance = Cast<UPlagued_Knight_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+			//if (!GameInstance)
+			//{
+			//	UE_LOG(LogTemp, Warning, TEXT("No valid GameInstance found."));
+			//	return;
+			//}
+			//  // Cast OtherActor to AVoice_Recorder
+			//AVoice_Recorder* Recorder = Cast<AVoice_Recorder>(OtherActor);
+			//if (Recorder)
+			//{
+			//	int32 ID = IInteractable::Execute_GetID(Recorder);
+			//	if (GameInstance->HasRecorder(ID))
+			//	{
+			//		// Play the recorder using the GameInstance
+			//		GameInstance->PlayRecorder(ID);
+			//	}
+			//	else
+			//	{
+			//		GameInstance->AddRecorder(ID, Recorder);
+			//		GameInstance->PlayRecorder(ID); 
+			//	}
+			//}
 		
 	}
 }
