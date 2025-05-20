@@ -49,8 +49,6 @@ void ALamp::Tick(float DeltaTime)
 
 void ALamp::OnTimelineUpdate(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Timeline Value: %f"), Value);
-
 	if (PointLightComp)
 	{
 		PointLightComp->SetIntensity(Value * 3000.0f);
