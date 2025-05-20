@@ -51,7 +51,7 @@ float ABeetle::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageE
        
 
     }
-	return DamageAmount;
+	return DamageAmount; 
 }
 
 // Called every frame
@@ -98,7 +98,7 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
 
             if (bHit)
             {
-                UE_LOG(LogTemp, Warning, TEXT("DiveAttack hit %d actors"), HitResults.Num());
+                
 
                 for (const FHitResult& Hit : HitResults)
                 {
@@ -106,7 +106,7 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
                     if (HitActor && !HitActors.Contains(HitActor))
                     {
                         HitActors.Add(HitActor);
-                        UE_LOG(LogTemp, Warning, TEXT("DiveAttack hitting actor: %s"), *HitActor->GetName());
+                        
 
                         if (HitActor->IsA<ACharacter>() && HitActor->Implements<UEnemyInterface>())
                         {
@@ -121,7 +121,7 @@ void ABeetle::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
             }
             else
             {
-                UE_LOG(LogTemp, Warning, TEXT("DiveAttack did not hit any actors"));
+                
             }
 			
 		}

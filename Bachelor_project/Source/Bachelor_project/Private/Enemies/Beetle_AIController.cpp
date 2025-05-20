@@ -73,16 +73,28 @@ void ABeetle_AIController::OnEnemySeeItsTarget(APawn* SensedPawn)
 {
 	if (SensedPawn && SensedPawn->IsA<ATest_Character>())
 	{
+		const FVector PlayerLocation = SensedPawn->GetActorLocation();
+		const FVector BeetleLocation = GetPawn()->GetActorLocation();
+
+		const float VerticalDistance = FMath::Abs(PlayerLocation.Z - BeetleLocation.Z);
+
+		
+		if (VerticalDistance > 100.f) // tweak this value
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Player too high - ignoring sight."));
+			return;
+		}
+
 		Player = SensedPawn;
 
 		Beetle_BBC->SetValueAsObject("Player", SensedPawn);
 		Beetle_BBC->SetValueAsBool("SeenPlayer", true);
-		Beetle_BBC->SetValueAsVector("LastSeenLocation", SensedPawn->GetActorLocation());
+		Beetle_BBC->SetValueAsVector("LastSeenLocation", PlayerLocation);
 
 		ACharacter* BeetleChar = Cast<ACharacter>(GetPawn());
 		if (BeetleChar)
 		{
-			BeetleChar->GetCharacterMovement()->MaxWalkSpeed = 400.f; 
+			BeetleChar->GetCharacterMovement()->MaxWalkSpeed = 400.f;
 		}
 	}
 }
