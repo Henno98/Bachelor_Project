@@ -8,6 +8,7 @@
 #include "GameFramework/Actor.h"
 #include "Voice_Recorder.generated.h"
 
+class UStringTable;
 UCLASS()
 class BACHELOR_PROJECT_API AVoice_Recorder : public AActor, public IInteractable
 {
@@ -16,8 +17,7 @@ class BACHELOR_PROJECT_API AVoice_Recorder : public AActor, public IInteractable
 public:	
 	// Sets default values for this actor's properties
 	AVoice_Recorder();
-
-
+   
     // ==== Properties ====
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
@@ -39,6 +39,8 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     UBoxComponent* Collider;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    UStringTable* StringTableAsset;
 
     // ==== Playback ====
 

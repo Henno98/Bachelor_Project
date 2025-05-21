@@ -7,6 +7,7 @@
 #include "Plagued_Knight_GameInstance.h"
 #include "Internationalization/StringTableRegistry.h"
 #include "Internationalization/StringTableCore.h"     // For FStringTable
+
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Player/Player_HUD.h"
@@ -30,8 +31,13 @@ void AVoice_Recorder::BeginPlay()
 	Super::BeginPlay();
     CurrentIndex = 0;
   
-	
+   
+   
     LoadAllDialogueKeysFromTable();
+    if (StringTableName.IsNone())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("StringTableName is not set on Voice Recorder ID: %d"), ID);
+    }
 }
 
 // Called every frame
@@ -66,7 +72,7 @@ void AVoice_Recorder::InteractableAction_Implementation()
     if (!GetWorldTimerManager().IsTimerActive(LinePlaybackTimer))
     {
         UE_LOG(LogTemp, Log, TEXT("[VoiceRecorder] Starting playback for Recorder ID %d"), ID);
-        LoadAllDialogueKeysFromTable();
+       // LoadAllDialogueKeysFromTable();
         CurrentIndex = 0;
         PlayNextLine();
     }
@@ -138,9 +144,10 @@ void AVoice_Recorder::LoadAllDialogueKeysFromTable()
 
     UE_LOG(LogTemp, Log, TEXT("Attempting to find String Table: %s"), *StringTableName.ToString());
 
+
     // Try to find the string table from the registry
     TSharedPtr<const FStringTable> Table = FStringTableRegistry::Get().FindStringTable(StringTableName);
-
+    
     // Check if the table is valid and log accordingly
     if (Table.IsValid())
     {

@@ -12,7 +12,7 @@ ALevelStreamingActor::ALevelStreamingActor()
 	PrimaryActorTick.bCanEverTick = true;
 	OverlapVolume = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapVolume"));
 	SetRootComponent(OverlapVolume);
-	OverlapVolume->OnComponentBeginOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapBegins);
+	//OverlapVolume->OnComponentBeginOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapBegins);
 	//OverlapVolume->OnComponentEndOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapEnds);
 }
 
@@ -20,7 +20,8 @@ ALevelStreamingActor::ALevelStreamingActor()
 void ALevelStreamingActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	OverlapVolume->OnComponentBeginOverlap.AddUniqueDynamic(this, &ALevelStreamingActor::OverlapBegins);
+
 }
 
 void ALevelStreamingActor::OverlapBegins(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
