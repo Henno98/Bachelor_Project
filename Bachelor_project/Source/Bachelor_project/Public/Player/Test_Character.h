@@ -200,7 +200,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     FVector SpawnLocation = GetActorLocation();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
-    FRotator Direction =GetActorRotation();
+    FRotator Direction = GetActorRotation();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
     float LifeTime;

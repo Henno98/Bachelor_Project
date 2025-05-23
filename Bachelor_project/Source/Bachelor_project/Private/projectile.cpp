@@ -109,7 +109,7 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	// Apply damage
 	float DamageAmount = GetDamage();
 	UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, nullptr, this, nullptr);
-	DestroyActor();
+	//DestroyActor();
 	// Confirm damage was applied
 	UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Applied %f damage to %s"), DamageAmount, *OtherActor->GetName());
 
