@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
-#include "Components/SphereComponent.h"
 #include "projectile.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
@@ -31,7 +30,6 @@ class BACHELOR_PROJECT_API ATest_Character : public ACharacter, public IAbilityS
 public:
     ATest_Character();
 
-
     UFUNCTION(BlueprintCallable)
     void OnMeleeHitNotify();
   
@@ -50,8 +48,6 @@ protected:
     virtual void Landed(const FHitResult& Hit) override;
     // Called every frame
     virtual void Tick(float DeltaTime) override;
-    void MoveLeft(const FInputActionValue& InputActionValue);
-    void MoveRight(const FInputActionValue& InputActionValue);
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -156,28 +152,52 @@ public:
 
     float GetJumpVelocity() { return JumpVelocity; }
 
+
+    void MoveLeft(const FInputActionValue& InputActionValue);
+
+	void MoveRight(const FInputActionValue& InputActionValue);
+
 	void Hit(int Damage);
-    void Dead();
-    virtual void PossessedBy(AController* NewController) override;
-    void InitAbilitySystem();
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-    void GASJump();
-    void GASStopJump();
-    void GAS_Dash();
-    void GASWallLatch();
-    void GASStopWallLatch();
-    void GAS_Space();
-    void GAS_RangedAttack();
-    void Interact();
+
+	void Dead();
+
+	virtual void PossessedBy(AController* NewController) override;
+
+	void InitAbilitySystem();
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	void GASJump();
+
+	void GASStopJump();
+
+	void GAS_Dash();
+
+	void GASWallLatch();
+
+	void GASStopWallLatch();
+
+	void GAS_Space();
+
+	void GAS_RangedAttack();
+
+	void Interact();
 	UFUNCTION(BlueprintCallable)
     void ExecuteRangedAttack();
+    
     void DropDown();
-    void ReEnableInput();
-    void PauseInput();
-    void ToggleMenu();
-    void Run(const FInputActionValue& Value);
-    void StopRun();
-    float GetAnimationDuration(UAnimMontage* Montage);
+
+	void ReEnableInput();
+
+	void PauseInput();
+
+	void ToggleMenu();
+
+	void Run(const FInputActionValue& Value);
+
+	void StopRun();
+
+	float GetAnimationDuration(UAnimMontage* Montage);
     UFUNCTION()
     void SaveGame(FString slotname, int32 slotnumber);
     UFUNCTION()
@@ -214,35 +234,37 @@ public:
     virtual FVector GetSpawnLocation_Implementation() const override { return SpawnLocation; };
     virtual float GetLifeTime_Implementation() const override { return LifeTime; };
 
-    //Subclasses
+	//Subclasses for GAS abilities
+
+	//Jump ability
 	UPROPERTY()
     TSubclassOf<UGAS_Double_Jump> GA_Double_Jump;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer JumpAbilityTag;
     UPROPERTY()
     FGameplayAbilitySpec JumpAbilitySpec;
-
+	//Wall latch ability
     UPROPERTY()
     TSubclassOf<UGAS_Wall_Latch> GA_Wall_Latch;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer WallLatchAbilityTag;
     UPROPERTY()
     FGameplayAbilitySpec WallLatchAbilitySpec;
-
+	//Dash ability
     UPROPERTY()
     TSubclassOf<UGAS_Dash> GA_Dash;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer DashAbilityTag;
     UPROPERTY()
     FGameplayAbilitySpec DashAbilitySpec;
-
+	//Ranged attack ability
     UPROPERTY()
     TSubclassOf<UGAS_Ranged_Attack> GA_Ranged_Attack;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GASGameplayAbility")
     FGameplayTagContainer RangedAttackAbilityTag;
     UPROPERTY()
     FGameplayAbilitySpec RangedAttackAbilitySpec;
-
+	//Projectile class
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile class")
     TSubclassOf<class Aprojectile> RangedAttackClass;
 
