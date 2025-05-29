@@ -106,12 +106,31 @@ void Aprojectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 			return;
 		}
 	}
-	// Apply damage
-	float DamageAmount = GetDamage();
-	UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, nullptr, this, nullptr);
-	//DestroyActor();
-	// Confirm damage was applied
-	UE_LOG(LogTemp, Log, TEXT("Aprojectile::OnOverlap - Applied %f damage to %s"), DamageAmount, *OtherActor->GetName());
+	FVector Start = GetActorLocation();
+	FVector ForwardVector = GetActorForwardVector();
+	FVector End = GetActorLocation();
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	TArray<FHitResult> HitResults;
+	TSet<AActor*> HitActors;
+
+	bool bHit = GetWorld()->SweepMultiByChannel(
+		HitResults,
+		Start,
+		End,
+		FQuat::Identity,
+		ECC_Pawn,
+		FCollisionShape::MakeSphere(50.f),
+		QueryParams
+	);
+
+
+				UGameplayStatics::ApplyDamage(OtherActor, GetDamage(), nullptr, this, nullptr);
+			
+
+	
 
 }
 

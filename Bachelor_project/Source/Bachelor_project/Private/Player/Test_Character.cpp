@@ -99,7 +99,7 @@ void ATest_Character::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("PlayerController cast failed in BeginPlay"));
 	}
 	
-
+	
 }
 
 // Called every frame
